@@ -1,0 +1,32 @@
+{
+  "messages": [
+    {
+      "header": "Your first message!",
+      "body": "Thank you for using Showcase. You are helping to gain a better insight into butterfly ecology",
+      "timestamp": "2021-07-02 15:35",
+      "main_image": "/images/bf1.jpg",
+      "detail_image": "/images/bf2.jpg"
+    },
+    {
+      "header": "Interesting news in your area",
+      "body": "The very species butterfly Parnassius apollo has been seen in your region, keep an eye out for this amazing species.",
+      "timestamp": "2021-07-02 15:35",
+      "main_image": "/images/bf1.jpg",
+      "detail_image": "/images/bf2.jpg"
+    },
+    {
+      "header": "Question regarding observation",
+      "body": "In the transect in Oak Forest you saw a dandelion blue; Since we have never heard of this species this is really unique. Can you confirm your observation by sending more details?<br><br>Kind regards!",
+      "timestamp": "2021-06-03 13:25",
+      "main_image": "/images/bf3.jpg",
+      "detail_image": "/images/bf4.jpg"
+    },
+    {
+      "header": "Showcase has been updated",
+      "body": "The latest version of Showcase cointains major bugfixes and a new unique user interface. We would like to hear your opinion on the changes. <br><br> Kind redards!",
+      "timestamp": "2021-06-01 11:29",
+      "main_image": "/images/bf5.jpg",
+      "detail_image": "/images/bf6.jpg"
+    }
+  ]
+}

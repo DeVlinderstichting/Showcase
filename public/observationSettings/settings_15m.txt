@@ -1,0 +1,17 @@
+{
+"time":"15",
+"name":"Oak Forest", 
+"infoblok": "Extra information to explain how to perform a proper 15 minute count",
+"mapImage": "ImageLocation",
+"locations":[],
+"species":[
+  {"groupName":"Butterflies","name":"Pyrgus malvae", "localName":"Grizzled skipper", "id":"1", "orderby":"1", "prevSeen":"0"},
+  {"groupName":"Butterflies","name":"Vanessa atalanta", "localName":"Painted lady", "id":"2", "orderby":"2", "prevSeen":"1"},
+  {"groupName":"Butterflies","name":"Celastrina argiolus", "localName":"Spring azure", "id":"3", "orderby":"4", "prevSeen":"1"},
+  {"groupName":"Butterflies","name":"Fragaria vesca", "localName":"Stawberry", "id":"6", "orderby":"1", "prevSeen":"0"},
+  {"groupName":"Butterflies","name":"Argynnis adippe", "localName":"Adippe", "id":"4", "orderby":"0", "prevSeen":"0"}
+],
+"extraQuestions":[
+  {"question":"temperature","type":"integer", "min":"12", "max":"42"}
+]
+}

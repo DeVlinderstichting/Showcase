@@ -1,0 +1,767 @@
+{
+"data":
+[
+ {
+   "Date": "2021-04-01",
+   "Species": "Aglais urticae",
+   "Count": 5,
+   "Details": "obs0001"
+ },
+ {
+   "Date": "2021-04-02",
+   "Species": "Aphantopus hyperantus",
+   "Count": 6,
+   "Details": "obs0002"
+ },
+ {
+   "Date": "2021-04-03",
+   "Species": "Aglais io",
+   "Count": 4,
+   "Details": "obs0003"
+ },
+ {
+   "Date": "2021-04-04",
+   "Species": "Araschnia levana",
+   "Count": 6,
+   "Details": "obs0004"
+ },
+ {
+   "Date": "2021-04-05",
+   "Species": "Gonepteryx rhamni",
+   "Count": 6,
+   "Details": "obs0005"
+ },
+ {
+   "Date": "2021-04-06",
+   "Species": "Celastrina argiolus",
+   "Count": 5,
+   "Details": "obs0006"
+ },
+ {
+   "Date": "2021-04-07",
+   "Species": "Vanessa atalanta",
+   "Count": 1,
+   "Details": "obs0007"
+ },
+ {
+   "Date": "2021-04-08",
+   "Species": "Polyommatus icarus",
+   "Count": 7,
+   "Details": "obs0008"
+ },
+ {
+   "Date": "2021-04-09",
+   "Species": "Papilio machaon",
+   "Count": 8,
+   "Details": "obs0009"
+ },
+ {
+   "Date": "2021-04-10",
+   "Species": "Lycaena phlaeas",
+   "Count": 8,
+   "Details": "obs0010"
+ },
+ {
+   "Date": "2021-04-11",
+   "Species": "Colias croceus",
+   "Count": 3,
+   "Details": "obs0011"
+ },
+ {
+   "Date": "2021-04-12",
+   "Species": "Pieris brassicae",
+   "Count": 4,
+   "Details": "obs0012"
+ },
+ {
+   "Date": "2021-04-13",
+   "Species": "Polygonia c-album",
+   "Count": 57,
+   "Details": "obs0013"
+ },
+ {
+   "Date": "2021-04-14",
+   "Species": "Aricia agestis",
+   "Count": 2,
+   "Details": "obs0014"
+ },
+ {
+   "Date": "2021-04-15",
+   "Species": "Thymelicus lineola",
+   "Count": 4,
+   "Details": "obs0015"
+ },
+ {
+   "Date": "2021-04-16",
+   "Species": "Aglais urticae",
+   "Count": 5,
+   "Details": "obs0016"
+ },
+ {
+   "Date": "2021-04-17",
+   "Species": "Aphantopus hyperantus",
+   "Count": 6,
+   "Details": "obs0017"
+ },
+ {
+   "Date": "2021-04-18",
+   "Species": "Aglais io",
+   "Count": 1,
+   "Details": "obs0018"
+ },
+ {
+   "Date": "2021-04-19",
+   "Species": "Araschnia levana",
+   "Count": 7,
+   "Details": "obs0019"
+ },
+ {
+   "Date": "2021-04-20",
+   "Species": "Gonepteryx rhamni",
+   "Count": 6,
+   "Details": "obs0020"
+ },
+ {
+   "Date": "2021-04-21",
+   "Species": "Celastrina argiolus",
+   "Count": 7,
+   "Details": "obs0021"
+ },
+ {
+   "Date": "2021-04-22",
+   "Species": "Vanessa atalanta",
+   "Count": 5,
+   "Details": "obs0022"
+ },
+ {
+   "Date": "2021-04-23",
+   "Species": "Polyommatus icarus",
+   "Count": 7,
+   "Details": "obs0023"
+ },
+ {
+   "Date": "2021-04-24",
+   "Species": "Papilio machaon",
+   "Count": 7,
+   "Details": "obs0024"
+ },
+ {
+   "Date": "2021-04-25",
+   "Species": "Lycaena phlaeas",
+   "Count": 6,
+   "Details": "obs0025"
+ },
+ {
+   "Date": "2021-04-26",
+   "Species": "Colias croceus",
+   "Count": 2,
+   "Details": "obs0026"
+ },
+ {
+   "Date": "2021-04-27",
+   "Species": "Pieris brassicae",
+   "Count": 8,
+   "Details": "obs0027"
+ },
+ {
+   "Date": "2021-04-28",
+   "Species": "Polygonia c-album",
+   "Count": 9,
+   "Details": "obs0028"
+ },
+ {
+   "Date": "2021-04-29",
+   "Species": "Aricia agestis",
+   "Count": 9,
+   "Details": "obs0029"
+ },
+ {
+   "Date": "2021-04-30",
+   "Species": "Thymelicus lineola",
+   "Count": 4,
+   "Details": "obs0030"
+ },
+ {
+   "Date": "2021-05-01",
+   "Species": "Aglais urticae",
+   "Count": 5,
+   "Details": "obs0031"
+ },
+ {
+   "Date": "2021-05-02",
+   "Species": "Aphantopus hyperantus",
+   "Count": 58,
+   "Details": "obs0032"
+ },
+ {
+   "Date": "2021-05-03",
+   "Species": "Aglais io",
+   "Count": 3,
+   "Details": "obs0033"
+ },
+ {
+   "Date": "2021-05-04",
+   "Species": "Araschnia levana",
+   "Count": 5,
+   "Details": "obs0034"
+ },
+ {
+   "Date": "2021-05-05",
+   "Species": "Gonepteryx rhamni",
+   "Count": 6,
+   "Details": "obs0035"
+ },
+ {
+   "Date": "2021-05-06",
+   "Species": "Celastrina argiolus",
+   "Count": 7,
+   "Details": "obs0036"
+ },
+ {
+   "Date": "2021-05-07",
+   "Species": "Vanessa atalanta",
+   "Count": 2,
+   "Details": "obs0037"
+ },
+ {
+   "Date": "2021-05-08",
+   "Species": "Polyommatus icarus",
+   "Count": 8,
+   "Details": "obs0038"
+ },
+ {
+   "Date": "2021-05-09",
+   "Species": "Papilio machaon",
+   "Count": 7,
+   "Details": "obs0039"
+ },
+ {
+   "Date": "2021-05-10",
+   "Species": "Lycaena phlaeas",
+   "Count": 8,
+   "Details": "obs0040"
+ },
+ {
+   "Date": "2021-05-11",
+   "Species": "Colias croceus",
+   "Count": 6,
+   "Details": "obs0041"
+ },
+ {
+   "Date": "2021-05-12",
+   "Species": "Pieris brassicae",
+   "Count": 8,
+   "Details": "obs0042"
+ },
+ {
+   "Date": "2021-05-13",
+   "Species": "Polygonia c-album",
+   "Count": 8,
+   "Details": "obs0043"
+ },
+ {
+   "Date": "2021-05-14",
+   "Species": "Aricia agestis",
+   "Count": 7,
+   "Details": "obs0044"
+ },
+ {
+   "Date": "2021-05-15",
+   "Species": "Thymelicus lineola",
+   "Count": 3,
+   "Details": "obs0045"
+ },
+ {
+   "Date": "2021-05-16",
+   "Species": "Aglais urticae",
+   "Count": 9,
+   "Details": "obs0046"
+ },
+ {
+   "Date": "2021-05-17",
+   "Species": "Aphantopus hyperantus",
+   "Count": 10,
+   "Details": "obs0047"
+ },
+ {
+   "Date": "2021-05-18",
+   "Species": "Aglais io",
+   "Count": 10,
+   "Details": "obs0048"
+ },
+ {
+   "Date": "2021-05-19",
+   "Species": "Araschnia levana",
+   "Count": 5,
+   "Details": "obs0049"
+ },
+ {
+   "Date": "2021-05-20",
+   "Species": "Gonepteryx rhamni",
+   "Count": 6,
+   "Details": "obs0050"
+ },
+ {
+   "Date": "2021-05-21",
+   "Species": "Celastrina argiolus",
+   "Count": 59,
+   "Details": "obs0051"
+ },
+ {
+   "Date": "2021-05-22",
+   "Species": "Vanessa atalanta",
+   "Count": 4,
+   "Details": "obs0052"
+ },
+ {
+   "Date": "2021-05-23",
+   "Species": "Polyommatus icarus",
+   "Count": 6,
+   "Details": "obs0053"
+ },
+ {
+   "Date": "2021-05-24",
+   "Species": "Papilio machaon",
+   "Count": 7,
+   "Details": "obs0054"
+ },
+ {
+   "Date": "2021-05-25",
+   "Species": "Lycaena phlaeas",
+   "Count": 8,
+   "Details": "obs0055"
+ },
+ {
+   "Date": "2021-05-26",
+   "Species": "Colias croceus",
+   "Count": 3,
+   "Details": "obs0056"
+ },
+ {
+   "Date": "2021-05-27",
+   "Species": "Pieris brassicae",
+   "Count": 9,
+   "Details": "obs0057"
+ },
+ {
+   "Date": "2021-05-28",
+   "Species": "Polygonia c-album",
+   "Count": 8,
+   "Details": "obs0058"
+ },
+ {
+   "Date": "2021-05-29",
+   "Species": "Aricia agestis",
+   "Count": 9,
+   "Details": "obs0059"
+ },
+ {
+   "Date": "2021-05-30",
+   "Species": "Thymelicus lineola",
+   "Count": 7,
+   "Details": "obs0060"
+ },
+ {
+   "Date": "2021-05-31",
+   "Species": "Aglais urticae",
+   "Count": 9,
+   "Details": "obs0061"
+ },
+ {
+   "Date": "2021-06-01",
+   "Species": "Aphantopus hyperantus",
+   "Count": 9,
+   "Details": "obs0062"
+ },
+ {
+   "Date": "2021-06-02",
+   "Species": "Aglais io",
+   "Count": 8,
+   "Details": "obs0063"
+ },
+ {
+   "Date": "2021-06-03",
+   "Species": "Araschnia levana",
+   "Count": 4,
+   "Details": "obs0064"
+ },
+ {
+   "Date": "2021-06-04",
+   "Species": "Gonepteryx rhamni",
+   "Count": 10,
+   "Details": "obs0065"
+ },
+ {
+   "Date": "2021-06-05",
+   "Species": "Celastrina argiolus",
+   "Count": 11,
+   "Details": "obs0066"
+ },
+ {
+   "Date": "2021-06-06",
+   "Species": "Vanessa atalanta",
+   "Count": 11,
+   "Details": "obs0067"
+ },
+ {
+   "Date": "2021-06-07",
+   "Species": "Polyommatus icarus",
+   "Count": 6,
+   "Details": "obs0068"
+ },
+ {
+   "Date": "2021-06-08",
+   "Species": "Papilio machaon",
+   "Count": 7,
+   "Details": "obs0069"
+ },
+ {
+   "Date": "2021-06-09",
+   "Species": "Lycaena phlaeas",
+   "Count": 60,
+   "Details": "obs0070"
+ },
+ {
+   "Date": "2021-06-10",
+   "Species": "Colias croceus",
+   "Count": 5,
+   "Details": "obs0071"
+ },
+ {
+   "Date": "2021-06-11",
+   "Species": "Pieris brassicae",
+   "Count": 7,
+   "Details": "obs0072"
+ },
+ {
+   "Date": "2021-06-12",
+   "Species": "Polygonia c-album",
+   "Count": 8,
+   "Details": "obs0073"
+ },
+ {
+   "Date": "2021-06-13",
+   "Species": "Aricia agestis",
+   "Count": 9,
+   "Details": "obs0074"
+ },
+ {
+   "Date": "2021-06-14",
+   "Species": "Thymelicus lineola",
+   "Count": 4,
+   "Details": "obs0075"
+ },
+ {
+   "Date": "2021-06-15",
+   "Species": "Aglais urticae",
+   "Count": 10,
+   "Details": "obs0076"
+ },
+ {
+   "Date": "2021-06-16",
+   "Species": "Aphantopus hyperantus",
+   "Count": 9,
+   "Details": "obs0077"
+ },
+ {
+   "Date": "2021-06-17",
+   "Species": "Aglais io",
+   "Count": 10,
+   "Details": "obs0078"
+ },
+ {
+   "Date": "2021-06-18",
+   "Species": "Araschnia levana",
+   "Count": 8,
+   "Details": "obs0079"
+ },
+ {
+   "Date": "2021-06-19",
+   "Species": "Gonepteryx rhamni",
+   "Count": 10,
+   "Details": "obs0080"
+ },
+ {
+   "Date": "2021-06-20",
+   "Species": "Celastrina argiolus",
+   "Count": 10,
+   "Details": "obs0081"
+ },
+ {
+   "Date": "2021-06-21",
+   "Species": "Vanessa atalanta",
+   "Count": 9,
+   "Details": "obs0082"
+ },
+ {
+   "Date": "2021-06-22",
+   "Species": "Polyommatus icarus",
+   "Count": 5,
+   "Details": "obs0083"
+ },
+ {
+   "Date": "2021-06-23",
+   "Species": "Papilio machaon",
+   "Count": 11,
+   "Details": "obs0084"
+ },
+ {
+   "Date": "2021-06-24",
+   "Species": "Lycaena phlaeas",
+   "Count": 12,
+   "Details": "obs0085"
+ },
+ {
+   "Date": "2021-06-25",
+   "Species": "Colias croceus",
+   "Count": 12,
+   "Details": "obs0086"
+ },
+ {
+   "Date": "2021-06-26",
+   "Species": "Pieris brassicae",
+   "Count": 7,
+   "Details": "obs0087"
+ },
+ {
+   "Date": "2021-06-27",
+   "Species": "Polygonia c-album",
+   "Count": 8,
+   "Details": "obs0088"
+ },
+ {
+   "Date": "2021-06-28",
+   "Species": "Aricia agestis",
+   "Count": 61,
+   "Details": "obs0089"
+ },
+ {
+   "Date": "2021-06-29",
+   "Species": "Thymelicus lineola",
+   "Count": 6,
+   "Details": "obs0090"
+ },
+ {
+   "Date": "2021-06-30",
+   "Species": "Aglais urticae",
+   "Count": 8,
+   "Details": "obs0091"
+ },
+ {
+   "Date": "2021-07-01",
+   "Species": "Aphantopus hyperantus",
+   "Count": 9,
+   "Details": "obs0092"
+ },
+ {
+   "Date": "2021-07-02",
+   "Species": "Aglais io",
+   "Count": 10,
+   "Details": "obs0093"
+ },
+ {
+   "Date": "2021-07-03",
+   "Species": "Araschnia levana",
+   "Count": 5,
+   "Details": "obs0094"
+ },
+ {
+   "Date": "2021-07-04",
+   "Species": "Gonepteryx rhamni",
+   "Count": 11,
+   "Details": "obs0095"
+ },
+ {
+   "Date": "2021-07-05",
+   "Species": "Celastrina argiolus",
+   "Count": 10,
+   "Details": "obs0096"
+ },
+ {
+   "Date": "2021-07-06",
+   "Species": "Vanessa atalanta",
+   "Count": 11,
+   "Details": "obs0097"
+ },
+ {
+   "Date": "2021-07-07",
+   "Species": "Polyommatus icarus",
+   "Count": 9,
+   "Details": "obs0098"
+ },
+ {
+   "Date": "2021-07-08",
+   "Species": "Papilio machaon",
+   "Count": 11,
+   "Details": "obs0099"
+ },
+ {
+   "Date": "2021-07-09",
+   "Species": "Lycaena phlaeas",
+   "Count": 11,
+   "Details": "obs0100"
+ },
+ {
+   "Date": "2021-07-10",
+   "Species": "Colias croceus",
+   "Count": 10,
+   "Details": "obs0101"
+ },
+ {
+   "Date": "2021-07-11",
+   "Species": "Pieris brassicae",
+   "Count": 6,
+   "Details": "obs0102"
+ },
+ {
+   "Date": "2021-07-12",
+   "Species": "Polygonia c-album",
+   "Count": 12,
+   "Details": "obs0103"
+ },
+ {
+   "Date": "2021-07-13",
+   "Species": "Aricia agestis",
+   "Count": 13,
+   "Details": "obs0104"
+ },
+ {
+   "Date": "2021-07-14",
+   "Species": "Thymelicus lineola",
+   "Count": 13,
+   "Details": "obs0105"
+ },
+ {
+   "Date": "2021-07-15",
+   "Species": "Aglais urticae",
+   "Count": 8,
+   "Details": "obs0106"
+ },
+ {
+   "Date": "2021-07-16",
+   "Species": "Aphantopus hyperantus",
+   "Count": 9,
+   "Details": "obs0107"
+ },
+ {
+   "Date": "2021-07-17",
+   "Species": "Aglais io",
+   "Count": 62,
+   "Details": "obs0108"
+ },
+ {
+   "Date": "2021-07-18",
+   "Species": "Araschnia levana",
+   "Count": 7,
+   "Details": "obs0109"
+ },
+ {
+   "Date": "2021-07-19",
+   "Species": "Gonepteryx rhamni",
+   "Count": 9,
+   "Details": "obs0110"
+ },
+ {
+   "Date": "2021-07-20",
+   "Species": "Celastrina argiolus",
+   "Count": 10,
+   "Details": "obs0111"
+ },
+ {
+   "Date": "2021-07-21",
+   "Species": "Vanessa atalanta",
+   "Count": 11,
+   "Details": "obs0112"
+ },
+ {
+   "Date": "2021-07-22",
+   "Species": "Polyommatus icarus",
+   "Count": 6,
+   "Details": "obs0113"
+ },
+ {
+   "Date": "2021-07-23",
+   "Species": "Papilio machaon",
+   "Count": 12,
+   "Details": "obs0114"
+ },
+ {
+   "Date": "2021-07-24",
+   "Species": "Lycaena phlaeas",
+   "Count": 11,
+   "Details": "obs0115"
+ },
+ {
+   "Date": "2021-07-25",
+   "Species": "Colias croceus",
+   "Count": 12,
+   "Details": "obs0116"
+ },
+ {
+   "Date": "2021-07-26",
+   "Species": "Pieris brassicae",
+   "Count": 10,
+   "Details": "obs0117"
+ },
+ {
+   "Date": "2021-07-27",
+   "Species": "Polygonia c-album",
+   "Count": 12,
+   "Details": "obs0118"
+ },
+ {
+   "Date": "2021-07-28",
+   "Species": "Aricia agestis",
+   "Count": 12,
+   "Details": "obs0119"
+ },
+ {
+   "Date": "2021-07-29",
+   "Species": "Thymelicus lineola",
+   "Count": 11,
+   "Details": "obs0120"
+ },
+ {
+   "Date": "2021-07-30",
+   "Species": "Aglais urticae",
+   "Count": 7,
+   "Details": "obs0121"
+ },
+ {
+   "Date": "2021-07-31",
+   "Species": "Aphantopus hyperantus",
+   "Count": 13,
+   "Details": "obs0122"
+ },
+ {
+   "Date": "2021-08-01",
+   "Species": "Aglais io",
+   "Count": 14,
+   "Details": "obs0123"
+ },
+ {
+   "Date": "2021-08-02",
+   "Species": "Araschnia levana",
+   "Count": 14,
+   "Details": "obs0124"
+ },
+ {
+   "Date": "2021-08-03",
+   "Species": "Gonepteryx rhamni",
+   "Count": 9,
+   "Details": "obs0125"
+ },
+ {
+   "Date": "2021-08-04",
+   "Species": "Celastrina argiolus",
+   "Count": 10,
+   "Details": "obs0126"
+ },
+ {
+   "Date": "2021-08-05",
+   "Species": "Vanessa atalanta",
+   "Count": 63,
+   "Details": "obs0127"
+ }
+]
+}

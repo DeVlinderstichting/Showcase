@@ -18,6 +18,7 @@ class CreateSpeciesTable extends Migration
             $table->timestamps();
             $table->text('genus');
             $table->text('taxon');
+            $table->text('ndffuri');
             $table->unique(['genus', 'taxon']);
             $table->unsignedBigInteger('speciesgroup_id')->nullable();
             $table->foreign('speciesgroup_id')->references('id')->on('speciesgroups');
@@ -27,6 +28,37 @@ class CreateSpeciesTable extends Migration
             $table->foreign('parent_id')->references('id')->on('species');
             $table->text('description')->nullable();
             $table->text('imagelocation')->nullable();
+            $table->text('nlname')->nullable();
+            $table->text('enname')->nullable();
+            $table->text('frname')->nullable();
+            $table->text('esname')->nullable();
+            $table->text('ptname')->nullable();
+            $table->text('itname')->nullable();
+            $table->text('dename')->nullable();
+            $table->text('dkname')->nullable();
+            $table->text('noname')->nullable();
+            $table->text('sename')->nullable();
+            $table->text('finame')->nullable();
+            $table->text('eename')->nullable();
+            $table->text('lvname')->nullable();
+            $table->text('ltname')->nullable();
+            $table->text('plname')->nullable();
+            $table->text('czname')->nullable();
+            $table->text('skname')->nullable();
+            $table->text('huname')->nullable();
+            $table->text('auname')->nullable();
+            $table->text('chname')->nullable();
+            $table->text('siname')->nullable();
+            $table->text('hrname')->nullable();
+            $table->text('baname')->nullable();
+            $table->text('rsname')->nullable();
+            $table->text('mename')->nullable();
+            $table->text('alname')->nullable();
+            $table->text('grname')->nullable();
+            $table->text('bgname')->nullable();
+            $table->text('roname')->nullable();
+
+
         });
     }
 

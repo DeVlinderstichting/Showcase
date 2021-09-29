@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAccesslevelsTable extends Migration
+class CreateCountingMethodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateAccesslevelsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accesslevels', function (Blueprint $table) {
+        Schema::create('countingmethods', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
-            $table->text('name')->unique();
-            $table->text('description');
+            $table->text('name');
         });
     }
 
@@ -28,6 +28,6 @@ class CreateAccesslevelsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('accesslevels');
+        Schema::dropIfExists('counting_methods');
     }
 }

@@ -19,6 +19,7 @@ class CreateSpeciesgroupsTable extends Migration
             $table->timestamps();
             $table->text('name')->unique();
             $table->text('description');
+            $table->boolean('usercancount');
         });
     }
 

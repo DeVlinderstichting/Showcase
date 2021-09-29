@@ -20,10 +20,15 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('accesstoken');
             $table->rememberToken();
             $table->timestamps();
             $table->string('prefered_language');
-            $table->string('sci_names');
+            $table->boolean('sci_names');
+            $table->boolean('show_previous_observed_species');
+            $table->boolean('show_only_common_species');
+            $table->dateTime('settings_synched_at', 0);
+            $table->boolean('isadmin')->default(false);
 
         });
     }

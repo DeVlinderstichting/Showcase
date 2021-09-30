@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationsTable extends Migration
+class CreateTransectSectionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,16 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) 
+        Schema::create('transect_sections', function (Blueprint $table) 
         {
             $table->id();
             $table->timestamps();
             $table->text('name');
-            $table->text('description')->nullable();
-            $table->text('epsg');
-            $table->GEOMETRY('geom');
+            $table->unsignedBigInteger('transect_id');
+            $table->foreign('transect_id')->references('id')->on('transects')->onDelete('cascade');
+            $table->index('transect_id');
+            $table->integer('sequence');
+            $table->GEOMETRY('location');
         });
     }
 
@@ -31,6 +33,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('transect_sections');
     }
 }

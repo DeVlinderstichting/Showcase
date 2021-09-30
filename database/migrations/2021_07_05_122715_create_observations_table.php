@@ -13,7 +13,8 @@ class CreateObservationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('observations', function (Blueprint $table) {
+        Schema::create('observations', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('species_id');
@@ -23,11 +24,13 @@ class CreateObservationsTable extends Migration
             $table->unsignedBigInteger('visit_id');
             $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
             $table->index('visit_id');
-            $table->unsignedBigInteger('location_id');
-            $table->foreign('location_id')->references('id')->on('locations')->onDelete('cascade');
-            $table->index('location_id');
-            $table->unique(['species_id', 'location_id', 'visit_id']);
-            $table->GEOMETRY('exactlocation')->nullable();
+            $table->unsignedBigInteger('transect_section_id')->nullable();
+            $table->foreign('transect_section_id')->references('id')->on('transect_sections')->onDelete('cascade');
+            $table->index('transect_section_id');
+            $table->unsignedBigInteger('photo_id')->nullable();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
+            $table->index('photo_id');
+            $table->GEOMETRY('location')->nullable();
         });
         DB::statement('ALTER TABLE observations ADD CONSTRAINT check_number CHECK (number > 0);');
     }

@@ -13,7 +13,8 @@ class CreateVisitSpeciesgroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visit_speciesgroups', function (Blueprint $table) {
+        Schema::create('visit_speciesgroups', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('visit_id');

@@ -13,7 +13,8 @@ class CreateSpeciesgroupsUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('speciesgroups_users', function (Blueprint $table) {
+        Schema::create('speciesgroups_users', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');

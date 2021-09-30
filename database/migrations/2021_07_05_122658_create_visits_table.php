@@ -13,7 +13,8 @@ class CreateVisitsTable extends Migration
      */
     public function up()
     {
-        Schema::create('visits', function (Blueprint $table) {
+        Schema::create('visits', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('countingmethod_id')->nullable();
@@ -32,12 +33,14 @@ class CreateVisitsTable extends Migration
             $table->text('temperature');
             $table->text('clouds');
 
+            $table->unsignedBigInteger('photo_id')->nullable();
+            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
+            $table->index('photo_id');
+
             $table->unsignedBigInteger('transect_id')->nullable();
             $table->foreign('transect_id')->references('id')->on('transects')->onDelete('cascade');
             $table->index('transect_id');
-            $table->unsignedBigInteger('transect_section_id')->nullable();
-            $table->foreign('transect_section_id')->references('id')->on('transect_sections')->onDelete('cascade');
-            $table->index('transect_section_id');
+            
             $table->unsignedBigInteger('flower_id')->nullable();
             $table->foreign('flower_id')->references('id')->on('species')->onDelete('cascade');
             $table->index('flower_id');
@@ -46,9 +49,18 @@ class CreateVisitsTable extends Migration
             $table->foreign('flower_id')->references('id')->on('species')->onDelete('cascade');
             $table->index('flower_id');
 
-            $table->unsignedBigInteger('measurement_id');
-            $table->foreign('measurement_id')->references('id')->on('measurements');
+            $table->unsignedBigInteger('method_id')->nullable();
+            $table->foreign('method_id')->references('id')->on('methods')->onDelete('cascade');
+            $table->index('method_id');
         });
+
+        DB::statement("ALTER TABLE visits ADD CONSTRAINT check_value CHECK (value not like '%2%' AND value not like '%3%' AND value not like '%4%'AND value not like '%5%' AND value not like '%6%'AND value not like '%7%'AND value not like '%8%'AND value not like '%9%');");
+
+       constraint check_refund 
+       check ( (refunded and refund_id is not null or
+               (not refunded and refund_id is null) )
+
+       
     }
 
     /**

@@ -13,9 +13,11 @@ class CreateTransectsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transects', function (Blueprint $table) {
+        Schema::create('transects', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
+            $table->text('name');
         });
     }
 

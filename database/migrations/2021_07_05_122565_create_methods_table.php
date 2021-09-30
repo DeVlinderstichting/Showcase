@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTransectSectionsTable extends Migration
+class CreateMethodsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,8 @@ class CreateTransectSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('transect_sections', function (Blueprint $table) {
+        Schema::create('methods', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
         });
@@ -26,6 +27,6 @@ class CreateTransectSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transect_sections');
+        Schema::dropIfExists('methods');
     }
 }

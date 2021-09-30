@@ -13,7 +13,8 @@ class CreateSpeciesTable extends Migration
      */
     public function up()
     {
-        Schema::create('species', function (Blueprint $table) {
+        Schema::create('species', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->text('genus');

@@ -13,7 +13,8 @@ class CreateCountobjectLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('countobject_locations', function (Blueprint $table) {
+        Schema::create('countobject_locations', function (Blueprint $table) 
+        {
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('location_id');

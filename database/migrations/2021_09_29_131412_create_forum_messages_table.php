@@ -17,7 +17,6 @@ class CreateForumMessagesTable extends Migration
         {
             $table->id();
             $table->timestamps();
-            $table->dateTime('created_at', 0)->nullable();
             $table->unsignedBigInteger('thread_id');
             $table->foreign('thread_id')->references('id')->on('forum_threads')->onDelete('cascade');
             $table->index('thread_id');

@@ -24,9 +24,9 @@ class CreateSpeciesgroupsUsersTable extends Migration
             $table->foreign('speciesgroup_id')->references('id')->on('speciesgroups')->onDelete('cascade');
             $table->index('speciesgroup_id');
             $table->unique(['user_id', 'speciesgroup_id']);
-            $table->unsignedBigInteger('recordinglevel');
-            $table->foreign('recording_level')->references('id')->on('recordinglevels')->onDelete('cascade');
-            $table->index('recordinglevel');
+            $table->unsignedBigInteger('recordinglevel_id');
+            $table->foreign('recordinglevel_id')->references('id')->on('recordinglevels')->onDelete('cascade');
+            $table->index('recordinglevel_id');
 
         });
     }

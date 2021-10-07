@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLocationsTable extends Migration
+class CreateRecordingLevelsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,11 @@ class CreateLocationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('locations', function (Blueprint $table) 
+        Schema::create('recordinglevels', function (Blueprint $table) 
         {
             $table->id();
             $table->timestamps();
             $table->text('name');
-            $table->text('description')->nullable();
-            $table->text('epsg');
-            $table->GEOMETRY('geom');
         });
     }
 
@@ -31,6 +28,6 @@ class CreateLocationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('recordinglevels');
     }
 }

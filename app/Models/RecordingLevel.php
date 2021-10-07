@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class RecordingLevel extends Model
 {
     use HasFactory;
+    protected $table = 'recordinglevels';
 }

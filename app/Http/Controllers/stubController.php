@@ -25,5 +25,4 @@ class stubController extends Controller
         }
     }
 
-    class Stub 
 }

@@ -23,7 +23,7 @@ class CreateRegionsSpeciesTable extends Migration
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->index('region_id');
-            $table->unique(['user_id', 'region_id']);
+            $table->unique(['species_id', 'region_id']);
         });
     }
 

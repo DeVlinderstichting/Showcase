@@ -20,7 +20,6 @@ class CreatePushMessagesTable extends Migration
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->index('region_id');
-            $table->dateTime('created_at', 0)->nullable();
             $table->string('content');
             $table->string('header');
             $table->string('image_primary');

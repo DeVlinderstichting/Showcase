@@ -5,10 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CountingMethod extends Model
+class CountingmethodsUsers extends Model
 {
     use HasFactory;
-    protected $table = 'countingmethods';
-
-    
 }

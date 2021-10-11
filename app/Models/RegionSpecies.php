@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegionMeasurements extends Model
+class RegionSpecies extends Model
 {
     use HasFactory;
-    protected $table = 'region_measurements';
+    protected $table = 'regions_species';
 
     public function region()
     {
         return $this->belongsTo('App\Models\Region', 'region_id', 'id');
     }
 
-    public function measurement()
+    public function species()
     {
-        return $this->belongsTo('App\Models\Measurement', 'measurement_id', 'id');
+        return $this->belongsTo('App\Models\Species', 'species_id', 'id');
     }
 
 }

@@ -51,8 +51,6 @@
         </div>
     </main>
 
-
-
     <script src="js/app.js"></script>
     <script src='/js/select2.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js'></script>

@@ -31,18 +31,19 @@ class CreateVisitsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index('user_id');
+            $table->integer('recorders');
             $table->text('notes');
             $table->text('wind');
             $table->text('temperature');
             $table->text('cloud');
 
-            $table->unsignedBigInteger('photo_id')->nullable();
-            $table->foreign('photo_id')->references('id')->on('photos')->onDelete('cascade');
-            $table->index('photo_id');
-
             $table->unsignedBigInteger('transect_id')->nullable();
             $table->foreign('transect_id')->references('id')->on('transects')->onDelete('cascade');
             $table->index('transect_id');
+
+            $table->unsignedBigInteger('region_id')->nullable();
+            $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
+            $table->index('region_id');
             
             $table->unsignedBigInteger('flower_id')->nullable();
             $table->foreign('flower_id')->references('id')->on('species')->onDelete('cascade');

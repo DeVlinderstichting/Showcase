@@ -19,4 +19,9 @@ class observation extends Model
     {
         return $this->belongsTo('App\Models\Species', 'species_id', 'id');
     }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Models\Photos', 'visit_id');
+    }
 }

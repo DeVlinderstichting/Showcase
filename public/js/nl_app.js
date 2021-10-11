@@ -76,7 +76,7 @@ const showLoginScreen = () =>
                     </label>
                 </div>
                 <a role="button" onclick="showHomeScreen()" class="w-100 btn btn-lg btn-primary" type="submit">Login</a>
-                <p class="mt-5 mb-3 text-muted">&copy; De{@{123key}@} Vlinderstichting {@{456key}@} 2021</p>
+                <p class="mt-5 mb-3 text-muted">&copy; Deik ben een test Vlinderstichting ik ben bloedserieus 2021</p>
             </form>
         </div>
     </div>`;

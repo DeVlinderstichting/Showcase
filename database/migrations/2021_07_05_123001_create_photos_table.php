@@ -20,7 +20,14 @@ class CreatePhotosTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index('user_id');
+            $table->unsignedBigInteger('visit_id');
+            $table->foreign('visit_id')->references('id')->on('visits')->onDelete('cascade');
+            $table->index('visit_id');
+            $table->unsignedBigInteger('observation_id')->nullable();
+            $table->foreign('observation_id')->references('id')->on('observations')->onDelete('cascade');
+            $table->index('observation_id');
             $table->string('filelocation');
+
         });
     }
 

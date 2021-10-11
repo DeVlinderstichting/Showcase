@@ -15,13 +15,23 @@ class Visit extends Model
       return $this->hasManyThrough('App\Models\Users', 'App\Models\VisitUsers', 'visit_id', 'user_id', 'id', 'id');
     }
 
-    public function countobject()
+    public function region()
     {
-        return $this->belongsTo('App\Models\Countobject', 'visit_id', 'id');
+        return $this->belongsTo('App\Models\Region', 'region_id', 'id');
     }
 
     public function observations()
     {
         return $this->hasMany('App\Models\Observation', 'visit_id');
+    }
+
+    public function photos()
+    {
+        return $this->hasMany('App\Models\Photos', 'visit_id');
+    }
+
+    public function method()
+    {
+        return $this->belongsTo('App\Models\Method', 'method_id', 'id');
     }
 }

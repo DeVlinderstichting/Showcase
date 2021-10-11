@@ -29,6 +29,7 @@ class CreateSpeciesTable extends Migration
             $table->foreign('parent_id')->references('id')->on('species');
             $table->text('description')->nullable();
             $table->text('imagelocation')->nullable();
+            $table->text('extrainfolocation')->nullable();
             $table->text('nlname')->nullable();
             $table->text('enname')->nullable();
             $table->text('frname')->nullable();

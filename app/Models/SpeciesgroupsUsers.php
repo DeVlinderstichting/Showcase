@@ -20,4 +20,9 @@ class SpeciesgroupsUsers extends Model
         return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
 
+    public function recordinglevel()
+    {
+        return $this->belongsTo('App\Models\RecordingLevel', 'recordinglevel_id', 'id');
+    }
+
 }

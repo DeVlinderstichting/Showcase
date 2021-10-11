@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class MethodSpeciesgroupRecordinglevel extends Model
 {
     use HasFactory;
+
+    public function method()
+    {
+        return $this->belongsTo('App\Models\Method');
+    }
+    public function recordinglevel()
+    {
+        return $this->belongsTo('App\Models\RecordingLevel', 'recordinglevel_id', 'id');
+    }
+    public function speciesgroup()
+    {
+        return $this->belongsTo('App\Models\SpeciesGroup', 'speciesgroup_id', 'id');
+    }
 }

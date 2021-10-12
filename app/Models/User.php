@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -55,7 +56,7 @@ class User extends Authenticatable
 
     public function countingMethods()
     {
-        return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'countingmethod_id', 'id', 'id');
+        return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'id', 'countingmethod_id', 'id');
     }
 
 
@@ -65,7 +66,7 @@ class User extends Authenticatable
     }
     public function regions()
     {
-        return $this->hasManyThrough('App\Models\Region', 'App\Models\RegionsUsers', 'user_id', 'region_id', 'id', 'id');
+        return $this->hasManyThrough('App\Models\Region', 'App\Models\RegionsUsers', 'user_id', 'id', 'region_id', 'id');
     }
 
     public function observations()
@@ -75,7 +76,7 @@ class User extends Authenticatable
 
     public function transects()
     {
-        return $this->hasManyThrough('App\Models\Transects', 'App\Models\TransectsUsers', 'transect_id', 'user_id', 'id', 'id');
+        return $this->hasManyThrough('App\Models\Transect', 'App\Models\TransectsUsers', 'transect_id', 'id', 'user_id', 'id');
     }
 
     public function photos()
@@ -95,6 +96,11 @@ class User extends Authenticatable
     public function forumThread()
     {
         return $this->hasMany('App\Models\ForumThread', 'createdby_userid');
+    }
+
+    public function setRandomAccessToken()
+    {
+        $this->accesstoken = Str::random(80);
     }
 
     public function buildUserPackage()
@@ -176,7 +182,7 @@ class User extends Authenticatable
         foreach($theSpeciesGroups as $sg)
         {
             $singleSpeciesGroup = [];
-            $singleSpeciesGroup['id'] $sg->id;
+            $singleSpeciesGroup['id'] = $sg->id;
             $singleSpeciesGroup['name'] = $sg->name;
             $singleSpeciesGroup['description'] = $sg->description;
             $singleSpeciesGroup['userCanCount'] = $sg->usercancount;
@@ -184,7 +190,7 @@ class User extends Authenticatable
         }
 
         $userMessages = $this->usersMessages()->where('senddate', '>', Carbon::now()->subMonths(2))->whereNull('receivedate')->get();
-        foreach($userMessage as $um)
+        foreach($userMessages as $um)
         {
             $theMessage = $um->pushmessage()->get();
             $singleMessage = [];
@@ -219,12 +225,12 @@ class User extends Authenticatable
             $transects = $singleTransect;
         }
 
-        $retArr = ['userSettings'] = $userSettings;
-        $retArr = ['regions'] = $regions;
-        $retArr = ['species'] = $species;
-        $retArr = ['speciesGroups'] = $speciesGroups;
-        $retArr = ['messages'] = $messages;
-        $retArr = ['transects'] = $transects;
+        $retArr['userSettings'] = $userSettings;
+        $retArr['regions'] = $regions;
+        $retArr['species'] = $species;
+        $retArr['speciesGroups'] = $speciesGroups;
+        $retArr['messages'] = $messages;
+        $retArr['transects'] = $transects;
         return json_encode($retArr);
     }
 }

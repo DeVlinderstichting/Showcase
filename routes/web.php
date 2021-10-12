@@ -17,4 +17,5 @@ Route::get('/', function ()
 {
     return view('welcome');
 });
-Route::get("requestStub", "stubController@requestStub");
+//Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
+Route::get("requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');

@@ -23,11 +23,11 @@ class CreateUsersTable extends Migration
             $table->string('accesstoken');
             $table->rememberToken();
             $table->timestamps();
-            $table->string('prefered_language');
-            $table->boolean('sci_names');
-            $table->boolean('show_previous_observed_species');
-            $table->boolean('show_only_common_species');
-            $table->dateTime('settings_synched_at', 0);
+            $table->string('prefered_language')->default('en');
+            $table->boolean('sci_names')->default(false);
+            $table->boolean('show_previous_observed_species')->default(false);
+            $table->boolean('show_only_common_species')->default(true);
+            $table->dateTime('settings_synched_at', 0)->nullable();
             $table->boolean('isadmin')->default(false);
 
         });

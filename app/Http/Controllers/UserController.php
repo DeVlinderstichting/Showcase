@@ -3,38 +3,45 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
 class UserController extends Controller
 {
     
-    public function requestStub()
+    public function requestUserPackage()
     {
-        $valDat = $this->validate($request, [
+        $valDat = request()->validate([
             'username' => 'required',
-            'password' => 'required',
+            'password' => 'nullable',
+            'accesstoken' => 'nullable'
         ]);
-        $authOk = false;
-        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
-        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password']))) 
+
+        if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
-        	$authOk = true;
-           // return redirect()->route('home');
-        } 
-        else 
-        {
-            return redirect()->route('welcome')->withErrors(["username"=>"Invalid username or password"]);
-            //    ->with('error','Email-Address And Password Are Wrong.');
+            $authOk = false;
+            if (array_key_exists('password', $valDat)) //do regular login 
+            {
+                if(auth()->attempt(array('email' => $valDat['username'], 'password' => $valDat['password']))) 
+                {
+                    $authOk = true;
+                }
+            }
+            else //login using accesstoken 
+            {
+                $theUser = \App\Models\User::where('email', $valDat['username'])->where('accesstoken', $valDat['accesstoken'])->first();
+                if ($theUser != null)
+                {
+                    $authOk = true;
+                    Auth::login($theUser);
+                }
+            }
+
+            if ($authOk)
+            {
+                return Auth::user()->buildUserPackage();
+            }
         }
-
-        if ($authOk)
-        {
-
-        }
-    }
-
-    private function prepareUserPackage()
-    {
-    	
+        return "authentication failed";      
     }
 }

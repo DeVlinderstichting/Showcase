@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class RegionsUsers extends Model
 {
     use HasFactory;
-    protected $table = 'region_users';
+    protected $table = 'regions_users';
 
     public function region()
     {

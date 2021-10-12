@@ -51,6 +51,110 @@
         </div>
     </main>
 
+<?php /* 
+    <script> 
+        function loadMainJs()
+        {
+
+            var po = document.querySelector('#links script');
+            var s = document.querySelector('head'); 
+            s.appendChild(po, s)
+        }
+        loadMainJs();
+    </script> <script src="/requestUserPackage"></script> 
+
+
+    procedure 
+    -check if language in database
+    -if so, load correct app.js 
+    -if not, request user package || load en package 
+
+
+
+
+    */ ?>
+
+
+    <script>
+        function connectDatabase()
+        {
+            var db;
+            const dbNameSettings = "showcaseSettings";
+            var request = window.indexedDB.open("ShowcaseDatabase", 1);
+            request.onerror = function(event)
+            {
+                console.log('An error occured.')
+            };
+            request.onsuccess = function(event) 
+            {
+                db = event.target.result;
+            };
+            request.onupgradeneeded = function(event) 
+            {
+                var objectStore = db.createObjectStore(dbNameSettings, { keyPath: "name" });
+               // objectStore.transaction.oncomplete = function(event) 
+                //{
+                 //   var customerObjectStore = db.transaction(dbNameSettings, "readwrite").objectStore(dbNameSettings);
+                    
+
+                  // // customerData.forEach(function(customer) 
+                   //// {
+                  // //     customerObjectStore.add(customer);
+                  ////  });
+                
+            }
+
+            var transaction = db.transaction([dbNameSettings]);
+            var objectStore = transaction.objectStore(dbNameSettings);
+            var request = objectStore.get("settings");
+            request.onerror = function(event) 
+            {
+                // Handle errors, ...or not :)
+
+            };
+            request.onsuccess = function(event) 
+            {
+                console.log(request.result);
+                //call attemptLogin using token from database 
+            };
+        }
+
+        function attemptLogin(token = "")
+        {
+            var email = document.getElementById('email');
+            var password = document.getElementById('password');
+
+            username= "test@vlinderstichting.nl";
+            password = "123test";
+            accesstoken = "kq0Tv6zha1gN75P2vz0s2hXMhFrqzW1dB5CiNc2K6KZhoHFxxm8AuDSzrtM53bHdmMioEomq6aVRgIy5";
+            $.ajax({
+                type: 'GET',
+                url: '/requestUserPackage',
+                data: 
+                {
+                    'username': username,
+                    'accesstoken': accesstoken
+                },
+                success: function(data) 
+                {
+                    storeUserPackageInLocalDatabase(data);
+                   // console.log(data);
+                   // var dataJson = JSON.parse(data);
+                   // console.log(dataJson['userSettings']['preferedLanguage']);
+                   // localStorage.setItem("ShowcaseSettings", JSON.stringify(dataJson)); 
+                   // testLocalDatabase();
+                }
+            });
+        }
+
+        function storeUserPackageInLocalDatabase(data)
+        {
+
+        }
+
+    </script>
+    
+
     <script src="js/app.js"></script>
     <script src='/js/select2.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js'></script>

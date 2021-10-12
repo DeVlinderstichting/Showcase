@@ -53,7 +53,7 @@ const showLoginScreen = () =>
             </div>
         </div>`;
 
-    var mb = document.getElementById('mainBody');
+   /* var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <div class="logdiv text-center">
         <div class="form-signin">
@@ -80,6 +80,43 @@ const showLoginScreen = () =>
             </form>
         </div>
     </div>`;
+
+
+    */
+
+var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+        <div data-layer="d0723138-e978-4a1c-bb1c-d6907fafce9d" class="logIn">        
+            <div data-layer="4e2e5d4f-33d9-48d2-b8ff-4735e9dc7225" class="bgloginv2"></div>
+            <div data-layer="9152b7c5-783a-4de7-92a4-f3317fc3eb32" class="checkBox">            
+                <div data-layer="f897882a-2c5a-49d3-8750-08ea359bbd40" class="rectangulo135"></div>
+            </div>
+            <div data-layer="2e1d6ba9-cf14-4772-9f71-82c7de99be6f" class="pleaseSignIn">PLEASE, SIGN IN</div>
+            <div data-layer="930bc0be-9db8-4117-8789-ccf8581dfdbd" class="largeButton">            
+                <div data-layer="24d8143f-3a1b-475b-acdd-5faac87c735b" class="rectangulo134"></div>
+                <div data-layer="b316b141-782e-4d44-b367-597d7d3f1776" class="logIn12ed8944">LOG IN</div>
+                 <button type="button" onclick="attemptLogin();">Happy hupfluf</button> 
+            </div>
+            <div data-layer="bf0b3ddd-efb4-4509-a5c3-479bdc6887c5" class="xDeVlinderstichting2021">© De Vlinderstichting 2021</div>
+            <div data-layer="759cc610-f35a-42ed-9d41-16984f3b0f45" class="emailBar">
+                <div data-layer="a453d8d3-4f46-4377-b611-0fbcc5b3e9c5" class="rectangulo86"></div>
+                <div data-layer="9ea7db2c-1468-4384-8286-ab59d4f98bd6" id ='email' class="emailAddress">Email address</div>
+            </div>
+            <div data-layer="77bce12a-bf9d-43a6-a376-bcdc3070e9ae" id='pass' class="passwordBar">
+                <svg data-layer="eec53ad2-9fe8-4c1b-bc84-cb4d8dcdd9ab" preserveAspectRatio="none" viewBox="0 0 241 35" class="trazado114"><path d="M 10 0 L 231 0 C 236.5228424072266 0 241 4.477152347564697 241 10 L 241 25 C 241 30.52284812927246 236.5228424072266 35 231 35 L 10 35 C 4.477152347564697 35 0 30.52284812927246 0 25 L 0 10 C 0 4.477152347564697 4.477152347564697 0 10 0 Z"  /></svg>
+                <div data-layer="97cf97e1-565e-4d44-9b00-e99839718974" class="password">Password</div>
+            </div>
+            <div data-layer="e81c611a-9bac-4d27-a3e5-c9e9b5b731a7" class="rememberMe">Remember me</div>
+        </div>
+      
+
+
+
+        `;
+
+
+
+
 }
 
 var renderNav = function()
@@ -637,15 +674,16 @@ const showSettingsScreen = () =>
 
 }
 
-function hexToRgb(hex) {
-  // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-  var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-  hex = hex.replace(shorthandRegex, function(m, r, g, b) {
-    return r + r + g + g + b + b;
-  });
-
-  var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  return result ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})` : null;
+function hexToRgb(hex) 
+{
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) 
+    {
+        return r + r + g + g + b + b;
+    });
+    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? `rgb(${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)})` : null;
 }
 
 function toggleColor(elem)
@@ -721,6 +759,18 @@ function installApp()
         deferredPrompt = null;
     });
 }
+
+
+
+function testLocalStorage()
+{
+    var dat = JSON.parse(localStorage.getItem("ShowcaseSettings"));
+    console.log(dat['userSettings']['preferedLanguage']);
+
+}
+
+
+
 
 
 

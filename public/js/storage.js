@@ -40,11 +40,11 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
-//console.log(data);
+console.log(data);
 
             storeUserPackage(data);
             if (sendBackHome == true){
-                showHomeScreen();
+                //showHomeScreen();
             }
         }
     });

@@ -17,6 +17,9 @@ class UserController extends Controller
             'accesstoken' => 'nullable'
         ]);
 
+    //    $user = \App\Models\User::find(1);
+     //   $regions = $user->regions()->get();
+
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
             $authOk = false;

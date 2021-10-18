@@ -17,11 +17,11 @@ class Region extends Model
 
     public function users()
     {
-        return $this->hasManyThrough('App\Models\User', 'App\Models\RegionsUsers', 'region_id', 'user_id', 'id', 'id');
+        return $this->belongsToMany('App\Models\User', 'regions_users', 'region_id', 'user_id');
     }
 
     public function species()
     {
-        return $this->hasManyThrough('App\Models\Species', 'App\Models\RegionsSpecies', 'region_id', 'species_id', 'id', 'id');
+        return $this->belongsToMany('App\Models\Species', 'regions_species', 'region_id', 'species_id');
     }
 }

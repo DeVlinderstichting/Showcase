@@ -45,10 +45,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function speciesgroups()
-    {
-        return $this->hasManyThrough('App\Models\Speciesgroup', 'App\Models\SpeciesgroupUsers', 'user_id', 'speciesgroup_id', 'id', 'id');
-    }
     public function speciesgroupsRecordingLevels()
     {
         return $this->hasMany('App\Models\SpeciesgroupsUsers');
@@ -66,7 +62,7 @@ class User extends Authenticatable
     }
     public function regions()
     {
-        return $this->hasManyThrough('App\Models\Region', 'App\Models\RegionsUsers', 'user_id', 'id', 'region_id', 'id');
+        return $this->belongsToMany('App\Models\Region', 'regions_users', 'user_id', 'region_id');
     }
 
     public function observations()
@@ -153,7 +149,7 @@ class User extends Authenticatable
         foreach($theRegions as $reg)
         {
             $regions[] = $reg->name;
-            $spids = $regions->species()->pluck('id');
+            $spids = $reg->species()->pluck('species.id');
             foreach($spids as $spid)
             {
                 if (!array_key_exists($spid, $allSpids))

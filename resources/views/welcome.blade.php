@@ -43,11 +43,11 @@
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <main>
-        <nav class="navbar navbar-expand-md navbar-dark bg-dark" id='nav'>
+        <nav class="navbar navbar-expand-md" id='nav'>
+            Navbar
         </nav>
         <div id = "mainBody">
-            <h5 class="card-title">Waarnemingen doorgeven</h5>
-            <p class="card-text"></p>
+            Mainbody
         </div>
     </main>
 
@@ -219,8 +219,8 @@ debugTestInit();
 
         function attemptLogin(token = "")
         {
-            var email = document.getElementById('email').value;
-            var password = document.getElementById('password').value;
+            // var email = document.getElementById('email').value;
+            // var password = document.getElementById('password').value;
             var accessToken = "";
 
             if (password = "")
@@ -231,7 +231,7 @@ debugTestInit();
 
 username= "test@vlinderstichting.nl";
 password = "123test";
-accesstoken = "kq0Tv6zha1gN75P2vz0s2hXMhFrqzW1dB5CiNc2K6KZhoHFxxm8AuDSzrtM53bHdmMioEomq6aVRgIy5";
+accesstoken = "LH0HzsJTiPuiG5E5InX0foAfnsn2ffcN71JZEcLsyI3n0TeRoe1amot6gtvS97lw46oPYhQpVd6MpsMy";
 
             $.ajax({
                 type: 'GET',
@@ -249,6 +249,7 @@ accesstoken = "kq0Tv6zha1gN75P2vz0s2hXMhFrqzW1dB5CiNc2K6KZhoHFxxm8AuDSzrtM53bHdm
                    // console.log(dataJson['userSettings']['preferedLanguage']);
                    // localStorage.setItem("ShowcaseSettings", JSON.stringify(dataJson)); 
                    // testLocalDatabase();
+                   showHomeScreen();
                 }
             });
         }
@@ -406,9 +407,10 @@ console.log('doing put');
     </script>
     
 
+    
+    <script src="js/render.js"></script>
     <script src="js/app.js"></script>
     <script src='/js/select2.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js'></script>
-    
   </body>
 </html>

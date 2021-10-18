@@ -14,7 +14,7 @@ function debugTestInit()
     };
 }
 
-function requestUserPackage(username = "", password = "")
+function requestUserPackage(username = "", password = "", sendBackHome = false)
 {
     if (username == "")
     {
@@ -40,6 +40,9 @@ function requestUserPackage(username = "", password = "")
         success: function(data) 
         {
             storeUserPackage(data);
+            if (sendBackHome == true){
+                showHomeScreen();
+            }
         }
     });
 }

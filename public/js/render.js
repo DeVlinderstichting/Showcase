@@ -2,26 +2,12 @@ var renderNav = function()
 {
     var nav = document.getElementById("nav");
     nav.innerHTML =`
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#" onclick="showHomeScreen()">Showcase</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle" aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
 
-        <div class="collapse navbar-collapse" id="toggle">
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" onclick="showDataScreen('observationSettings/messages.txt');"><i class="fas fa-chart-pie"></i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" onclick="showSettingsScreen();"><i class="fas fa-cog"></i></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#" onclick="showMessagesScreen('observationSettings/messages.txt');"><i class="far fa-envelope"></i></a>
-            </li>
-            </ul>
-        </div>
-    </div>`;
+    <a class="navbar-brand" id="" href="#" onclick="showHomeScreen()">Showcase</a>
+    <a class="nav-link active" aria-current="page" href="#" onclick="showDataScreen('observationSettings/messages.txt');"><i class="fas fa-chart-pie"></i></a>
+    <a class="nav-link active" aria-current="page" href="#" onclick="showSettingsScreen();"><i class="fas fa-cog"></i></a>
+    <a class="nav-link active" aria-current="page" href="#" onclick="showMessagesScreen('observationSettings/messages.txt');"><i class="far fa-envelope"></i></a>
+
 }
 
 var renderModal = function(title, body)

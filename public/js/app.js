@@ -22,7 +22,7 @@ function attemptLogin()
 {
     username= "test@vlinderstichting.nl";
     password = "123test";
-    requestUserPackage(username, password);
+    requestUserPackage(username, password, senBackHome=true);
 }
 
 const showButterflies = () => 

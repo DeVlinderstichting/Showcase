@@ -20,13 +20,9 @@ const butterflies = [
 
 function attemptLogin()
 {
-
-    username= test@vlinderstichting.nl;
-
+    username= "test@vlinderstichting.nl";
     password = "123test";
-
     requestUserPackage(username, password);
-
 }
 
 const showButterflies = () => 

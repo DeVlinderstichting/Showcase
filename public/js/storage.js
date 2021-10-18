@@ -22,15 +22,11 @@ function requestUserPackage(username = "", password = "")
     }
 
     var accessToken = "";
-    if (password = "")
+    if (password == "")
     {
         var settings = getUserSettings(); 
         accessToken = settings.userSettings['accesToken']; //this will fail if the user has no settings stored. However, this does not matter as the user has no accesstoken stored and provided an empty password, so the ajax is no longer required. 
     }
-
-username= "test@vlinderstichting.nl";
-password = "123test";
-accesstoken = "kq0Tv6zha1gN75P2vz0s2hXMhFrqzW1dB5CiNc2K6KZhoHFxxm8AuDSzrtM53bHdmMioEomq6aVRgIy5";
 
     $.ajax({
         type: 'GET',
@@ -38,7 +34,8 @@ accesstoken = "kq0Tv6zha1gN75P2vz0s2hXMhFrqzW1dB5CiNc2K6KZhoHFxxm8AuDSzrtM53bHdm
         data: 
         {
             'username': username,
-            'accesstoken': accesstoken
+            'password': password,
+            'accesstoken': accessToken
         },
         success: function(data) 
         {

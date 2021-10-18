@@ -1,12 +1,20 @@
 var renderNav = function()
 {
     var nav = document.getElementById("nav");
+    // Build the DOM
     nav.innerHTML =`
-
-    <a class="navbar-brand" id="" href="#" onclick="showHomeScreen()">Showcase</a>
-    <a class="nav-link active" aria-current="page" href="#" onclick="showDataScreen('observationSettings/messages.txt');"><i class="fas fa-chart-pie"></i></a>
-    <a class="nav-link active" aria-current="page" href="#" onclick="showSettingsScreen();"><i class="fas fa-cog"></i></a>
-    <a class="nav-link active" aria-current="page" href="#" onclick="showMessagesScreen('observationSettings/messages.txt');"><i class="far fa-envelope"></i></a>
+    <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
+    <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
+    <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
+    <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
+    <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
+    `
+    // Attach the events 
+    document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
+    document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
+    document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
+    document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
+    document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
 
 }
 
@@ -53,81 +61,58 @@ const showLoginScreen = () =>
     </div>`;
 
 var mb = document.getElementById('mainBody');
+    // Build the DOM
     mb.innerHTML = `
-
         <div>
-            <label for="emailField">Email address: 
-            <input type="text" id="emailField" name="emailField" required size="10">
+            <label for="login_emailField">Email address: 
+            <input type="text" id="login_emailField" name="login_emailField" required size="10">
         </div>
         <div>
-            <label for="emailField">Password: 
-            <input type="password" id="passField" name="passField" required size="10">
+            <label for="login_emailField">Password: 
+            <input type="password" id="login_passField" name="login_passField" required size="10">
         </div>
         <div>
-            <input type="checkbox" id="rememberField" name="rememberField">
-            <label for="rememberField">Remember me</label>
+            <input type="checkbox" id="login_rememberField" name="login_rememberField">
+            <label for="login_rememberField">Remember me</label>
         </div>
         
-        <button type="button" onclick="attemptLogin();">Inloggen</button> 
+        <button type="button" id="login_loginButton">Inloggen</button>`;
 
-        `;
+    // Attach the events
+    document.getElementById("login_loginButton").onclick = function () {showHomeScreen(); };
+
 }
 
 const showHomeScreen = () => 
 {
     renderNav();
 
+    // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <div class="container mt-5 mb-3">
-        <div class="row row-cols-1 row-cols-md-2 g-4">
-            <div class="col">
-                <div class="card" onclick="showEnterObservationScreen('observationSettings/settings_opportunistic.txt', 'observationSettings/species.txt');">
-                    <img src="images/ijsvogel.jpg" class="card-img-top" alt="...">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title text-white">I saw something special</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Opportunistic observation</p>
-                        <a onclick="showEnterObservationScreen('observationSettings/settings_opportunistic.txt', 'observationSettings/species.txt');" class="btn btn-primary" style="z-index: 9; position: sticky;">Enter observation</a>                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" onclick="showEnterObservationScreen('observationSettings/settings_15m.txt', 'observationSettings/species.txt');">
-                <img src="images/time-839884_1920.jpg" class="card-img-top" alt="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">15 minute count</h5>
-                </div>
-                    <div class="card-body">
-                        <p class="card-text">Count everything you see for 15 minutes</p>
-                        <a onclick="showEnterObservationScreen('observationSettings/settings_15m.txt', 'observationSettings/species.txt');" class="btn btn-primary" style="z-index: 9; position: sticky;">Start 15m</a>
-                       </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" onclick="showEnterObservationScreen('observationSettings/settings_transect.txt', 'observationSettings/species.txt');">
-                <img src="images/mountaineering-455338_1280.jpg" class="card-img-top" alt="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title text-white">Walk transect</h5>
-                </div>
-                    <div class="card-body">
-                        <p class="card-text">Walk a predefined transect and record everything you see</p>
-                        <a onclick="showEnterObservationScreen('observationSettings/settings_transect.txt', 'observationSettings/species.txt');" class="btn btn-primary" style="z-index: 9; position: sticky;">Start transect</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card" onclick="showEnterObservationScreen('observationSettings/settings_fit.txt', 'observationSettings/species.txt');">
-                    <img src="images/Sanguisorba_minor_01AK.jpg" class="card-img-top" alt="...">
-                    <div class="card-img-overlay">
-                        <h5 class="card-title text-white">Fit count</h5>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">Observe a single flower, record everything you see interacting with that flower</p>
-                        <a onclick="showEnterObservationScreen('observationSettings/settings_fit.txt', 'observationSettings/species.txt');" class="btn btn-primary" style="z-index: 9; position: sticky;">Start counting</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </container>`;
+    <div>
+        <button id="home_specialButton">Something special</button>
+    </div>
+    <div>
+        <button id="home_15Button">15 min</button>
+    </div>
+    <div>
+        <button id="home_transectButton">Transect</button>
+    </div>
+    <div>
+        <button id="home_fitButton">Fit</button>
+    </div>`;
+
+    // Attach the events
+    document.getElementById("home_specialButton").onclick = function () {showEnterObservationScreen('observationSettings/settings_opportunistic.txt', 'observationSettings/species.txt'); };
+
 }
+
+
+
+
+
+
+
+var settings = getUserSettings();
+var species = settings.species();

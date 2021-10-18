@@ -107,12 +107,3 @@ const showHomeScreen = () =>
     document.getElementById("home_specialButton").onclick = function () {showEnterObservationScreen('observationSettings/settings_opportunistic.txt', 'observationSettings/species.txt'); };
 
 }
-
-
-
-
-
-
-
-var settings = getUserSettings();
-var species = settings.species();

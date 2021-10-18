@@ -20,5 +20,17 @@ class TestDataSeeder extends Seeder
         $user = \App\Models\User::create(['name'=> 'SirTestington','email'=> 'test@vlinderstichting.nl','password'=> Hash::make('123test'), 'accesstoken' => '123token']);
         $user->setRandomAccessToken();
         $user->save();
+
+        $region = \App\Models\Region::create(['name' => 'test epa', 'description' => 'fluffy cloud city']);
+        //$user->regions()->attach($region);
+        \App\Models\RegionsUsers::create(['region_id' => $region->id, 'user_id' => $user->id]);
+
+        $allSp = \App\Models\Species::all();
+        foreach($allSp as $sp)
+        {
+            \App\Models\RegionsSpecies::create(['region_id' => $region->id, 'species_id' => $sp->id]);
+          //  $region->species()->attach($sp);
+        }
+
     }
 }

@@ -40,6 +40,8 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
+console.log(data);
+
             storeUserPackage(data);
             if (sendBackHome == true){
                 showHomeScreen();
@@ -187,8 +189,13 @@ function deleteVisit(visit)
     {
         console.error("openDb:", evnt.target.errorCode);
     };
-
-objectStore.delete(Key);
+    req.onsuccess = function (evnt)
+    {
+        db = req.result;
+        tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
+        store = tx.objectStore(DB_STORE_NAME_VISITS);
+        store.delete(visit['startdate']);
+    }
 }
 
 

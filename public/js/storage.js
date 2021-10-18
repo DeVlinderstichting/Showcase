@@ -48,13 +48,11 @@ function storeUserPackage(data)
 {
     storeData('settings', data);
     userSettings = getUserSettings();
-
-    console.log(getTranslation('123key'));
 }
 
 function getUserSettings()
 {
-    if (typeof userSettings === 'undefined') 
+    if ((typeof userSettings === 'undefined') || (userSettings.userSettings['accessToken'].length < 30))
     {
         loadUserSettings();
     }

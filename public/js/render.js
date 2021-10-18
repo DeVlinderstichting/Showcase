@@ -104,7 +104,8 @@ const showHomeScreen = () =>
     </div>`;
 
     // Attach the events
-    document.getElementById("home_specialButton").onclick = function () {showSpecialObservationScreen(); };
+    document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
+    document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
 
 }
 
@@ -139,17 +140,84 @@ const showSpecialObservationScreen = () =>
     
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
-        $select.append(`<option value="${key}">${value}</option>`);
+        $('#special_selectSpecies').append(`<option value="${key}">${value}</option>`);
     });
     $('.chosen-select').select2();
 
     // Attach the events
     document.getElementById("special_buttonSave").onclick = function () { };
-    document.getElementById("special_buttonCancel").onclick = function () { };
-
+    document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
 }
 
+const show15mObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
 
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <div>
+        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
+    </div>
+    
+    <div>
+        <label for="special_selectSpecies">Species</label>
+        <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
+            <option value=1>Species 1</option>
+            <option value=2>Species 2</option>
+            <option value=3>Species 3</option>
+            <option value=4>Species 4</option>
+        </select>
+    </div>
+    <div>
+        <label for="special_inputAmount">Amount</label>
+        <input type="number" id="special_inputAmount" name="special_inputAmount" min=0>
+    </div>
+    <div>
+        <button id="special_buttonSave">Save</button>
+        <button id="special_buttonCancel">Cancel</button>
+    </div>
+    `;
+    
+    // Populate the list of species and attach the chosen selector
+    $.each(species, function(key, value) {
+        $('#special_selectSpecies').append(`<option value="${key}">${value}</option>`);
+    });
+    $('.chosen-select').select2();
+
+    // Attach the events
+    document.getElementById("special_buttonSave").onclick = function () { };
+    document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+    document.getElementById("startTimer").onclick = function () { startTimer(); };
+    document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
+    document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+
+    // The stopwatch logic
+    var myVar
+    var Seconds = 0;
+
+    function startTimer() { 
+        myVar = setInterval(start ,1000);
+        Seconds = 0;
+    }
+
+    function resumeTimer() {    
+        myVar = setInterval(start ,1000);
+    }
+
+    function start() {
+        var d = new Date();
+        Seconds++;
+        document.getElementById("stopwatch").innerHTML = Seconds;
+    }
+
+    function stopTimer() {
+        clearInterval(myVar)
+    }
+}
 
 
 

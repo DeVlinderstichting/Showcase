@@ -20,6 +20,7 @@ class UserController extends Controller
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
             $authOk = false;
+            //check password FIRST!! (the app can also send an empty accesstoken, with a password)
             if (array_key_exists('password', $valDat)) //do regular login 
             {
                 if(auth()->attempt(array('email' => $valDat['username'], 'password' => $valDat['password']))) 
@@ -29,11 +30,18 @@ class UserController extends Controller
             }
             else //login using accesstoken 
             {
-                $theUser = \App\Models\User::where('email', $valDat['username'])->where('accesstoken', $valDat['accesstoken'])->first();
-                if ($theUser != null)
+                if (strlen($valDat['accesstoken']) < 30) //check this because the first time a username+password and an empty accesstoken has to be accepted
                 {
-                    $authOk = true;
-                    Auth::login($theUser);
+                    $authOk = false; //invalid accesstoken, we are done
+                }
+                else 
+                {
+                    $theUser = \App\Models\User::where('email', $valDat['username'])->where('accesstoken', $valDat['accesstoken'])->first();
+                    if ($theUser != null)
+                    {
+                        $authOk = true;
+                        Auth::login($theUser);
+                    }
                 }
             }
 

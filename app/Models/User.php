@@ -112,6 +112,7 @@ class User extends Authenticatable
         $speciesGroups = [];
         $messages = [];
         $transects = [];
+        $lang = [];
 
         $userSettings['user_id'] = $this->id;
         $userSettings['preferedLanguage'] = $this->prefered_language;
@@ -225,12 +226,26 @@ class User extends Authenticatable
             $transects = $singleTransect;
         }
 
+        $allKeys = \App\Models\Language::all();
+        $theLanguages = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
+
+        foreach($allKeys as $theKey)
+        {
+            $arrLine = [];
+            foreach($theLanguages as $theLanguage)
+            {
+                $arrLine[$theLanguage] = $theKey->$theLanguage;
+            }
+            $lang[$theKey->key] = $arrLine;
+        }
+
         $retArr['userSettings'] = $userSettings;
         $retArr['regions'] = $regions;
         $retArr['species'] = $species;
         $retArr['speciesGroups'] = $speciesGroups;
         $retArr['messages'] = $messages;
         $retArr['transects'] = $transects;
+        $retArr['lang'] = $lang;
         return json_encode($retArr);
     }
 }

@@ -34,6 +34,7 @@ const showButterflies = () =>
     container.innerHTML = output
 }
 
+<<<<<<< HEAD
 
 
 const showLoginScreen = () => 
@@ -227,6 +228,8 @@ const showHomeScreen = () =>
         </div>
     </container>`;
 }
+=======
+>>>>>>> edbfcb5e73660b445e055397f046cb420e9141b6
 
 
 function showMessage(message)

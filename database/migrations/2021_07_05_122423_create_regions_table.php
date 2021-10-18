@@ -19,7 +19,7 @@ class CreateRegionsTable extends Migration
             $table->timestamps();
             $table->text('name')->unique();
             $table->text('description');
-            $table->GEOMETRY('location');
+            $table->GEOMETRY('location')->nullable();
         });
     }
 

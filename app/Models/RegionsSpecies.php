@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RegionSpecies extends Model
+class RegionsSpecies extends Model
 {
     use HasFactory;
     protected $table = 'regions_species';

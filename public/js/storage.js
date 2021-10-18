@@ -44,7 +44,7 @@ console.log(data);
 
             storeUserPackage(data);
             if (sendBackHome == true){
-                showHomeScreen();
+           //     showHomeScreen();
             }
         }
     });

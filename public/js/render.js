@@ -79,7 +79,7 @@ var mb = document.getElementById('mainBody');
         <button type="button" id="login_loginButton">Inloggen</button>`;
 
     // Attach the events
-    document.getElementById("login_loginButton").onclick = function () {showHomeScreen(); };
+  //  document.getElementById("login_loginButton").onclick = function () {showHomeScreen(); };
 
 }
 

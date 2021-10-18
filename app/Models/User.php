@@ -245,7 +245,7 @@ class User extends Authenticatable
         $retArr['speciesGroups'] = $speciesGroups;
         $retArr['messages'] = $messages;
         $retArr['transects'] = $transects;
-        $retArr['lang'] = $lang;
+        $retArr['translations'] = $lang;
         return json_encode($retArr);
     }
 }

@@ -34,6 +34,8 @@ const showButterflies = () =>
     container.innerHTML = output
 }
 
+
+
 const showLoginScreen = () => 
 {
     var nav = document.getElementById("nav");
@@ -107,17 +109,16 @@ var mb = document.getElementById('mainBody');
                 <div data-layer="97cf97e1-565e-4d44-9b00-e99839718974" class="password">Password</div>
             </div>
             <div data-layer="e81c611a-9bac-4d27-a3e5-c9e9b5b731a7" class="rememberMe">Remember me</div>
-        </div>
-      
-
-
-
-        `;
-
-
-
-
+        </div>`;
 }
+
+function attemptLogin()
+{
+    username= "test@vlinderstichting.nl";
+    password = "123test";
+    requestUserPackage(username, password);
+}
+
 
 var renderNav = function()
 {

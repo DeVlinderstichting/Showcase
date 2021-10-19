@@ -223,8 +223,8 @@ class User extends Authenticatable
         }
 
         $allKeys = \App\Models\Language::all();
-        $theLanguages = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
-
+   /*  //   $theLanguages = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
+        $theLanguage = $this->prefered_language
         foreach($allKeys as $theKey)
         {
             $arrLine = [];
@@ -233,6 +233,17 @@ class User extends Authenticatable
                 $arrLine[$theLanguage] = $theKey->$theLanguage;
             }
             $lang[$theKey->key] = $arrLine;
+        }
+        */
+        $theLanguage = $this->prefered_language;
+        foreach($allKeys as $theKey)
+        {
+            $theValue = $theKey->theLanguage;
+            if (($theValue == null) || ($theValue == ""))
+            {
+                $theValue = $theKey->en;
+            }
+            $lang[$theKey->key] = $theValue;
         }
 
         $retArr['userSettings'] = $userSettings;

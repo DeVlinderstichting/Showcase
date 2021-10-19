@@ -15,7 +15,6 @@ var renderNav = function()
     document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
     document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
     document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
-
 }
 
 var renderModal = function(title, body)
@@ -80,7 +79,6 @@ var mb = document.getElementById('mainBody');
 
     // Attach the events
     document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };
-
 }
 
 const showHomeScreen = () => 
@@ -106,7 +104,6 @@ const showHomeScreen = () =>
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
-
 }
 
 const showSpecialObservationScreen = () =>
@@ -120,6 +117,8 @@ const showSpecialObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
+    <h2 id="special_title">Title</h2>
+    <h3 id="special_subtitle">Subtitle</h3>
     <div>
         <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
@@ -130,7 +129,9 @@ const showSpecialObservationScreen = () =>
     </div>
     <div>
         <label for="special_inputAmount">Amount</label>
-        <input type="number" id="special_inputAmount" name="special_inputAmount" min=0>
+        <button id="special_minAmount" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
+        <input id="special_inputAmount" name="special_inputAmount" value=0>
+        <button id="special_plusAmount" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
     </div>
     <div>
         <button id="special_buttonSave">Save</button>
@@ -141,57 +142,6 @@ const showSpecialObservationScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
     
-    // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) {
-        $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
-    });
-    $('.chosen-select').select2();
-
-    // Attach the events
-    document.getElementById("special_buttonSave").onclick = function () { storeSingleObservation(); };
-    document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
-
-
-}
-
-const show15mObservationScreen = () =>
-{
-    // Get the settings and species
-    var settings = getUserSettings();
-    var species = settings.species;
-
-    renderNav();
-    // Build the DOM
-    var mb = document.getElementById('mainBody');
-    mb.innerHTML = `
-    <div>
-        <button id="special_buttonInfo">Info</button>
-    </div>
-    <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
-    </div>
-    <div>
-        <label for="special_selectSpecies">Species</label>
-        <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
-            <option value=1>Species 1</option>
-            <option value=2>Species 2</option>
-            <option value=3>Species 3</option>
-            <option value=4>Species 4</option>
-        </select>
-    </div>
-    <div>
-        <label for="special_inputAmount">Amount</label>
-        <input type="number" id="special_inputAmount" name="special_inputAmount" min=0>
-    </div>
-    <div>
-        <button id="special_buttonSave">Save</button>
-        <button id="special_buttonCancel">Cancel</button>
-    </div>
-    `;
-    
-    // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
-
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
         $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
@@ -201,35 +151,167 @@ const show15mObservationScreen = () =>
     // Attach the events
     document.getElementById("special_buttonSave").onclick = function () { };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+
+    // Make sure we get proper input on change of the number input
+    $('#special_inputAmount').change( function () 
+    {
+        elem = $(this).get(0);
+        if (!isNaN(elem.value))
+        {
+            elem.value = parseInt(elem.value);
+        }
+        if (elem.value < 0)
+        {
+            elem.value = 0;
+        }
+        elem.value = elem.value.replace(/\D/g,'');
+    });
+}
+
+const show15mObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="15m_title">Title</h2>
+    <h3 id="15m_subtitle">Subtitle</h3>
+    <div>
+        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="15m_stopwatchText">Start counting</h3>
+    <div>
+        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
+    </div>
+    <h3 id="15m_speciesText">Species</h3>
+    <div>
+        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+            <option value=""></option>
+        </select>
+    </div>
+    <ul id="15m_listSpecies">
+
+    </ul>
+    <div>
+        <button id="15m_buttonSave">Save</button>
+        <button id="15m_buttonCancel">Cancel</button>
+    </div>
+    `;
+    
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Populate the list of species and attach the chosen selector
+    $.each(species, function(key, value) {
+        $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+    });
+    $('.chosen-select').select2();
+
+    // Attach the events
+    document.getElementById("15m_buttonSave").onclick = function () { stopTimer(); }; //stopTimer, just in case it was still going
+    document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+    $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)); } );
 
+    function addSpeciesToList (element)
+    {
+        var settings = getUserSettings();
+        var species = settings.species;
+        var speciesId = element[0].value;
+        var speciesInfo = species[speciesId];
+        $('#15m_listSpecies').append(`
+            <li>${speciesInfo['localName']}
+                <button id="15m_minAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value--; $('#15m_inputAmount_${speciesInfo['id']}').change();">-</button>
+                <input id="15m_inputAmount_${speciesInfo['id']}" name="15m_inputAmount_${speciesInfo['id']}" value=0>
+                <button id="15m_plusAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value++; $('#15m_inputAmount_${speciesInfo['id']}').change();">+</button>
+            </li>
+        `)
+        $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
+
+        // Make sure we get proper input on change of the number input
+        $(`#15m_inputAmount_${speciesInfo['id']}`).change( function () 
+        {
+            elem = $(this).get(0);
+            if (!isNaN(elem.value))
+            {
+                elem.value = parseInt(elem.value);
+            }
+            if (elem.value < 0)
+            {
+                elem.value = 0;
+            }
+            elem.value = elem.value.replace(/\D/g,'');
+        });
+    }
+    
     // The stopwatch logic
+    var stopwatchMinutes = 15;
     var stopwatchCurrentTime;
     var stopwatchFutureTime;
     var stopWatchTimer;
+    var stopWatchRunning = false;
+    var stopWatchTimeLeft = stopwatchMinutes*60000;
 
-    function startTimer() {
+    function startTimer() 
+    {
         stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + 15*60000);
-        stopWatchTimer = setInterval(timer, 100);
+        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+        if (!stopWatchTimer || !stopWatchRunning)
+        {
+            stopWatchTimer = setInterval(timer, 100);
+            stopWatchRunning = true;
+        }
     }
 
-    function resumeTimer() {    
-        stopWatchTimer = setInterval(start, 1000);
-    }
-
-    function timer() {
+    function timer() 
+    {
         var d = new Date();
-        remTime = stopwatchFutureTime - d;
-        document.getElementById("stopwatch").innerHTML = remTime;
+        stopWatchTimeLeft = stopwatchFutureTime - d;
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+        if (stopWatchTimeLeft < 0)
+        {
+            stopTimer();
+            stopWatchTimeLeft = 0;
+            document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+        }
     }
 
-    function stopTimer() {
+    function stopTimer() 
+    {
         clearInterval(stopWatchTimer)
+        stopWatchRunning = false;
+    }
+
+    function resetTimer()
+    {
+        stopWatchTimeLeft = stopwatchMinutes*60000;
+        stopwatchCurrentTime = new Date();
+        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    }
+
+    function pad(n, z) 
+    {
+        z = z || 2;
+        return ('00' + n).slice(-z);
+    }
+
+    function msToTime(s) 
+    {
+        var ms = s % 1000;
+        s = (s - ms) / 1000;
+        var secs = s % 60;
+        s = (s - secs) / 60;
+        var mins = s % 60;
+        var hrs = (s - mins) / 60;
+      
+        return  pad(mins) + ':' + pad(secs);
     }
 }
-
-
-

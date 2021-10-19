@@ -104,6 +104,7 @@ const showHomeScreen = () =>
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { showTransectPreObservationScreen(); };
 }
 
 const showSpecialObservationScreen = () =>

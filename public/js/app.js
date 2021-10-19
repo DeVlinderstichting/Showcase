@@ -525,7 +525,6 @@ function setColor()
     });
 }
 
-document.addEventListener("DOMContentLoaded", showLoginScreen)
 
 if ("serviceWorker" in navigator) 
 {

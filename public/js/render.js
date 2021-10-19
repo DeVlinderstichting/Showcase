@@ -148,8 +148,10 @@ const showSpecialObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("special_buttonSave").onclick = function () { };
+    document.getElementById("special_buttonSave").onclick = function () { storeSingleObservation(); };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+
+
 }
 
 const show15mObservationScreen = () =>

@@ -53,73 +53,7 @@
 
 
     <script>
-        //keep these in a seperate script block, so if one fails, the rest of the functionality remains ok 
-
-        function locationAvailable(pos)
-        {
-            var coor = pos.coords;
-            console.log(coor.latitude + ", " + coor.longitude);
-        }
-        function locationError(err)
-        {
-            console.log('geolocation error');
-        }
-
-        function getLocation()
-        {
-            if ("geolocation" in navigator) 
-            {
-                navigator.geolocation.getCurrentPosition(locationAvailable, locationError);
-            }
-            else
-            {
-                console.log('geolocation not available');
-            }
-        }
-
-      //  getLocation();
-
         
-
-
-        var positionTracker;
-        var locations = [];
-        function trackingLocationUpdate(pos)
-        {
-            var coor = pos.coords;
-            var line = coor.latitude + ", " + coor.longitude;
-            locations.push(line);
-            console.log(locations);
-            if (locations.length > 15)
-            {
-                stopTracking();
-            }
-        }
-        function trackingLocationError()
-        {
-            console.log('geolocation tracking error');
-        }
-        function startTracking() 
-        {
-            if (!positionTracker) 
-            {
-                if ("geolocation" in navigator && "watchPosition" in navigator.geolocation) 
-                {
-                    geoWatch = navigator.geolocation.watchPosition(trackingLocationUpdate, trackingLocationError, 
-                    { 
-                        enableHighAccuracy: false,
-                        timeout: 15000,
-                        maximumAge: 0
-                    });
-                } 
-            }
-        }
-        function stopTracking()
-        {
-            navigator.geolocation.clearWatch(positionTracker); 
-            positionTracker = undefined;
-        }
-     //   startTracking();
     </script>
     
 
@@ -127,7 +61,26 @@
     <script src="js/render.js"></script>
     <script src="js/app.js"></script>
     <script src="js/storage.js"></script>
+    <script src="js/location.js"></script>
+    <script src='/js/pageLogic.js'></script>
     <script src='/js/select2.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js'></script>
+
+<script> 
+    function initializeApp()
+    {
+        //REMOVE THIS::
+        debugTestInit();
+
+        setupDatabase();
+        document.addEventListener("DOMContentLoaded", showLoginScreen)
+    }
+    initializeApp();
+    
+</script>
+
+
+
+
   </body>
 </html>

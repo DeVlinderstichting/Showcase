@@ -117,6 +117,8 @@ const showSpecialObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
+    <h2 id="special_title">Title</h2>
+    <h3 id="special_subtitle">Subtitle</h3>
     <div>
         <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
@@ -177,14 +179,17 @@ const show15mObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
+    <h2 id="15m_title">Title</h2>
+    <h3 id="15m_subtitle">Subtitle</h3>
     <div>
         <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
+    <h3 id="15m_stopwatchText">Start counting</h3>
     <div>
         <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
+    <h3 id="15m_speciesText">Species</h3>
     <div>
-        <label for="15m_selectSpecies">Species</label>
         <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="Select a species..." tabindex="1">
             <option value=""></option>
         </select>

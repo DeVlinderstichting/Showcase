@@ -172,15 +172,46 @@ function storeVisit(visit)
         db = req.result;
         tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
         store = tx.objectStore(DB_STORE_NAME_VISITS);
+        var cursorRequest = store.openCursor(visit->startdate);
+
+        cursorRequest.onsuccess = function(e) 
+        {
+            dat = {'startdate': visit['startdate'], 'data': visit};
+            var cursor = e.target.result; 
+            if (cursor)
+            { // key already exist
+                cursor.update(dat);
+            } 
+            else 
+            { // key not exist
+                
+                putRequest = store.add(dat);
+            }
+        };
+    };
+}
+
+/*
+function updateVisit(visit)
+{
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    req.onerror = function (evnt) 
+    {
+        console.error("openDb:", evnt.target.errorCode);
+    };
+
+    req.onsuccess = function (evnt) 
+    {
+        db = req.result;
+        tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
+        store = tx.objectStore(DB_STORE_NAME_VISITS);
 
         dat = {'startdate': visit['startdate'], 'data': visit};
         putRequest = store.put(dat);
     };
 }
-function updateVisit(visit)
-{
+*/ 
 
-}
 function deleteVisit(visit)
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);

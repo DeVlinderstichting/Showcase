@@ -1,4 +1,11 @@
 locationAttemptCounter = 0;
+
+function initAnyCount()
+{
+    visit = buildEmptyVisit();
+    trackedLocations = [];
+}
+
 function storeSingleObservation()
 {
     readLocation();
@@ -33,6 +40,10 @@ function storeSingleObservation()
         storeVisit(visit);
         showHomeScreen();
     }
+}
+function storeTimedCount()
+{
+
 }
 function storeTransectCount()
 {

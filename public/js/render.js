@@ -114,18 +114,18 @@ const showSpecialObservationScreen = () =>
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
+    var translations = settings.translations;
 
     renderNav();
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <div>
+        <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <div>
         <label for="special_selectSpecies">Species</label>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
-            <option value=1>Species 1</option>
-            <option value=2>Species 2</option>
-            <option value=3>Species 3</option>
-            <option value=4>Species 4</option>
         </select>
     </div>
     <div>
@@ -137,10 +137,13 @@ const showSpecialObservationScreen = () =>
         <button id="special_buttonCancel">Cancel</button>
     </div>
     `;
+
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
     
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
-        $('#special_selectSpecies').append(`<option value="${key}">${value}</option>`);
+        $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
     });
     $('.chosen-select').select2();
 
@@ -160,9 +163,11 @@ const show15mObservationScreen = () =>
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <div>
+        <button id="special_buttonInfo">Info</button>
+    </div>
+    <div>
         <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
-    
     <div>
         <label for="special_selectSpecies">Species</label>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
@@ -182,9 +187,12 @@ const show15mObservationScreen = () =>
     </div>
     `;
     
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
-        $('#special_selectSpecies').append(`<option value="${key}">${value}</option>`);
+        $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
     });
     $('.chosen-select').select2();
 
@@ -196,26 +204,28 @@ const show15mObservationScreen = () =>
     document.getElementById("resetTimer").onclick = function () { resetTimer(); };
 
     // The stopwatch logic
-    var myVar
-    var Seconds = 0;
+    var stopwatchCurrentTime;
+    var stopwatchFutureTime;
+    var stopWatchTimer;
 
-    function startTimer() { 
-        myVar = setInterval(start ,1000);
-        Seconds = 0;
+    function startTimer() {
+        stopwatchCurrentTime = new Date();
+        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + 15*60000);
+        stopWatchTimer = setInterval(timer, 100);
     }
 
     function resumeTimer() {    
-        myVar = setInterval(start ,1000);
+        stopWatchTimer = setInterval(start, 1000);
     }
 
-    function start() {
+    function timer() {
         var d = new Date();
-        Seconds++;
-        document.getElementById("stopwatch").innerHTML = Seconds;
+        remTime = stopwatchFutureTime - d;
+        document.getElementById("stopwatch").innerHTML = remTime;
     }
 
     function stopTimer() {
-        clearInterval(myVar)
+        clearInterval(stopWatchTimer)
     }
 }
 

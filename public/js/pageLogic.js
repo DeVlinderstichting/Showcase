@@ -22,8 +22,8 @@ function storeSingleObservation()
 
         visit = buildEmptyVisit();
 
-testDate = new Date(2021, 10, 31, 12, 14, 45, 32);
-visit.startdate = testDate;
+//testDate = new Date(2021, 10, 31, 12, 14, 45, 32);
+//visit.startdate = testDate;
 
         var obs = buildEmptyObservation();
         obs.species_id = speciesId;
@@ -31,11 +31,18 @@ visit.startdate = testDate;
         obs.location = currentLocation;
         visit.observations.push(obs);
         storeVisit(visit);
-        console.log("visit stored????");
-        loadVisits();
-
-        console.log(visits);
-        console.log("done");
-      //  showHomeScreen();
+        showHomeScreen();
     }
+}
+function storeTransectCount()
+{
+    visit = buildEmptyVisit();
+    speciesCounts = [];
+    var elem = document.getElementById('15m_listSpecies');
+    $("[id*='15m_inputAmount_']").each(function ()
+    {
+        var spid = $(this)[0].id.replace("15m_inputAmount_", "");; 
+        speciesCounts.push({"spid": spid, "amount": $(this)[0].value});
+    });
+    console.log(speciesCounts);
 }

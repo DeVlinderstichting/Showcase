@@ -176,8 +176,9 @@ function buildEmptyObservation(visit)
     var theObservation=[];
     theObservation['species_id'] = -1;
     theObservation['number'] = -1;
-    theObservation['transect_section_id'] = '-1'
+    theObservation['transect_section_id'] = -1;
     theObservation['location'] = '';
+    theObservation['observationtime'] = -1;
     return theObservation;
 }
 function storeVisit(visit)

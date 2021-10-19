@@ -27,7 +27,7 @@ function readLocation()
 function trackingLocationUpdate(pos)
 {
     var coor = pos.coords;
-    var line = coor.latitude + ", " + coor.longitude;
+    var line = new Date() + ", " + coor.latitude + ", " + coor.longitude;
     trackedLocations.push(line);
     console.log(trackedLocations);
     if (trackedLocations.length > 15)

@@ -18,6 +18,7 @@ class SpeciesSeeder extends Seeder
         $bfSpGroup = \App\Models\Speciesgroup::create(['name' => 'butterflies', 'description' => 'butterflies', 'usercancount' => true]);
         \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true]);
         \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true]);
+        $plantSpGroup = \App\Models\Speciesgroup::create(['name' => 'plants', 'description' => 'plants', 'usercancount' => false]);
 
         //create the species for each group 
         \App\Models\Species::create([
@@ -58,6 +59,40 @@ class SpeciesSeeder extends Seeder
        //     'imagelocation' => '',
             'nlname' => 'kleine vos',
             'enname' => 'small tortoiseshell' 
+        ]);
+
+        \App\Models\Species::create([
+            'genus' => 'Vinca',
+            'taxon' => 'minor',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/vincaminor',
+            'speciesgroup_id' => $plantSpGroup->id,
+            'taxrank' => 'species',
+            'diurnal' => false,
+            'description' => 'a small plant with green leafs',
+            'nlname' => 'Vinca',
+            'enname' => 'Vinca' 
+        ]);
+        \App\Models\Species::create([
+            'genus' => 'Taraxacum ',
+            'taxon' => 'officinalis',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/taraxacumofficinalis',
+            'speciesgroup_id' => $plantSpGroup->id,
+            'taxrank' => 'species',
+            'diurnal' => false,
+            'description' => 'a small plant with green leafs',
+            'nlname' => 'Paardenbloem',
+            'enname' => 'Horseflour' 
+        ]);
+        \App\Models\Species::create([
+            'genus' => 'Daucus ',
+            'taxon' => 'carota',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/daucuscarota',
+            'speciesgroup_id' => $plantSpGroup->id,
+            'taxrank' => 'species',
+            'diurnal' => false,
+            'description' => 'a small plant with green leafs',
+            'nlname' => 'Wilde peen',
+            'enname' => 'Wild root' 
         ]);
 
     }

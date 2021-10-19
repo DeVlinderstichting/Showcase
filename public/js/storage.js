@@ -5,6 +5,8 @@ const DB_STORE_NAME_VISITS = 'showcaseVisits';
 var db;
 var userSettings;
 var userLanguage;
+var visit;
+var visits;
 
 function debugTestInit()
 {
@@ -12,6 +14,29 @@ function debugTestInit()
     req.onerror = function (evnt) 
     {
         console.error("openDb:", evnt.target.errorCode);
+    };
+    console.log('database deleted');
+}
+
+function setupDatabase()
+{
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    
+    req.onerror = function (evnt) 
+    {
+        console.error("openDb:", evnt.target.errorCode);
+    };
+
+    req.onupgradeneeded = function (evnt) 
+    {
+        db = req.result;
+        var settingsStore = db.createObjectStore(DB_STORE_NAME_SETTINGS, { keyPath: 'name'});
+        var visitsStore = db.createObjectStore(DB_STORE_NAME_VISITS, { keyPath: 'startdate'});
+        var tempDat = [];
+        tempDat['userSettings'] = {"accessToken": ""};
+        var emtpySettings = {'name': 'settings', 'data': tempDat};
+        settingsStore.add(emtpySettings);
+        userSettings = tempDat;
     };
 }
 
@@ -57,7 +82,12 @@ function storeUserPackage(data)
 
 function getUserSettings()
 {
-    if ((typeof userSettings === 'undefined') || (userSettings.userSettings['accessToken'].length < 30))
+    
+    if (typeof userSettings === 'undefined')
+    {
+        loadUserSettings();
+    }
+    else if (userSettings.userSettings['accessToken'].length < 30)
     {
         loadUserSettings();
     }
@@ -73,15 +103,6 @@ function loadUserSettings()
         console.error("openDb:", evnt.target.errorCode);
     };
 
-    req.onupgradeneeded = function (evnt) 
-    {
-        db = req.result;
-        var store = db.createObjectStore(DB_STORE_NAME_SETTINGS, { keyPath: 'name'});
-        var store = db.createObjectStore(DB_STORE_NAME_VISITS, { keyPath: 'startdate'});
-        var emtpySettings = {'name': 'settings', 'data': ''};
-        store.add(emtpySettings);
-        userSettings = emtpySettings;;
-    };
     req.onsuccess = function (evnt) 
     {
         db = req.result;
@@ -132,7 +153,7 @@ function buildEmptyVisit()
     var theVisit =[];
     theVisit['countingmethod_id'] = '';
     theVisit['location'] = '';
-    theVisit['startdate'] = new Date();;
+    theVisit['startdate'] = new Date();
     theVisit['enddate'] = '';
     theVisit['sendtoserverdate'] = '';
     theVisit['status'] = '1'; //1=incomplete, 2=completed, 3=sealed (once shipped to server it can only be changed online)
@@ -145,8 +166,8 @@ function buildEmptyVisit()
     theVisit['transect_id'] = '';
     theVisit['flower_id'] = '';
     theVisit['flower_id'] = '';
-    $theVisit['observations'] = [];
-    $theVisit['method'] = settings.userSettings['speciesGroupsUsers'];
+    theVisit['observations'] = [];
+    theVisit['method'] = settings.userSettings['speciesGroupsUsers'];
 
     return theVisit;
 }
@@ -180,15 +201,44 @@ function storeVisit(visit)
             var cursor = e.target.result; 
             if (cursor)
             { // key already exist
+                console.log("update");
                 cursor.update(dat);
-            } 
+            }
             else 
             { // key not exist
+                console.log("storing");
+
+                tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
+                store = tx.objectStore(DB_STORE_NAME_VISITS);
                 putRequest = store.add(dat);
             }
         };
     };
 }
+function loadVisits()
+{
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    
+    req.onerror = function (evnt) 
+    {
+        console.error("openDb:", evnt.target.errorCode);
+    };
+
+    req.onsuccess = function (evnt) 
+    {
+        db = req.result;
+        tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
+        store = tx.objectStore(DB_STORE_NAME_VISITS);
+        visitsRequest = store.getAll();
+        visitsRequest.onsuccess = function(evnt)
+        {
+            console.log(visitsRequest.result);
+            //visits = JSON.parse(visitsRequest.result);
+            //console.log(visits);
+        }
+    };
+}
+
 
 /*
 function updateVisit(visit)

@@ -104,6 +104,7 @@ const showHomeScreen = () =>
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { showTransectPreObservationScreen(); };
 }
 
 const showSpecialObservationScreen = () =>
@@ -112,6 +113,8 @@ const showSpecialObservationScreen = () =>
     var settings = getUserSettings();
     var species = settings.species;
     var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
     renderNav();
     // Build the DOM
@@ -142,9 +145,12 @@ const showSpecialObservationScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
     
-    // Populate the list of species and attach the chosen selector
+    // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
-        $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        if (countIds.includes(value['speciesgroupId']))
+        {
+            $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
     });
     $('.chosen-select').select2();
 
@@ -174,6 +180,8 @@ const show15mObservationScreen = () =>
     var settings = getUserSettings();
     var species = settings.species;
     var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
     renderNav();
     // Build the DOM
@@ -208,7 +216,10 @@ const show15mObservationScreen = () =>
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
-        $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        if (countIds.includes(value['speciesgroupId']))
+        {
+            $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
     });
     $('.chosen-select').select2();
 

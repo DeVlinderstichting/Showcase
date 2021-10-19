@@ -172,7 +172,7 @@ function storeVisit(visit)
         db = req.result;
         tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
         store = tx.objectStore(DB_STORE_NAME_VISITS);
-        var cursorRequest = store.openCursor(visit->startdate);
+        var cursorRequest = store.openCursor(visit['startdate']);
 
         cursorRequest.onsuccess = function(e) 
         {
@@ -184,7 +184,6 @@ function storeVisit(visit)
             } 
             else 
             { // key not exist
-                
                 putRequest = store.add(dat);
             }
         };

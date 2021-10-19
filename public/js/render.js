@@ -157,16 +157,17 @@ const show15mObservationScreen = () =>
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
+    var translations = settings.translations;
 
     renderNav();
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <div>
-        <button id="special_buttonInfo">Info</button>
+        <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
     <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
+        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
     <div>
         <label for="special_selectSpecies">Species</label>
@@ -204,28 +205,67 @@ const show15mObservationScreen = () =>
     document.getElementById("resetTimer").onclick = function () { resetTimer(); };
 
     // The stopwatch logic
+    var stopwatchMinutes = 15;
     var stopwatchCurrentTime;
     var stopwatchFutureTime;
     var stopWatchTimer;
+    var stopWatchRunning = false;
+    var stopWatchTimeLeft = stopwatchMinutes*60000;
 
-    function startTimer() {
+    function startTimer() 
+    {
         stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + 15*60000);
-        stopWatchTimer = setInterval(timer, 100);
+        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+        if (!stopWatchTimer || !stopWatchRunning)
+        {
+            stopWatchTimer = setInterval(timer, 100);
+            stopWatchRunning = true;
+        }
     }
 
-    function resumeTimer() {    
-        stopWatchTimer = setInterval(start, 1000);
-    }
-
-    function timer() {
+    function timer() 
+    {
         var d = new Date();
-        remTime = stopwatchFutureTime - d;
-        document.getElementById("stopwatch").innerHTML = remTime;
+        stopWatchTimeLeft = stopwatchFutureTime - d;
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+        if (stopWatchTimeLeft < 0)
+        {
+            stopTimer();
+            stopWatchTimeLeft = 0;
+            document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+        }
     }
 
-    function stopTimer() {
+    function stopTimer() 
+    {
         clearInterval(stopWatchTimer)
+        stopWatchRunning = false;
+    }
+
+    function resetTimer()
+    {
+        stopWatchTimeLeft = stopwatchMinutes*60000;
+        stopwatchCurrentTime = new Date();
+        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    }
+
+    function pad(n, z) 
+    {
+        z = z || 2;
+        return ('00' + n).slice(-z);
+    }
+
+    function msToTime(s) 
+    {
+        var ms = s % 1000;
+        s = (s - ms) / 1000;
+        var secs = s % 60;
+        s = (s - secs) / 60;
+        var mins = s % 60;
+        var hrs = (s - mins) / 60;
+      
+        return  pad(mins) + ':' + pad(secs);
     }
 }
 

@@ -15,7 +15,6 @@ var renderNav = function()
     document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
     document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
     document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
-
 }
 
 var renderModal = function(title, body)
@@ -80,7 +79,6 @@ var mb = document.getElementById('mainBody');
 
     // Attach the events
     document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };
-
 }
 
 const showHomeScreen = () => 
@@ -106,7 +104,6 @@ const showHomeScreen = () =>
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
-
 }
 
 const showSpecialObservationScreen = () =>
@@ -130,7 +127,9 @@ const showSpecialObservationScreen = () =>
     </div>
     <div>
         <label for="special_inputAmount">Amount</label>
-        <input type="number" id="special_inputAmount" name="special_inputAmount" min=0>
+        <button id="special_minAmount" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
+        <input id="special_inputAmount" name="special_inputAmount" value=0>
+        <button id="special_plusAmount" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
     </div>
     <div>
         <button id="special_buttonSave">Save</button>
@@ -150,6 +149,21 @@ const showSpecialObservationScreen = () =>
     // Attach the events
     document.getElementById("special_buttonSave").onclick = function () { };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+
+    // Make sure we get proper input on change of the number input
+    $('#special_inputAmount').change( function () 
+    {
+        elem = $(this).get(0);
+        if (!isNaN(elem.value))
+        {
+            elem.value = parseInt(elem.value);
+        }
+        if (elem.value < 0)
+        {
+            elem.value = 0;
+        }
+        elem.value = elem.value.replace(/\D/g,'');
+    });
 }
 
 const show15mObservationScreen = () =>
@@ -211,7 +225,7 @@ const show15mObservationScreen = () =>
             <li>${speciesInfo['localName']}
                 <button id="15m_minAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value--; $('#15m_inputAmount_${speciesInfo['id']}').change();">-</button>
                 <input id="15m_inputAmount_${speciesInfo['id']}" name="15m_inputAmount_${speciesInfo['id']}" value=0>
-                <button id="15m_minAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value++; $('#15m_inputAmount_${speciesInfo['id']}').change();">+</button>
+                <button id="15m_plusAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value++; $('#15m_inputAmount_${speciesInfo['id']}').change();">+</button>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -296,6 +310,3 @@ const show15mObservationScreen = () =>
         return  pad(mins) + ':' + pad(secs);
     }
 }
-
-
-

@@ -17,11 +17,11 @@ var renderNav = function()
     document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
 }
 
-var renderModal = function(title, body)
+var renderModal = function(title, body, postid='')
 {
     html = `
         <!-- Modal -->
-            <div class="modal fade" id="modal_id" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal fade" id="modal_id${postid}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
@@ -104,7 +104,8 @@ const showHomeScreen = () =>
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
-    document.getElementById("home_transectButton").onclick = function () { showTransectPreObservationScreen(); };
+    document.getElementById("home_fitButton").onclick = function () { showFitPreObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { showTransectObservationScreen(); };
 }
 
 const showSpecialObservationScreen = () =>
@@ -176,12 +177,15 @@ const showSpecialObservationScreen = () =>
 
 const show15mObservationScreen = () =>
 {
+    initAnyCount();
+
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var observations15m = [];
 
     renderNav();
     // Build the DOM
@@ -224,7 +228,7 @@ const show15mObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("15m_buttonSave").onclick = function () { stopTimer(); }; //stopTimer, just in case it was still going
+    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); storeTimedCount(observations15m); }; //stopTimer, just in case it was still going
     document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
@@ -239,30 +243,37 @@ const show15mObservationScreen = () =>
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
             <li>${speciesInfo['localName']}
-                <button id="15m_minAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value--; $('#15m_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="15m_inputAmount_${speciesInfo['id']}" name="15m_inputAmount_${speciesInfo['id']}" value=0>
-                <button id="15m_plusAmount_${speciesInfo['id']}" onclick="$('#15m_inputAmount_${speciesInfo['id']}').get(0).value++; $('#15m_inputAmount_${speciesInfo['id']}').change();">+</button>
+                <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
+                <button id="15m_editAmount_${speciesInfo['id']}">+</button>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
 
-        // Make sure we get proper input on change of the number input
-        $(`#15m_inputAmount_${speciesInfo['id']}`).change( function () 
-        {
-            elem = $(this).get(0);
-            if (!isNaN(elem.value))
-            {
-                elem.value = parseInt(elem.value);
-            }
-            if (elem.value < 0)
-            {
-                elem.value = 0;
-            }
-            elem.value = elem.value.replace(/\D/g,'');
+        
+        $(`#15m_editAmount_${speciesInfo['id']}`).click( function () {
+            $(`#modal_id_${speciesInfo['id']}`).remove()
+
+            modalContent = 
+            `
+            
+            `
+
+            $("#mainBody").append(renderModal())
         });
+        
+        
+        $(`#15m_plusAmount_${speciesInfo['id']}`).click( function () {
+            obs15m = buildEmptyObservation();
+            obs15m['species_id'] = $(this).get(0).id.replace("15m_plusAmount_", "");
+            obs15m['number'] = 1;
+            obs15m['location'] = trackedLocations[trackedLocations.length - 1];
+            obs15m['observationtime'] = Date();
+            observations15m.push(observations15m)
+        });
+
     }
     
-    // The stopwatch logic
+    // The stopwatch logic with location tracker
     var stopwatchMinutes = 15;
     var stopwatchCurrentTime;
     var stopwatchFutureTime;
@@ -278,6 +289,7 @@ const show15mObservationScreen = () =>
         {
             stopWatchTimer = setInterval(timer, 100);
             stopWatchRunning = true;
+            startTracking();
         }
     }
 
@@ -298,6 +310,7 @@ const show15mObservationScreen = () =>
     {
         clearInterval(stopWatchTimer)
         stopWatchRunning = false;
+        stopTracking();
     }
 
     function resetTimer()
@@ -306,6 +319,7 @@ const show15mObservationScreen = () =>
         stopwatchCurrentTime = new Date();
         stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
         document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+        trackedLocations = [];
     }
 
     function pad(n, z) 
@@ -324,5 +338,134 @@ const show15mObservationScreen = () =>
         var hrs = (s - mins) / 60;
       
         return  pad(mins) + ':' + pad(secs);
+    }
+}
+
+const showFitPreObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="prefit_title">Title</h2>
+    <h3 id="prefit_subtitle">Subtitle</h3>
+    <div>
+        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <div>
+        <label for="prefit_selectSpecies">Species</label>
+        <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
+        </select>
+    </div>
+    <div>
+        <button id="prefit_buttonSave">Save</button>
+        <button id="prefit_buttonCancel">Cancel</button>
+    </div>
+    `;
+
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    
+    // Populate the list of species (if in usercancount) and attach the chosen selector
+    $.each(species, function(key, value) {
+        if (value['speciesgroupId'] == 4) // Note that the ID might change in the future
+        {
+            $('#prefit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
+    });
+    $('.chosen-select').select2();
+
+    // Attach the events
+    document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
+    document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
+}
+
+const showTransectObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="transect_title">Title</h2>
+    <h3 id="transect_subtitle">Subtitle</h3>
+    <div>
+        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="transect_speciesText">Species</h3>
+    <div>
+        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+            <option value=""></option>
+        </select>
+    </div>
+    <ul id="transect_listSpecies">
+
+    </ul>
+    <div>
+        <button id="transect_buttonSave">Save</button>
+        <button id="transect_buttonCancel">Cancel</button>
+    </div>
+    `;
+    
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Populate the list of species and attach the chosen selector
+    $.each(species, function(key, value) {
+        if (countIds.includes(value['speciesgroupId']))
+        {
+            $('#transect_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
+    });
+    $('.chosen-select').select2();
+
+    // Attach the events
+    document.getElementById("transect_buttonSave").onclick = function () { }; 
+    document.getElementById("transect_buttonCancel").onclick = function () { showHomeScreen(); };
+
+    $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+
+    function addSpeciesToList (element)
+    {
+        var settings = getUserSettings();
+        var species = settings.species;
+        var speciesId = element[0].value;
+        var speciesInfo = species[speciesId];
+        $('#transect_listSpecies').append(`
+            <li>${speciesInfo['localName']}
+                <button id="transect_minAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
+                <input id="transect_inputAmount_${speciesInfo['id']}" name="transect_inputAmount_${speciesInfo['id']}" value=0>
+                <button id="transect_plusAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
+            </li>
+        `)
+        $(`#transect_selectSpecies option[value='${speciesInfo['id']}']`).remove();
+
+        // Make sure we get proper input on change of the number input
+        $(`#transect_inputAmount_${speciesInfo['id']}`).change( function () 
+        {
+            elem = $(this).get(0);
+            if (!isNaN(elem.value))
+            {
+                elem.value = parseInt(elem.value);
+            }
+            if (elem.value < 0)
+            {
+                elem.value = 0;
+            }
+            elem.value = elem.value.replace(/\D/g,'');
+        });
     }
 }

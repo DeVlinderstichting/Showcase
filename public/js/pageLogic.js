@@ -41,10 +41,16 @@ function storeSingleObservation()
         showHomeScreen();
     }
 }
-function storeTimedCount()
+function storeTimedCount(observations)
 {
-
+    visit.location = JSON.stringify(trackedLocations);
+    visit.observations.push(observations);
+    storeVisit(visit);
+    showHomeScreen();
 }
+
+
+
 function storeTransectCount()
 {
     visit = buildEmptyVisit();

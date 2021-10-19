@@ -45,7 +45,7 @@ function startTracking()
     {
         if ("geolocation" in navigator && "watchPosition" in navigator.geolocation) 
         {
-            geoWatch = navigator.geolocation.watchPosition(trackingLocationUpdate, trackingLocationError, 
+            positionTracker = navigator.geolocation.watchPosition(trackingLocationUpdate, trackingLocationError, 
             { 
                 enableHighAccuracy: false,
                 timeout: 15000,

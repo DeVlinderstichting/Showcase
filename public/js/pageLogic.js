@@ -66,7 +66,6 @@ function storeFitCount()
     showHomeScreen();
 }
 
-
 function storeTransectCount()
 {
     visit.location = JSON.stringify(trackedLocations);

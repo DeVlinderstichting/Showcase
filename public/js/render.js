@@ -114,7 +114,7 @@ const showHomeScreen = () =>
     // Attach the events; initialize the count and show the specific observation screen
     document.getElementById("home_specialButton").onclick = function () { initAnyCount(1); showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { initAnyCount(2); show15mObservationScreen(); };
-    document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectPreObservationScreen(); };
     document.getElementById("home_fitButton").onclick = function () { initAnyCount(4); showFitPreObservationScreen(); };
 }
 
@@ -555,47 +555,49 @@ const showTransectPreObservationScreen = () =>
 {
     // Get the settings and species
     var settings = getUserSettings();
-    var species = settings.species;
+    var transects = settings.transects;
     var translations = settings.translations;
-    var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
     // Build the DOM
     renderNav(clear=true);
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="prefit_title">Title</h2>
-    <h3 id="prefit_subtitle">Subtitle</h3>
+    <h2 id="pretransect_title">Title</h2>
+    <h3 id="pretransect_subtitle">Subtitle</h3>
     <div>
-        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
     <div>
-        <label for="prefit_selectSpecies">Species</label>
-        <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
+        <label for="pretransect_selectTransects">Transects</label>
+        <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
         </select>
     </div>
     <div>
-        <button id="prefit_buttonSave">Save</button>
-        <button id="prefit_buttonCancel">Cancel</button>
+        <button id="pretransect_buttonSave">Save</button>
+        <button id="pretransect_buttonCancel">Cancel</button>
     </div>
     `;
 
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['123key'], translations['456key']);
     
-    // Populate the list of species (if in usercancount) and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (value['speciesgroupId'] == 4) // Note that the ID might change in the future
-        {
-            $('#prefit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
-        }
+    for (var i = 0 ; i < transects.length; i++)
+    {
+        $('#pretransect_selectTransects').append(`<option value="` + transects[i].id + `">` + transects[i].name + `</option>`); 
+    }
+    $.each(transects, function(key, value) 
+    {
     });
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
-    document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
+    document.getElementById("pretransect_buttonSave").onclick = function () 
+    {
+        visit.transect_id = document.getElementById('pretransect_selectTransects').value;
+        showTransectObservationScreen(); 
+    };
+    document.getElementById("pretransect_buttonCancel").onclick = function () { showHomeScreen(); };
 }
 
 const showTransectObservationScreen = () =>

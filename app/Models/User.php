@@ -219,7 +219,7 @@ class User extends Authenticatable
                 $singleSections[$sec->id] = $singleSec;
             }
             $singleTransect['sections'] = $singleSections;
-            $transects = $singleTransect;
+            $transects[] = $singleTransect;
         }
 
         $allKeys = \App\Models\Language::all();

@@ -181,6 +181,40 @@ function buildEmptyObservation(visit)
     theObservation['observationtime'] = -1;
     return theObservation;
 }
+function addObservationToVisit(speciesId, amount, location, stackNumbers = true, transectSectionId =-1)
+{
+    found = false;
+    if (stackNumbers)
+    {
+        for (var i = 0 ; i < visit.observations.length; i++)
+        {
+            if (visit.observations[i].speciesId == speciesId)
+            {
+                if (visit.observations[i].transect_section_id == transectSectionId)
+                {
+                    visit.observations[i].amount = visit.observations[i].amount + amount;
+                    if (visit.observations[i].amount < 1)
+                    {
+                        visit.observations = visit.observations.splice(i, 1); //remove observation
+                    }
+                    found = true;
+                }
+            }
+        }
+    }
+    if (!found)
+    {
+        var obs = buildEmptyObservation();
+        obs.species_id = speciesId;
+        obs.number = amount;
+        obs.location = location;
+        obs.observationtime  = new Date();
+        obs.transect_section_id = transectSectionId;
+        visit.observations.push(obs);
+    }
+
+}
+
 function storeVisit(visit)
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);

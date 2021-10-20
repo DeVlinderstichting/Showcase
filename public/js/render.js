@@ -875,6 +875,12 @@ const showTransectObservationScreen = () =>
 
     function transectChange() {
         transectObs = Object.values(visit.observations).filter(obj => {return obj.transect_section_id == $('#transect_transLabel').attr('data_id')});
+        $('[id*=transect_inputAmount]').each(function () {
+            $(this).val('');
+        });
+        transectObs.forEach(element => {
+            $('#transect_inputAmount_'+element.species_id).val(element.number);
+        });
         console.log(transectObs);
     }
 
@@ -916,9 +922,6 @@ const showTransectObservationScreen = () =>
             }
         }
     });
-
-
-
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) 

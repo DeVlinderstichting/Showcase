@@ -446,8 +446,46 @@ const show15mPostObservationScreen = () =>
     });
 
     // Attach the events
-    document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; 
-    document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() };
+    document.getElementById("15mpost_buttonSave").onclick = function () 
+    {  
+        var wind = document.getElementById('15mpost_selectWind').value;
+        var cloud = document.getElementById('15mpost_selectClouds').value;
+        var temp = document.getElementById('15mpost_inputTemperature').value;
+        var notes = document.getElementById('15mpost_textareaNotes').value;
+
+        var settings = getUserSettings();
+        var speciesGroups = settings.speciesGroups;
+        var speciesGroupsUsers = settings.userSettings.speciesGroupsUsers;
+        var method = [];
+
+        Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
+        {
+            var id = "15mpost_checkSpeciesGroup_"+element.id;
+            var isChecked = document.getElementById(id).checked;
+            if (isChecked)
+            {
+                var recordingLevel = "all";
+                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                {
+                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    {
+                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                    }
+                }
+                
+                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                method.push(methodLine);
+            }
+        });
+        visit.method = method;
+        visit.notes = notes;
+        visit.wind = wind;
+        visit.temperature = temp;
+        visit.cloud = cloud;
+
+        storeTimedCount();
+    }; 
+    document.getElementById("15mpost_buttonCancel").onclick = function () { show15mObservationScreen() };
 }
 
 const showFitPreObservationScreen = () =>
@@ -588,8 +626,6 @@ const showFitObservationScreen = () =>
             addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
         });
     }
-
- 
 }
 
 const showFitPostObservationScreen = () =>
@@ -702,7 +738,45 @@ const showFitPostObservationScreen = () =>
     });
 
     // Attach the events
-    document.getElementById("fit_buttonSave").onclick = function () {  storeFitCount() }; 
+    document.getElementById("fit_buttonSave").onclick = function () 
+    {  
+        var wind = document.getElementById('fit_selectWind').value;
+        var cloud = document.getElementById('fit_selectClouds').value;
+        var temp = document.getElementById('fit_inputTemperature').value;
+        var notes = document.getElementById('fit_textareaNotes').value;
+
+        var settings = getUserSettings();
+        var speciesGroups = settings.speciesGroups;
+        var speciesGroupsUsers = settings.userSettings.speciesGroupsUsers;
+        var method = [];
+
+        Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
+        {
+            var id = "fit_checkSpeciesGroup_"+element.id;
+            var isChecked = document.getElementById(id).checked;
+            if (isChecked)
+            {
+                var recordingLevel = "all";
+                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                {
+                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    {
+                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                    }
+                }
+                
+                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                method.push(methodLine);
+            }
+        });
+        visit.method = method;
+        visit.notes = notes;
+        visit.wind = wind;
+        visit.temperature = temp;
+        visit.cloud = cloud;
+
+        storeFitCount();
+    }; 
     document.getElementById("fit_buttonCancel").onclick = function () {  showFitObservationScreen() }; 
 }
 
@@ -847,7 +921,8 @@ const showTransectObservationScreen = () =>
 
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) {
+    $.each(species, function(key, value) 
+    {
         if (countIds.includes(value['speciesgroupId']))
         {
             $('#transect_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);

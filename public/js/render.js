@@ -293,7 +293,6 @@ const show15mObservationScreen = () =>
             $('.delete_obs').click( function () {
                 timeToDelete = $(this).get(0).attributes.data_time.value;
                 speciesToDelete = $(this).get(0).attributes.data_speciesid.value;
-                console.log(timeToDelete);
                 canDelete = true;
                 visit['observations'] = visit['observations'].filter(obj => {
                     if (canDelete)
@@ -881,7 +880,6 @@ const showTransectObservationScreen = () =>
         transectObs.forEach(element => {
             $('#transect_inputAmount_'+element.species_id).val(element.number);
         });
-        console.log(transectObs);
     }
 
     var sectionIndex = 0;
@@ -980,9 +978,8 @@ const showTransectPostObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
     var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
-    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM
     renderNav(clear=true);

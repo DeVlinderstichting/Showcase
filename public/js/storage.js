@@ -165,7 +165,6 @@ function buildEmptyVisit()
     theVisit['cloud'] = '';
     theVisit['transect_id'] = '';
     theVisit['flower_id'] = '';
-    theVisit['flower_id'] = '';
     theVisit['observations'] = [];
     theVisit['method'] = settings.userSettings['speciesGroupsUsers'];
 
@@ -217,6 +216,7 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = true,
 
 function storeVisit(visit)
 {
+    visit.enddate = new Date();
     var req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onerror = function (evnt) 
     {

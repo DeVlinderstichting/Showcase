@@ -34,6 +34,7 @@ function setupDatabase()
         var visitsStore = db.createObjectStore(DB_STORE_NAME_VISITS, { keyPath: 'startdate'});
         var tempDat = [];
         tempDat['userSettings'] = {"accessToken": ""};
+        tempDat['transects'] = [];
         var emtpySettings = {'name': 'settings', 'data': tempDat};
         settingsStore.add(emtpySettings);
         userSettings = tempDat;
@@ -65,36 +66,31 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
-            storeUserPackage(data);
-            if (sendBackHome == true)
-            {
-                showHomeScreen();
-            }
+            storeUserPackage(data, sendBackHome);
         }
     });
 }
 
-function storeUserPackage(data)
+function storeUserPackage(data, sendBackHome = false)
 {
     storeSettingsData('settings', data);
-    userSettings = getUserSettings();
+    userSettings = getUserSettings(sendBackHome);
 }
 
-function getUserSettings()
+function getUserSettings(sendBackHome = false)
 {
-    
     if (typeof userSettings === 'undefined')
     {
-        loadUserSettings();
+        loadUserSettings(sendBackHome);
     }
     else if (userSettings.userSettings['accessToken'].length < 30)
     {
-        loadUserSettings();
+        loadUserSettings(sendBackHome);
     }
     return userSettings;
 }
 
-function loadUserSettings() 
+function loadUserSettings(sendBackHome = false) 
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);
     
@@ -112,6 +108,10 @@ function loadUserSettings()
         settingsRequest.onsuccess = function(evnt)
         {
             userSettings = JSON.parse(settingsRequest.result.data);
+            if (sendBackHome == true)
+            {
+                showHomeScreen();
+            }
         }
     };
 }

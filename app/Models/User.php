@@ -72,7 +72,7 @@ class User extends Authenticatable
 
     public function transects()
     {
-        return $this->hasManyThrough('App\Models\Transect', 'App\Models\TransectsUsers', 'transect_id', 'id', 'user_id', 'id');
+        return $this->belongsToMany('App\Models\Transect', 'transects_users', 'user_id', 'transect_id');
     }
 
     public function photos()

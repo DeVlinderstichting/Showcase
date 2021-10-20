@@ -32,7 +32,10 @@ class TestDataSeeder extends Seeder
           //  $region->species()->attach($sp);
         }
 
-        
-
+        $tr = \App\Models\Transect::create(['name' => 'testTransect']);
+        \App\Models\TransectSections::create(['name' => '1', 'transect_id' => $tr->id, 'sequence' => '1']);
+        \App\Models\TransectSections::create(['name' => '2', 'transect_id' => $tr->id, 'sequence' => '2']);
+        \App\Models\TransectSections::create(['name' => '3', 'transect_id' => $tr->id, 'sequence' => '3']);        
+        \App\Models\TransectsUsers::create(['transect_id'=> $tr->id, 'user_id' => $user->id]);
     }
 }

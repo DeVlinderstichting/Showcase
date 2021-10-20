@@ -69,12 +69,7 @@ var mb = document.getElementById('mainBody');
         <div>
             <label for="login_emailField">Password: 
             <input type="password" id="login_passField" name="login_passField" required size="10">
-        </div>
-        <div>
-            <input type="checkbox" id="login_rememberField" name="login_rememberField">
-            <label for="login_rememberField">Remember me</label>
-        </div>
-        
+        </div>        
         <button type="button" id="login_loginButton">Inloggen</button>`;
 
     // Attach the events
@@ -87,19 +82,27 @@ const showHomeScreen = () =>
 
     // Build the DOM
     var mb = document.getElementById('mainBody');
-    mb.innerHTML = `
-    <div>
-        <button id="home_specialButton">Something special</button>
-    </div>
-    <div>
-        <button id="home_15Button">15 min</button>
-    </div>
-    <div>
-        <button id="home_transectButton">Transect</button>
-    </div>
-    <div>
-        <button id="home_fitButton">Fit</button>
-    </div>`;
+    theHtml = `
+        <div>
+            <button id="home_specialButton">Something special</button>
+        </div>
+        <div>
+            <button id="home_15Button">15 min</button>
+        </div>`;
+
+    var settings = getUserSettings();
+    if (!($.isEmptyObject(settings.transects)))
+    {
+        theHtml += `
+            <div>
+                <button id="home_transectButton">Transect</button>
+            </div>`;
+    }
+    theHtml += `
+        <div>
+            <button id="home_fitButton">Fit</button>
+        </div>`;
+    mb.innerHTML = theHtml;
 
     // Attach the events
     document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
@@ -457,10 +460,60 @@ const showFitObservationScreen = () =>
         addObservationToVisit(spId, num, trackedLocations[trackedLocations.length - 1]);
     });    
 }
+const showFitPostObservationScreen = () =>
+{
+
+}
+
+const showTransectPreObservationScreen = () => 
+{
+    initAnyCount(3);
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="prefit_title">Title</h2>
+    <h3 id="prefit_subtitle">Subtitle</h3>
+    <div>
+        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <div>
+        <label for="prefit_selectSpecies">Species</label>
+        <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
+        </select>
+    </div>
+    <div>
+        <button id="prefit_buttonSave">Save</button>
+        <button id="prefit_buttonCancel">Cancel</button>
+    </div>
+    `;
+
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    
+    // Populate the list of species (if in usercancount) and attach the chosen selector
+    $.each(species, function(key, value) {
+        if (value['speciesgroupId'] == 4) // Note that the ID might change in the future
+        {
+            $('#prefit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
+    });
+    $('.chosen-select').select2();
+
+    // Attach the events
+    document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
+    document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
+}
 
 const showTransectObservationScreen = () =>
 {
-    initAnyCount(3);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;

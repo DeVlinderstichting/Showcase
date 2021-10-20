@@ -20,6 +20,7 @@ class CreateSpeciesgroupsTable extends Migration
             $table->text('name')->unique();
             $table->text('description');
             $table->boolean('usercancount');
+            $table->unsignedBigInteger('defaultspecies_id')->nullable();
         });
     }
 

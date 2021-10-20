@@ -66,18 +66,11 @@ function storeFitCount()
     showHomeScreen();
 }
 
-
 function storeTransectCount()
 {
-    visit = buildEmptyVisit();
-    speciesCounts = [];
-    var elem = document.getElementById('15m_listSpecies');
-    $("[id*='15m_inputAmount_']").each(function ()
-    {
-        var spid = $(this)[0].id.replace("15m_inputAmount_", "");; 
-        speciesCounts.push({"spid": spid, "amount": $(this)[0].value});
-    });
-    console.log(speciesCounts);
+    visit.location = JSON.stringify(trackedLocations);
+    storeVisit(visit);
+    showHomeScreen();
 }
 
 

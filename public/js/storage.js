@@ -7,6 +7,7 @@ var userSettings;
 var userLanguage;
 var visit;
 var visits;
+var visitsLoadedAtDate;
 
 function debugTestInit()
 {
@@ -218,7 +219,6 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
         obs.transect_section_id = transectSectionId;
         visit.observations.push(obs);
     }
-
 }
 
 function storeVisit(visit)
@@ -274,11 +274,16 @@ function loadVisits()
         visitsRequest = store.getAll();
         visitsRequest.onsuccess = function(evnt)
         {
+            visitsLoadedAtDate = new Date();
             console.log(visitsRequest.result);
             //visits = JSON.parse(visitsRequest.result);
             //console.log(visits);
         }
     };
+}
+function buildPackage()
+{
+    
 }
 
 

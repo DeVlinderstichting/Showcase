@@ -716,7 +716,6 @@ const showFitPostObservationScreen = () =>
     // Attach the events
     document.getElementById("fit_buttonSave").onclick = function () {  storeFitCount() }; 
     document.getElementById("fit_buttonCancel").onclick = function () {  showFitObservationScreen() }; 
-
 }
 
 const showTransectPreObservationScreen = () => 
@@ -814,7 +813,7 @@ const showTransectObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("transect_buttonSave").onclick = function () { }; 
+    document.getElementById("transect_buttonSave").onclick = function () { showTransectPostObservationScreen(); }; 
     document.getElementById("transect_buttonCancel").onclick = function () { showHomeScreen(); };
 
     $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)); } );
@@ -849,4 +848,118 @@ const showTransectObservationScreen = () =>
             elem.value = elem.value.replace(/\D/g,'');
         });
     }
+}
+
+const showTransectPostObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+
+    // Build the DOM
+    renderNav(clear=true);
+    
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="transect_title">Title</h2>
+    <h3 id="transect_subtitle">Subtitle</h3>
+    <div>
+        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="transect_countedGroupsText">Counted groups</h3>
+    <div id="transect_countedGroupsContainer"></div>
+    <h3 id="transect_weatherText">Weather</h3>
+    <div id="transect_weatherContainer"></div>
+    <h3 id="transect_notesText">Notes</h3>
+    <textarea id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
+    <div>
+        <button id="transect_buttonSave">Save</button>
+        <button id="transect_buttonCancel">Cancel</button>
+    </div>
+    `
+    // Attach the modals
+    // Info
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Attach the contents of the species group container
+    speciesGroupsHtml = '<ul>';
+    Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
+        if (observedGroupIds.includes(element.id))
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}" checked disabled>
+                <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+        else
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}">
+                <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+
+    });
+    speciesGroupsHtml += '</ul>';
+    $('#transect_countedGroupsContainer').html(speciesGroupsHtml);
+
+    // Attach the contents of the weather container
+    weatherHtml = 
+    `
+    <h4 id="transect_temperatureText">Temperature</h4>
+    <button id="transect_minTemperature" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
+    <input id="transect_inputTemperature" name="transect_inputTemperature" value=0>
+    <button id="transect_plusTemperature" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
+    <h4 id="transect_windText">Wind</h4>
+    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+    </select>
+    <h4 id="transect_cloudsText">Clouds</h4>
+    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1/8</option>
+        <option value=2>2/8</option>
+        <option value=3>3/8</option>
+        <option value=4>4/8</option>
+        <option value=5>5/8</option>
+        <option value=6>6/8</option>
+        <option value=7>7/8</option>
+        <option value=8>8/8</option>
+    </select>
+    `;
+
+    $('#transect_weatherContainer').html(weatherHtml);
+
+    // Make sure we get proper input on change of the number input
+    $(`#transect_inputTemperature`).change( function () 
+    {
+        elem = $(this).get(0);
+        if (!isNaN(elem.value))
+        {
+            elem.value = parseInt(elem.value);
+        }
+        if (elem.value.match(/^-?[0-9]+/g))
+        {
+            elem.value = elem.value.match(/^-?[0-9]+/g);
+        }
+        else
+        {
+            elem.value = '';
+        }
+    });
+
+    // Attach the events
+    document.getElementById("transect_buttonSave").onclick = function () {  storeTransectCount() }; 
+    document.getElementById("transect_buttonCancel").onclick = function () {  showTransectObservationScreen() }; 
 }

@@ -41,12 +41,19 @@ function storeSingleObservation()
         showHomeScreen();
     }
 }
-function storeTimedCount()
+function storeTimedCount(observations)
 {
-    
+    visit.location = JSON.stringify(trackedLocations);
+    visit.observations.push(observations);
+    storeVisit(visit);
+    showHomeScreen();
 }
+
+
+
 function storeTransectCount()
 {
+    visit = buildEmptyVisit();
     speciesCounts = [];
     var elem = document.getElementById('15m_listSpecies');
     $("[id*='15m_inputAmount_']").each(function ()

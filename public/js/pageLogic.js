@@ -43,11 +43,10 @@ function storeSingleObservation()
 }
 function storeTimedCount()
 {
-
+    
 }
 function storeTransectCount()
 {
-    visit = buildEmptyVisit();
     speciesCounts = [];
     var elem = document.getElementById('15m_listSpecies');
     $("[id*='15m_inputAmount_']").each(function ()

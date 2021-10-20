@@ -34,6 +34,7 @@ function setupDatabase()
         var visitsStore = db.createObjectStore(DB_STORE_NAME_VISITS, { keyPath: 'startdate'});
         var tempDat = [];
         tempDat['userSettings'] = {"accessToken": ""};
+        tempDat['transects'] = [];
         var emtpySettings = {'name': 'settings', 'data': tempDat};
         settingsStore.add(emtpySettings);
         userSettings = tempDat;
@@ -65,36 +66,31 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
-            storeUserPackage(data);
-            if (sendBackHome == true)
-            {
-                showHomeScreen();
-            }
+            storeUserPackage(data, sendBackHome);
         }
     });
 }
 
-function storeUserPackage(data)
+function storeUserPackage(data, sendBackHome = false)
 {
     storeSettingsData('settings', data);
-    userSettings = getUserSettings();
+    userSettings = getUserSettings(sendBackHome);
 }
 
-function getUserSettings()
+function getUserSettings(sendBackHome = false)
 {
-    
     if (typeof userSettings === 'undefined')
     {
-        loadUserSettings();
+        loadUserSettings(sendBackHome);
     }
     else if (userSettings.userSettings['accessToken'].length < 30)
     {
-        loadUserSettings();
+        loadUserSettings(sendBackHome);
     }
     return userSettings;
 }
 
-function loadUserSettings() 
+function loadUserSettings(sendBackHome = false) 
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);
     
@@ -112,6 +108,10 @@ function loadUserSettings()
         settingsRequest.onsuccess = function(evnt)
         {
             userSettings = JSON.parse(settingsRequest.result.data);
+            if (sendBackHome == true)
+            {
+                showHomeScreen();
+            }
         }
     };
 }
@@ -180,10 +180,10 @@ function buildEmptyObservation(visit)
     theObservation['observationtime'] = -1;
     return theObservation;
 }
-function addObservationToVisit(speciesId, amount, location, stackNumbers = true, transectSectionId =-1)
+function addObservationToVisit(speciesId, amount, location, stackNumbers = "add", transectSectionId =-1)
 {
     found = false;
-    if (stackNumbers)
+    if ((stackNumbers == "add") || (stackNumbers == "put"))
     {
         for (var i = 0 ; i < visit.observations.length; i++)
         {
@@ -191,7 +191,14 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = true,
             {
                 if (visit.observations[i].transect_section_id == transectSectionId)
                 {
-                    visit.observations[i].amount = visit.observations[i].amount + amount;
+                    if (stackNumbers == "add")
+                    {
+                        visit.observations[i].amount = visit.observations[i].amount + amount;
+                    }
+                    if (stackNumbers == "put")
+                    {
+                        visit.observations[i].amount = amount;
+                    }
                     if (visit.observations[i].amount < 1)
                     {
                         visit.observations = visit.observations.splice(i, 1); //remove observation

@@ -22,7 +22,7 @@ class CreateTransectSectionsTable extends Migration
             $table->foreign('transect_id')->references('id')->on('transects')->onDelete('cascade');
             $table->index('transect_id');
             $table->integer('sequence');
-            $table->GEOMETRY('location');
+            $table->GEOMETRY('location')->nullable();
         });
     }
 

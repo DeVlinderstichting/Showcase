@@ -187,19 +187,19 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
     {
         for (var i = 0 ; i < visit.observations.length; i++)
         {
-            if (visit.observations[i].speciesId == speciesId)
+            if (visit.observations[i].species_id == speciesId)
             {
                 if (visit.observations[i].transect_section_id == transectSectionId)
                 {
                     if (stackNumbers == "add")
                     {
-                        visit.observations[i].amount = visit.observations[i].amount + amount;
+                        visit.observations[i].number = visit.observations[i].number + amount;
                     }
                     if (stackNumbers == "put")
                     {
-                        visit.observations[i].amount = amount;
+                        visit.observations[i].number = amount;
                     }
-                    if (visit.observations[i].amount < 1)
+                    if (visit.observations[i].number < 1)
                     {
                         visit.observations = visit.observations.splice(i, 1); //remove observation
                     }

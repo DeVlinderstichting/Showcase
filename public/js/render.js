@@ -309,77 +309,11 @@ const show15mObservationScreen = () =>
         });
 
     }
-    
-    // The stopwatch logic with location tracker
-    var stopwatchMinutes = 15;
-    var stopwatchCurrentTime;
-    var stopwatchFutureTime;
-    var stopWatchTimer;
-    var stopWatchRunning = false;
-    var stopWatchTimeLeft = stopwatchMinutes*60000;
-
-    function startTimer() 
-    {
-        stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
-        if (!stopWatchTimer || !stopWatchRunning)
-        {
-            stopWatchTimer = setInterval(timer, 100);
-            stopWatchRunning = true;
-            startTracking();
-        }
-    }
-
-    function timer() 
-    {
-        var d = new Date();
-        stopWatchTimeLeft = stopwatchFutureTime - d;
-        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        if (stopWatchTimeLeft < 0)
-        {
-            stopTimer();
-            stopWatchTimeLeft = 0;
-            document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        }
-    }
-
-    function stopTimer() 
-    {
-        clearInterval(stopWatchTimer)
-        stopWatchRunning = false;
-        stopTracking();
-    }
-
-    function resetTimer()
-    {
-        stopWatchTimeLeft = stopwatchMinutes*60000;
-        stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
-        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        trackedLocations = [];
-    }
-
-    function pad(n, z) 
-    {
-        z = z || 2;
-        return ('00' + n).slice(-z);
-    }
-
-    function msToTime(s) 
-    {
-        var ms = s % 1000;
-        s = (s - ms) / 1000;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
-        var hrs = (s - mins) / 60;
-      
-        return  pad(mins) + ':' + pad(secs);
-    }
 }
 
 const showFitPreObservationScreen = () =>
 {
+    initAnyCount();
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -422,6 +356,104 @@ const showFitPreObservationScreen = () =>
     // Attach the events
     document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
+}
+const showFitObservationScreen = () =>
+{
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    obsfit = [];
+    renderNav();
+    // Build the DOM
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="15m_title">Title</h2>
+    <h3 id="15m_subtitle">Subtitle</h3>
+    <div>
+        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="fit_stopwatchText">Start counting</h3>
+    <div>
+        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
+    </div>
+    <h3 id="fit_speciesText">Species</h3>
+    <div>
+        <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+            <option value=""></option>
+        </select>
+    </div>
+    <ul id="fit_listSpecies">
+
+    </ul>
+    <div>
+        <button id="fit_buttonSave">Save</button>
+        <button id="fit_buttonCancel">Cancel</button>
+    </div>
+    `;
+    
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Populate the list of species and attach the chosen selector
+    $.each(species, function(key, value) {
+        if (countIds.includes(value['speciesgroupId']))
+        {
+            $('#fit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+        }
+    });
+
+    $('.chosen-select').select2();
+
+    document.getElementById("fit_buttonSave").onclick = function () {  stopTimer(); storeFitCount(); }; //stopTimer, just in case it was still going
+    document.getElementById("fit_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
+    document.getElementById("startTimer").onclick = function () { startTimer(); };
+    document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
+    document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+
+    $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+
+    function addSpeciesToList (element)
+    {
+        var settings = getUserSettings();
+        var species = settings.species;
+        var speciesId = element[0].value;
+        var speciesInfo = species[speciesId];
+        $('#fit_listSpecies').append(`
+            <li>${speciesInfo['localName']}
+                <button id="fit_minAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
+                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=1>
+                <button id="fit_plusAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
+            </li>
+        `)
+        $(`#fit_selectSpecies option[value='${speciesInfo['id']}']`).remove();
+        addObservationToVisit(speciesId, 1, trackedLocations[trackedLocations.length - 1]);
+
+        // Make sure we get proper input on change of the number input
+        $(`#fit_inputAmount_${speciesInfo['id']}`).change( function () 
+        {
+            elem = $(this).get(0);
+            if (!isNaN(elem.value))
+            {
+                elem.value = parseInt(elem.value);
+            }
+            if (elem.value < 0)
+            {
+                elem.value = 0;
+            }
+            elem.value = elem.value.replace(/\D/g,'');
+        });
+    }
+
+
+
+    $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
+    {
+        var spId = $(this).get(0).id.replace("fit_plusAmount_", "");
+        var num = document.getElementById('fit_inputAmount_' . spId).value;
+        addObservationToVisit(spId, num, trackedLocations[trackedLocations.length - 1]);
+    });    
 }
 
 const showTransectObservationScreen = () =>

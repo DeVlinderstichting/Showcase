@@ -114,7 +114,10 @@ const showHomeScreen = () =>
     // Attach the events; initialize the count and show the specific observation screen
     document.getElementById("home_specialButton").onclick = function () { initAnyCount(1); showSpecialObservationScreen(); };
     document.getElementById("home_15Button").onclick = function () { initAnyCount(2); show15mObservationScreen(); };
-    document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectPreObservationScreen(); };
+    if (!($.isEmptyObject(settings.transects)))
+    {
+        document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectPreObservationScreen(); };
+    }
     document.getElementById("home_fitButton").onclick = function () { initAnyCount(4); showFitPreObservationScreen(); };
 }
 

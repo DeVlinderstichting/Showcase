@@ -681,7 +681,6 @@ const showFitPostObservationScreen = () =>
                 <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
             </li>`
         }
-
     });
     speciesGroupsHtml += '</ul>';
     $('#fit_countedGroupsContainer').html(speciesGroupsHtml);
@@ -1080,6 +1079,44 @@ const showTransectPostObservationScreen = () =>
     });
 
     // Attach the events
-    document.getElementById("transect_buttonSave").onclick = function () {  storeTransectCount() }; 
+    document.getElementById("transect_buttonSave").onclick = function () 
+    {  
+        var wind = document.getElementById('transect_selectWind').value;
+        var cloud = document.getElementById('transect_selectClouds').value;
+        var temp = document.getElementById('transect_inputTemperature').value;
+        var notes = document.getElementById('transect_textareaNotes').value;
+
+        var settings = getUserSettings();
+        var speciesGroups = settings.speciesGroups;
+        var speciesGroupsUsers = settings.userSettings.speciesGroupsUsers;
+        var method = [];
+
+        Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
+        {
+            var id = "transect_checkSpeciesGroup_"+element.id;
+            var isChecked = document.getElementById(id).checked;
+            if (isChecked)
+            {
+                var recordingLevel = "all";
+                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                {
+                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    {
+                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                    }
+                }
+                
+                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                method.push(methodLine);
+            }
+        });
+        visit.method = method;
+        visit.notes = notes;
+        visit.wind = wind;
+        visit.temperature = temp;
+        visit.cloud = cloud;
+
+        storeTransectCount();
+    }; 
     document.getElementById("transect_buttonCancel").onclick = function () {  showTransectObservationScreen() }; 
 }

@@ -16,9 +16,68 @@ class SpeciesSeeder extends Seeder
         //first create the speciesgroups
 
         $bfSpGroup = \App\Models\Speciesgroup::create(['name' => 'butterflies', 'description' => 'butterflies', 'usercancount' => true]);
-        \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true]);
-        \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true]);
+        $defBf = \App\Models\Species::create([
+            'genus' => 'lepidoptera',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/lepidoptera',
+            'speciesgroup_id' => $bfSpGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'butterflies',
+       //     'imagelocation' => '',
+            'nlname' => 'vlinders',
+            'enname' => 'butterflies' 
+        ]);
+        $bfSpGroup->defaultspecies_id = $defBf->id;
+
+        $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true]);
+        $defMoth = \App\Models\Species::create([
+            'genus' => 'heterocera',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/heterocera',
+            'speciesgroup_id' => $mothSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'moths',
+       //     'imagelocation' => '',
+            'nlname' => 'nachtvlinders',
+            'enname' => 'moths' 
+        ]);
+        $mothSpeciesGroup->defaultspecies_id = $defMoth->id;
+
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true]);
+        $defBee = \App\Models\Species::create([
+            'genus' => 'apoidea',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/apoidea',
+            'speciesgroup_id' => $beesSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'bees',
+       //     'imagelocation' => '',
+            'nlname' => 'bijen',
+            'enname' => 'bees' 
+        ]);
+        $beesSpeciesGroup->defaultspecies_id = $defBee->id;
+
         $plantSpGroup = \App\Models\Speciesgroup::create(['name' => 'plants', 'description' => 'plants', 'usercancount' => false]);
+        $defPlant = \App\Models\Species::create([
+            'genus' => 'plantae',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/plantae',
+            'speciesgroup_id' => $plantSpGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'plants',
+       //     'imagelocation' => '',
+            'nlname' => 'planten',
+            'enname' => 'plant' 
+        ]);
+        $plantSpGroup->defaultspecies_id = $defPlant->id;
 
         //create the species for each group 
         \App\Models\Species::create([

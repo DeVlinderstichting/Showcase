@@ -587,13 +587,13 @@ const showFitObservationScreen = () =>
         $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
         {
             var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
-            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1]);
+            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1], 'put');
         });   
 
         $(`#fit_minAmount_${speciesInfo['id']}`).click( function () 
         {
             var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
-            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1]);
+            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1], 'put');
         });   
 
     }
@@ -713,10 +713,6 @@ const showFitPostObservationScreen = () =>
     // Attach the events
     document.getElementById("fit_buttonSave").onclick = function () {  storeFitCount() }; 
     document.getElementById("fit_buttonCancel").onclick = function () {  showFitObservationScreen() }; 
-
-}
-const showFitPostObservationScreen = () =>
-{
 
 }
 

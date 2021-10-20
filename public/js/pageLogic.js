@@ -1,10 +1,20 @@
 locationAttemptCounter = 0;
 
-function initAnyCount()
+/*
+countingmethodIds:
+single = 1
+timed = 2
+transect = 3 
+fit = 4
+*/
+function initAnyCount(countingMethod)
 {
     visit = buildEmptyVisit();
+    visit.countingmethod_id = countingMethod;
     trackedLocations = [];
 }
+
+
 
 function storeSingleObservation()
 {
@@ -47,7 +57,12 @@ function storeTimedCount()
     storeVisit(visit);
     showHomeScreen();
 }
-
+function storeFitCount()
+{
+    visit.location = JSON.stringify(trackedLocations);
+    storeVisit(visit);
+    showHomeScreen();
+}
 
 
 function storeTransectCount()

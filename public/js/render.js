@@ -110,6 +110,7 @@ const showHomeScreen = () =>
 
 const showSpecialObservationScreen = () =>
 {
+    initAnyCount(1);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -177,7 +178,7 @@ const showSpecialObservationScreen = () =>
 
 const show15mObservationScreen = () =>
 {
-    initAnyCount();
+    initAnyCount(2);
 
     // Get the settings and species
     var settings = getUserSettings();
@@ -229,7 +230,8 @@ const show15mObservationScreen = () =>
     , 'restart_timer');
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) {
+    $.each(species, function(key, value) 
+    {
         if (countIds.includes(value['speciesgroupId']))
         {
             $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
@@ -324,7 +326,7 @@ const show15mObservationScreen = () =>
 
 const showFitPreObservationScreen = () =>
 {
-    initAnyCount();
+    initAnyCount(4);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -469,6 +471,7 @@ const showFitObservationScreen = () =>
 
 const showTransectObservationScreen = () =>
 {
+    initAnyCount(3);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;

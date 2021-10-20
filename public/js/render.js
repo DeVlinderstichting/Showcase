@@ -214,9 +214,19 @@ const show15mObservationScreen = () =>
     </div>
     `;
     
-    // Attach the modal
+    // Attach the modals
+    // Info
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    // No tracking message
     mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    // Restart timer question
+    mb.innerHTML += renderModal('Note',
+    `
+        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        <br>
+        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+    `
+    , 'restart_timer');
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
@@ -232,7 +242,8 @@ const show15mObservationScreen = () =>
     document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
-    document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+    document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
+    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
     $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)); } );
 
     function addSpeciesToList (element)

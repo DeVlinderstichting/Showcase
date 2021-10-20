@@ -111,6 +111,7 @@ function storeTransectCount()
         stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
         document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
         trackedLocations = [];
+        visit['observations'] = [];
     }
 
     function pad(n, z) 

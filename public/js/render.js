@@ -585,20 +585,8 @@ const showFitObservationScreen = () =>
                 elem.value = 0;
             }
             elem.value = elem.value.replace(/\D/g,'');
+            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
         });
-
-        $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
-        {
-            var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
-            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1], 'put');
-        });   
-
-        $(`#fit_minAmount_${speciesInfo['id']}`).click( function () 
-        {
-            var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
-            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1], 'put');
-        });   
-
     }
 
  
@@ -775,6 +763,8 @@ const showTransectObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var transectSections = settings.transects.filter(obj => {return obj.id == visit.transect_id})[0]['sections'];
+    var transectSections = Object.values(transectSections).sort(dynamicSort('sequence'));
 
     renderNav();
     // Build the DOM
@@ -785,6 +775,10 @@ const showTransectObservationScreen = () =>
     <div>
         <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
+    <h3 id="transect_speciesText">Section</h3>
+    <button id="transect_prevTransButton" disabled> < </button>
+    <span id="transect_transLabel" data_id="${transectSections[0].id}">${transectSections[0].name}</span>
+    <button id="transect_nextTransButton"> > </button>
     <h3 id="transect_speciesText">Species</h3>
     <div>
         <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="Select a species..." tabindex="1">
@@ -802,6 +796,55 @@ const showTransectObservationScreen = () =>
     
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Build the transect selector logic
+
+    function transectChange() {
+        transectObs = Object.values(visit.observations).filter(obj => {return obj.transect_section_id == $('#transect_transLabel').attr('data_id')});
+        console.log(transectObs);
+    }
+
+    var sectionIndex = 0;
+    $('#transect_prevTransButton').click( function () {
+        if (sectionIndex == 0)
+        {
+            return
+        }
+        else
+        {
+            sectionIndex--;
+            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
+            $('#transect_nextTransButton').removeAttr("disabled");
+            transectChange();
+            if (sectionIndex == 0)
+            {
+                $(this).prop('disabled', true);
+            }
+
+        }
+    });
+    $('#transect_nextTransButton').click( function () {
+        if (sectionIndex == transectSections.length-1)
+        {
+            return
+        }
+        else
+        {
+            sectionIndex++;
+            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
+            $('#transect_prevTransButton').removeAttr("disabled");
+            transectChange();
+            if (sectionIndex == transectSections.length-1)
+            {
+                $(this).prop('disabled', true);
+            }
+        }
+    });
+
+
+
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
@@ -846,6 +889,8 @@ const showTransectObservationScreen = () =>
                 elem.value = 0;
             }
             elem.value = elem.value.replace(/\D/g,'');
+            transectSectionId = $('#transect_transLabel').get(0).attributes.data_id.value;
+            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put', transectSectionId = transectSectionId);
         });
     }
 }

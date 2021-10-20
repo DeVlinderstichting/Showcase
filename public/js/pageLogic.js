@@ -82,69 +82,84 @@ function storeTransectCount()
 
 
 // The stopwatch logic with location tracker
-    var stopwatchMinutes = 15;
-    var stopwatchCurrentTime;
-    var stopwatchFutureTime;
-    var stopWatchTimer;
-    var stopWatchRunning = false;
-    var stopWatchTimeLeft = stopwatchMinutes*60000;
+var stopwatchMinutes = 15;
+var stopwatchCurrentTime;
+var stopwatchFutureTime;
+var stopWatchTimer;
+var stopWatchRunning = false;
+var stopWatchTimeLeft = stopwatchMinutes*60000;
 
-    function startTimer() 
+function startTimer() 
+{
+    stopwatchCurrentTime = new Date();
+    stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+    if (!stopWatchTimer || !stopWatchRunning)
     {
-        stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
-        if (!stopWatchTimer || !stopWatchRunning)
-        {
-            stopWatchTimer = setInterval(timer, 100);
-            stopWatchRunning = true;
-            startTracking();
-        }
+        stopWatchTimer = setInterval(timer, 100);
+        stopWatchRunning = true;
+        startTracking();
     }
+}
 
-    function timer() 
+function timer() 
+{
+    var d = new Date();
+    stopWatchTimeLeft = stopwatchFutureTime - d;
+    document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    if (stopWatchTimeLeft < 0)
     {
-        var d = new Date();
-        stopWatchTimeLeft = stopwatchFutureTime - d;
+        stopTimer();
+        stopWatchTimeLeft = 0;
         document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        if (stopWatchTimeLeft < 0)
-        {
-            stopTimer();
-            stopWatchTimeLeft = 0;
-            document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        }
     }
+}
 
-    function stopTimer() 
-    {
-        clearInterval(stopWatchTimer)
-        stopWatchRunning = false;
-        stopTracking();
-    }
+function stopTimer() 
+{
+    clearInterval(stopWatchTimer)
+    stopWatchRunning = false;
+    stopTracking();
+}
 
-    function resetTimer()
-    {
-        stopWatchTimeLeft = stopwatchMinutes*60000;
-        stopwatchCurrentTime = new Date();
-        stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
-        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-        trackedLocations = [];
-        visit['observations'] = [];
-    }
+function resetTimer()
+{
+    stopWatchTimeLeft = stopwatchMinutes*60000;
+    stopwatchCurrentTime = new Date();
+    stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+    document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    trackedLocations = [];
+    visit['observations'] = [];
+}
 
-    function pad(n, z) 
-    {
-        z = z || 2;
-        return ('00' + n).slice(-z);
-    }
+function pad(n, z) 
+{
+    z = z || 2;
+    return ('00' + n).slice(-z);
+}
 
-    function msToTime(s) 
-    {
-        var ms = s % 1000;
-        s = (s - ms) / 1000;
-        var secs = s % 60;
-        s = (s - secs) / 60;
-        var mins = s % 60;
-        var hrs = (s - mins) / 60;
-      
-        return  pad(mins) + ':' + pad(secs);
+function msToTime(s) 
+{
+    var ms = s % 1000;
+    s = (s - ms) / 1000;
+    var secs = s % 60;
+    s = (s - secs) / 60;
+    var mins = s % 60;
+    var hrs = (s - mins) / 60;
+    
+    return  pad(mins) + ':' + pad(secs);
+}
+
+function dynamicSort(property) {
+    var sortOrder = 1;
+    if(property[0] === "-") {
+        sortOrder = -1;
+        property = property.substr(1);
     }
+    return function (a,b) {
+        /* next line works with strings and numbers, 
+            * and you may want to customize it to your needs
+            */
+        var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
+        return result * sortOrder;
+    }
+}

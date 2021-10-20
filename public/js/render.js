@@ -185,7 +185,6 @@ const show15mObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
-    var observations15m = [];
 
     renderNav();
     // Build the DOM
@@ -217,6 +216,7 @@ const show15mObservationScreen = () =>
     
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
@@ -228,7 +228,7 @@ const show15mObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); storeTimedCount(observations15m); }; //stopTimer, just in case it was still going
+    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); storeTimedCount(); }; //stopTimer, just in case it was still going
     document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
@@ -244,7 +244,7 @@ const show15mObservationScreen = () =>
         $('#15m_listSpecies').append(`
             <li>${speciesInfo['localName']}
                 <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
-                <button id="15m_editAmount_${speciesInfo['id']}">+</button>
+                <button id="15m_editAmount_${speciesInfo['id']}">edit</button>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -253,22 +253,59 @@ const show15mObservationScreen = () =>
         $(`#15m_editAmount_${speciesInfo['id']}`).click( function () {
             $(`#modal_id_${speciesInfo['id']}`).remove()
 
-            modalContent = 
-            `
-            
-            `
+            speciesObservations = visit['observations'].filter(obj => {return obj.species_id === String(speciesInfo['id'])});
 
-            $("#mainBody").append(renderModal())
+            modalContent = '<ul>';
+            speciesObservations.forEach(element => {
+                location1 = element.location.split(',')[1].replace(' ','');
+                location2 = element.location.split(',')[2].replace(' ','');
+                modalContent += `<li>${element.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${element.observationtime}" data_speciesid="${element.species_id}">delete</button></li>`;
+            } );
+            modalContent += '</ul>';
+
+            $("#mainBody").append(renderModal(`Edit observations ${speciesInfo['localName']}`,modalContent, `_${speciesInfo['id']}`));
+
+            $('.delete_obs').click( function () {
+                timeToDelete = $(this).get(0).attributes.data_time.value;
+                speciesToDelete = $(this).get(0).attributes.data_speciesid.value;
+                console.log(timeToDelete);
+                canDelete = true;
+                visit['observations'] = visit['observations'].filter(obj => {
+                    if (canDelete)
+                    {
+                        if (obj.observationtime == timeToDelete && obj.species_id == speciesToDelete)
+                        {
+                            canDelete = false;
+                            return false
+                        }
+                        else
+                        {
+                            return true
+                        }
+                    }
+                    return true
+                });
+                $(this).parent().remove();
+            })
+
+            $(`#modal_id_${speciesInfo['id']}`).modal('show');
         });
         
         
         $(`#15m_plusAmount_${speciesInfo['id']}`).click( function () {
-            obs15m = buildEmptyObservation();
-            obs15m['species_id'] = $(this).get(0).id.replace("15m_plusAmount_", "");
-            obs15m['number'] = 1;
-            obs15m['location'] = trackedLocations[trackedLocations.length - 1];
-            obs15m['observationtime'] = Date();
-            observations15m.push(observations15m)
+            if (trackedLocations.length == 0)
+            {
+                $(`#modal_idno_loc`).modal('show');
+            }
+            else 
+            {
+                obs15m = buildEmptyObservation();
+                obs15m['species_id'] = $(this).get(0).id.replace("15m_plusAmount_", "");
+                obs15m['number'] = 1;
+                obs15m['location'] = trackedLocations[trackedLocations.length - 1];
+                obs15m['observationtime'] = Date().toString();
+                visit['observations'].push(obs15m);
+            }
         });
 
     }

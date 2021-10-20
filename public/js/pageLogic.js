@@ -41,10 +41,9 @@ function storeSingleObservation()
         showHomeScreen();
     }
 }
-function storeTimedCount(observations)
+function storeTimedCount()
 {
     visit.location = JSON.stringify(trackedLocations);
-    visit.observations.push(observations);
     storeVisit(visit);
     showHomeScreen();
 }

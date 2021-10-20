@@ -421,7 +421,6 @@ const show15mPostObservationScreen = () =>
 
     $('#15mpost_weatherContainer').html(weatherHtml);
 
-
     // Make sure we get proper input on change of the number input
     $(`#15mpost_inputTemperature`).change( function () 
     {
@@ -441,9 +440,8 @@ const show15mPostObservationScreen = () =>
     });
 
     // Attach the events
-    document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; //stopTimer, just in case it was still going
-    document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() }; //stopTimer, just in case it was still going
-
+    document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; 
+    document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() };
 }
 
 const showFitPreObservationScreen = () =>
@@ -544,7 +542,7 @@ const showFitObservationScreen = () =>
 
     $('.chosen-select').select2();
 
-    document.getElementById("fit_buttonSave").onclick = function () {  stopTimer(); storeFitCount(); }; //stopTimer, just in case it was still going
+    document.getElementById("fit_buttonSave").onclick = function () {  stopTimer();  }; //stopTimer, just in case it was still going
     document.getElementById("fit_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
@@ -582,14 +580,137 @@ const showFitObservationScreen = () =>
             }
             elem.value = elem.value.replace(/\D/g,'');
         });
+
+        $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
+        {
+            var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
+            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1]);
+        });   
+
+        $(`#fit_minAmount_${speciesInfo['id']}`).click( function () 
+        {
+            var num = document.getElementById('fit_inputAmount_' + speciesInfo['id']).value;
+            addObservationToVisit(speciesInfo['id'], num, trackedLocations[trackedLocations.length - 1]);
+        });   
+
     }
 
-    $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
+ 
+}
+
+const showFitPostObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+
+    // Build the DOM
+    renderNav(clear=true);
+    
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="fit_title">Title</h2>
+    <h3 id="fit_subtitle">Subtitle</h3>
+    <div>
+        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="fit_countedGroupsText">Counted groups</h3>
+    <div id="fit_countedGroupsContainer"></div>
+    <h3 id="fit_weatherText">Weather</h3>
+    <div id="fit_weatherContainer"></div>
+    <h3 id="fit_notesText">Notes</h3>
+    <textarea id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
+    <div>
+        <button id="fit_buttonSave">Save</button>
+        <button id="fit_buttonCancel">Cancel</button>
+    </div>
+    `
+    // Attach the modals
+    // Info
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Attach the contents of the species group container
+    speciesGroupsHtml = '<ul>';
+    Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
+        if (observedGroupIds.includes(element.id))
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}" checked disabled>
+                <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+        else
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}">
+                <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+
+    });
+    speciesGroupsHtml += '</ul>';
+    $('#fit_countedGroupsContainer').html(speciesGroupsHtml);
+
+    // Attach the contents of the weather container
+    weatherHtml = 
+    `
+    <h4 id="fit_temperatureText">Temperature</h4>
+    <button id="fit_minTemperature" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
+    <input id="fit_inputTemperature" name="fit_inputTemperature" value=0>
+    <button id="fit_plusTemperature" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
+    <h4 id="fit_windText">Wind</h4>
+    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+    </select>
+    <h4 id="fit_cloudsText">Clouds</h4>
+    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1/8</option>
+        <option value=2>2/8</option>
+        <option value=3>3/8</option>
+        <option value=4>4/8</option>
+        <option value=5>5/8</option>
+        <option value=6>6/8</option>
+        <option value=7>7/8</option>
+        <option value=8>8/8</option>
+    </select>
+    `;
+
+    $('#fit_weatherContainer').html(weatherHtml);
+
+    // Make sure we get proper input on change of the number input
+    $(`#fit_inputTemperature`).change( function () 
     {
-        var spId = $(this).get(0).id.replace("fit_plusAmount_", "");
-        var num = document.getElementById('fit_inputAmount_' . spId).value;
-        addObservationToVisit(spId, num, trackedLocations[trackedLocations.length - 1]);
-    });    
+        elem = $(this).get(0);
+        if (!isNaN(elem.value))
+        {
+            elem.value = parseInt(elem.value);
+        }
+        if (elem.value.match(/^-?[0-9]+/g))
+        {
+            elem.value = elem.value.match(/^-?[0-9]+/g);
+        }
+        else
+        {
+            elem.value = '';
+        }
+    });
+
+    // Attach the events
+    document.getElementById("fit_buttonSave").onclick = function () {  storeFitCount() }; 
+    document.getElementById("fit_buttonCancel").onclick = function () {  showFitObservationScreen() }; 
+
 }
 
 const showTransectObservationScreen = () =>

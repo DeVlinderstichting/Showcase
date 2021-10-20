@@ -340,7 +340,7 @@ const show15mPostObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
     var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
 
@@ -370,8 +370,6 @@ const show15mPostObservationScreen = () =>
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
 
     // Attach the contents of the species group container
-    visit['observations']
-
     speciesGroupsHtml = '<ul>';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (observedGroupIds.includes(element.id))
@@ -391,14 +389,64 @@ const show15mPostObservationScreen = () =>
 
     });
     speciesGroupsHtml += '</ul>';
-
     $('#15mpost_countedGroupsContainer').html(speciesGroupsHtml);
+
+    // Attach the contents of the weather container
+    weatherHtml = 
+    `
+    <h4 id="15mpost_temperatureText">Temperature</h4>
+    <button id="15mpost_minTemperature" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
+    <input id="15mpost_inputTemperature" name="15mpost_inputTemperature" value=0>
+    <button id="15mpost_plusTemperature" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
+    <h4 id="15mpost_windText">Wind</h4>
+    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1</option>
+        <option value=2>2</option>
+        <option value=3>3</option>
+        <option value=4>4</option>
+        <option value=5>5</option>
+        <option value=6>6</option>
+        <option value=7>7</option>
+        <option value=8>8</option>
+    </select>
+    <h4 id="15mpost_cloudsText">Clouds</h4>
+    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+        <option value=1>1/8</option>
+        <option value=2>2/8</option>
+        <option value=3>3/8</option>
+        <option value=4>4/8</option>
+        <option value=5>5/8</option>
+        <option value=6>6/8</option>
+        <option value=7>7/8</option>
+        <option value=8>8/8</option>
+    </select>
+    `;
+
+    $('#15mpost_weatherContainer').html(weatherHtml);
+
+
+    // Make sure we get proper input on change of the number input
+    $(`#15mpost_inputTemperature`).change( function () 
+    {
+        elem = $(this).get(0);
+        if (!isNaN(elem.value))
+        {
+            elem.value = parseInt(elem.value);
+        }
+        if (elem.value.match(/^-?[0-9]+/g))
+        {
+            elem.value = elem.value.match(/^-?[0-9]+/g);
+        }
+        else
+        {
+            elem.value = '';
+        }
+    });
 
     // Attach the events
     document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; //stopTimer, just in case it was still going
     document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() }; //stopTimer, just in case it was still going
 
-   
 }
 
 const showFitPreObservationScreen = () =>

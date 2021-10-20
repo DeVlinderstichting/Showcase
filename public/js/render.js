@@ -1,20 +1,27 @@
-var renderNav = function()
+var renderNav = function(clear=false)
 {
     var nav = document.getElementById("nav");
-    // Build the DOM
-    nav.innerHTML =`
-    <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
-    <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
-    <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
-    <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
-    <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
-    `
-    // Attach the events 
-    document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
-    document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
-    document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
-    document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
-    document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
+    if(!clear)
+    {
+        // Build the DOM
+        nav.innerHTML =`
+        <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
+        <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
+        <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
+        <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
+        `
+        // Attach the events 
+        document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
+        document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
+        document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
+    } 
+    else
+    {
+        nav.innerHTML = '';
+    }
 }
 
 var renderModal = function(title, body, postid='')
@@ -118,8 +125,9 @@ const showSpecialObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="special_title">Title</h2>
@@ -187,8 +195,9 @@ const show15mObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="15m_title">Title</h2>
@@ -334,8 +343,9 @@ const showFitPreObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="prefit_title">Title</h2>
@@ -378,8 +388,10 @@ const showFitObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
     obsfit = [];
-    renderNav();
+    
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="15m_title">Title</h2>
@@ -479,8 +491,9 @@ const showTransectObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="transect_title">Title</h2>

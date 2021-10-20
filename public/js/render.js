@@ -548,7 +548,7 @@ const showFitObservationScreen = () =>
 
     $('.chosen-select').select2();
 
-    document.getElementById("fit_buttonSave").onclick = function () {  stopTimer();  }; //stopTimer, just in case it was still going
+    document.getElementById("fit_buttonSave").onclick = function () {  stopTimer(); showFitPostObservationScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("fit_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };

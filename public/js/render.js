@@ -1,20 +1,27 @@
-var renderNav = function()
+var renderNav = function(clear=false)
 {
     var nav = document.getElementById("nav");
-    // Build the DOM
-    nav.innerHTML =`
-    <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
-    <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
-    <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
-    <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
-    <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
-    `
-    // Attach the events 
-    document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
-    document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
-    document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
-    document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
-    document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
+    if(!clear)
+    {
+        // Build the DOM
+        nav.innerHTML =`
+        <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
+        <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
+        <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
+        <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
+        `
+        // Attach the events 
+        document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
+        document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
+        document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
+    } 
+    else
+    {
+        nav.innerHTML = '';
+    }
 }
 
 var renderModal = function(title, body, postid='')
@@ -104,16 +111,15 @@ const showHomeScreen = () =>
         </div>`;
     mb.innerHTML = theHtml;
 
-    // Attach the events
-    document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
-    document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
-    document.getElementById("home_fitButton").onclick = function () { showFitPreObservationScreen(); };
-    document.getElementById("home_transectButton").onclick = function () { showTransectObservationScreen(); };
+    // Attach the events; initialize the count and show the specific observation screen
+    document.getElementById("home_specialButton").onclick = function () { initAnyCount(1); showSpecialObservationScreen(); };
+    document.getElementById("home_15Button").onclick = function () { initAnyCount(2); show15mObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectObservationScreen(); };
+    document.getElementById("home_fitButton").onclick = function () { initAnyCount(4); showFitPreObservationScreen(); };
 }
 
 const showSpecialObservationScreen = () =>
 {
-    initAnyCount(1);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -121,8 +127,9 @@ const showSpecialObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="special_title">Title</h2>
@@ -181,8 +188,6 @@ const showSpecialObservationScreen = () =>
 
 const show15mObservationScreen = () =>
 {
-    initAnyCount(2);
-
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -190,8 +195,9 @@ const show15mObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="15m_title">Title</h2>
@@ -218,9 +224,19 @@ const show15mObservationScreen = () =>
     </div>
     `;
     
-    // Attach the modal
+    // Attach the modals
+    // Info
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    // No tracking message
     mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    // Restart timer question
+    mb.innerHTML += renderModal('Note',
+    `
+        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        <br>
+        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+    `
+    , 'restart_timer');
 
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) 
@@ -233,11 +249,12 @@ const show15mObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); storeTimedCount(); }; //stopTimer, just in case it was still going
+    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); show15mPostObservationScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
-    document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+    document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
+    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
     $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)); } );
 
     function addSpeciesToList (element)
@@ -316,9 +333,76 @@ const show15mObservationScreen = () =>
     }
 }
 
+const show15mPostObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+
+    // Build the DOM
+    renderNav(clear=true);
+    
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="15mpost_title">Title</h2>
+    <h3 id="15mpost_subtitle">Subtitle</h3>
+    <div>
+        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="15mpost_countedGroupsText">Counted groups</h3>
+    <div id="15mpost_countedGroupsContainer"></div>
+    <h3 id="15mpost_weatherText">Weather</h3>
+    <div id="15mpost_weatherContainer"></div>
+    <h3 id="15mpost_notesText">Notes</h3>
+    <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
+    <div>
+        <button id="15mpost_buttonSave">Save</button>
+        <button id="15mpost_buttonCancel">Cancel</button>
+    </div>
+    `
+    // Attach the modals
+    // Info
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Attach the contents of the species group container
+    visit['observations']
+
+    speciesGroupsHtml = '<ul>';
+    Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
+        if (observedGroupIds.includes(element.id))
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
+                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+        else
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
+                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+
+    });
+    speciesGroupsHtml += '</ul>';
+
+    $('#15mpost_countedGroupsContainer').html(speciesGroupsHtml);
+
+    // Attach the events
+    document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; //stopTimer, just in case it was still going
+    document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() }; //stopTimer, just in case it was still going
+
+   
+}
+
 const showFitPreObservationScreen = () =>
 {
-    initAnyCount(4);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -326,8 +410,9 @@ const showFitPreObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="prefit_title">Title</h2>
@@ -362,6 +447,7 @@ const showFitPreObservationScreen = () =>
     document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
 }
+
 const showFitObservationScreen = () =>
 {
     var settings = getUserSettings();
@@ -370,8 +456,10 @@ const showFitObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
     obsfit = [];
-    renderNav();
+    
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="15m_title">Title</h2>
@@ -451,8 +539,6 @@ const showFitObservationScreen = () =>
         });
     }
 
-
-
     $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
     {
         var spId = $(this).get(0).id.replace("fit_plusAmount_", "");
@@ -467,7 +553,6 @@ const showFitPostObservationScreen = () =>
 
 const showTransectPreObservationScreen = () => 
 {
-    initAnyCount(3);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -475,8 +560,9 @@ const showTransectPreObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
 
-    renderNav();
     // Build the DOM
+    renderNav(clear=true);
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <h2 id="prefit_title">Title</h2>

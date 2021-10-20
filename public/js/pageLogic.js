@@ -51,12 +51,14 @@ function storeSingleObservation()
         showHomeScreen();
     }
 }
+
 function storeTimedCount()
 {
     visit.location = JSON.stringify(trackedLocations);
     storeVisit(visit);
     showHomeScreen();
 }
+
 function storeFitCount()
 {
     visit.location = JSON.stringify(trackedLocations);
@@ -126,6 +128,7 @@ function storeTransectCount()
         stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
         document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
         trackedLocations = [];
+        visit['observations'] = [];
     }
 
     function pad(n, z) 

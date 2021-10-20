@@ -572,9 +572,18 @@ const showFitObservationScreen = () =>
     </div>
     `;
     
-    // Attach the modal
+    // Attach the modals
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
-
+    // No tracking message
+    mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    // Restart timer question
+    mb.innerHTML += renderModal('Note',
+    `
+        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        <br>
+        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+    `
+    , 'restart_timer');
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
         if (countIds.includes(value['speciesgroupId']))
@@ -589,7 +598,8 @@ const showFitObservationScreen = () =>
     document.getElementById("fit_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
-    document.getElementById("resetTimer").onclick = function () { resetTimer(); };
+    document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
+    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
 
     $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)); } );
 
@@ -613,6 +623,12 @@ const showFitObservationScreen = () =>
         $(`#fit_inputAmount_${speciesInfo['id']}`).change( function () 
         {
             elem = $(this).get(0);
+            if (trackedLocations.length == 0)
+            {
+                $(`#modal_idno_loc`).modal('show');
+                elem.value = 0;
+                return
+            }
             if (!isNaN(elem.value))
             {
                 elem.value = parseInt(elem.value);

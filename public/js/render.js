@@ -108,16 +108,15 @@ const showHomeScreen = () =>
         <button id="home_fitButton">Fit</button>
     </div>`;
 
-    // Attach the events
-    document.getElementById("home_specialButton").onclick = function () { showSpecialObservationScreen(); };
-    document.getElementById("home_15Button").onclick = function () { show15mObservationScreen(); };
-    document.getElementById("home_fitButton").onclick = function () { showFitPreObservationScreen(); };
-    document.getElementById("home_transectButton").onclick = function () { showTransectObservationScreen(); };
+    // Attach the events; initialize the count and show the specific observation screen
+    document.getElementById("home_specialButton").onclick = function () { initAnyCount(1); showSpecialObservationScreen(); };
+    document.getElementById("home_15Button").onclick = function () { initAnyCount(2); show15mObservationScreen(); };
+    document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectObservationScreen(); };
+    document.getElementById("home_fitButton").onclick = function () { initAnyCount(4); showFitPreObservationScreen(); };
 }
 
 const showSpecialObservationScreen = () =>
 {
-    initAnyCount(1);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -186,8 +185,6 @@ const showSpecialObservationScreen = () =>
 
 const show15mObservationScreen = () =>
 {
-    initAnyCount(2);
-
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -249,7 +246,7 @@ const show15mObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
-    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); storeTimedCount(); }; //stopTimer, just in case it was still going
+    document.getElementById("15m_buttonSave").onclick = function () {  stopTimer(); show15mPostObservationScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("15m_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
@@ -333,9 +330,76 @@ const show15mObservationScreen = () =>
     }
 }
 
+const show15mPostObservationScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+
+    // Build the DOM
+    renderNav(clear=true);
+    
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="15mpost_title">Title</h2>
+    <h3 id="15mpost_subtitle">Subtitle</h3>
+    <div>
+        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="15mpost_countedGroupsText">Counted groups</h3>
+    <div id="15mpost_countedGroupsContainer"></div>
+    <h3 id="15mpost_weatherText">Weather</h3>
+    <div id="15mpost_weatherContainer"></div>
+    <h3 id="15mpost_notesText">Notes</h3>
+    <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
+    <div>
+        <button id="15mpost_buttonSave">Save</button>
+        <button id="15mpost_buttonCancel">Cancel</button>
+    </div>
+    `
+    // Attach the modals
+    // Info
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    // Attach the contents of the species group container
+    visit['observations']
+
+    speciesGroupsHtml = '<ul>';
+    Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
+        if (observedGroupIds.includes(element.id))
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
+                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+        else
+        {
+            speciesGroupsHtml += `  <li>
+                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
+                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+            </li>`
+        }
+
+    });
+    speciesGroupsHtml += '</ul>';
+
+    $('#15mpost_countedGroupsContainer').html(speciesGroupsHtml);
+
+    // Attach the events
+    document.getElementById("15mpost_buttonSave").onclick = function () {  storeTimedCount() }; //stopTimer, just in case it was still going
+    document.getElementById("15mpost_buttonCancel").onclick = function () {  show15mObservationScreen() }; //stopTimer, just in case it was still going
+
+   
+}
+
 const showFitPreObservationScreen = () =>
 {
-    initAnyCount(4);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -380,6 +444,7 @@ const showFitPreObservationScreen = () =>
     document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
 }
+
 const showFitObservationScreen = () =>
 {
     var settings = getUserSettings();
@@ -471,8 +536,6 @@ const showFitObservationScreen = () =>
         });
     }
 
-
-
     $(`#fit_plusAmount_${speciesInfo['id']}`).click( function () 
     {
         var spId = $(this).get(0).id.replace("fit_plusAmount_", "");
@@ -483,7 +546,6 @@ const showFitObservationScreen = () =>
 
 const showTransectObservationScreen = () =>
 {
-    initAnyCount(3);
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;

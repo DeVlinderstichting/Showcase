@@ -51,12 +51,14 @@ function storeSingleObservation()
         showHomeScreen();
     }
 }
+
 function storeTimedCount()
 {
     visit.location = JSON.stringify(trackedLocations);
     storeVisit(visit);
     showHomeScreen();
 }
+
 function storeFitCount()
 {
     visit.location = JSON.stringify(trackedLocations);

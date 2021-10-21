@@ -12,7 +12,10 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/adminLogin', 'App\Http\Controllers\AdminController@showAdminWelcome');
+Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');
+Route::get('/regionCreate', 'App\Http\Controllers\AdminController@regionCreate');
+Route::post('regionCreate/{region}', '\App\Http\Controllers\AdminController@regionStore');
 Route::get('/test', function () 
 {
     return view('welcome');

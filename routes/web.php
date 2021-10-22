@@ -12,13 +12,28 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/adminLogin', 'App\Http\Controllers\AdminController@showAdminWelcome');
+Route::get('/adminLogin', 'App\Http\Controllers\AdminController@adminWelcome');
 Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');
+Route::get('/adminHome', 'App\Http\Controllers\AdminController@adminHome');
+
 Route::get('/regionCreate', 'App\Http\Controllers\AdminController@regionCreate');
-Route::post('regionCreate/{region}', '\App\Http\Controllers\AdminController@regionStore');
+Route::post('/regionCreate/{region}', '\App\Http\Controllers\AdminController@regionStore');
+Route::get('/region/{region}', '\App\Http\Controllers\AdminController@regionEdit');
+Route::get('/region', '\App\Http\Controllers\AdminController@regionIndex');
+
+Route::get('/user/create/{userId}', '\App\Http\Controllers\AdminController@createUser');
+Route::post('/user/create/{userId}', '\App\Http\Controllers\AdminController@storeUser');
+Route::get('/user', '\App\Http\Controllers\AdminController@userIndex');
+Route::post('/user/indexAjax', '\App\Http\Controllers\AdminController@userIndexAjax');
+
 Route::get('/test', function () 
 {
     return view('welcome');
+});
+Route::get('logoff', function() 
+{
+    Auth::logout();
+    return view('adminLogin');
 });
 //Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
 Route::get("requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');

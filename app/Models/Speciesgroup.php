@@ -10,4 +10,9 @@ class Speciesgroup extends Model
     use HasFactory;
     protected $table = 'speciesgroups';
 
+    public function species()
+    {
+        return $this->hasMany('App\Models\Species', 'speciesgroup_id');
+    }
+
 }

@@ -9,6 +9,7 @@ class RegionsUsers extends Model
 {
     use HasFactory;
     protected $table = 'regions_users';
+    protected $fillable = ['user_id', 'region_id'];
 
     public function region()
     {

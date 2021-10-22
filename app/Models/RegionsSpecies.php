@@ -9,6 +9,7 @@ class RegionsSpecies extends Model
 {
     use HasFactory;
     protected $table = 'regions_species';
+    protected $fillable = ['species_id', 'region_id'];
 
     public function region()
     {

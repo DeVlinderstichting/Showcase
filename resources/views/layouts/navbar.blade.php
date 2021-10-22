@@ -10,7 +10,7 @@
         <div class="sidebar-sticky pt-3">
             <ul class="nav flex-column">
                 <li class="nav-item">
-                    <a class="nav-link" href="/home/logoff">
+                    <a class="nav-link" href="/logoff">
                         Logoff
                     </a>
                 </li>
@@ -27,7 +27,7 @@
             <ul class="nav flex-column mb-2d d-none" id="projectNavigation">
                 @foreach(\App\Models\Region::all()->sortBy('id') as $p)
                     <li class="nav-item">
-                        <a href="/project/{{$p->id}}"  class="nav-link @if($menuActive=='p_'. $p->id) active @endif">{{$p->name}}</a>
+                        <a href="/region/{{$p->id}}"  class="nav-link @if($menuActive=='p_'. $p->id) active @endif">{{$p->name}}</a>
                     </li>
                 @endforeach
             </ul>

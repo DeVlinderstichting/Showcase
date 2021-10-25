@@ -257,33 +257,69 @@ function storeVisit(visit)
         };
     };
 }
+
 function loadVisits()
 {
-    var req = indexedDB.open(DB_NAME, DB_VERSION);
-    
-    req.onerror = function (evnt) 
+    return new Promise (function(resolve)
     {
-        console.error("openDb:", evnt.target.errorCode);
-    };
-
-    req.onsuccess = function (evnt) 
-    {
-        db = req.result;
-        tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
-        store = tx.objectStore(DB_STORE_NAME_VISITS);
-        visitsRequest = store.getAll();
-        visitsRequest.onsuccess = function(evnt)
+        var req = indexedDB.open(DB_NAME, DB_VERSION);
+        
+        req.onerror = function (evnt) 
         {
-            visitsLoadedAtDate = new Date();
-            // console.log(visitsRequest.result);
-            visits = visitsRequest.result;
-            //console.log(visits);
-        }
-    };
+            console.error("loadVisits.openDb:", evnt.target.errorCode);
+        };
+
+        req.onsuccess = function (evnt) 
+        {
+            db = req.result;
+            tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
+            store = tx.objectStore(DB_STORE_NAME_VISITS);
+            visitsRequest = store.getAll();
+            visitsRequest.onsuccess = function(evnt)
+            {
+                return resolve(visitsRequest.result);
+
+            //    console.log("IK BEN HEIIEERRRR");
+             //   visitsLoadedAtDate = new Date();
+              //  console.log(visitsLoadedAtDate);
+               // console.log(visitsRequest.result);
+                //visits = JSON.parse(visitsRequest.result);
+                //console.log(visits);
+            }
+            visitsRequest.onerror = function (evnt) 
+            {
+                console.error("Load visits error:", evnt.target.errorCode);
+            };
+        };
+    });
 }
-function buildPackage()
+function synchWithServer()
 {
-    
+    var settings = getUserSettings();
+
+    loadVisits().then(function(result) 
+    {
+        visits = result;
+        var thePackage = {'usersettings':'', 'visitdata': ''};
+        thePackage['usersettings'] = settings;
+        thePackage['visitdata'] = visits;
+        theJsonPackage = JSON.stringify(thePackage);
+
+        $.ajax({
+            type: 'GET',
+            url: '/requestUserPackage',
+            data: 
+            {
+                'username': settings.userSettings['email'],
+                'accesstoken': settings.userSettings['accessToken'],
+                'datapackage': theJsonPackage
+            },
+            success: function(data) 
+            {
+                storeUserPackage(data, sendBackHome);
+            }
+        });
+    });
 }
 
 

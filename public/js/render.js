@@ -1209,8 +1209,6 @@ const showDataScreen = () =>
         obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
                 function (el) { return el.id; });              //Return ID
 
-    loadVisits();
-
     // Build the DOM
     renderNav();
 
@@ -1258,7 +1256,14 @@ const showDataScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
 
-    document.getElementById('data_nrDataEntries').html(visits.length)
+
+    loadVisits().then(function(result) 
+    {
+        visits = result;
+        document.getElementById('data_nrDataEntries').innerHTML = visits.length;
+    }
+
+    
     
     $(document).ready( function () {
         $('#obsTable').DataTable(

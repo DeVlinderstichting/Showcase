@@ -9,7 +9,6 @@ var renderNav = function(clear=false)
         <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
         <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
         <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
-        <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
         `
         nav.style.display = "flex";
         // Attach the events 
@@ -17,7 +16,6 @@ var renderNav = function(clear=false)
         document.getElementById("nav_dataLink").onclick = function () {showDataScreen(); };
         document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
         document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
-        document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
         
     
     } 

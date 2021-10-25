@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class PushMessage extends Model
 {
     use HasFactory;
+    protected $fillable = ['header', 'content', 'region_id', 'image_primary', 'image_secondary'];
+    protected $table = "pushmessages";
 
     public function region()
     {

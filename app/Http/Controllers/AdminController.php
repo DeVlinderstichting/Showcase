@@ -125,7 +125,7 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        return view('user_index');
+        return view('userIndex');
     }
     public function userIndexAjax()
     {
@@ -181,7 +181,7 @@ class AdminController extends Controller
         {
             $user = \App\Models\User::find($userId);
         }
-        return view('user_create', ['user' => $user]);
+        return view('userCreate', ['user' => $user]);
     }
     public function storeUser($userId)
     {
@@ -260,6 +260,91 @@ class AdminController extends Controller
         $user->save();
 
         return view ('adminHome');
+    }
+    public function createPushmessage($messageId = -1)
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        if ($messageId == -1)
+        {
+            $message = new \App\Models\PushMessage();
+            $message->id = -1;
+            $firstRegion = \App\Models\Region::first();
+            if ($firstRegion == null)
+            {
+                $message->region_id = -1;
+            }
+            else 
+            {
+                $message->region_id = $firstRegion->id;
+            }
+        }
+        else 
+        {
+            $message = \App\Models\PushMessage::find($messageId);
+        }
+        return view('messageCreate', ['message' => $message]);
+    }
+    public function storePushmessage($messageId = -1)
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        $valDat = request()->validate([
+            'header' => ['required'],
+            'content' => ['required'], 
+            'region_id' => ['required', 'exists:regions,id'],
+        ]);
+
+        $img1Placeholder = "bf1.jpg";
+        $img2Placeholder = "bf2.jpg";
+
+        $pm = \App\Models\PushMessage::create(['header' => $valDat['header'], 'content' => $valDat['content'], 'region_id' => $valDat['region_id'], 'image_primary' => $img1Placeholder, 'image_secondary' => $img2Placeholder]);
+    }
+    public function pushMessageIndex()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        //blegggg
+    }
+    public function translationIndex()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        return view('translationIndex');
+    }
+    public function translationEdit($language = "")
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        $lanArr = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
+        if (!(in_array($language, $lanArr)))
+        {
+            return "invalid language selected";
+        }
+
+        return view('translationEdit', ['language' => $language]);
+    }
+    public function translationPutAjax()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        $valDat = request()->validate([
+            'key' => ['required', 'exists:languages,key'],
+            'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])]
+        ]);
+        
     }
 
 

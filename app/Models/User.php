@@ -128,10 +128,10 @@ class User extends Authenticatable
         {
             $spguItem = [];
             $spguItem['speciesgroup_id'] = $spgu->id;
-            $spguItem['speciesgroup_name'] = $spgu->speciesgroup()->name;
+            $spguItem['speciesgroup_name'] = $spgu->speciesgroup->name;
             $spguItem['recordinglevel_id'] = $spgu->recordinglevel_id;
-            $spguItem['recordinglevel_name'] = $spgu->recordinglevel()->name;
-            $speciesGroupsUsers[$spgu->speciesgroup()->name] = $spguItem;
+            $spguItem['recordinglevel_name'] = $spgu->recordinglevel->name;
+            $speciesGroupsUsers[$spgu->speciesgroup->name] = $spguItem;
         }
         $userSettings['speciesGroupsUsers'] = $speciesGroupsUsers;
 

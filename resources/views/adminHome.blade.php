@@ -36,8 +36,8 @@ Admin home
                 Messages
             </h5>
             <div class="card-body">
-                <a class="btn btn-primary btn-sm" role="button" href="/user/create">Create new message</a>
-                <a class="btn btn-primary btn-sm" role="button" href="/user/">Manage messages</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/pushmessage/create/-1">Create new message</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/pushmessage/">Manage messages</a>
             </div>
         </div>
         <div class="card mb-2">
@@ -45,7 +45,7 @@ Admin home
                 Translations
             </h5>
             <div class="card-body">
-                <a class="btn btn-primary btn-sm" role="button" href="/user/create">Edit translation</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/translationIndex">Edit translation</a>
             </div>
         </div>
     </div>

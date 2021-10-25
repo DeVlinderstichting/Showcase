@@ -21,6 +21,10 @@ class TestDataSeeder extends Seeder
         $user->setRandomAccessToken();
         $user->save();
 
+        $spGroup = \App\Models\SpeciesGroup::first();
+        $recordingLevel = \App\Models\RecordingLevel::first();
+        $speciesGroupsUsers = \App\Models\SpeciesGroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
+
         $user = \App\Models\User::create(['name'=> 'admin','email'=> 'admin', 'isadmin'=>true, 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
         $user->setRandomAccessToken();
         $user->save();

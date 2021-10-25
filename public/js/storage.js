@@ -293,6 +293,32 @@ function loadVisits()
         };
     });
 }
+
+function objectToString (object) //because to the southpole with JSON 
+{
+    var res = "";
+    for (var i = 0; i < Object.keys(object).length; i++)
+    {
+        var theKey = Object.keys(object)[i];
+        var theValue = object[theKey];
+        var theSValue = "";
+        if (typeof theValue == "object")
+        {
+            theSValue = objectToString(theValue);
+        }
+        else 
+        {
+            theSValue = JSON.stringify(theValue);
+        }
+        if (res != "")
+        {
+            res += ","
+        }
+        res += theKey + ":" + theSValue; 
+    }
+    return res;
+}
+
 function synchWithServer()
 {
     var settings = getUserSettings();
@@ -300,11 +326,52 @@ function synchWithServer()
     loadVisits().then(function(result) 
     {
         visits = result;
+       
+       /* 
+        var res = "";
+        for (var visit = 0 ; visit < visits.length; visit++)
+        {
+            for (var i = 0; i < Object.keys(visits[visit].data).length; i++)
+            {
+                var theKey = Object.keys(visits[visit].data)[i];
+                var theValue = visits[visit].data[theKey];
+                console.log(theKey + " :: " + theValue);
+            }
+        }
+        */
+        var line = objectToString(visits);
+
+        console.log("igloL " + line);
+
+
         var thePackage = {'usersettings':'', 'visitdata': ''};
         thePackage['usersettings'] = settings;
         thePackage['visitdata'] = visits;
-        theJsonPackage = JSON.stringify(thePackage);
 
+
+
+
+
+    /*    theData = visits[0];
+        console.log(theData.data);
+
+
+        theData.data.method = "";
+     //   theData.data.observations = "";
+        theData.data.startdate = "";
+        theData.data.enddate = "";
+        theData.data.user_id = "15";
+
+        console.log(visits.serialize());
+
+        console.log("strinbgyfy: " + JSON.stringify(theData.data, ["cloud", "observations", "species_id"]));
+
+    //    console.log(JSON.stringify(visits[0]));//.observations));
+
+      //  console.log(thePackage); 
+      */
+        theJsonPackage = JSON.stringify(thePackage);
+//console.log(theJsonPackage);
         $.ajax({
             type: 'GET',
             url: '/requestUserPackage',
@@ -312,7 +379,7 @@ function synchWithServer()
             {
                 'username': settings.userSettings['email'],
                 'accesstoken': settings.userSettings['accessToken'],
-                'datapackage': theJsonPackage
+                'datapackage': visits
             },
             success: function(data) 
             {

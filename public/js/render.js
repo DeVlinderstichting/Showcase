@@ -185,7 +185,7 @@ const showSpecialObservationScreen = () =>
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']))
+        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
             $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
         }
@@ -219,10 +219,10 @@ const show15mObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
     var countIds =  Object.values(speciesGroups).filter(    
         obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
-        obj => {speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
              function (el) { return el.id; });              //Return ID
 
     // Build the DOM
@@ -271,7 +271,7 @@ const show15mObservationScreen = () =>
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) 
     {
-        if (countIds.includes(value['speciesgroupId']))
+        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
             $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
         }
@@ -402,21 +402,24 @@ const show15mPostObservationScreen = () =>
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
-        if (observedGroupIds.includes(element.id))
-        {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
-                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
-        }
-        else
-        {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
-                <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
-        }
 
+        if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
+        {
+            if (observedGroupIds.includes(element.id))
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
+            else
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
+        }
     });
     speciesGroupsHtml += '</ul>';
     $('#15mpost_countedGroupsContainer').html(speciesGroupsHtml);
@@ -487,21 +490,24 @@ const show15mPostObservationScreen = () =>
 
         Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
         {
-            var id = "15mpost_checkSpeciesGroup_"+element.id;
-            var isChecked = document.getElementById(id).checked;
-            if (isChecked)
+            if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var recordingLevel = "all";
-                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                var id = "15mpost_checkSpeciesGroup_"+element.id;
+                var isChecked = document.getElementById(id).checked;
+                if (isChecked)
                 {
-                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    var recordingLevel = "all";
+                    for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
-                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        {
+                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        }
                     }
+                    
+                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    method.push(methodLine);
                 }
-                
-                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
-                method.push(methodLine);
             }
         });
         visit.method = method;
@@ -550,7 +556,7 @@ const showFitPreObservationScreen = () =>
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
-        if (value['speciesgroupId'] == 4) // Note that the ID might change in the future
+        if (value['speciesgroupId'] == 4 && value['taxon'] != '') // Note that the ID might change in the future
         {
             $('#prefit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
         }
@@ -568,7 +574,11 @@ const showFitObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+             function (el) { return el.id; });              //Return ID
     obsfit = [];
     
     // Build the DOM
@@ -614,7 +624,7 @@ const showFitObservationScreen = () =>
     , 'restart_timer');
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']))
+        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
             $('#fit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
         }
@@ -678,7 +688,7 @@ const showFitPostObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
     var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
 
@@ -710,19 +720,22 @@ const showFitPostObservationScreen = () =>
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
-        if (observedGroupIds.includes(element.id))
+        if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}" checked disabled>
-                <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
-        }
-        else
-        {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}">
-                <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
+            if (observedGroupIds.includes(element.id))
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}" checked disabled>
+                    <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
+            else
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}">
+                    <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
         }
     });
     speciesGroupsHtml += '</ul>';
@@ -794,22 +807,26 @@ const showFitPostObservationScreen = () =>
 
         Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
         {
-            var id = "fit_checkSpeciesGroup_"+element.id;
-            var isChecked = document.getElementById(id).checked;
-            if (isChecked)
+            if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var recordingLevel = "all";
-                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                var id = "fit_checkSpeciesGroup_"+element.id;
+                var isChecked = document.getElementById(id).checked;
+                if (isChecked)
                 {
-                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    var recordingLevel = "all";
+                    for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
-                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        {
+                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        }
                     }
+                    
+                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    method.push(methodLine);
                 }
-                
-                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
-                method.push(methodLine);
             }
+            
         });
         visit.method = method;
         visit.notes = notes;
@@ -878,7 +895,11 @@ const showTransectObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+             function (el) { return el.id; });              //Return ID
     var transectSections = settings.transects.filter(obj => {return obj.id == visit.transect_id})[0]['sections'];
     var transectSections = Object.values(transectSections).sort(dynamicSort('sequence'));
 
@@ -967,7 +988,7 @@ const showTransectObservationScreen = () =>
     // Populate the list of species and attach the chosen selector
     $.each(species, function(key, value) 
     {
-        if (countIds.includes(value['speciesgroupId']))
+        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
             $('#transect_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
         }
@@ -1021,6 +1042,7 @@ const showTransectPostObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
     var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
@@ -1052,21 +1074,23 @@ const showTransectPostObservationScreen = () =>
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
-        if (observedGroupIds.includes(element.id))
+        if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}" checked disabled>
-                <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
+            if (observedGroupIds.includes(element.id))
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}" checked disabled>
+                    <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
+            else
+            {
+                speciesGroupsHtml += `  <li>
+                    <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}">
+                    <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+                </li>`
+            }
         }
-        else
-        {
-            speciesGroupsHtml += `  <li>
-                <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}">
-                <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
-            </li>`
-        }
-
     });
     speciesGroupsHtml += '</ul>';
     $('#transect_countedGroupsContainer').html(speciesGroupsHtml);
@@ -1137,21 +1161,25 @@ const showTransectPostObservationScreen = () =>
 
         Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
         {
-            var id = "transect_checkSpeciesGroup_"+element.id;
-            var isChecked = document.getElementById(id).checked;
-            if (isChecked)
+            if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var recordingLevel = "all";
-                for (var i = 0; i < speciesGroupsUsers.length; i++)
+                var id = "transect_checkSpeciesGroup_"+element.id;
+                console.log(id);
+                var isChecked = document.getElementById(id).checked;
+                if (isChecked)
                 {
-                    if (speciesGroupsUsers[i].speciesgroup_id == id)
+                    var recordingLevel = "all";
+                    for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
-                        recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        {
+                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                        }
                     }
+                    
+                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    method.push(methodLine);
                 }
-                
-                var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
-                method.push(methodLine);
             }
         });
         visit.method = method;

@@ -341,10 +341,14 @@ class AdminController extends Controller
             return view('adminLogin');
         }
         $valDat = request()->validate([
-            'key' => ['required', 'exists:languages,key'],
-            'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])]
+            'key' => ['required', 'exists:languages,id'],
+            'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])],
+            'value' => ['required']
         ]);
-        
+        $theFieldname = $valDat['language'];
+        $theKey = \App\Models\Language::where('id', $valDat['key'])->first();
+        $theKey->$theFieldname = $valDat['value'];
+        $theKey->save();
     }
 
 

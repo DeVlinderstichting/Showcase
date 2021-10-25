@@ -25,9 +25,9 @@ class TestDataSeeder extends Seeder
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 
-        $user = \App\Models\User::create(['name'=> 'admin','email'=> 'admin', 'isadmin'=>true, 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
-        $user->setRandomAccessToken();
-        $user->save();
+        $user2 = \App\Models\User::create(['name'=> 'admin','email'=> 'admin', 'isadmin'=>true, 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
+        $user2->setRandomAccessToken();
+        $user2->save();
 
         $region = \App\Models\Region::create(['name' => 'test epa', 'description' => 'fluffy cloud city']);
         //$user->regions()->attach($region);

@@ -31,7 +31,7 @@ Route::post('pushmessage/create/{messageId}', '\App\Http\Controllers\AdminContro
 
 Route::get('translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
 Route::get('translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');
-Route::post('translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
+Route::get('translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
 
 Route::get('/test', function () 
 {
@@ -44,3 +44,4 @@ Route::get('logoff', function()
 });
 //Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
 Route::get("requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
+

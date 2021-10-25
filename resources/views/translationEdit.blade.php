@@ -22,14 +22,27 @@ Translations
                 <table> 
                     <tr><th>Key</th><th>En</th><th>{{$language}}</th></tr>
                         @foreach(\App\Models\Language::all() as $lan)
-                            <tr><td>{{$lan->key}}</td><td>{{$lan->en}}</td><td><input type="text" id="tr_{{$lan->id}}_{{$language}}" class="form-control" onkeyup="uploadTranslation({{$lan->id}}, {{$language}});" value="{{$lan->$language}}"></td></tr>
+                            <tr><td>{{$lan->key}}</td><td>{{$lan->en}}</td><td><input type="text" id="tr_{{$lan->id}}_{{$language}}" class="form-control" onkeyup="uploadTranslation({{$lan->id}}, '{{$language}}');" value="{{$lan->$language}}"></td></tr>
                         @endforeach
                 </table>
             </div>
             <script>
                 function uploadTranslation(keyId, languageName)
                 {
-                    
+                    var value = document.getElementById('tr_' + keyId + "_" + languageName).value;
+                    $.ajax({
+                        type:'GET',
+                        url: '/translationPutAjax',
+                        data: 
+                        {
+                            "key": keyId, 
+                            "language": languageName,
+                            "value": value
+                        },
+                        success:function(data) 
+                        {
+                        }
+                    });
                 }
             </script>
         </div>

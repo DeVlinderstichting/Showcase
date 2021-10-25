@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\User;
 use Auth;
 
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
@@ -14,11 +15,14 @@ class UserController extends Controller
         $valDat = request()->validate([
             'username' => 'required',
             'password' => 'nullable',
-            'accesstoken' => 'nullable'
+            'accesstoken' => 'nullable',
+            'datapackage' => 'nullable'
+
         ]);
 
     //    $user = \App\Models\User::find(1);
      //   $regions = $user->regions()->get();
+
 
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
@@ -50,9 +54,20 @@ class UserController extends Controller
 
             if ($authOk)
             {
+                if (array_key_exists('datapackage', $valDat))
+                {
+                    $user = Auth::user();
+                    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $valDat['datapackage']]);
+                    $this->processUserDataPackage($user, $valDat['datapackage']);
+                }
                 return Auth::user()->buildUserPackage();
             }
         }
         return "authentication failed";      
+    }
+
+    private function processUserDataPackage(User $user, $dataPackage)
+    {
+
     }
 }

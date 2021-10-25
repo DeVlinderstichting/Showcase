@@ -304,21 +304,17 @@ function objectToString (object) //because to the southpole with JSON
         var theSValue = "";
         if (typeof theValue == "object")
         {
-            console.log(theKey + " is an object");
             theSValue = objectToString(theValue);
         }
         else 
         {
-            console.log(theKey + " is not an object");
             theSValue = JSON.stringify(theValue);
-            console.log(theSValue);
         }
         if (res != "")
         {
             res += ","
         }
         res += theKey + ":" + theSValue; 
-        console.log(res);
     }
     return res;
 }
@@ -331,6 +327,7 @@ function synchWithServer()
     {
         visits = result;
        
+       /* 
         var res = "";
         for (var visit = 0 ; visit < visits.length; visit++)
         {
@@ -341,8 +338,10 @@ function synchWithServer()
                 console.log(theKey + " :: " + theValue);
             }
         }
+        */
+        var line = objectToString(visits);
 
-
+        console.log("igloL " + line);
 
 
         var thePackage = {'usersettings':'', 'visitdata': ''};

@@ -169,7 +169,7 @@ class User extends Authenticatable
             $singleSp = [];
             $singleSp['id'] = $sp->id;
             $singleSp['taxon'] = $sp->taxon;
-            $singleSp['genus'] = $sp->genus;
+            $singleSp['genus'] = ucwords($sp->genus);
             $singleSp['speciesgroupId'] = $sp->speciesgroup_id;
             $singleSp['description'] = $sp->description;
             $singleSp['imageLocation'] = $sp->imagelocation;

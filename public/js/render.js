@@ -145,7 +145,7 @@ const showSpecialObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
     var countIds =  Object.values(speciesGroups).filter(    
         obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
         obj => {speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings

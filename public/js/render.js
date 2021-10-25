@@ -11,6 +11,7 @@ var renderNav = function(clear=false)
         <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
         <a class="nav-link active" id="nav_logoutLink" aria-current="page" href="#"><i class="fas fa-sign-out-alt"></i></a>
         `
+        nav.style.display = "flex";
         // Attach the events 
         document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
         document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
@@ -21,6 +22,7 @@ var renderNav = function(clear=false)
     else
     {
         nav.innerHTML = '';
+        nav.style.display = "none"; 
     }
 }
 
@@ -49,35 +51,50 @@ var renderModal = function(title, body, postid='')
 
 const showLoginScreen = () => 
 {
-    var nav = document.getElementById("nav");
-    nav.innerHTML = `
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Showcase</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle" aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    // var nav = document.getElementById("nav");
+    // nav.innerHTML = `
+    // <div class="container-fluid">
+    //     <a class="navbar-brand" href="#">Showcase</a>
+    //     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle" aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
+    //         <span class="navbar-toggler-icon"></span>
+    //     </button>
 
-        <div class="collapse navbar-collapse" id="toggle">
-            <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-            <li class="nav-item">
-                <a class="nav-link active" id="installButton" aria-current="page" href="#">Add to home screen</a>
-            </li>
-            </ul>
-        </div>
-    </div>`;
+    //     <div class="collapse navbar-collapse" id="toggle">
+    //         <ul class="navbar-nav ms-auto mb-2 mb-md-0">
+    //         <li class="nav-item">
+    //             <a class="nav-link active" id="installButton" aria-current="page" href="#">Add to home screen</a>
+    //         </li>
+    //         </ul>
+    //     </div>
+    // </div>`;
 
-var mb = document.getElementById('mainBody');
+    renderNav(clear=true);
+
+    var mb = document.getElementById('mainBody');
     // Build the DOM
     mb.innerHTML = `
-        <div>
-            <label for="login_emailField">Email address: 
-            <input type="text" id="login_emailField" name="login_emailField" required size="10">
-        </div>
-        <div>
-            <label for="login_emailField">Password: 
-            <input type="password" id="login_passField" name="login_passField" required size="10">
-        </div>        
-        <button type="button" id="login_loginButton">Inloggen</button>`;
+        <!-- start section -->
+        <section class="cover-background" style="background-image:url('img/background_1920x1080_v2.png');">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-12 text-center">
+                        <h1>PLEASE, SIGN IN</h1>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                            <label class=""><h5>Email address*</h5></label>
+                            <input class="small-input" type="text" id="login_emailField" name="login_emailField" placeholder="">
+                            <label class=""><h5>Password*</h5></label>
+                            <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
+                        
+                            <button class="btn" id="login_loginButton">Login</button>
+                            <h6><a href="#">Lost your password?</a></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- end section -->`;
 
     // Attach the events
     document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };

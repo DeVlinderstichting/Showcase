@@ -1261,7 +1261,7 @@ const showDataScreen = () =>
     {
         visits = result;
         document.getElementById('data_nrDataEntries').innerHTML = visits.length;
-    }
+    });
 
     
     

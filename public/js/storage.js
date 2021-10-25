@@ -275,8 +275,8 @@ function loadVisits()
         visitsRequest.onsuccess = function(evnt)
         {
             visitsLoadedAtDate = new Date();
-            console.log(visitsRequest.result);
-            //visits = JSON.parse(visitsRequest.result);
+            // console.log(visitsRequest.result);
+            visits = visitsRequest.result;
             //console.log(visits);
         }
     };

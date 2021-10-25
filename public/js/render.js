@@ -14,10 +14,12 @@ var renderNav = function(clear=false)
         nav.style.display = "flex";
         // Attach the events 
         document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
-        document.getElementById("nav_dataLink").onclick = function () {showDataScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_dataLink").onclick = function () {showDataScreen(); };
         document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
         document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
         document.getElementById("nav_logoutLink").onclick = function () {showLoginScreen(); };
+        
+    
     } 
     else
     {
@@ -1191,4 +1193,123 @@ const showTransectPostObservationScreen = () =>
         storeTransectCount();
     }; 
     document.getElementById("transect_buttonCancel").onclick = function () {  showTransectObservationScreen() }; 
+}
+
+const showDataScreen = () =>
+{
+    
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+                function (el) { return el.id; });              //Return ID
+
+    loadVisits();
+
+    // Build the DOM
+    renderNav();
+
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <h2 id="data_title">Title</h2>
+    <h3 id="data_subtitle">Subtitle</h3>
+    <div>
+        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+    </div>
+    <h3 id="data_stopwatchText">Data overview</h3>
+    <table>
+        <tr>
+            <th>Data entries</th>
+            <td id="data_nrDataEntries"></td>
+        </tr>
+        <tr>
+            <th>Observations</th>
+            <td id="data_nrObservations"></td>
+        </tr>
+        <tr>
+            <th>Insects seen</th>
+            <td id="data_nrInsectsSeen"></td>
+        </tr>
+        <tr>
+            <th>Species groups seen</th>
+            <td id="data_nrSpeciesGroupsSeen"></td>
+        </tr>                
+    </table>
+    <h3 id="data_userActivityText">User activity</h3>
+    <canvas id="bar-chart" width="400" height="300"></canvas>
+    <h3 id="data_userObservations">Observations</h3>
+    <table id="obsTable">
+        <thead>
+            <td>Date</td>
+            <td>Species</td>
+            <td>Count</td>
+            <td>Details</td>
+        </thead>
+        <tbody>
+        </tbody>
+    <table>
+
+    `
+    // Attach the modal
+    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+
+    document.getElementById('data_nrDataEntries').html(visits.length)
+    
+    $(document).ready( function () {
+        $('#obsTable').DataTable(
+            {
+                ajax: 
+                {
+                    url: 'observationSettings/observations.txt',
+                    dataSrc: 'data'
+                },
+                columns: [
+                    { data: 'Date' },
+                    { data: 'Species' },
+                    { data: 'Count' },
+                    { data: 'Details' },
+                ],
+                "scrollX": true,
+                columnDefs: [
+                    {
+                        targets: 3,
+                        render: function (data, type, row, meta)
+                        {
+                            datastring = `'This will redirect to website with details on ${data}'`;
+                            data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
+                            return data;
+                        }
+                    }
+                ]
+
+            }
+        );
+    } );
+
+    new Chart(document.getElementById("bar-chart"), {
+        type: 'bar',
+        data: {
+          labels: ["April", "May", "June", "July", "August"],
+          datasets: [
+            {
+              label: "Observations",
+              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+              data: [375,530,739,784,245]
+            }
+          ]
+        },
+        options: {
+          legend: { display: false },
+          title: {
+            display: true,
+            text: 'Number of observations'
+          }
+        }
+    });
+
 }

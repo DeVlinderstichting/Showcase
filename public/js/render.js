@@ -51,6 +51,8 @@ var renderModal = function(title, body, postid='')
 
 const showLoginScreen = () => 
 {
+    // STILL KEEPING THIS AS COMMENTS TO KEEP THE installButton !!!
+
     // var nav = document.getElementById("nav");
     // nav.innerHTML = `
     // <div class="container-fluid">
@@ -148,7 +150,7 @@ const showSpecialObservationScreen = () =>
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
     var countIds =  Object.values(speciesGroups).filter(    
         obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
-        obj => {speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
              function (el) { return el.id; });              //Return ID
 
     // Build the DOM

@@ -145,7 +145,11 @@ const showSpecialObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+             function (el) { return el.id; });              //Return ID
 
     // Build the DOM
     renderNav(clear=true);
@@ -213,7 +217,11 @@ const show15mObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+             function (el) { return el.id; });              //Return ID
 
     // Build the DOM
     renderNav(clear=true);
@@ -359,7 +367,8 @@ const show15mPostObservationScreen = () =>
     var species = settings.species;
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
-    // var countIds =  Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).map( function (el) { return el.id; });
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
+    // Get the observer species and groups to make a preselection
     var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
 

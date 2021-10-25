@@ -1234,8 +1234,8 @@ const showDataScreen = () =>
             <td id="data_nrInsectsSeen"></td>
         </tr>
         <tr>
-            <th>Species groups seen</th>
-            <td id="data_nrSpeciesGroupsSeen"></td>
+            <th>Species seen</th>
+            <td id="data_nrSpeciesSeen"></td>
         </tr>                
     </table>
     <h3 id="data_userActivityText">User activity</h3>
@@ -1256,65 +1256,90 @@ const showDataScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
 
+    var dates = [];
+    var monthCountArr = new Array(12).fill(0); 
 
     loadVisits().then(function(result) 
     {
         visits = result;
-        document.getElementById('data_nrDataEntries').innerHTML = visits.length;
-    });
-
-    
-    
-    $(document).ready( function () {
-        $('#obsTable').DataTable(
-            {
-                ajax: 
+        console.log(visits);
+        
+        // Compute some statistics
+        var total_observations = 0;
+        var total_insects = 0;
+        var total_species = 0;
+        var species_id_list = [];
+        var tableData = [];
+        visits.forEach(elem => {
+            total_observations += elem.data.observations.length;
+            dates.push(elem.startdate);
+            elem.data.observations.forEach(obs => {
+                spObject = Object.values(species).filter(obj => {return obj.id==obs.species_id})[0]
+                if (settings.userSettings.sci_names)
                 {
-                    url: 'observationSettings/observations.txt',
-                    dataSrc: 'data'
-                },
-                columns: [
-                    { data: 'Date' },
-                    { data: 'Species' },
-                    { data: 'Count' },
-                    { data: 'Details' },
-                ],
-                "scrollX": true,
-                columnDefs: [
-                    {
-                        targets: 3,
-                        render: function (data, type, row, meta)
+                    spName = spObject.taxon + ' ' + spObject.genus;
+                }
+                else
+                {
+                    spName = spObject.localName;
+                }
+                tableData.push([elem.startdate.toISOString().slice(0, 10), spName, obs.number, obs.species_id]);
+                total_insects += parseInt(obs.number);
+                if(!species_id_list.includes(obs.species_id))
+                {
+                    species_id_list.push(obs.species_id);
+                    total_species++;
+                }
+            })
+        });
+        
+        dates.forEach( date => {console.log(date); monthCountArr[date.getMonth()] += 1 }) ;
+        document.getElementById('data_nrDataEntries').innerHTML = visits.length;
+        document.getElementById('data_nrObservations').innerHTML = total_observations;
+        document.getElementById('data_nrInsectsSeen').innerHTML = total_insects;
+        document.getElementById('data_nrSpeciesSeen').innerHTML = total_species;
+
+        new Chart(document.getElementById("bar-chart"), {
+            type: 'bar',
+            data: {
+              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              datasets: [
+                {
+                  label: "Observations",
+                  backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
+                  data: monthCountArr
+                }
+              ]
+            },
+            options: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: 'Number of observations'
+              }
+            }
+        });
+
+        $(document).ready( function () {
+            $('#obsTable').DataTable(
+                {
+                    data: tableData,
+                    "scrollX": true,
+                    columnDefs: [
                         {
-                            datastring = `'This will redirect to website with details on ${data}'`;
-                            data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
-                            return data;
+                            targets: 3,
+                            render: function (data, type, row, meta)
+                            {
+                                datastring = `'This will redirect to website with details on ${data}'`;
+                                data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
+                                return data;
+                            }
                         }
-                    }
-                ]
+                    ]
+    
+                }
+            );
+        } );
 
-            }
-        );
-    } );
-
-    new Chart(document.getElementById("bar-chart"), {
-        type: 'bar',
-        data: {
-          labels: ["April", "May", "June", "July", "August"],
-          datasets: [
-            {
-              label: "Observations",
-              backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
-              data: [375,530,739,784,245]
-            }
-          ]
-        },
-        options: {
-          legend: { display: false },
-          title: {
-            display: true,
-            text: 'Number of observations'
-          }
-        }
     });
-
 }

@@ -1341,3 +1341,139 @@ const showDataScreen = () =>
 
     });
 }
+
+const showSettingsScreen = () =>
+{
+    // Get the settings and species
+    var settings = getUserSettings();
+    var species = settings.species;
+    var translations = settings.translations;
+    var speciesGroups = settings.speciesGroups;
+    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
+    var countIds =  Object.values(speciesGroups).filter(    
+        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
+                function (el) { return el.id; });              //Return ID
+
+    // Build the DOM
+    renderNav();
+
+    var mb = document.getElementById('mainBody');
+    mb.innerHTML = `
+    <style>
+    .circle {
+        background-color: #F80;
+        border: 3px solid #FFF;
+        border-radius: 18px;
+        box-shadow: 0 0 2px #888;
+        height: 30px;
+        width: 30px;
+      }
+    </style>
+    <h2 id="settings_title">Settings</h2>
+    <h3 id="settings_subtitle">Lorem ipsum dolor sit amet</h3>
+    <h3 id="settings_generalSettingsText">General settings</h3>
+    <table>
+        <tr>
+            <th>User</th>
+            <th id="settings_userTable"></th>
+        </tr>
+        <tr>
+            <th>Registered at</th>
+            <td id="settings_registeredAtTable"></td>
+        </tr>
+        <tr>
+            <td>Use scientific names</td>
+            <td><input type="checkbox" id="settings_useScientificNamesCheck"></td>
+        </tr>
+        <tr>
+            <td>Show previously seen</td>
+            <td><input type="checkbox" id="settings_showPreviouslySeenCheck"></td>
+        </tr>
+        <tr>
+            <td>Show common species</td>
+            <td><input type="checkbox" id="settings_showCommonSpeciesCheck"></td>
+        </tr>                        
+    </table>
+    <button id="settings_logoutButton">Logout</button>
+    <h3 id="settings_whatCountText">What do you want to count</h3>
+    <div>
+            <h4>Butterflies</h4>
+            <div class="d-inline">
+                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
+            </div>
+            <h4>Bees</h4>
+            <div class="d-inline">
+                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
+            </div>
+            <h4>Flowers</h4>
+            <div class="d-inline">
+                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers3"><i class="fas fa-bug"></i></span>
+            </div>
+            <h4>Birds</h4>
+            <div class="d-inline">
+                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
+            </div>
+            
+    </div>
+
+    `
+
+    // Populate the data
+    $("#settings_userTable").html(settings.userSettings.name);
+    $("#settings_registeredAtTable").html(settings.userSettings.settingsSynchedAt); //NOTE THIS IS NOT THE RIGHT FIELD, DOES NOT EXIST YET IN DATABASE
+    if (settings.userSettings.sci_names)
+    {
+        $('#settings_useScientificNamesCheck').prop('checked', true);
+    }
+    if (settings.userSettings.showOnlyCommonSpecies)
+    {
+        $('#settings_showCommonSpeciesCheck').prop('checked', true);
+    }
+    if (settings.userSettings.showPreviouslyObservedSpecies)
+    {
+        $('#settings_showPreviouslySeenCheck').prop('checked', true);
+    }
+    // We can only attach butterfly group at this point...
+    var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
+        $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
+
+    // Attach the events
+    $('#settings_useScientificNamesCheck').click( function () {
+        currentSettings = getUserSettings().userSettings;
+        currentSettings.sci_names = $(this).is(':checked');
+        storeSettingsData('userSettings', currentSettings);
+    });
+    $('#settings_showCommonSpeciesCheck').click( function () {
+        currentSettings = getUserSettings().userSettings;
+        currentSettings.showOnlyCommonSpecies = $(this).is(':checked');
+        storeSettingsData('userSettings', currentSettings);
+    });
+    $('#settings_showPreviouslySeenCheck').click( function () {
+        currentSettings = getUserSettings().userSettings;
+        currentSettings.showPreviouslyObservedSpecies = $(this).is(':checked');
+        storeSettingsData('userSettings', currentSettings);
+    });
+
+    $('#settings_logoutButton').click( function () {
+        showLoginScreen(); // For now, also need to properly destroy session locally and on server
+    })
+
+    // We can only attach butterfly group at this point...
+    $('[id*=selectButtonButterflies]').click(function () {
+        $('[id*=selectButtonButterflies]').removeClass('circle');
+        $(this).addClass('circle');
+        currentSettings = getUserSettings().userSettings;
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = parseInt($(this).attr('id').slice(-1));
+        storeSettingsData('userSettings', currentSettings);
+    });
+
+}

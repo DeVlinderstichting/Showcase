@@ -281,75 +281,75 @@ function observationFinalizeToggleRow(rowId)
     item.innerHTML = html;
 }
 
-const showSettingsScreen = () => 
-{
-    renderNav();
+// const showSettingsScreen = () => 
+// {
+//     renderNav();
 
-    var mb = document.getElementById('mainBody');
+//     var mb = document.getElementById('mainBody');
 
-    var html = `
-    <div class="container mt-5 mb-3">
-        <div class="row mt-3">
-            <div class="col">
-                <div class="row row-cols-1 row-cols-md-2 g-4">
-                    <div class="col">
-                        <div class="card h-100">
-                        <h5 class="card-header">General settings</h5>
-                            <div class="card-body">
-                                <table class="table table-borderless">
-                                    <tr>
-                                        <td>User</td>
-                                        <td>A.J. de Vries</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Registerd at</td>
-                                        <td>2021-04-01</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Logout</td>
-                                        <td><button onclick="showLoginScreen();" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Use scientific names</td>
-                                        <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Show previously seen</td>
-                                        <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td>Show common species</td>
-                                        <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
-                                    </tr>                                               
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <h5 class="card-header">What do you want to count</h5>
-                            <div class="card-body text-center">
-                                <div class="alert alert-light" role="alert">
-                                    Red (<span style="color: #f00c0c">&#x25A2</span>): no counts<br>
-                                    Orange (<span style="color: #f0b70c">&#x25A2</span>): count number within group (not at species level)<br>
-                                    Green (<span style="color: #29f00c">&#x25A2</span>); count species within group
-                                </div>
-                                <img onclick="toggleColor(this)" id="countSettingButterfly" src="images/bf5.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
-                                <img onclick="toggleColor(this)" id="countSettingBee" src="images/bij.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
-                                <img onclick="toggleColor(this)" id="countSettingFlower" src="images/plant.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
-                                <img onclick="toggleColor(this)" id="countSettingBird" src="images/vogel.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>`
+//     var html = `
+//     <div class="container mt-5 mb-3">
+//         <div class="row mt-3">
+//             <div class="col">
+//                 <div class="row row-cols-1 row-cols-md-2 g-4">
+//                     <div class="col">
+//                         <div class="card h-100">
+//                         <h5 class="card-header">General settings</h5>
+//                             <div class="card-body">
+//                                 <table class="table table-borderless">
+//                                     <tr>
+//                                         <td>User</td>
+//                                         <td>A.J. de Vries</td>
+//                                     </tr>
+//                                     <tr>
+//                                         <td>Registerd at</td>
+//                                         <td>2021-04-01</td>
+//                                     </tr>
+//                                     <tr>
+//                                         <td>Logout</td>
+//                                         <td><button onclick="showLoginScreen();" class="btn btn-primary btn-sm"><i class="fas fa-sign-out-alt"></i> Logout</button></td>
+//                                     </tr>
+//                                     <tr>
+//                                         <td>Use scientific names</td>
+//                                         <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
+//                                     </tr>
+//                                     <tr>
+//                                         <td>Show previously seen</td>
+//                                         <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
+//                                     </tr>
+//                                     <tr>
+//                                         <td>Show common species</td>
+//                                         <td><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"></div></td>
+//                                     </tr>                                               
+//                                 </table>
+//                             </div>
+//                         </div>
+//                     </div>
+//                     <div class="col">
+//                         <div class="card h-100">
+//                             <h5 class="card-header">What do you want to count</h5>
+//                             <div class="card-body text-center">
+//                                 <div class="alert alert-light" role="alert">
+//                                     Red (<span style="color: #f00c0c">&#x25A2</span>): no counts<br>
+//                                     Orange (<span style="color: #f0b70c">&#x25A2</span>): count number within group (not at species level)<br>
+//                                     Green (<span style="color: #29f00c">&#x25A2</span>); count species within group
+//                                 </div>
+//                                 <img onclick="toggleColor(this)" id="countSettingButterfly" src="images/bf5.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
+//                                 <img onclick="toggleColor(this)" id="countSettingBee" src="images/bij.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
+//                                 <img onclick="toggleColor(this)" id="countSettingFlower" src="images/plant.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
+//                                 <img onclick="toggleColor(this)" id="countSettingBird" src="images/vogel.jpg" class="img-tgl img-thumbnail" alt="..." style="margin: 3px; width: 200px; height:200px">
+//                             </div>
+//                         </div>
+//                     </div>
+//                 </div>
+//             </div>
+//         </div>
+//     </div>`
 
-    mb.innerHTML = html;
-    setColor();
+//     mb.innerHTML = html;
+//     setColor();
 
-}
+// }
 
 function hexToRgb(hex) 
 {

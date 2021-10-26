@@ -57,8 +57,9 @@ class UserController extends Controller
                 if (array_key_exists('datapackage', $valDat))
                 {
                     $user = Auth::user();
-                    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $valDat['datapackage']]);
+                    return gettype($valDat['datapackage']);
                     $this->processUserDataPackage($user, $valDat['datapackage']);
+                    return 19;
                 }
                 return Auth::user()->buildUserPackage();
             }
@@ -68,6 +69,8 @@ class UserController extends Controller
 
     private function processUserDataPackage(User $user, $dataPackage)
     {
-
+        return 17;
+       // return "iglo: " . gettype($dataPackage);
+        \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $dataPackage]);
     }
 }

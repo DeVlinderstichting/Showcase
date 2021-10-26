@@ -151,7 +151,7 @@ function buildEmptyVisit()
 {
     var settings = getUserSettings(); 
 
-    var theVisit =[];
+    var theVisit ={};
     theVisit['countingmethod_id'] = '';
     theVisit['location'] = '';
     theVisit['startdate'] = new Date();
@@ -173,7 +173,7 @@ function buildEmptyVisit()
 }
 function buildEmptyObservation(visit)
 {
-    var theObservation=[];
+    var theObservation={};
     theObservation['species_id'] = -1;
     theObservation['number'] = -1;
     theObservation['transect_section_id'] = -1;
@@ -294,7 +294,7 @@ function loadVisits()
     });
 }
 
-function objectToString (object) //because to the southpole with JSON 
+/*function objectToString (object) //because to the southpole with JSON 
 {
     var res = "";
     for (var i = 0; i < Object.keys(object).length; i++)
@@ -317,7 +317,7 @@ function objectToString (object) //because to the southpole with JSON
         res += theKey + ":" + theSValue; 
     }
     return res;
-}
+}*/
 
 function synchWithServer()
 {
@@ -327,6 +327,8 @@ function synchWithServer()
     {
         visits = result;
        
+     //   console.log(JSON.stringify(visits));
+
        /* 
         var res = "";
         for (var visit = 0 ; visit < visits.length; visit++)
@@ -339,9 +341,9 @@ function synchWithServer()
             }
         }
         */
-        var line = objectToString(visits);
+       // var line = objectToString(visits);
 
-        console.log("igloL " + line);
+       // console.log("igloL " + line);
 
 
         var thePackage = {'usersettings':'', 'visitdata': ''};
@@ -371,7 +373,6 @@ function synchWithServer()
       //  console.log(thePackage); 
       */
         theJsonPackage = JSON.stringify(thePackage);
-//console.log(theJsonPackage);
         $.ajax({
             type: 'GET',
             url: '/requestUserPackage',
@@ -379,7 +380,7 @@ function synchWithServer()
             {
                 'username': settings.userSettings['email'],
                 'accesstoken': settings.userSettings['accessToken'],
-                'datapackage': visits
+                'datapackage': theJsonPackage
             },
             success: function(data) 
             {

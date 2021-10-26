@@ -9,6 +9,7 @@ class SpeciesgroupsUsers extends Model
 {
     use HasFactory;
     protected $table = 'speciesgroups_users';
+    protected $fillable = ['user_id', 'speciesgroup_id', 'recordinglevel_id'];
 
     public function speciesgroup()
     {

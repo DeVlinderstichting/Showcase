@@ -8,9 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class Method extends Model
 {
     use HasFactory;
+    protected $fillable = ['value'];
+
 
     public function speciesGroupRecordingLevel()
     {
         return $this->hasMany('App\Models\MethodSpeciesgroupRecordinglevel', 'method_id', 'id');
+    }
+    public static getMethod($methodSpeciesgroups)
+    {
+        $value = "";
+        foreach(\App\Models\Speciesgroup::all()->orderBy('id'))
+        {
+            $value .= "0";
+        }
+        foreach($methodSpeciesgroups as $msg)
+        {
+            $recLevel = $msg->recordinglevel_id;
+            $value = substr_replace($value,$recLevel, $msg->speciesgroup_id,1);
+        }
+        $method = \App\Models\Method::where('value', $value)->first();
+        if ($method == null)
+        {
+            $method = \App\Models\Method::create(['value'=>$value]);
+            foreach($methodSpeciesgroups as $msg)
+            {
+                \App\Models\MethodSpeciesgroupRecordinglevel::create(['method_id' => $method->id, 'speciesgroup_id' => $msg->speciesgroup_id, 'recordinglevel_id' => $msg->recordinglevel_id]);
+            }
+        }
+        return $method;
     }
 }

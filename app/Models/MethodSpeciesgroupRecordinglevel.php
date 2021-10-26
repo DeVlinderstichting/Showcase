@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class MethodSpeciesgroupRecordinglevel extends Model
 {
     use HasFactory;
+    protected $fillable = ['method_id', 'speciesgroup_id', 'recordinglevel_id'];
 
     public function method()
     {

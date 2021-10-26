@@ -17,7 +17,9 @@ class CreateMethodsTable extends Migration
         {
             $table->id();
             $table->timestamps();
+            $table->text('value')->unique();
         });
+        DB::statement("ALTER TABLE methods ADD CONSTRAINT check_value CHECK (value not like '%2%' AND value not like '%3%' AND value not like '%4%'AND value not like '%5%' AND value not like '%6%'AND value not like '%7%'AND value not like '%8%'AND value not like '%9%');");
     }
 
     /**

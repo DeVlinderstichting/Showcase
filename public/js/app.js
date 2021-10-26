@@ -43,72 +43,8 @@ const showButterflies = () =>
 
 
 
-function showMessage(message)
-{
-    data = JSON.parse(atob(message));
-    $('#modal_title').text(data.header);
-    mod_body = data.body;
-    mod_body += '<hr>';
-    if (data.main_image != "")
-    {
-        mod_body += `
-        <a href="${ data.main_image }"><img src="${ data.main_image }" class="img-thumbnail" alt="..." style="max-width:200px"></img></a>
-        `;
-    }
-    if (data.detail_image != "")
-    {
-        mod_body += `
-        <a href="${ data.detail_image }"><img src="${ data.detail_image }" class="img-thumbnail" alt="..." style="max-width:200px"></img></a>
-        `;
-    }
-    $('#modal_body').html(mod_body);
-    var myModal = new bootstrap.Modal(document.getElementById('modal_id'));
-    myModal.show();
 
-}
 
-async function showMessagesScreen (messagesFile)
-{
-
-    let response = await fetch(messagesFile);
-    let responseText = await response.json();
-    renderNav();
-
-    var mb = document.getElementById('mainBody');
-
-    messagesHTML = '';
-    for(var i = 0; i < responseText.messages.length; i++)
-    {
-        act = '';
-        if (i==0) act = 'active';
-        messArg = JSON.stringify(responseText.messages[i])
-        messagesHTML += 
-            `<a onclick="showMessage( '${ btoa(messArg)}' );" class="list-group-item list-group-item-action ${ act }" aria-current="true">
-                <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">${ responseText.messages[i].header }</h5>
-                    <small>${ responseText.messages[i].timestamp }</small>
-                </div>
-                <p class="mb-1">${ responseText.messages[i].body.truncate(80, true) }</p>
-                <small>Unread</small>
-            </a>`
-    }
-
-    mb.innerHTML = renderModal('', '') + `
-    <div class="container mt-5 mb-3">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <h5 class="card-header">Messages</h5>
-                    <div class="card-body">
-                        <div class="list-group">
-                            ${ messagesHTML }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </container>`;
-}
 
 //const async showEnterObservationScreen = (settingsFile, speciesFile) =>
 async function showEnterObservationScreen (settingsFile, speciesFile)

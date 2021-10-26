@@ -187,7 +187,7 @@ const showSpecialObservationScreen = () =>
     $.each(species, function(key, value) {
         if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
-            $('#special_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+            $('#special_selectSpecies').append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
         }
     });
     $('.chosen-select').select2();
@@ -273,7 +273,7 @@ const show15mObservationScreen = () =>
     {
         if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
-            $('#15m_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+            $('#15m_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
     });
     $('.chosen-select').select2();
@@ -294,7 +294,7 @@ const show15mObservationScreen = () =>
         var speciesId = element[0].value;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
-            <li>${speciesInfo['localName']}
+            <li>${getSpeciesName(speciesInfo['id'])}
                 <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
                 <button id="15m_editAmount_${speciesInfo['id']}">edit</button>
             </li>
@@ -315,7 +315,7 @@ const show15mObservationScreen = () =>
             } );
             modalContent += '</ul>';
 
-            $("#mainBody").append(renderModal(`Edit observations ${speciesInfo['localName']}`,modalContent, `_${speciesInfo['id']}`));
+            $("#mainBody").append(renderModal(`Edit observations ${getSpeciesName(speciesInfo['id'])}`,modalContent, `_${speciesInfo['id']}`));
 
             $('.delete_obs').click( function () {
                 timeToDelete = $(this).get(0).attributes.data_time.value;
@@ -558,7 +558,7 @@ const showFitPreObservationScreen = () =>
     $.each(species, function(key, value) {
         if (value['speciesgroupId'] == 4 && value['taxon'] != '') // Note that the ID might change in the future
         {
-            $('#prefit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+            $('#prefit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
     });
     $('.chosen-select').select2();
@@ -626,7 +626,7 @@ const showFitObservationScreen = () =>
     $.each(species, function(key, value) {
         if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
-            $('#fit_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+            $('#fit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
     });
 
@@ -648,7 +648,7 @@ const showFitObservationScreen = () =>
         var speciesId = element[0].value;
         var speciesInfo = species[speciesId];
         $('#fit_listSpecies').append(`
-            <li>${speciesInfo['localName']}
+            <li>${getSpeciesName(speciesInfo['id'])}
                 <button id="fit_minAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
                 <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=1>
                 <button id="fit_plusAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
@@ -990,7 +990,7 @@ const showTransectObservationScreen = () =>
     {
         if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
         {
-            $('#transect_selectSpecies').append(`<option value="${key}">${value['localName']}</option>`);
+            $('#transect_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
     });
     $('.chosen-select').select2();
@@ -1008,7 +1008,7 @@ const showTransectObservationScreen = () =>
         var speciesId = element[0].value;
         var speciesInfo = species[speciesId];
         $('#transect_listSpecies').append(`
-            <li>${speciesInfo['localName']}
+            <li>${getSpeciesName(speciesInfo['id'])}
                 <button id="transect_minAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
                 <input id="transect_inputAmount_${speciesInfo['id']}" name="transect_inputAmount_${speciesInfo['id']}" value=0>
                 <button id="transect_plusAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
@@ -1272,15 +1272,7 @@ const showDataScreen = () =>
             total_observations += elem.data.observations.length;
             dates.push(elem.startdate);
             elem.data.observations.forEach(obs => {
-                spObject = Object.values(species).filter(obj => {return obj.id==obs.species_id})[0]
-                if (settings.userSettings.sci_names)
-                {
-                    spName = spObject.taxon + ' ' + spObject.genus;
-                }
-                else
-                {
-                    spName = spObject.localName;
-                }
+                spName = getSpeciesName(obs.species_id);
                 tableData.push([elem.startdate.toISOString().slice(0, 10), spName, obs.number, obs.species_id]);
                 total_insects += parseInt(obs.number);
                 if(!species_id_list.includes(obs.species_id))
@@ -1476,4 +1468,69 @@ const showSettingsScreen = () =>
         storeSettingsData('userSettings', currentSettings);
     });
 
+}
+
+function showMessage(message)
+{
+    data = JSON.parse(atob(message));
+    $('#modal_title').text(data.header);
+    mod_body = data.content;
+    mod_body += '<hr>';
+    if (data.image_primary != "")
+    {
+        mod_body += `
+        <a href="${ data.image_primary }"><img src="${ data.image_primary }" class="img-thumbnail" alt="..." style="max-width:200px"></img></a>
+        `;
+    }
+    if (data.image_secondary != "")
+    {
+        mod_body += `
+        <a href="${ data.image_secondary }"><img src="${ data.image_secondary }" class="img-thumbnail" alt="..." style="max-width:200px"></img></a>
+        `;
+    }
+    $('#modal_body').html(mod_body);
+    var myModal = new bootstrap.Modal(document.getElementById('modal_id'));
+    myModal.show();
+
+}
+
+const showMessagesScreen = () =>
+{
+    var settings = getUserSettings();
+    var messages = settings.messages;
+
+    renderNav();
+
+    var mb = document.getElementById('mainBody');
+
+    messagesHTML = '';
+    for(var i = 0; i < messages.length; i++)
+    {
+        messArg = JSON.stringify(messages[i])
+        messagesHTML += 
+            `<a onclick="showMessage( '${ btoa(messArg)}' );" class="list-group-item list-group-item-action" aria-current="true">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">${ messages[i].header }</h5>
+                    <small>${ messages[i].timestamp }</small>
+                </div>
+                <p class="mb-1">${ messages[i].contect.truncate(80, true) }</p>
+                <small>Unread</small>
+            </a>`
+    }
+
+    mb.innerHTML = renderModal('', '') + `
+    <div class="container mt-5 mb-3">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">Messages</h5>
+                    <div class="card-body">
+                        <div class="list-group">
+                            ${ messagesHTML }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </container>`;
 }

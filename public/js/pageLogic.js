@@ -156,3 +156,20 @@ function dynamicSort(property) {
         return result * sortOrder;
     }
 }
+
+function getSpeciesName (id)
+{
+    settings = getUserSettings();
+    var species = settings.species;
+    spObject = Object.values(species).filter(obj => {return obj.id==id})[0]
+
+    if (settings.userSettings.sci_names)
+    {
+        spName =  spObject.genus + ' ' + spObject.taxon;
+    }
+    else
+    {
+        spName = spObject.localName;
+    }
+    return spName;
+}

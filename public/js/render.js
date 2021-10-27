@@ -91,7 +91,7 @@ const showLoginScreen = () =>
                             <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
                         
                             <button class="btn" id="login_loginButton">Login</button>
-                            <button class="btn" id="">Install</button>
+                            <button class="btn" id="login_installButton" hidden>Install</button>
                             <h6><a href="#">Lost your password?</a></h6>
                             <div style="text-align: center;margin-top: 3rem;">© De Vlinderstichting 2021</div>
                     </div>
@@ -102,7 +102,50 @@ const showLoginScreen = () =>
 
     // Attach the events
     document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };
+
+    let deferredPrompt; // Allows to show the install prompt
+
+    // On rendering the login screen we need to know if we need the install button
+    const installButton = document.getElementById("login_installButton");
+
+    window.addEventListener("beforeinstallprompt", e => 
+    {
+        console.log("beforeinstallprompt fired");
+        // Prevent Chrome 76 and earlier from automatically showing a prompt
+        e.preventDefault();
+        // Stash the event so it can be triggered later.
+        deferredPrompt = e;
+        // Show the install button
+        installButton.hidden = false;
+        installButton.addEventListener("click", installApp);
+    });
+
+    function installApp() 
+    {
+        // Show the prompt
+        deferredPrompt.prompt();
+        installButton.disabled = true;
+    
+        // Wait for the user to respond to the prompt
+        deferredPrompt.userChoice.then(choiceResult => 
+        {
+            if (choiceResult.outcome === "accepted") 
+            {
+                console.log("PWA setup accepted");
+                installButton.hidden = true;
+            } 
+            else 
+            {
+                console.log("PWA setup rejected");
+            }
+            installButton.disabled = false;
+            deferredPrompt = null;
+        });
+    }
 }
+
+
+
 
 const showHomeScreen = () => 
 {

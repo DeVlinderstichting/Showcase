@@ -173,3 +173,12 @@ function getSpeciesName (id)
     }
     return spName;
 }
+
+function initializeApp()
+{
+    //REMOVE THIS::
+    debugTestInit();
+
+    setupDatabase();
+    document.addEventListener("DOMContentLoaded", showLoginScreen)
+}

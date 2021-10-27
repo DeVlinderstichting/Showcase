@@ -154,25 +154,55 @@ const showHomeScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     theHtml = `
-        <div>
-            <button id="home_specialButton">Something special</button>
+    <section class="cover-background" style="background: rgb(150,229,172);
+    background: linear-gradient(27deg, rgba(150,229,172,1) 50%, rgba(222,238,193,1) 100%);">
+    <div class="container">
+        
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                <div class="box-background text-center" style="background-image:url('img/special-bg.svg');">
+                    <h2>I SAW SOMETHING SPECIAL</h2>
+                    <p>Opportunistic observation</p>
+                    <a href="#" id="home_specialButton" class="btn">START</a>
+                </div>
+            </div>
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                <div class="box-background text-center" style="background-image:url('img/15-count-bg.svg');">
+                    <h2>15 MINUTES COUNT</h2>
+                    <p>Count everything you see for 15 minutes</p>
+                    <a href="#" id="home_15Button" class="btn">START</a>
+                </div>
+            </div>    
         </div>
-        <div>
-            <button id="home_15Button">15 min</button>
-        </div>`;
+        <div class="row justify-content-center">
+    `;
+
+
 
     var settings = getUserSettings();
     if (!($.isEmptyObject(settings.transects)))
     {
         theHtml += `
-            <div>
-                <button id="home_transectButton">Transect</button>
-            </div>`;
+        <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                        <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
+                         <h2>WALK TRANSECT</h2>
+                        <p>Walk a predifined transect and record everything you see</p>
+                        <a href="#" id="home_transectButton" class="btn">START</a>
+                        </div>
+                    </div>`;
     }
     theHtml += `
-        <div>
-            <button id="home_fitButton">Fit</button>
-        </div>`;
+    <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+        <div class="box-background text-center" style="background-image:url('img/flower-count-bg.svg');">
+            <h2>FIT COUNT</h2>
+            <p>Observe a single flower, record everything you see interacting with that flower</p>
+            <a href="#" id="home_fitButton" class="btn">START</a>
+            </div>
+            </div>
+        </div>
+    </div>
+    </section>`;
+
     mb.innerHTML = theHtml;
 
     // Attach the events; initialize the count and show the specific observation screen

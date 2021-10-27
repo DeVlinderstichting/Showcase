@@ -42,7 +42,7 @@ Table of contents
     01. Google font
 ====================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,700;1,300;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;600;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap');
 
 /* ===================================
@@ -51,16 +51,17 @@ Table of contents
 
 html { font-size: 14px; }
 *, *::after, *::before { box-sizing: border-box; }
-body { font-size: 15px; line-height: 30px; font-weight: 400; color: #828282; font-family: 'Mulish', sans-serif; padding: 0; margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-break: break-word }
+body { font-size: 15px; line-height: 20px; font-weight: 600; color: #1b1939; font-family: 'Mulish', sans-serif; padding: 0; margin: 0; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; word-break: break-word }
 body, html { -moz-osx-font-smoothing: grayscale; }
 a { text-decoration: none; }
 a:hover, a:focus { text-decoration: none; outline: none; outline-offset:0; color: #FEC43A; }
 a, a.nav-link, a:active, a:focus { color: #FDA230; }
-a, a.nav-link, .btn, input, textarea, select { transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; }
+a, a.nav-link, .btn, .btn-line, input, textarea, select { transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; }
 img { max-width: 100%; height: auto; }
 p { margin: 0 0 25px; }
-b, strong { font-weight: 600; }
-.alt-font strong { font-weight: 600; }
+b, strong { font-weight: 900; }
+i { font-weight: 300; }
+.alt-font strong { font-weight: 900; }
 .last-paragraph-no-margin p:last-of-type { margin-bottom:0; }
 ul, ol, dl { list-style-position: outside; margin-bottom: 25px; }
 ul { margin: 0; padding: 0; }
@@ -125,8 +126,23 @@ h1 {
     font-weight: 400;
     margin-bottom: 65px;
 }
-h2 { font-size:3.9rem; line-height:4.2rem; }
-h3 { font-size:3.4rem; line-height:3.9rem; }
+h2  { 
+    font-family: 'Oswald', sans-serif;
+    font-size:2.85rem; 
+    line-height:3.4rem; 
+    color:#6c6c97;
+    font-weight: 400;
+    margin-bottom: 25px;
+}
+
+h3  { 
+    font-family: 'Oswald', sans-serif;
+    font-size:18px; 
+    line-height:28px; 
+    color:#6c6c97;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
 h4 { font-size:2.85rem; line-height:3.4rem; }
 h5 { 
     font-size: 15px; 
@@ -189,6 +205,7 @@ input[type="radio"]:checked + label span:after { position: absolute; top: 0; lef
 ====================================== */
 
 .btn { 
+    vertical-align: middle;
     display:inline-block;  
     margin-top: 20px;
     background: #FDA230 0% 0% no-repeat padding-box; 
@@ -214,9 +231,86 @@ input.btn:focus { border-width: 2px; }
     background: #F87A13 0% 0% no-repeat padding-box;
 }
 
+.btn-line { 
+    vertical-align: middle;
+    display:inline-block;  
+    margin-top: 20px;
+    border: 2px solid #6C6C97;
+    background: none;
+    border-radius: 50px; 
+    text-transform: uppercase; 
+    width: auto; 
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 500;
+    font-size:14px; 
+    padding: 10px 36px;
+    color: #6c6c97; 
+    letter-spacing: 0.5px;
+}
 
+.btn-line:hover { 
+    color: #4E4E76 !important; 
+    cursor: pointer; 
+    border: 2px solid #4E4E76;
+}
 
+.btn-line.active.focus, .btn-line.active:focus, .btn-line.focus, .btn-line.focus:active, .btn-line:active:focus, .btn-line:focus { outline: medium none; outline-offset: 0; }
+input.btn-line:focus { border-width: 2px; }
+.btn-line.active, .btn-line:active, .btn-line:focus { box-shadow: none; }
+.btn-line i { vertical-align: middle; position: relative; top: -1px }
 
+.btn-line-small { 
+    display:inline-block;  
+    margin-top: 5px;
+    border: 2px solid #6C6C97;
+    background: none;
+    border-radius: 50px; 
+    text-transform: uppercase; 
+    width: auto; 
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 500;
+    font-size:14px; 
+    padding: 4px 22px;
+    color: #6c6c97; 
+    letter-spacing: 0.5px;
+}
+
+.btn-line-small:hover { 
+    color: #4E4E76 !important; 
+    cursor: pointer; 
+    border: 2px solid #4E4E76;
+}
+
+.btn-line-small.active.focus, .btn-line-small.active:focus, .btn-line-small.focus, .btn-line-small.focus:active, .btn-line-small:active:focus, .btn-line-small:focus { outline: medium none; outline-offset: 0; }
+input.btn-line-small:focus { border-width: 2px; }
+.btn-line-small.active, .btn-line-small:active, .btn-line-small:focus { box-shadow: none; }
+.btn-line-small i { vertical-align: middle; position: relative; top: -1px }
+
+.btn-counter {
+    display:inline-block;  
+    background: #FDA230 0% 0% no-repeat padding-box; 
+    border-radius: 5px; 
+    text-transform: uppercase; 
+    width: auto; 
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 500;
+    font-size:10px; 
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-right: 8px;
+    padding-left: 8px;
+    color: #FFFFFF; 
+    letter-spacing: 0.5px;
+    border: none;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btn-counter:hover { 
+    color: #ffffff !important; 
+    cursor: pointer; 
+    background: #F87A13 0% 0% no-repeat padding-box;
+}
 
 /* ===================================
     09. Background and section
@@ -224,16 +318,45 @@ input.btn:focus { border-width: 2px; }
 
 .cover-background { 
     background-repeat: no-repeat !important; 
-    background-size: background-size: 100% 100%; 
-    height: 100vh; 
-    overflow: hidden; position: relative; 
+    background-size: cover;  
+    width: 100%;
+    height: 100vh;
+    overflow: auto; 
+    position: relative; 
     background-position: center center !important; 
-    padding:160px 0; 
+    padding-top:160px;
+    padding-bottom:260px;
+    background-attachment: fixed;
 }
-.fix-background { position: relative; background-size: cover !important; -webkit-animation-duration: 0s; -webkit-animation-fill-mode: none; overflow: hidden; background-position: center center; background-repeat: no-repeat !important; background-attachment: fixed !important; }
+.fix-background { 
+    position: relative; 
+    background-size: cover !important; 
+    -webkit-animation-duration: 0s; 
+    -webkit-animation-fill-mode: none; 
+    overflow: hidden; 
+    background-position: center center; 
+    background-repeat: no-repeat !important; 
+    background-attachment: fixed !important; 
+}
 
-section { padding: 130px 0; overflow: hidden; }
+section { 
+    padding: 130px 0; 
+    overflow: hidden; 
+}
 
+.box-background {
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    padding: 25px;
+    margin-bottom: 40px;
+    background-position: bottom right!important;
+    }
+
+.separator {
+    margin-bottom: 50px;
+}
 
 
 
@@ -291,3 +414,41 @@ input[type="checkbox"].error { box-shadow: 0px 0px 0px 1px rgb(255 0 0), 1px 1px
 .g-recaptcha.error iframe { border: 1px solid #ff0000; }
 .form-results {padding: 13px 20px; clear: both; width: 100%; margin-top: 20px; font-size: 14px; line-height: 22px; z-index: 2; max-width: 100%; flex: 0 0 100%; -ms-flex: 0 0 100%;}
 
+$quantity-btn-color: #95d7fc;
+.form-group {
+	width: 10%;
+	margin: 30px;
+    text-align: center;
+    vertical-align:middle;
+	input[type="text"] {
+		width: 100%;
+		text-align: center;
+	}
+    .glyphicon {
+		color: $quantity-btn-color;
+	}
+}
+
+.input-group>.form-control {
+    position: relative;
+    flex: 1 1 auto;
+    width: 1%;
+    min-width: 0;
+    text-align: center;
+    border-radius: 5px !important;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+.th-right {
+    width: 60%;
+}
+.th-right {
+    padding-left: 10px; 
+    justify-content: right !important;
+    width: 40%;
+}
+
+.justify-content-right {
+    justify-content: right !important;
+}

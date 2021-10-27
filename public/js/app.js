@@ -337,31 +337,6 @@ if ("serviceWorker" in navigator)
 
 
 
-function installApp() 
-{
-    // Show the prompt
-    deferredPrompt.prompt();
-    installButton.disabled = true;
-
-    // Wait for the user to respond to the prompt
-    deferredPrompt.userChoice.then(choiceResult => 
-    {
-        if (choiceResult.outcome === "accepted") 
-        {
-            console.log("PWA setup accepted");
-            installButton.hidden = true;
-        } 
-        else 
-        {
-            console.log("PWA setup rejected");
-        }
-        installButton.disabled = false;
-        deferredPrompt = null;
-    });
-}
-
-
-
 function testLocalStorage()
 {
     var dat = JSON.parse(localStorage.getItem("ShowcaseSettings"));

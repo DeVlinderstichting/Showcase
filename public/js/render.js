@@ -91,7 +91,7 @@ const showLoginScreen = () =>
                             <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
                         
                             <button class="btn" id="login_loginButton">Login</button>
-                            <button class="btn" id="login_installButton">Install</button>
+                            <button class="btn" id="login_installButton" hidden>Install</button>
                             <h6><a href="#">Lost your password?</a></h6>
                             <div style="text-align: center;margin-top: 3rem;">© De Vlinderstichting 2021</div>
                     </div>

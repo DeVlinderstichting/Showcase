@@ -60,7 +60,7 @@ class UserController extends Controller
                  //   return 15;
                  
                   
-                  return $dat.usersettings;
+            //      return $dat.usersettings;
                //   return $dataPackage['usersettings.userSettings.preferedLanguage;
                     $res = $this->processUserDataPackage($user, $valDat['datapackage']);
                     return $res;

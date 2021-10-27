@@ -27,7 +27,7 @@ Admin home
                 Users
             </h5>
             <div class="card-body">
-                <a class="btn btn-primary btn-sm" role="button" href="/user/create">Create new user</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/user/create/-1">Create new user</a>
                 <a class="btn btn-primary btn-sm" role="button" href="/user">Manage users</a>
             </div>
         </div>

@@ -1514,28 +1514,33 @@ const showSettingsScreen = () =>
         $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
 
     // Attach the events
-    $('#settings_useScientificNamesCheck').click( function () {
+    $('#settings_useScientificNamesCheck').click( function () 
+    {
         currentSettings = getUserSettings().userSettings;
         currentSettings.sci_names = $(this).is(':checked');
         storeSettingsData('userSettings', currentSettings);
     });
-    $('#settings_showCommonSpeciesCheck').click( function () {
+    $('#settings_showCommonSpeciesCheck').click( function () 
+    {
         currentSettings = getUserSettings().userSettings;
         currentSettings.showOnlyCommonSpecies = $(this).is(':checked');
         storeSettingsData('userSettings', currentSettings);
     });
-    $('#settings_showPreviouslySeenCheck').click( function () {
+    $('#settings_showPreviouslySeenCheck').click( function () 
+    {
         currentSettings = getUserSettings().userSettings;
         currentSettings.showPreviouslyObservedSpecies = $(this).is(':checked');
         storeSettingsData('userSettings', currentSettings);
     });
 
-    $('#settings_logoutButton').click( function () {
-        showLoginScreen(); // For now, also need to properly destroy session locally and on server
+    $('#settings_logoutButton').click( function () 
+    {
+        logout();
     })
 
     // We can only attach butterfly group at this point...
-    $('[id*=selectButtonButterflies]').click(function () {
+    $('[id*=selectButtonButterflies]').click(function () 
+    {
         $('[id*=selectButtonButterflies]').removeClass('circle');
         $(this).addClass('circle');
         currentSettings = getUserSettings().userSettings;

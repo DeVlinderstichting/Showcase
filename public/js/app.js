@@ -22,6 +22,7 @@ function attemptLogin()
 {
     username= "test@vlinderstichting.nl";
     password = "123test";
+    console.log("requesting user package");
     requestUserPackage(username, password, sendBackHome=true);
 }
 

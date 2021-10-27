@@ -11,12 +11,14 @@ var visitsLoadedAtDate;
 
 function removeDatabase()
 {
-    var req = indexedDB.deleteDatabase(DB_NAME);
-    req.onerror = function (evnt) 
-    {
-        console.error("openDb:", evnt.target.errorCode);
-    };
+  //  var req = indexedDB.deleteDatabase(DB_NAME);
+   // req.onerror = function (evnt) 
+    //{
+     //   console.log("error removing");
+      //  console.error("openDb:", evnt.target.errorCode);
+    //};
    // console.log('database deleted');
+
 }
 
 function setupDatabase()
@@ -25,6 +27,7 @@ function setupDatabase()
     
     req.onerror = function (evnt) 
     {
+        console.log("db set up error");
         console.error("openDb:", evnt.target.errorCode);
     };
 
@@ -97,6 +100,7 @@ function loadUserSettings(sendBackHome = false)
     
     req.onerror = function (evnt) 
     {
+        console.log("user settings");
         console.error("openDb:", evnt.target.errorCode);
     };
 

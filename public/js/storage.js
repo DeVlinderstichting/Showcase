@@ -70,6 +70,7 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
+            console.log(data);
             storeUserPackage(data, sendBackHome);
         }
     });
@@ -94,6 +95,27 @@ function getUserSettings(sendBackHome = false)
     return userSettings;
 }
 
+function storeSettingsInDatabase()
+{
+    var req = indexedDB.open(DB_NAME, DB_VERSION);
+    
+    req.onerror = function (evnt) 
+    {
+        console.log("Error opening database");
+    };
+
+    req.onsuccess = function (evnt) 
+    {
+        db = req.result;
+        tx = db.transaction(DB_STORE_NAME_SETTINGS, "readwrite");
+        store = tx.objectStore(DB_STORE_NAME_SETTINGS);
+
+        dat = {'name': 'settings', 'data': JSON.stringify(userSettings)};
+        putRequest = store.put(dat);
+        console.log("setting stored");
+    };
+}
+
 function loadUserSettings(sendBackHome = false) 
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);
@@ -112,6 +134,7 @@ function loadUserSettings(sendBackHome = false)
         settingsRequest = store.get('settings');
         settingsRequest.onsuccess = function(evnt)
         {
+            console.log(settingsRequest.result.data);
             userSettings = JSON.parse(settingsRequest.result.data);
             if (sendBackHome == true)
             {

@@ -1320,9 +1320,9 @@ const showDataScreen = () =>
                 spName = getSpeciesName(obs.species_id);
                 tableData.push([elem.startdate.toISOString().slice(0, 10), spName, obs.number, obs.species_id]);
                 total_insects += parseInt(obs.number);
-                if(!species_id_list.includes(obs.species_id))
+                if(!species_id_list.includes(parseInt(obs.species_id)))
                 {
-                    species_id_list.push(obs.species_id);
+                    species_id_list.push(parseInt(obs.species_id));
                     total_species++;
                 }
             })
@@ -1486,9 +1486,9 @@ const showSettingsScreen = () =>
     // Attach the events
     $('#settings_useScientificNamesCheck').click( function () 
     {
-        currentSettings = getUserSettings().userSettings;
-        currentSettings.sci_names = $(this).is(':checked');
-        storeSettingsData('userSettings', currentSettings);
+        settings = getUserSettings();
+        userSettings.userSettings.sci_names = $(this).is(':checked');
+        storeSettingsInDatabase();
     });
     $('#settings_showCommonSpeciesCheck').click( function () 
     {

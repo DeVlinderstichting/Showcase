@@ -76,7 +76,7 @@ const showLoginScreen = () =>
     // Build the DOM
     mb.innerHTML = `
         <!-- start section -->
-        <section class="cover-background" style="background-image:url('img/background_1920x1080_v2.png');">
+        <section class="cover-background" style="background-image:url('img/background_1920x1080_v2.png'); height:100vh; padding-top: 200px;">
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-md-12 text-center">
@@ -154,8 +154,7 @@ const showHomeScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     theHtml = `
-    <section class="cover-background" style="background: rgb(150,229,172);
-    background: linear-gradient(27deg, rgba(150,229,172,1) 50%, rgba(222,238,193,1) 100%);">
+    <section class="cover-background">
     <div class="container">
         
         <div class="row justify-content-center">

@@ -346,7 +346,14 @@ function testLocalStorage()
 }
 
 
-
-
+// Disable the history back button
+window.addEventListener('load', function() {
+    window.history.pushState({}, '')
+})
+  
+window.addEventListener('popstate', function() {
+    window.history.pushState({}, '')
+})
+  
 
 

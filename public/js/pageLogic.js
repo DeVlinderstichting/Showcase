@@ -187,14 +187,12 @@ function initializeApp()
 function logout()
 {
     var settings = getUserSettings();
-
     loadVisits().then(function(result) 
     {
         visits = result;
         var thePackage = {'usersettings':'', 'visitdata': ''};
         thePackage['usersettings'] = settings;
         thePackage['visitdata'] = visits;
-
         theJsonPackage = JSON.stringify(thePackage);
         $.ajax({
             type: 'POST',
@@ -207,7 +205,11 @@ function logout()
             },
             success: function(data) 
             {
-                removeDatabase();
+                var tempDat = [];
+                tempDat['userSettings'] = {"accessToken": ""};
+                tempDat['transects'] = [];
+                var emtpySettings = {'name': 'settings', 'data': tempDat};
+                userSettings = tempDat;
                 showLoginScreen();
             }
         });

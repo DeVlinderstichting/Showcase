@@ -209,6 +209,7 @@ function logout()
                 tempDat['userSettings'] = {"accessToken": ""};
                 tempDat['transects'] = [];
                 var emtpySettings = {'name': 'settings', 'data': tempDat};
+                storeUserPackage(emtpySettings);
                 userSettings = tempDat;
                 showLoginScreen();
             }

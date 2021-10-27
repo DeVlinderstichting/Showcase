@@ -1,43 +1,79 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-        <link rel="stylesheet" href="css/style.css" />
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <link rel="manifest" href="manifest.json" />
-        
-        <!-- ios support -->
-        <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-128x128.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-144x144.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-152x152.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-384x384.png" />
-        <link rel="apple-touch-icon" href="images/icons/icon-512x512.png" />
-        
-        <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
-        <meta name="theme-color" content="#db4938" />
+    <!-- Layout JS -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+    <script type="text/javascript" src="js/theme-vendors.min.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
 
-        <title>Showcase</title>
-    </head>
-    <body class="antialiased">
-        <main>
-            <nav>
-                <h1>Showcase Components</h1>
-                <ul>
-                    <li>Home</li>
-                    <li>About</li>
-                    <li>Info</li>
-                    <li><button id="installButton" onclick="">Add to home screen</button></li>
-                </ul>
-            </nav>
-            <div class="container">
-                Not text found, exept for this one, which is not text just random letters, see for yourself: 'sdfkjshdf'
-            </div>
-        </main>
-        <script src="js/app.js"></script>
-    </body>
+    <!-- DataTables -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+
+    <!-- favicon icon -->
+    <link rel="manifest" href="manifest.json" />
+        
+    <!-- ios support -->
+    <link rel="shortcut icon" href="img/favicon.png">
+    <link rel="apple-touch-icon" href="img/favicon.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="img/favicon_72.png" />
+    <link rel="apple-touch-icon" sizes="96x96" href="img/favicon_96.png" />
+    <link rel="apple-touch-icon" sizes="128x128" href="img/favicon_128.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="img/favicon_144.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="img/favicon_152.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="img/favicon_192.png" />
+    <link rel="apple-touch-icon" sizes="384x384" href="img/favicon_384.png" />
+    <link rel="apple-touch-icon" sizes="512x512" href="img/favicon_512.png" />
+    
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+    <meta name="theme-color" content="#db4938" />
+
+    <!-- style sheets and font icons  -->
+    <link rel="stylesheet" type="text/css" href="css/font-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="css/theme-vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/responsive.css" />
+
+    <link rel="manifest" href="manifest.json" />
+
+    <link href='/css/select2.min.css' rel='stylesheet' />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <meta name="apple-mobile-web-app-status-bar" content="#db4938" />
+    <meta name="theme-color" content="#db4938" />
+
+
+
+    <title>Showcase</title>
+  </head>
+  <body data-mobile-nav-style="classic">
+    <main>
+        <nav class="navbar navbar-expand-md" id='nav'>
+            Navbar
+        </nav>
+        <div id = "mainBody">
+            Mainbody
+        </div>
+    </main>
+
+    <script src="js/render.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/location.js"></script>
+    <script src='/js/pageLogic.js'></script>
+    <script src='/js/select2.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.min.js'></script>
+
+    <script> 
+
+        initializeApp();
+        
+    </script>
+
+  </body>
 </html>

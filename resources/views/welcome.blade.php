@@ -19,6 +19,9 @@
     <link rel="apple-touch-icon" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="72x72" href="img/favicon.png">
     <link rel="apple-touch-icon" sizes="114x114" href="img/favicon.png">
+
+
+    
     <!-- style sheets and font icons  -->
     <link rel="stylesheet" type="text/css" href="css/font-icons.min.css">
     <link rel="stylesheet" type="text/css" href="css/theme-vendors.min.css">

@@ -10,42 +10,42 @@
   "orientation": "portrait-primary",
   "icons": [
     {
-      "src": "/images/icons/icon72.png",
+      "src": "/img/favicon_72.png",
       "type": "image/png", 
       "sizes": "72x72"
     },
     {
-      "src": "/images/icons/icon96.png",
+      "src": "/img/favicon_96.png",
       "type": "image/png", 
       "sizes": "96x96"
     },
     {
-      "src": "/images/icons/icon128.png",
+      "src": "/img/favicon_128.png",
       "type": "image/png", 
       "sizes": "128x128"
     },
     {
-      "src": "/images/icons/icon144.png",
+      "src": "/img/favicon_144.png",
       "type": "image/png", 
       "sizes": "144x144"
     },
     {
-      "src": "/images/icons/icon152.png",
+      "src": "/img/favicon_152.png",
       "type": "image/png", 
       "sizes": "152x152"
     },
     {
-      "src": "/images/icons/icon192.png",
+      "src": "/img/favicon_192.png",
       "type": "image/png", 
       "sizes": "192x192"
     },
     {
-      "src": "/images/icons/icon384.png",
+      "src": "/img/favicon_384.png",
       "type": "image/png", 
       "sizes": "384x384"
     },
     {
-      "src": "/images/icons/icon512.png",
+      "src": "/img/favicon_512.png",
       "type": "image/png", 
       "sizes": "512x512"
     }

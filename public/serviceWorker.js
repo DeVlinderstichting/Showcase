@@ -62,7 +62,12 @@ self.addEventListener("fetch", fetchEvent =>
     fetchEvent.respondWith(
         caches.match(fetchEvent.request).then(res => 
         {
-            return res || fetch(fetchEvent.request)
-        })
-    );
-});
+            return res || fetch(fetchEvent.request).then((response) => {
+                return caches.open(staticShowcase).then((cache) => {
+                  cache.put(fetchEvent.request, response.clone());
+                  return response;
+                });
+            });
+          })
+        );
+      });

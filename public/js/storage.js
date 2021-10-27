@@ -57,7 +57,7 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
     }
 
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: '/requestUserPackage',
         data: 
         {

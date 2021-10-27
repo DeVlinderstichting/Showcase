@@ -43,5 +43,5 @@ Route::get('logoff', function()
     return view('adminLogin');
 });
 //Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
-Route::get("requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
+Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
 

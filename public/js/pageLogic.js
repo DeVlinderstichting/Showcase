@@ -176,40 +176,10 @@ function getSpeciesName (id)
 
 function initializeApp()
 {
+    //REMOVE THIS::
+    debugTestInit();
+
     setupDatabase();
-    //do stuff here 
-
-    loadUserSettings(sendBackHome = true);
-
     document.addEventListener("DOMContentLoaded", showLoginScreen)
 }
 
-function logout()
-{
-    var settings = getUserSettings();
-
-    loadVisits().then(function(result) 
-    {
-        visits = result;
-        var thePackage = {'usersettings':'', 'visitdata': ''};
-        thePackage['usersettings'] = settings;
-        thePackage['visitdata'] = visits;
-
-        theJsonPackage = JSON.stringify(thePackage);
-        $.ajax({
-            type: 'POST',
-            url: '/requestUserPackage',
-            data: 
-            {
-                'username': settings.userSettings['email'],
-                'accesstoken': settings.userSettings['accessToken'],
-                'datapackage': theJsonPackage
-            },
-            success: function(data) 
-            {
-                removeDatabase();
-                showLoginScreen();
-            }
-        });
-    });
-}

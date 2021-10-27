@@ -74,7 +74,7 @@ class UserController extends Controller
 
     private function processUserDataPackage(User $user, $dataPackage)
     {
-        \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $dataPackage]);
+    /*    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $dataPackage]);
         $dat = json_decode($valDat['datapackage'], true);
         $uSet = return $dat['usersettings']['userSettings'];
 
@@ -142,6 +142,7 @@ class UserController extends Controller
                 $obs->observationtime = $obsDat['observationtime'];
             }
         }
+        */
     }
 
     private function getCountingMethod($methodLine)

@@ -182,3 +182,4 @@ function initializeApp()
     setupDatabase();
     document.addEventListener("DOMContentLoaded", showLoginScreen)
 }
+

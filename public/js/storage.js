@@ -9,14 +9,14 @@ var visit;
 var visits;
 var visitsLoadedAtDate;
 
-function debugTestInit()
+function removeDatabase()
 {
     var req = indexedDB.deleteDatabase(DB_NAME);
     req.onerror = function (evnt) 
     {
         console.error("openDb:", evnt.target.errorCode);
     };
-    console.log('database deleted');
+   // console.log('database deleted');
 }
 
 function setupDatabase()
@@ -111,7 +111,15 @@ function loadUserSettings(sendBackHome = false)
             userSettings = JSON.parse(settingsRequest.result.data);
             if (sendBackHome == true)
             {
-                showHomeScreen();
+                var len = userSettings.userSettings['accessToken'].length;
+                if (len > 25)
+                {
+                    showHomeScreen();
+                }
+                else 
+                {
+                    showLoginScreen();
+                }
             }
         }
     };
@@ -374,7 +382,7 @@ function synchWithServer()
       */
         theJsonPackage = JSON.stringify(thePackage);
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: '/requestUserPackage',
             data: 
             {

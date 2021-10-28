@@ -201,9 +201,9 @@ const showSpecialObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
     var countIds =  Object.values(speciesGroups).filter(    
-        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return obj.userCanCount === true}).filter(         //Filter by only countable species (e.g. not plants)
         obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
-             function (el) { return el.id; });              //Return ID
+             function (el) { return el.id; });                     //Return ID
 
     // Build the DOM
     renderNav(clear=true);
@@ -253,13 +253,9 @@ const showSpecialObservationScreen = () =>
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
     mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
     
-    // Populate the list of species (if in usercancount) and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#special_selectSpecies').append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    // Populate the list of species to the chosen selector
+    preselectCountableSpecies(species, 'special_selectSpecies');
+
     $('.chosen-select').select2();
 
     // Attach the events
@@ -348,13 +344,10 @@ const show15mObservationScreen = () =>
     , 'restart_timer');
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) 
-    {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#15m_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    
+    // Populate the list of species to the chosen selector
+    preselectCountableSpecies(species, '15m_selectSpecies');
+
     $('.chosen-select').select2();
 
     // Attach the events
@@ -716,12 +709,7 @@ const showFitObservationScreen = () =>
     `
     , 'restart_timer');
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#fit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    preselectCountableSpecies(species, 'fit_selectSpecies');
 
     $('.chosen-select').select2();
 
@@ -732,23 +720,33 @@ const showFitObservationScreen = () =>
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
     document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
 
-    $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    function addSpeciesToList (id, number=1)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#fit_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
                 <button id="fit_minAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=1>
+                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=${number}>
                 <button id="fit_plusAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
             </li>
         `)
         $(`#fit_selectSpecies option[value='${speciesInfo['id']}']`).remove();
-        addObservationToVisit(speciesId, 1, trackedLocations[trackedLocations.length - 1]);
+        oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+        if(oldObservations.includes(id))
+        {
+            addObservationToVisit(speciesId, number, trackedLocations[trackedLocations.length - 1], 'put');
+
+        }
+        else
+        {
+            addObservationToVisit(speciesId, number, trackedLocations[trackedLocations.length - 1]);
+        }
 
         // Make sure we get proper input on change of the number input
         $(`#fit_inputAmount_${speciesInfo['id']}`).change( function () 
@@ -769,9 +767,15 @@ const showFitObservationScreen = () =>
                 elem.value = 0;
             }
             elem.value = elem.value.replace(/\D/g,'');
-            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
+            addObservationToVisit(speciesInfo['id'], parseInt(elem.value), trackedLocations[trackedLocations.length - 1], 'put');
         });
     }
+    oldObservations = [...new Set(visit.observations.map(obj => {return [obj.species_id, obj.number]}))];
+    oldObservations.forEach(pair => 
+    {
+        addSpeciesToList(pair[0], pair[1]);
+    });
+
 }
 
 const showFitPostObservationScreen = () =>
@@ -1081,13 +1085,7 @@ const showTransectObservationScreen = () =>
     });
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) 
-    {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#transect_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    preselectCountableSpecies(species, 'transect_selectSpecies');
     $('.chosen-select').select2();
 
     // Attach the events
@@ -1280,7 +1278,6 @@ const showTransectPostObservationScreen = () =>
                             recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
                         }
                     }
-                    
                     var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
                     method.push(methodLine);
                 }
@@ -1353,7 +1350,6 @@ const showDataScreen = () =>
         <tbody>
         </tbody>
     <table>
-
     `
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
@@ -1442,14 +1438,6 @@ const showSettingsScreen = () =>
 {
     // Get the settings and species
     var settings = getUserSettings();
-    var species = settings.species;
-    var translations = settings.translations;
-    var speciesGroups = settings.speciesGroups;
-    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
-    var countIds =  Object.values(speciesGroups).filter(    
-        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
-        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
-                function (el) { return el.id; });              //Return ID
 
     // Build the DOM
     renderNav();
@@ -1496,27 +1484,27 @@ const showSettingsScreen = () =>
     <div>
             <h4>Butterflies</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Bees</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Flowers</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonFlowers3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Birds</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
             </div>
             
     </div>
@@ -1573,7 +1561,16 @@ const showSettingsScreen = () =>
         $('[id*=selectButtonButterflies]').removeClass('circle');
         $(this).addClass('circle');
         currentSettings = getUserSettings().userSettings;
-        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = parseInt($(this).attr('id').slice(-1));
+        recordingLevelTranslator = {
+            1: "species",
+            2: "group",
+            3: "none"
+        };
+        recordingLevelID = parseInt($(this).attr('id').slice(-1));
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevelID;
+        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_name = recordingLevel;
+
         storeSettingsData('userSettings', currentSettings);
     });
 

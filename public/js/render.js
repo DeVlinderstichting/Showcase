@@ -996,7 +996,7 @@ const showTransectObservationScreen = () =>
     var transectSections = settings.transects.filter(obj => {return obj.id == visit.transect_id})[0]['sections'];
     var transectSections = Object.values(transectSections).sort(dynamicSort('sequence'));
 
-    renderNav();
+    renderNav(clear=true);
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
@@ -1028,8 +1028,8 @@ const showTransectObservationScreen = () =>
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
 
     // Build the transect selector logic
-
-    function transectChange() {
+    function transectChange() 
+    {
         transectObs = Object.values(visit.observations).filter(obj => {return obj.transect_section_id == $('#transect_transLabel').attr('data_id')});
         $('[id*=transect_inputAmount]').each(function () {
             $(this).val('');
@@ -1040,7 +1040,8 @@ const showTransectObservationScreen = () =>
     }
 
     var sectionIndex = 0;
-    $('#transect_prevTransButton').click( function () {
+    $('#transect_prevTransButton').click( function () 
+    {
         if (sectionIndex == 0)
         {
             return
@@ -1059,7 +1060,8 @@ const showTransectObservationScreen = () =>
 
         }
     });
-    $('#transect_nextTransButton').click( function () {
+    $('#transect_nextTransButton').click( function () 
+    {
         if (sectionIndex == transectSections.length-1)
         {
             return
@@ -1092,13 +1094,13 @@ const showTransectObservationScreen = () =>
     document.getElementById("transect_buttonSave").onclick = function () { showTransectPostObservationScreen(); }; 
     document.getElementById("transect_buttonCancel").onclick = function () { showHomeScreen(); };
 
-    $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    function addSpeciesToList (id)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#transect_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
@@ -1126,6 +1128,15 @@ const showTransectObservationScreen = () =>
             addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put', transectSectionId = transectSectionId);
         });
     }
+    
+    oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+    oldObservations.forEach(id => 
+    {
+        addSpeciesToList(id);
+    });
+
+    transectChange();
 }
 
 const showTransectPostObservationScreen = () =>

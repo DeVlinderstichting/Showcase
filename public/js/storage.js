@@ -187,7 +187,7 @@ function buildEmptyVisit()
     var theVisit ={};
     theVisit['countingmethod_id'] = '';
     theVisit['location'] = '';
-    theVisit['startdate'] = new Date();
+    theVisit['startdate'] = new Date().toISOString();
     theVisit['enddate'] = '';
     theVisit['sendtoserverdate'] = '';
     theVisit['status'] = '1'; //1=incomplete, 2=completed, 3=sealed (once shipped to server it can only be changed online)
@@ -248,7 +248,7 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
         obs.species_id = speciesId;
         obs.number = amount;
         obs.location = location;
-        obs.observationtime  = new Date();
+        obs.observationtime  = new Date().toISOString();
         obs.transect_section_id = transectSectionId;
         visit.observations.push(obs);
     }
@@ -256,7 +256,7 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
 
 function storeVisit(visit)
 {
-    visit.enddate = new Date();
+    visit.enddate = new Date().toISOString();
     var req = indexedDB.open(DB_NAME, DB_VERSION);
     req.onerror = function (evnt) 
     {

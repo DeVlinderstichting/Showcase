@@ -134,7 +134,6 @@ function loadUserSettings(sendBackHome = false)
         settingsRequest = store.get('settings');
         settingsRequest.onsuccess = function(evnt)
         {
-            console.log(settingsRequest.result.data);
             userSettings = JSON.parse(settingsRequest.result.data);
             if (sendBackHome == true)
             {

@@ -15,10 +15,10 @@ class Method extends Model
     {
         return $this->hasMany('App\Models\MethodSpeciesgroupRecordinglevel', 'method_id', 'id');
     }
-    public static getMethod($methodSpeciesgroups)
+    public static function getMethod($methodSpeciesgroups)
     {
         $value = "";
-        foreach(\App\Models\Speciesgroup::all()->orderBy('id'))
+        foreach(\App\Models\Speciesgroup::all() as $theId)
         {
             $value .= "0";
         }

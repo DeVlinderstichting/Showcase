@@ -41,7 +41,7 @@ class UserController extends Controller
                     $authOk = false; //invalid accesstoken, we are done
                 }
                 else 
-                {
+                {   
                     $theUser = \App\Models\User::where('email', $valDat['username'])->where('accesstoken', $valDat['accesstoken'])->first();
                     if ($theUser != null)
                     {
@@ -74,16 +74,16 @@ class UserController extends Controller
 
     private function processUserDataPackage(User $user, $dataPackage)
     {
-    /*    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $dataPackage]);
-        $dat = json_decode($valDat['datapackage'], true);
-        $uSet = return $dat['usersettings']['userSettings'];
+        \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => $dataPackage]);
+        $dat = json_decode($dataPackage, true);
+        $uSet = $dat['usersettings']['userSettings'];
 
         //first store user settings in case something changed 
         $user->prefered_language = $uSet['preferedLanguage'];
         $user->sci_names = $uSet['sci_names'];
         $user->show_only_common_species = $uSet['showOnlyCommonSpecies'];
         $user->show_previous_observed_species = $uSet['showPreviouslyObservedSpecies'];
-        $user->settings_synched_at = new date("Y-m-d H:i:s");
+        $user->settings_synched_at = date("Y-m-d H:i:s");
         $user->save();
 
         //store users speciesgroups 
@@ -93,7 +93,10 @@ class UserController extends Controller
             $spgu = \App\Models\SpeciesgroupsUsers::where('user_id', $user->id)->where('speciesgroup_id', $spGroup['speciesgroup_id'])->first();
             if ($spgu == null)
             {
-                $spgu = new \App\Models\SpeciesgroupsUsers(['user_id' => $user->id, 'speciesgroup_id' => $spGroup['speciesgroup_id'], 'recordinglevel_id' = $spGroup['recordinglevel_id']]);
+                $spgu = new \App\Models\SpeciesgroupsUsers();
+                $spgu->user_id = $user->id; 
+                $spgu->speciesgroup_id = $spGroup['speciesgroup_id'];
+                $spgu->recordinglevel_id = $spGroup['recordinglevel_id'];
             }
             else 
             {
@@ -108,25 +111,29 @@ class UserController extends Controller
             $vDat = $visitDat['data'];
             $visit = new \App\Models\Visit();
             $visit->countingmethod_id = $vDat['countingmethod_id'];
-            $visit->location = $vDat['location'];
+       //     $visit->location = $vDat['location'];
             //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
 
-            $visit->startdate = $vDat['startdate'];
-            $visit->enddate = $vDat['enddate'];
-            $visit->sendtoserverdate = new date("Y-m-d H:i:s");
-            $visit->status = $vDat['status'];
-            $visit->user_id = $vDat['user_id'];
-            $visit->recorders = $vDat['recorders'];
-            $visit->notes = $vDat['notes'];
-            $visit->wind = $vDat['wind'];
-            $visit->temperature = $vDat['temperature'];
-            $visit->cloud = $vDat['cloud'];
-            $visit->transect_id = $vDat['transect_id'];
-            $visit->region_id = $vDat['region_id'];
-            $visit->flower_id = $vDat['flower_id'];
-            $visit->method_id = $this->getCountingMethod($vDat['method_id'])->id;
-
-
+            if ($this->needsToBeStored($vDat['startdate']))
+            {
+                $visit->startdate = $vDat['startdate'];
+            }
+            if ($this->needsToBeStored($vDat['enddate'])) {$visit->enddate = $vDat['enddate'];}
+            $visit->sendtoserverdate = date("Y-m-d H:i:s");
+            if ($this->needsToBeStored($vDat['status'])) {$visit->status = $vDat['status'];}
+            if ($this->needsToBeStored($vDat['user_id'])) {$visit->user_id = $vDat['user_id'];}
+            if ($this->needsToBeStored($vDat['recorders'])) {$visit->recorders = $vDat['recorders'];}
+            if ($this->needsToBeStored($vDat['notes'])) {$visit->notes = $vDat['notes'];}
+            if ($this->needsToBeStored($vDat['wind'])) {$visit->wind = $vDat['wind'];}
+            if ($this->needsToBeStored($vDat['temperature'])) {$visit->temperature = $vDat['temperature'];}
+            if ($this->needsToBeStored($vDat['cloud'])) {$visit->cloud = $vDat['cloud'];}
+            if ($this->needsToBeStored($vDat['transect_id'])) {$visit->transect_id = $vDat['transect_id'];}
+            if (array_key_exists('region_id', $vDat))
+            {
+                if ($this->needsToBeStored($vDat['region_id'])) {$visit->region_id = $vDat['region_id'];}
+            }
+            if ($this->needsToBeStored($vDat['flower_id'])) {$visit->flower_id = $vDat['flower_id'];}
+            $visit->method_id = $this->getRecordingMethod($vDat['method'])->id;
             $visit->save();
 
             $observations = $vDat['observations'];
@@ -135,17 +142,17 @@ class UserController extends Controller
                 $obs = new \App\Model\Observation();
                 $obs->species_id = $obsDat['species_id'];
                 $obs->number = $obsDat['number'];
-                $obs->transect_section_id = $obsDat['transect_section_id'];
+                if ($this->needsToBeStored($vDat['transect_section_id'])) {$visit->transect_section_id = $vDat['transect_section_id'];}
+
                 //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
                 //\DB::raw("ST_GeomFromGeoJSON('$geom')"
                 $obs->location = "POINT(" . $obsDat['location'] . ")";
                 $obs->observationtime = $obsDat['observationtime'];
             }
         }
-        */
     }
 
-    private function getCountingMethod($methodLine)
+    private function getRecordingMethod($methodLine)
     {
         /*
             "method": 
@@ -166,6 +173,23 @@ class UserController extends Controller
             $msg->recordinglevel_id = $item['recordinglevel_id'];
             $methodSpeciesGroups[] = $msg;
         }
-        return \App\Models\Method::getMethod($methodSpeciesgroups);
+
+        \App\Models\IncomingDataBackup::create(['user_id' => 1, 'datapackage' => json_encode($methodSpeciesGroups)]);
+
+        return \App\Models\Method::getMethod($methodSpeciesGroups);
+    }
+    private function needsToBeStored($variable)
+    {
+        if ($variable != null)
+        {
+            if (!empty($variable))
+            {
+                if ($variable != "")
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

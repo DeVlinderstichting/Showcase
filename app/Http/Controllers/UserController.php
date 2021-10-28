@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\User;
 use Auth;
+use DB;
 
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
 class UserController extends Controller
@@ -109,7 +110,12 @@ class UserController extends Controller
         foreach ($dat['visitdata'] as $visitDat)
         {
             $vDat = $visitDat['data'];
-            $visit = new \App\Models\Visit();
+            $visit = \App\Models\Visit::where('startdate',$vDat['startdate'])->first();
+            if ($visit == null)
+            {
+                $visit = new \App\Models\Visit();
+            }
+
             $visit->countingmethod_id = $vDat['countingmethod_id'];
        //     $visit->location = $vDat['location'];
             //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
@@ -140,9 +146,15 @@ class UserController extends Controller
 
             foreach($observations as $obsDat)
             {
-                $obs = new \App\Models\Observation();
+                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obs->species_id)->first();
+                if ($obs == null)
+                {
+                    $obs = new \App\Models\Observation();
+                }
+
                 $obs->species_id = $obsDat['species_id'];
                 $obs->number = $obsDat['number'];
+                $obs->visit_id = $visit->id;
                 $obs->observationtime = $obsDat['observationtime'];
                 if ($this->needsToBeStored($obsDat['transect_section_id'])) {$visit->transect_section_id = $obsDat['transect_section_id'];}
                 $obs->save();
@@ -151,10 +163,19 @@ class UserController extends Controller
                 //\DB::raw("ST_GeomFromGeoJSON('$geom')"
               //  $obs->location = "POINT(" . $obsDat['location'] . ")";
                 $locItems = explode(",", $obsDat['location']);
-                $insertLine = "{'type':'Point','coordinates':" . $locItems[1] . "," . $locItems[2] . "}";
+                $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
 
                 DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
             }
+
+         //   ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-48.23456,20.12345]}')
+
+
+
+
+
+
+
         }
     }
 

@@ -5,10 +5,10 @@ var renderNav = function(clear=false)
     {
         // Build the DOM
         nav.innerHTML =`
-        <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
-        <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
-        <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
-        <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
+        <a class="navbar-brand" id="nav_homeLink" href="#"><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
+        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">STATISTICS <i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">SETTINGS <i class="fas fa-cog"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">MESSAGES <i class="fas fa-comment-dots"></i></a>
         `
         nav.style.display = "flex";
         // Attach the events 

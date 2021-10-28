@@ -37,17 +37,21 @@ function storeSingleObservation()
         var speciesId = document.getElementById('special_selectSpecies').value;
         var amount = document.getElementById('special_inputAmount').value;
 
-        visit = buildEmptyVisit();
+        if (parseInt(amount)>0)
+        {
+            visit = buildEmptyVisit();
 
-//testDate = new Date(2021, 10, 31, 12, 14, 45, 32);
-//visit.startdate = testDate;
+            //testDate = new Date(2021, 10, 31, 12, 14, 45, 32);
+            //visit.startdate = testDate;
+            
+            var obs = buildEmptyObservation();
+            obs.species_id = speciesId;
+            obs.number = amount;
+            obs.location = currentLocation;
+            visit.observations.push(obs);
+            storeVisit(visit);
+        }
 
-        var obs = buildEmptyObservation();
-        obs.species_id = speciesId;
-        obs.number = amount;
-        obs.location = currentLocation;
-        visit.observations.push(obs);
-        storeVisit(visit);
         showHomeScreen();
     }
 }

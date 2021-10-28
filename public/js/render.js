@@ -1383,7 +1383,7 @@ const showDataScreen = () =>
             })
         });
         
-        dates.forEach( date => {console.log(date); monthCountArr[date.getMonth()] += 1 }) ;
+        dates.forEach( date => {monthCountArr[new Date(date).getMonth()] += 1 }) ;
         document.getElementById('data_nrDataEntries').innerHTML = visits.length;
         document.getElementById('data_nrObservations').innerHTML = total_observations;
         document.getElementById('data_nrInsectsSeen').innerHTML = total_insects;

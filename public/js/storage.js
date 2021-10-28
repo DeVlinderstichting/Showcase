@@ -248,7 +248,7 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
         obs.species_id = speciesId;
         obs.number = amount;
         obs.location = location;
-        obs.observationtime  = new Date();
+        obs.observationtime = new Date().toISOString();
         obs.transect_section_id = transectSectionId;
         visit.observations.push(obs);
     }

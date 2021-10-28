@@ -15,7 +15,6 @@ function initAnyCount(countingMethod)
 }
 
 
-
 function storeSingleObservation()
 {
     readLocation();

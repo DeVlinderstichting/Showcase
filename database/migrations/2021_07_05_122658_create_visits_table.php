@@ -32,10 +32,10 @@ class CreateVisitsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index('user_id');
             $table->integer('recorders');
-            $table->text('notes');
-            $table->text('wind');
-            $table->text('temperature');
-            $table->text('cloud');
+            $table->text('notes')->nullable();
+            $table->text('wind')->nullable();
+            $table->text('temperature')->nullable();
+            $table->text('cloud')->nullable();
 
             $table->unsignedBigInteger('transect_id')->nullable();
             $table->foreign('transect_id')->references('id')->on('transects')->onDelete('cascade');

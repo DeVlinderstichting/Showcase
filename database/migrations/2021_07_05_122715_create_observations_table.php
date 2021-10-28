@@ -18,6 +18,7 @@ class CreateObservationsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->unsignedBigInteger('species_id');
+            $table->dateTime('observationtime', 0);
             $table->foreign('species_id')->references('id')->on('species')->onDelete('cascade');
             $table->index('species_id');
             $table->integer('number');

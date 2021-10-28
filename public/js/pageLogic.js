@@ -221,4 +221,38 @@ function logout()
     });
 }
 
-//
+
+function preselectCountableSpecies (species, selectID)
+{
+    settings = getUserSettings();
+    countLevelById = Object.values(settings.userSettings.speciesGroupsUsers).reduce((accum, currentVal) => {accum[currentVal.speciesgroup_id]= currentVal.recordinglevel_id; return accum} , {})
+    
+    $.each(species, function(key, value) {
+        if (countLevelById[value['speciesgroupId']] == 'none' )
+        {
+            // Not included in list
+        }
+        if (countLevelById[value['speciesgroupId']] == 'group' )
+        {
+            if (value['taxon'] == '')
+            {
+                $('#' + selectID).append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
+            }
+            else
+            {
+            }
+        }
+        if (countLevelById[value['speciesgroupId']] == 'species' )
+        {
+            if (value['taxon'] != '')
+            {
+                $('#' + selectID).append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
+            }
+            else
+            {
+            }
+        }
+
+    });
+
+}

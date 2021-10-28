@@ -201,9 +201,9 @@ const showSpecialObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
     var countIds =  Object.values(speciesGroups).filter(    
-        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
+        obj => {return obj.userCanCount === true}).filter(         //Filter by only countable species (e.g. not plants)
         obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
-             function (el) { return el.id; });              //Return ID
+             function (el) { return el.id; });                     //Return ID
 
     // Build the DOM
     renderNav(clear=true);
@@ -254,12 +254,12 @@ const showSpecialObservationScreen = () =>
     mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#special_selectSpecies').append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    // A dict like object that helps to determine the count levels:
+
+    preselectCountableSpecies(species, 'special_selectSpecies');
+
+
+
     $('.chosen-select').select2();
 
     // Attach the events
@@ -1456,14 +1456,6 @@ const showSettingsScreen = () =>
 {
     // Get the settings and species
     var settings = getUserSettings();
-    var species = settings.species;
-    var translations = settings.translations;
-    var speciesGroups = settings.speciesGroups;
-    var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
-    var countIds =  Object.values(speciesGroups).filter(    
-        obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
-        obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
-                function (el) { return el.id; });              //Return ID
 
     // Build the DOM
     renderNav();
@@ -1553,7 +1545,12 @@ const showSettingsScreen = () =>
         $('#settings_showPreviouslySeenCheck').prop('checked', true);
     }
     // We can only attach butterfly group at this point...
-    var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
+    recordingLevelTranslatorRev = {
+        "none": 1,
+        "group": 2,
+        "species": 3
+    };
+    var recButterfly = recordingLevelTranslatorRev[settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id];
         $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
 
     // Attach the events
@@ -1587,7 +1584,13 @@ const showSettingsScreen = () =>
         $('[id*=selectButtonButterflies]').removeClass('circle');
         $(this).addClass('circle');
         currentSettings = getUserSettings().userSettings;
-        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = parseInt($(this).attr('id').slice(-1));
+        recordingLevelTranslator = {
+            1: "none",
+            2: "group",
+            3: "species"
+        };
+        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevel;
         storeSettingsData('userSettings', currentSettings);
     });
 

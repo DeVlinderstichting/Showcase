@@ -732,23 +732,33 @@ const showFitObservationScreen = () =>
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
     document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
 
-    $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    function addSpeciesToList (id, number=1)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#fit_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
                 <button id="fit_minAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=1>
+                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=${number}>
                 <button id="fit_plusAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
             </li>
         `)
         $(`#fit_selectSpecies option[value='${speciesInfo['id']}']`).remove();
-        addObservationToVisit(speciesId, 1, trackedLocations[trackedLocations.length - 1]);
+        oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+        if(oldObservations.includes(id))
+        {
+            addObservationToVisit(speciesId, number, trackedLocations[trackedLocations.length - 1], 'put');
+
+        }
+        else
+        {
+            addObservationToVisit(speciesId, number, trackedLocations[trackedLocations.length - 1]);
+        }
 
         // Make sure we get proper input on change of the number input
         $(`#fit_inputAmount_${speciesInfo['id']}`).change( function () 
@@ -769,9 +779,15 @@ const showFitObservationScreen = () =>
                 elem.value = 0;
             }
             elem.value = elem.value.replace(/\D/g,'');
-            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
+            addObservationToVisit(speciesInfo['id'], parseInt(elem.value), trackedLocations[trackedLocations.length - 1], 'put');
         });
     }
+    oldObservations = [...new Set(visit.observations.map(obj => {return [obj.species_id, obj.number]}))];
+    oldObservations.forEach(pair => 
+    {
+        addSpeciesToList(pair[0], pair[1]);
+    });
+
 }
 
 const showFitPostObservationScreen = () =>
@@ -1280,7 +1296,6 @@ const showTransectPostObservationScreen = () =>
                             recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
                         }
                     }
-                    
                     var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
                     method.push(methodLine);
                 }
@@ -1353,7 +1368,6 @@ const showDataScreen = () =>
         <tbody>
         </tbody>
     <table>
-
     `
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);

@@ -5,10 +5,10 @@ var renderNav = function(clear=false)
     {
         // Build the DOM
         nav.innerHTML =`
-        <a class="navbar-brand" id="nav_homeLink" href="#">Showcase</a>
-        <a class="nav-link active" id="nav_dataLink" aria-current="page" href="#"><i class="fas fa-chart-pie"></i></a>
-        <a class="nav-link active" id="nav_settingsLink" aria-current="page" href="#"><i class="fas fa-cog"></i></a>
-        <a class="nav-link active" id="nav_messagesLink" aria-current="page" href="#"><i class="far fa-envelope"></i></a>
+        <a class="navbar-brand" id="nav_homeLink" href="#"><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
+        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">STATISTICS <i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">SETTINGS <i class="fas fa-cog"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">MESSAGES <i class="fas fa-comment-dots"></i></a>
         `
         nav.style.display = "flex";
         // Attach the events 
@@ -34,10 +34,10 @@ var renderModal = function(title, body, postid='')
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_title">${title}</h5>
+                    <h3 id="modal_title${postid}">${title}</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal_body")>
+                <div class="modal-body" id="modal_body${postid}")>
                     ${body}
                 </div>
                 <div class="modal-footer">
@@ -51,25 +51,6 @@ var renderModal = function(title, body, postid='')
 
 const showLoginScreen = () => 
 {
-    // STILL KEEPING THIS AS COMMENTS TO KEEP THE installButton !!!
-
-    // var nav = document.getElementById("nav");
-    // nav.innerHTML = `
-    // <div class="container-fluid">
-    //     <a class="navbar-brand" href="#">Showcase</a>
-    //     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle" aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
-    //         <span class="navbar-toggler-icon"></span>
-    //     </button>
-
-    //     <div class="collapse navbar-collapse" id="toggle">
-    //         <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-    //         <li class="nav-item">
-    //             <a class="nav-link active" id="installButton" aria-current="page" href="#">Add to home screen</a>
-    //         </li>
-    //         </ul>
-    //     </div>
-    // </div>`;
-
     renderNav(clear=true);
 
     var mb = document.getElementById('mainBody');
@@ -93,7 +74,7 @@ const showLoginScreen = () =>
                             <button class="btn" id="login_loginButton">Login</button>
                             <button class="btn" id="login_installButton" hidden>Install</button>
                             <h6><a href="#">Lost your password?</a></h6>
-                            <div style="text-align: center;margin-top: 3rem;">© De Vlinderstichting 2021</div>
+                            <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
                     </div>
                 </div>
             </div>
@@ -229,30 +210,48 @@ const showSpecialObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="special_title">Title</h2>
-    <h3 id="special_subtitle">Subtitle</h3>
-    <div>
-        <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
-    </div>
-    <div>
-        <label for="special_selectSpecies">Species</label>
+    <div class="container">
+
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2>I SAW SOMETHING SPECIAL</h2>
+                <p>Opportunistic observation. <br>Enter your data!</p>
+                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">MORE INFO</button>
+            </div>
+            <div class="separator">
+            </div>
+        </div>
+        
+        
+        <div class="row justify-content-center pb-3">
+        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> SEARCH SPECIES <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
         </select>
-    </div>
-    <div>
-        <label for="special_inputAmount">Amount</label>
-        <button id="special_minAmount" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
-        <input id="special_inputAmount" name="special_inputAmount" value=0>
-        <button id="special_plusAmount" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
-    </div>
-    <div>
-        <button id="special_buttonSave">Save</button>
-        <button id="special_buttonCancel">Cancel</button>
+        </div>
+
+       
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> NUMBER OBSERVED</h3>
+
+        <div class="input-group">
+            <div class="input-group-btn w-100" style="display: flex;">
+                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <input class="small-input" id="special_inputAmount" name="special_inputAmount" value=0 style="width:100%;">
+                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="special_buttonSave" class="btn">SAVE</button> <button id="special_buttonCancel" class="btn-line">CANCEL</button>
+            </div>
+        </div>
+
     </div>
     `;
 
-    // Attach the modal
+    // Attach the modals
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
@@ -266,6 +265,15 @@ const showSpecialObservationScreen = () =>
     // Attach the events
     document.getElementById("special_buttonSave").onclick = function () { storeSingleObservation(); };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+    
+    document.getElementById("special_speciesInfo").onclick = function () { 
+        speciesId = document.getElementById('special_selectSpecies').value;
+        modalText = `
+        For extra info on this species see <a href="https://speciesinfo.vlinderstichting.nl/species/speciesId" target=”_blank”>this link</a> (opens outside of this application).
+        `
+        document.getElementById("modal_bodysp").innerHTML = modalText;
+        $('#modal_idsp').modal('show');
+    };
 
     // Make sure we get proper input on change of the number input
     $('#special_inputAmount').change( function () 
@@ -356,13 +364,15 @@ const show15mObservationScreen = () =>
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
     document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
-    $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+    function addSpeciesToList (id)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
@@ -379,10 +389,10 @@ const show15mObservationScreen = () =>
             speciesObservations = visit['observations'].filter(obj => {return obj.species_id === String(speciesInfo['id'])});
 
             modalContent = '<ul>';
-            speciesObservations.forEach(element => {
-                location1 = element.location.split(',')[1].replace(' ','');
-                location2 = element.location.split(',')[2].replace(' ','');
-                modalContent += `<li>${element.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${element.observationtime}" data_speciesid="${element.species_id}">delete</button></li>`;
+            speciesObservations.forEach(el => {
+                location1 = el.location.split(',')[1].replace(' ','');
+                location2 = el.location.split(',')[2].replace(' ','');
+                modalContent += `<li>${el.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button></li>`;
             } );
             modalContent += '</ul>';
 
@@ -431,6 +441,12 @@ const show15mObservationScreen = () =>
         });
 
     }
+
+    oldObservations.forEach(id => 
+    {
+        addSpeciesToList(id);
+    });
+
 }
 
 const show15mPostObservationScreen = () =>
@@ -635,6 +651,12 @@ const showFitPreObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
+    $("#prefit_selectSpecies").change(function () 
+    {
+        visit.flower_id = document.getElementById("prefit_selectSpecies").value;
+    });
+    $("#prefit_selectSpecies").change();
+
     document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
 }
@@ -974,7 +996,7 @@ const showTransectObservationScreen = () =>
     var transectSections = settings.transects.filter(obj => {return obj.id == visit.transect_id})[0]['sections'];
     var transectSections = Object.values(transectSections).sort(dynamicSort('sequence'));
 
-    renderNav();
+    renderNav(clear=true);
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
@@ -1006,8 +1028,8 @@ const showTransectObservationScreen = () =>
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
 
     // Build the transect selector logic
-
-    function transectChange() {
+    function transectChange() 
+    {
         transectObs = Object.values(visit.observations).filter(obj => {return obj.transect_section_id == $('#transect_transLabel').attr('data_id')});
         $('[id*=transect_inputAmount]').each(function () {
             $(this).val('');
@@ -1018,7 +1040,8 @@ const showTransectObservationScreen = () =>
     }
 
     var sectionIndex = 0;
-    $('#transect_prevTransButton').click( function () {
+    $('#transect_prevTransButton').click( function () 
+    {
         if (sectionIndex == 0)
         {
             return
@@ -1037,7 +1060,8 @@ const showTransectObservationScreen = () =>
 
         }
     });
-    $('#transect_nextTransButton').click( function () {
+    $('#transect_nextTransButton').click( function () 
+    {
         if (sectionIndex == transectSections.length-1)
         {
             return
@@ -1070,13 +1094,13 @@ const showTransectObservationScreen = () =>
     document.getElementById("transect_buttonSave").onclick = function () { showTransectPostObservationScreen(); }; 
     document.getElementById("transect_buttonCancel").onclick = function () { showHomeScreen(); };
 
-    $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#transect_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    function addSpeciesToList (id)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#transect_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
@@ -1104,6 +1128,15 @@ const showTransectObservationScreen = () =>
             addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put', transectSectionId = transectSectionId);
         });
     }
+    
+    oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+    oldObservations.forEach(id => 
+    {
+        addSpeciesToList(id);
+    });
+
+    transectChange();
 }
 
 const showTransectPostObservationScreen = () =>

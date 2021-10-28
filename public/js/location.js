@@ -29,12 +29,8 @@ function trackingLocationUpdate(pos)
     var coor = pos.coords;
     var line = new Date() + ", " + coor.latitude + ", " + coor.longitude;
     trackedLocations.push(line);
-    console.log(trackedLocations);
-    if (trackedLocations.length > 15)
-    {
-        stopTracking();
-    }
 }
+
 function trackingLocationError()
 {
     console.log('geolocation tracking error');

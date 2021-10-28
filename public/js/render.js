@@ -253,12 +253,8 @@ const showSpecialObservationScreen = () =>
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
     mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
     
-    // Populate the list of species (if in usercancount) and attach the chosen selector
-    // A dict like object that helps to determine the count levels:
-
+    // Populate the list of species to the chosen selector
     preselectCountableSpecies(species, 'special_selectSpecies');
-
-
 
     $('.chosen-select').select2();
 
@@ -348,13 +344,10 @@ const show15mObservationScreen = () =>
     , 'restart_timer');
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) 
-    {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#15m_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    
+    // Populate the list of species to the chosen selector
+    preselectCountableSpecies(species, '15m_selectSpecies');
+
     $('.chosen-select').select2();
 
     // Attach the events
@@ -716,12 +709,7 @@ const showFitObservationScreen = () =>
     `
     , 'restart_timer');
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#fit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    preselectCountableSpecies(species, 'fit_selectSpecies');
 
     $('.chosen-select').select2();
 
@@ -1097,13 +1085,7 @@ const showTransectObservationScreen = () =>
     });
 
     // Populate the list of species and attach the chosen selector
-    $.each(species, function(key, value) 
-    {
-        if (countIds.includes(value['speciesgroupId']) && value['taxon'] != '')
-        {
-            $('#transect_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
-        }
-    });
+    preselectCountableSpecies(species, 'transect_selectSpecies');
     $('.chosen-select').select2();
 
     // Attach the events

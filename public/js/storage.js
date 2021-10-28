@@ -70,7 +70,6 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
-            console.log(data);
             storeUserPackage(data, sendBackHome);
         }
     });

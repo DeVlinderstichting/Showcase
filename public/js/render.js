@@ -1484,27 +1484,27 @@ const showSettingsScreen = () =>
     <div>
             <h4>Butterflies</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Bees</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Flowers</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonFlowers3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
             </div>
             <h4>Birds</h4>
             <div class="d-inline">
-                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
+                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
             </div>
             
     </div>
@@ -1527,12 +1527,7 @@ const showSettingsScreen = () =>
         $('#settings_showPreviouslySeenCheck').prop('checked', true);
     }
     // We can only attach butterfly group at this point...
-    recordingLevelTranslatorRev = {
-        "none": 1,
-        "group": 2,
-        "species": 3
-    };
-    var recButterfly = recordingLevelTranslatorRev[settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id];
+    var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
         $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
 
     // Attach the events
@@ -1567,12 +1562,15 @@ const showSettingsScreen = () =>
         $(this).addClass('circle');
         currentSettings = getUserSettings().userSettings;
         recordingLevelTranslator = {
-            1: "none",
+            1: "species",
             2: "group",
-            3: "species"
+            3: "none"
         };
+        recordingLevelID = parseInt($(this).attr('id').slice(-1));
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevelID;
         recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
-        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevel;
+        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_name = recordingLevel;
+
         storeSettingsData('userSettings', currentSettings);
     });
 

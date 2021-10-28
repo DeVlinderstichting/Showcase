@@ -225,7 +225,7 @@ function logout()
 function preselectCountableSpecies (species, selectID)
 {
     settings = getUserSettings();
-    countLevelById = Object.values(settings.userSettings.speciesGroupsUsers).reduce((accum, currentVal) => {accum[currentVal.speciesgroup_id]= currentVal.recordinglevel_id; return accum} , {})
+    countLevelById = Object.values(settings.userSettings.speciesGroupsUsers).reduce((accum, currentVal) => {accum[currentVal.speciesgroup_id]= currentVal.recordinglevel_name; return accum} , {})
     
     $.each(species, function(key, value) {
         if (countLevelById[value['speciesgroupId']] == 'none' )

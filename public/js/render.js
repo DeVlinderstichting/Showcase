@@ -428,7 +428,7 @@ const show15mObservationScreen = () =>
                 obs15m['species_id'] = $(this).get(0).id.replace("15m_plusAmount_", "");
                 obs15m['number'] = 1;
                 obs15m['location'] = trackedLocations[trackedLocations.length - 1];
-                obs15m['observationtime'] = Date().toISOString();
+                obs15m['observationtime'] = new Date().toISOString();
                 visit['observations'].push(obs15m);
             }
         });

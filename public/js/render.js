@@ -34,10 +34,10 @@ var renderModal = function(title, body, postid='')
             <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-fullscreen-md-down modal-lg">
                 <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modal_title">${title}</h5>
+                    <h3 id="modal_title${postid}">${title}</h3>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body" id="modal_body")>
+                <div class="modal-body" id="modal_body${postid}")>
                     ${body}
                 </div>
                 <div class="modal-footer">
@@ -51,25 +51,6 @@ var renderModal = function(title, body, postid='')
 
 const showLoginScreen = () => 
 {
-    // STILL KEEPING THIS AS COMMENTS TO KEEP THE installButton !!!
-
-    // var nav = document.getElementById("nav");
-    // nav.innerHTML = `
-    // <div class="container-fluid">
-    //     <a class="navbar-brand" href="#">Showcase</a>
-    //     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggle" aria-controls="toggle" aria-expanded="false" aria-label="Toggle navigation">
-    //         <span class="navbar-toggler-icon"></span>
-    //     </button>
-
-    //     <div class="collapse navbar-collapse" id="toggle">
-    //         <ul class="navbar-nav ms-auto mb-2 mb-md-0">
-    //         <li class="nav-item">
-    //             <a class="nav-link active" id="installButton" aria-current="page" href="#">Add to home screen</a>
-    //         </li>
-    //         </ul>
-    //     </div>
-    // </div>`;
-
     renderNav(clear=true);
 
     var mb = document.getElementById('mainBody');
@@ -93,7 +74,7 @@ const showLoginScreen = () =>
                             <button class="btn" id="login_loginButton">Login</button>
                             <button class="btn" id="login_installButton" hidden>Install</button>
                             <h6><a href="#">Lost your password?</a></h6>
-                            <div style="text-align: center;margin-top: 3rem;">© De Vlinderstichting 2021</div>
+                            <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
                     </div>
                 </div>
             </div>
@@ -229,30 +210,48 @@ const showSpecialObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="special_title">Title</h2>
-    <h3 id="special_subtitle">Subtitle</h3>
-    <div>
-        <button id="special_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
-    </div>
-    <div>
-        <label for="special_selectSpecies">Species</label>
+    <div class="container">
+
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2>I SAW SOMETHING SPECIAL</h2>
+                <p>Opportunistic observation. <br>Enter your data!</p>
+                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">MORE INFO</button>
+            </div>
+            <div class="separator">
+            </div>
+        </div>
+        
+        
+        <div class="row justify-content-center pb-3">
+        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> SEARCH SPECIES <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
         </select>
-    </div>
-    <div>
-        <label for="special_inputAmount">Amount</label>
-        <button id="special_minAmount" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
-        <input id="special_inputAmount" name="special_inputAmount" value=0>
-        <button id="special_plusAmount" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
-    </div>
-    <div>
-        <button id="special_buttonSave">Save</button>
-        <button id="special_buttonCancel">Cancel</button>
+        </div>
+
+       
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> NUMBER OBSERVED</h3>
+
+        <div class="input-group">
+            <div class="input-group-btn w-100" style="display: flex;">
+                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <input class="small-input" id="special_inputAmount" name="special_inputAmount" value=0 style="width:100%;">
+                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="special_buttonSave" class="btn">SAVE</button> <button id="special_buttonCancel" class="btn-line">CANCEL</button>
+            </div>
+        </div>
+
     </div>
     `;
 
-    // Attach the modal
+    // Attach the modals
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
@@ -266,6 +265,15 @@ const showSpecialObservationScreen = () =>
     // Attach the events
     document.getElementById("special_buttonSave").onclick = function () { storeSingleObservation(); };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
+    
+    document.getElementById("special_speciesInfo").onclick = function () { 
+        speciesId = document.getElementById('special_selectSpecies').value;
+        modalText = `
+        For extra info on this species see <a href="https://speciesinfo.vlinderstichting.nl/species/speciesId" target=”_blank”>this link</a> (opens outside of this application).
+        `
+        document.getElementById("modal_bodysp").innerHTML = modalText;
+        $('#modal_idsp').modal('show');
+    };
 
     // Make sure we get proper input on change of the number input
     $('#special_inputAmount').change( function () 

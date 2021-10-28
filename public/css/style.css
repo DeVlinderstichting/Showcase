@@ -304,6 +304,8 @@ input.btn-line-small:focus { border-width: 2px; }
     border: none;
     margin-left: 5px;
     margin-right: 5px;
+    margin-bottom: 13px;
+    align-self: center;
 }
 
 .btn-counter:hover { 

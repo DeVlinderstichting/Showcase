@@ -144,9 +144,6 @@ const showLoginScreen = () =>
     }
 }
 
-
-
-
 const showHomeScreen = () => 
 {
     renderNav();
@@ -161,14 +158,14 @@ const showHomeScreen = () =>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/special-bg.svg');">
                     <h2>I SAW SOMETHING SPECIAL</h2>
-                    <p>Opportunistic observation</p>
+                    <p style="height: 2rem;">Opportunistic observation</p>
                     <a href="#" id="home_specialButton" class="btn">START</a>
                 </div>
             </div>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/15-count-bg.svg');">
                     <h2>15 MINUTES COUNT</h2>
-                    <p>Count everything you see for 15 minutes</p>
+                    <p style="height: 2rem;">Count everything you see for 15 minutes</p>
                     <a href="#" id="home_15Button" class="btn">START</a>
                 </div>
             </div>    
@@ -184,8 +181,8 @@ const showHomeScreen = () =>
         theHtml += `
         <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                         <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
-                         <h2>WALK TRANSECT</h2>
-                        <p>Walk a predifined transect and record everything you see</p>
+                        <h2>WALK TRANSECT</h2>
+                        <p style="height: 2rem;">Walk a predifined transect and record everything you see</p>
                         <a href="#" id="home_transectButton" class="btn">START</a>
                         </div>
                     </div>`;
@@ -194,7 +191,7 @@ const showHomeScreen = () =>
     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
         <div class="box-background text-center" style="background-image:url('img/flower-count-bg.svg');">
             <h2>FIT COUNT</h2>
-            <p>Observe a single flower, record everything you see interacting with that flower</p>
+            <p style="height: 2rem;">Observe a single flower, record everything you see interacting with that flower</p>
             <a href="#" id="home_fitButton" class="btn">START</a>
             </div>
             </div>

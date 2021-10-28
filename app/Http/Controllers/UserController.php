@@ -137,17 +137,23 @@ class UserController extends Controller
             $visit->save();
 
             $observations = $vDat['observations'];
+
             foreach($observations as $obsDat)
             {
-                $obs = new \App\Model\Observation();
+                $obs = new \App\Models\Observation();
                 $obs->species_id = $obsDat['species_id'];
                 $obs->number = $obsDat['number'];
-                if ($this->needsToBeStored($vDat['transect_section_id'])) {$visit->transect_section_id = $vDat['transect_section_id'];}
+                $obs->observationtime = $obsDat['observationtime'];
+                if ($this->needsToBeStored($obsDat['transect_section_id'])) {$visit->transect_section_id = $obsDat['transect_section_id'];}
+                $obs->save();
 
                 //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
                 //\DB::raw("ST_GeomFromGeoJSON('$geom')"
-                $obs->location = "POINT(" . $obsDat['location'] . ")";
-                $obs->observationtime = $obsDat['observationtime'];
+              //  $obs->location = "POINT(" . $obsDat['location'] . ")";
+                $locItems = explode(",", $obsDat['location']);
+                $insertLine = "{'type':'Point','coordinates':" . $locItems[1] . "," . $locItems[2] . "}";
+
+                DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
             }
         }
     }
@@ -169,12 +175,17 @@ class UserController extends Controller
         foreach($methodLine as $item)
         {
             $msg = new \App\Models\MethodSpeciesgroupRecordinglevel(); 
-            $msg->speciesgroup_id = $item['speciesgroup_id'];
-            $msg->recordinglevel_id = $item['recordinglevel_id'];
+            $stringSpGroupId = $item['speciesGroupId'];
+            $stringSpGroupId1 = str_replace("15mpost_checkSpeciesGroup_", "", $stringSpGroupId);
+            $stringSpGroupId2 = str_replace("fit_checkSpeciesGroup_", "", $stringSpGroupId1);
+            $stringSpGroupId3 = str_replace("transect_checkSpeciesGroup_", "", $stringSpGroupId2);
+         //   $spGId = \App\Models\SpeciesGroup::where('id', )->first();
+
+            $msg->speciesgroup_id = $stringSpGroupId3;
+            $rLevel = \App\Models\RecordingLevel::where('name', $item['recordingLevel'])->first();
+            $msg->recordinglevel_id = $rLevel->id;
             $methodSpeciesGroups[] = $msg;
         }
-
-        \App\Models\IncomingDataBackup::create(['user_id' => 1, 'datapackage' => json_encode($methodSpeciesGroups)]);
 
         return \App\Models\Method::getMethod($methodSpeciesGroups);
     }
@@ -186,7 +197,10 @@ class UserController extends Controller
             {
                 if ($variable != "")
                 {
-                    return true;
+                    if (($variable != -1) && ($variable != "-1"))
+                    {
+                        return true;
+                    }
                 }
             }
         }

@@ -576,7 +576,7 @@ const show15mPostObservationScreen = () =>
                 var isChecked = document.getElementById(id).checked;
                 if (isChecked)
                 {
-                    var recordingLevel = "all";
+                    var recordingLevel = "species";
                     for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
                         if (speciesGroupsUsers[i].speciesgroup_id == id)
@@ -910,7 +910,7 @@ const showFitPostObservationScreen = () =>
                 var isChecked = document.getElementById(id).checked;
                 if (isChecked)
                 {
-                    var recordingLevel = "all";
+                    var recordingLevel = "species";
                     for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
                         if (speciesGroupsUsers[i].speciesgroup_id == id)
@@ -1270,7 +1270,7 @@ const showTransectPostObservationScreen = () =>
                 var isChecked = document.getElementById(id).checked;
                 if (isChecked)
                 {
-                    var recordingLevel = "all";
+                    var recordingLevel = "species";
                     for (var i = 0; i < speciesGroupsUsers.length; i++)
                     {
                         if (speciesGroupsUsers[i].speciesgroup_id == id)

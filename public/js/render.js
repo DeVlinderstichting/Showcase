@@ -643,6 +643,12 @@ const showFitPreObservationScreen = () =>
     $('.chosen-select').select2();
 
     // Attach the events
+    $("#prefit_selectSpecies").change(function () 
+    {
+        visit.flower_id = document.getElementById("prefit_selectSpecies").value;
+    });
+    $("#prefit_selectSpecies").change();
+
     document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
 }

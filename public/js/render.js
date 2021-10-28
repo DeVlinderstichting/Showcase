@@ -971,9 +971,7 @@ const showTransectPreObservationScreen = () =>
     {
         $('#pretransect_selectTransects').append(`<option value="` + transects[i].id + `">` + transects[i].name + `</option>`); 
     }
-    $.each(transects, function(key, value) 
-    {
-    });
+
     $('.chosen-select').select2();
 
     // Attach the events

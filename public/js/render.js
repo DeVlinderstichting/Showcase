@@ -364,13 +364,15 @@ const show15mObservationScreen = () =>
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
     document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
-    $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)); } );
+    $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
-    function addSpeciesToList (element)
+    oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
+
+    function addSpeciesToList (id)
     {
         var settings = getUserSettings();
         var species = settings.species;
-        var speciesId = element[0].value;
+        var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
@@ -387,10 +389,10 @@ const show15mObservationScreen = () =>
             speciesObservations = visit['observations'].filter(obj => {return obj.species_id === String(speciesInfo['id'])});
 
             modalContent = '<ul>';
-            speciesObservations.forEach(element => {
-                location1 = element.location.split(',')[1].replace(' ','');
-                location2 = element.location.split(',')[2].replace(' ','');
-                modalContent += `<li>${element.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${element.observationtime}" data_speciesid="${element.species_id}">delete</button></li>`;
+            speciesObservations.forEach(el => {
+                location1 = el.location.split(',')[1].replace(' ','');
+                location2 = el.location.split(',')[2].replace(' ','');
+                modalContent += `<li>${el.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button></li>`;
             } );
             modalContent += '</ul>';
 
@@ -439,6 +441,12 @@ const show15mObservationScreen = () =>
         });
 
     }
+
+    oldObservations.forEach(id => 
+    {
+        addSpeciesToList(id);
+    });
+
 }
 
 const show15mPostObservationScreen = () =>

@@ -356,7 +356,7 @@ const show15mObservationScreen = () =>
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
-    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
+    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide'); show15mObservationScreen();};
     $("#15m_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 
     oldObservations = [...new Set(visit.observations.map(obj => {return obj.species_id}))];
@@ -725,7 +725,7 @@ const showFitObservationScreen = () =>
     document.getElementById("startTimer").onclick = function () { startTimer(); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
-    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide');};
+    document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide'); showFitObservationScreen();};
 
     $("#fit_selectSpecies").change( function () { addSpeciesToList($(this)[0].value); } );
 

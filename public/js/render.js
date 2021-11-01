@@ -369,6 +369,7 @@ const show15mObservationScreen = () =>
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
             <li>${getSpeciesName(speciesInfo['id'])}
+                <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
                 <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
                 <button id="15m_editAmount_${speciesInfo['id']}">edit</button>
             </li>
@@ -385,7 +386,11 @@ const show15mObservationScreen = () =>
             speciesObservations.forEach(el => {
                 location1 = el.location.split(',')[1].replace(' ','');
                 location2 = el.location.split(',')[2].replace(' ','');
-                modalContent += `<li>${el.observationtime} - ${location1} ${location2} <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button></li>`;
+                modalContent += `
+                    <li>
+                        ${el.observationtime} - ${location1} ${location2} 
+                        <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button>
+                    </li>`;
             } );
             modalContent += '</ul>';
 
@@ -411,8 +416,8 @@ const show15mObservationScreen = () =>
                     return true
                 });
                 $(this).parent().remove();
+                $(`#15m_amountText_${speciesToDelete}`).html(visit['observations'].filter(obj => {return obj.species_id == speciesToDelete}).length);
             })
-
             $(`#modal_id_${speciesInfo['id']}`).modal('show');
         });
         
@@ -431,6 +436,8 @@ const show15mObservationScreen = () =>
                 obs15m['observationtime'] = new Date().toISOString();
                 visit['observations'].push(obs15m);
             }
+            $(`#15m_amountText_${speciesInfo['id']}`).html(visit['observations'].filter(obj => {return obj.species_id == speciesInfo['id']}).length);
+
         });
 
     }

@@ -5,7 +5,7 @@ var currentLocation;
 function locationAvailable(pos)
 {
     var coor = pos.coords;
-    currentLocation = coor.latitude + ", " + coor.longitude;
+    currentLocation = new Date().toISOString() + ", " + coor.latitude + ", " + coor.longitude;
 }
 function locationError(err)
 {

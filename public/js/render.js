@@ -585,7 +585,7 @@ const show15mPostObservationScreen = () =>
                         }
                     }
                     
-                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }
@@ -919,7 +919,7 @@ const showFitPostObservationScreen = () =>
                         }
                     }
                     
-                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }
@@ -1276,7 +1276,7 @@ const showTransectPostObservationScreen = () =>
                             recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
                         }
                     }
-                    var methodLine = {'speciesGroupId': id, 'recordingLevel': recordingLevel};
+                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }

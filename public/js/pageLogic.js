@@ -42,12 +42,13 @@ function storeSingleObservation()
 
         if (parseInt(amount)>0)
         {
-            visit = buildEmptyVisit();
+          //  visit = buildEmptyVisit();
 
             //testDate = new Date(2021, 10, 31, 12, 14, 45, 32);
             //visit.startdate = testDate;
             
             var obs = buildEmptyObservation();
+            obs.observationtime = new Date().toISOString();
             obs.species_id = speciesId;
             obs.number = amount;
             obs.location = currentLocation;

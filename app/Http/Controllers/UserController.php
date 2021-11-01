@@ -144,13 +144,26 @@ class UserController extends Controller
             {
                 if (strlen($vDat['location']) > 10)
                 {
+
                     $trackLine = '{"type":"MultiLineString","coordinates":[[';
                     $locItems = explode(",", $vDat['location']);
                     $i = 0;
                     while($i < count($locItems))
                     {
-              //          $trackLine .= "[" . ""
+                        if ($i != 0)
+                        {
+                            $trackLine .= ",";
+                        }
+                        $trackLine .= "[" . $locItems[$i+2] . "," . $locItems[$i+1] . "]";
+                        $i+=3;
                     }
+                    $trackLine .= "]]}";
+                    
+                    
+                    $theSqlCommand = "UPDATE visits set location = ST_GeomFromGeoJSON('$trackLine') where id = $visit->id";
+                    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => json_encode($locItems]));
+                    DB::statement($theSqlCommand);
+
                     //     $visit->location = $vDat['location'];
                     //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
                 }
@@ -161,7 +174,7 @@ class UserController extends Controller
 
             foreach($observations as $obsDat)
             {
-                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obs->species_id)->first();
+                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->first();
                 if ($obs == null)
                 {
                     $obs = new \App\Models\Observation();
@@ -211,14 +224,22 @@ class UserController extends Controller
         foreach($methodLine as $item)
         {
             $msg = new \App\Models\MethodSpeciesgroupRecordinglevel(); 
-            $stringSpGroupId = $item['speciesGroupId'];
+            $stringSpGroupId = $item['speciesgroup_id'];
             $stringSpGroupId1 = str_replace("15mpost_checkSpeciesGroup_", "", $stringSpGroupId);
             $stringSpGroupId2 = str_replace("fit_checkSpeciesGroup_", "", $stringSpGroupId1);
             $stringSpGroupId3 = str_replace("transect_checkSpeciesGroup_", "", $stringSpGroupId2);
          //   $spGId = \App\Models\SpeciesGroup::where('id', )->first();
 
             $msg->speciesgroup_id = $stringSpGroupId3;
-            $rLevel = \App\Models\RecordingLevel::where('name', $item['recordingLevel'])->first();
+            $rLevel = \App\Models\RecordingLevel::where('name', 'none')->first();
+            if (array_key_exists('recordinglevel_id', $item))
+            {
+                $rLevel = \App\Models\RecordingLevel::where('id', $item['recordinglevel_id'])->first();
+            }
+            elseif (array_key_exists('recordinglevel_name', $item))
+            {
+                $rLevel = \App\Models\RecordingLevel::where('name', $item['recordinglevel_name'])->first();
+            }
             $msg->recordinglevel_id = $rLevel->id;
             $methodSpeciesGroups[] = $msg;
         }

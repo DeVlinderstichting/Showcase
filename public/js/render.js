@@ -1382,7 +1382,7 @@ const showDataScreen = () =>
             dates.push(elem.startdate);
             elem.data.observations.forEach(obs => {
                 spName = getSpeciesName(obs.species_id);
-                tableData.push([elem.startdate.toISOString().slice(0, 10), spName, obs.number, obs.species_id]);
+                tableData.push([elem.startdate.slice(0, 10), spName, obs.number, obs.species_id]);
                 total_insects += parseInt(obs.number);
                 if(!species_id_list.includes(parseInt(obs.species_id)))
                 {

@@ -130,9 +130,18 @@ function resetTimer()
     stopWatchTimeLeft = stopwatchMinutes*60000;
     stopwatchCurrentTime = new Date();
     stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
-    document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
-    trackedLocations = [];
-    visit['observations'] = [];
+    if(document.getElementById("stopwatch"))
+    {
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    }
+    if (trackedLocations)
+    {
+        trackedLocations = [];
+    }
+    if (visit)
+    {
+        visit['observations'] = [];
+    }
 }
 
 function pad(n, z) 

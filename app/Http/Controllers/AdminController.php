@@ -310,7 +310,7 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        //blegggg
+        return view ('pushMessageIndex', ['messages' => \App\Models\PushMessage::all()]);
     }
     public function translationIndex()
     {

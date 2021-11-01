@@ -15,7 +15,7 @@ var renderNav = function(clear=false)
         document.getElementById("nav_homeLink").onclick = function () {showHomeScreen(); };
         document.getElementById("nav_dataLink").onclick = function () {showDataScreen(); };
         document.getElementById("nav_settingsLink").onclick = function () {showSettingsScreen(); };
-        document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen('observationSettings/messages.txt'); };
+        document.getElementById("nav_messagesLink").onclick = function () {showMessagesScreen(); };
         
     
     } 
@@ -1612,7 +1612,7 @@ function showMessage(message)
 const showMessagesScreen = () =>
 {
     var settings = getUserSettings();
-    var messages = settings.messages;
+    var messages = Object.values(settings.messages);
 
     renderNav();
 
@@ -1621,15 +1621,27 @@ const showMessagesScreen = () =>
     messagesHTML = '';
     for(var i = 0; i < messages.length; i++)
     {
+        if (messages[i].receivedate)
+        {
+            read = true;
+            readdate = messages[i].receivedate;
+            styling = '';
+        }
+        else
+        {
+            read = false;
+            readdate = 'Unread';
+            styling = 'style="font-weight:bold;"';
+        }
         messArg = JSON.stringify(messages[i])
         messagesHTML += 
             `<a onclick="showMessage( '${ btoa(messArg)}' );" class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
-                    <h5 class="mb-1">${ messages[i].header }</h5>
-                    <small>${ messages[i].timestamp }</small>
+                    <h5 class="mb-1" ${styling}>${ messages[i].header }</h5>
+                    <small ${styling}>${ messages[i].senddate }</small>
                 </div>
-                <p class="mb-1">${ messages[i].contect.truncate(80, true) }</p>
-                <small>Unread</small>
+                <p class="mb-1" ${styling}>${ messages[i].content.truncate(80, true) }</p>
+                <small ${styling}>${readdate}</small>
             </a>`
     }
 

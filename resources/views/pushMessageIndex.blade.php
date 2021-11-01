@@ -26,7 +26,7 @@ Pushmessages
                         </tr>
                         @foreach($messages as $mes)
                             <tr>
-                                <td><a href="pushmessage/create/{{ $mes->id }}">{{ $mes->header }}</a></td>
+                                <td><a href="/pushmessage/create/{{ $mes->id }}">{{ $mes->header }}</a></td>
                                 <td>{{ $mes->region_id }}</td>
                                 <td>{{ substr($mes->content, 0, 100) }} . . . </td>
                             </tr>

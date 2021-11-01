@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Auth;
 use Hash;
+use Illuminate\Support\Carbon;
 
 class AdminController extends Controller
 {
@@ -302,7 +303,28 @@ class AdminController extends Controller
         $img1Placeholder = "bf1.jpg";
         $img2Placeholder = "bf2.jpg";
 
-        $pm = \App\Models\PushMessage::create(['header' => $valDat['header'], 'content' => $valDat['content'], 'region_id' => $valDat['region_id'], 'image_primary' => $img1Placeholder, 'image_secondary' => $img2Placeholder]);
+        if ($messageId == -1)
+        {
+            $pm = \App\Models\PushMessage::create(['header' => $valDat['header'], 'content' => $valDat['content'], 'region_id' => $valDat['region_id'], 'image_primary' => $img1Placeholder, 'image_secondary' => $img2Placeholder]);
+
+            $region = \App\Models\Region::find($valDat['region_id']);
+            $regionUsers = $region->users()->get();
+            foreach($regionUsers as $reUs)
+            {
+                \App\Models\UsersPushMessage::create(['user_id' => $reUs->id, 'pushmessage_id' => $pm->id, 'senddate' => Carbon::now()]);
+            }
+        }
+        else 
+        {
+            $pm = \App\Models\PushMessage::find($messageId);
+            $pm->header = $valDat['header'];
+            $pm->content = $valDat['content'];
+            $pm->region_id = $valDat['region_id'];
+            $pm->image_primary = $img1Placeholder;
+            $pm->image_secondary = $img2Placeholder;
+            $pm->save();            
+        }
+        return view ('pushMessageIndex', ['messages' => \App\Models\PushMessage::all()]);
     }
     public function pushMessageIndex()
     {

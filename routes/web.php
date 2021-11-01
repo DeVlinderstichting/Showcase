@@ -26,9 +26,9 @@ Route::post('/user/create/{userId}', '\App\Http\Controllers\AdminController@stor
 Route::get('/user', '\App\Http\Controllers\AdminController@userIndex');
 Route::post('/user/indexAjax', '\App\Http\Controllers\AdminController@userIndexAjax');
 
-Route::get('pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
-Route::get('pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');
-Route::post('pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@storePushmessage');
+Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
+Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');
+Route::post('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@storePushmessage');
 
 Route::get('translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
 Route::get('translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');

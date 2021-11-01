@@ -65,7 +65,6 @@ class UserController extends Controller
                //   return $dataPackage['usersettings.userSettings.preferedLanguage;
                     $res = $this->processUserDataPackage($user, $valDat['datapackage']);
                     return $res;
-                    return 19;
                 }
                 return Auth::user()->buildUserPackage();
             }
@@ -161,7 +160,7 @@ class UserController extends Controller
                     
                     
                     $theSqlCommand = "UPDATE visits set location = ST_GeomFromGeoJSON('$trackLine') where id = $visit->id";
-                    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => json_encode($locItems]));
+                    // \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => json_encode($locItems)]);
                     DB::statement($theSqlCommand);
 
                     //     $visit->location = $vDat['location'];

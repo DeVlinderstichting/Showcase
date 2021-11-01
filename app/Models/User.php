@@ -192,9 +192,11 @@ class User extends Authenticatable
         $userMessages = $this->usersMessages()->where('senddate', '>', Carbon::now()->subMonths(2))->whereNull('receivedate')->get();
         foreach($userMessages as $um)
         {
-            $theMessage = $um->pushmessage()->get();
+            $theMessage = \App\Models\PushMessage::find($um->pushmessage_id);
             $singleMessage = [];
             $singleMessage['id'] = $theMessage->id;
+            $singleMessage['senddate'] = $um->senddate;
+            $singleMessage['receivedate'] = $um->receivedate;
             $singleMessage['regionId'] = $theMessage->region_id;
             $singleMessage['content'] = $theMessage->content;
             $singleMessage['header'] = $theMessage->header;

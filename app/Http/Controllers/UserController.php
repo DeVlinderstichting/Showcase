@@ -24,6 +24,11 @@ class UserController extends Controller
      //   $regions = $user->regions()->get();
 
 
+
+
+
+
+
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
             $authOk = false;
@@ -145,7 +150,13 @@ class UserController extends Controller
                 {
 
                     $trackLine = '{"type":"MultiLineString","coordinates":[[';
-                    $locItems = explode(",", $vDat['location']);
+
+                    $locPrepLine = str_replace('"', '', $vDat['location']);
+                    $locPrepLine = str_replace('/', '', $locPrepLine);
+                    $locPrepLine = str_replace('[', '', $locPrepLine);
+                    $locPrepLine = str_replace(']', '', $locPrepLine);
+
+                    $locItems = explode(",", $locPrepLine);
                     $i = 0;
                     while($i < count($locItems))
                     {

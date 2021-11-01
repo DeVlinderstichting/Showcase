@@ -10,6 +10,7 @@ class UsersPushMessage extends Model
     use HasFactory;
 
     protected $table = 'users_pushmessages';
+    protected $fillable = ['pushmessage_id', 'user_id', 'senddate'];
     
     public function user()
     {

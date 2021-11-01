@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\User;
+use Illuminate\Support\Carbon;
 use Auth;
 use DB;
 
@@ -115,7 +116,9 @@ class UserController extends Controller
         foreach ($dat['visitdata'] as $visitDat)
         {
             $vDat = $visitDat['data'];
-            $visit = \App\Models\Visit::where('startdate',$vDat['startdate'])->first();
+            $visitCarbonDate = Carbon::parse($vDat['startdate']);
+         //   $visit = \App\Models\Visit::where('startdate',$vDat['startdate'])->where('user_id', $vDat['user_id'])->first();
+            $visit = \App\Models\Visit::whereDate('startdate', '=', $visitCarbonDate)->where('user_id', $vDat['user_id'])->first();
             if ($visit == null)
             {
                 $visit = new \App\Models\Visit();

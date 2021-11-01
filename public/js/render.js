@@ -129,6 +129,10 @@ const showHomeScreen = () =>
 {
     renderNav();
 
+    // Unset any running timers
+    stopTimer();
+    resetTimer();
+
     // Build the DOM
     var mb = document.getElementById('mainBody');
     theHtml = `

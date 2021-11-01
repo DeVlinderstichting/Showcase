@@ -185,7 +185,7 @@ class User extends Authenticatable
             $singleSpeciesGroup['name'] = $sg->name;
             $singleSpeciesGroup['description'] = $sg->description;
             $singleSpeciesGroup['userCanCount'] = $sg->usercancount;
-            $singleSpeciesGroup['defaultSpeciesId'] = $sg->usercancount;
+            $singleSpeciesGroup['defaultSpeciesId'] = $sg->defaultspecies_id;
             $speciesGroups[$sg->id] = $singleSpeciesGroup;
         }
 

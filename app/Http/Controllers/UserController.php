@@ -117,8 +117,6 @@ class UserController extends Controller
             }
 
             $visit->countingmethod_id = $vDat['countingmethod_id'];
-       //     $visit->location = $vDat['location'];
-            //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
 
             if ($this->needsToBeStored($vDat['startdate']))
             {
@@ -141,6 +139,23 @@ class UserController extends Controller
             if ($this->needsToBeStored($vDat['flower_id'])) {$visit->flower_id = $vDat['flower_id'];}
             $visit->method_id = $this->getRecordingMethod($vDat['method'])->id;
             $visit->save();
+
+            if ($this->needsToBeStored($vDat['location']))
+            {
+                if (strlen($vDat['location']) > 10)
+                {
+                    $trackLine = '{"type":"MultiLineString","coordinates":[[';
+                    $locItems = explode(",", $vDat['location']);
+                    $i = 0;
+                    while($i < count($locItems))
+                    {
+              //          $trackLine .= "[" . ""
+                    }
+                    //     $visit->location = $vDat['location'];
+                    //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
+                }
+            }
+
 
             $observations = $vDat['observations'];
 

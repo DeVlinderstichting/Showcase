@@ -13,6 +13,10 @@ function initAnyCount(countingMethod)
     visit.countingmethod_id = countingMethod;
     trackedLocations = [];
 }
+function endAnyCount()
+{
+    synchWithServer();
+}
 
 
 function storeSingleObservation()
@@ -50,7 +54,7 @@ function storeSingleObservation()
             visit.observations.push(obs);
             storeVisit(visit);
         }
-
+        endAnyCount();
         showHomeScreen();
     }
 }
@@ -59,6 +63,7 @@ function storeTimedCount()
 {
     visit.location = JSON.stringify(trackedLocations);
     storeVisit(visit);
+    endAnyCount();
     showHomeScreen();
 }
 
@@ -66,6 +71,7 @@ function storeFitCount()
 {
     visit.location = JSON.stringify(trackedLocations);
     storeVisit(visit);
+    endAnyCount();
     showHomeScreen();
 }
 
@@ -73,6 +79,7 @@ function storeTransectCount()
 {
     visit.location = JSON.stringify(trackedLocations);
     storeVisit(visit);
+    endAnyCount();
     showHomeScreen();
 }
 

@@ -30,6 +30,7 @@ class SpeciesSeeder extends Seeder
             'enname' => 'butterflies' 
         ]);
         $bfSpGroup->defaultspecies_id = $defBf->id;
+        $bfSpGroup->save();
 
         $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true]);
         $defMoth = \App\Models\Species::create([
@@ -46,6 +47,7 @@ class SpeciesSeeder extends Seeder
             'enname' => 'moths' 
         ]);
         $mothSpeciesGroup->defaultspecies_id = $defMoth->id;
+        $mothSpeciesGroup->save();
 
         $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true]);
         $defBee = \App\Models\Species::create([
@@ -62,6 +64,7 @@ class SpeciesSeeder extends Seeder
             'enname' => 'bees' 
         ]);
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
+        $beesSpeciesGroup->save();
 
         $plantSpGroup = \App\Models\Speciesgroup::create(['name' => 'plants', 'description' => 'plants', 'usercancount' => false]);
         $defPlant = \App\Models\Species::create([
@@ -78,6 +81,7 @@ class SpeciesSeeder extends Seeder
             'enname' => 'plant' 
         ]);
         $plantSpGroup->defaultspecies_id = $defPlant->id;
+        $plantSpGroup->save();
 
         //create the species for each group 
         \App\Models\Species::create([

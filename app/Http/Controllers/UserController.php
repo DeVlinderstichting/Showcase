@@ -24,6 +24,11 @@ class UserController extends Controller
      //   $regions = $user->regions()->get();
 
 
+
+
+
+
+
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
             $authOk = false;
@@ -146,7 +151,13 @@ class UserController extends Controller
                 {
 
                     $trackLine = '{"type":"MultiLineString","coordinates":[[';
-                    $locItems = explode(",", $vDat['location']);
+
+                    $locPrepLine = str_replace('"', '', $vDat['location']);
+                    $locPrepLine = str_replace('/', '', $locPrepLine);
+                    $locPrepLine = str_replace('[', '', $locPrepLine);
+                    $locPrepLine = str_replace(']', '', $locPrepLine);
+
+                    $locItems = explode(",", $locPrepLine);
                     $i = 0;
                     while($i < count($locItems))
                     {
@@ -161,7 +172,7 @@ class UserController extends Controller
                     
                     
                     $theSqlCommand = "UPDATE visits set location = ST_GeomFromGeoJSON('$trackLine') where id = $visit->id";
-                    \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => json_encode($locItems]));
+               //     \App\Models\IncomingDataBackup::create(['user_id' => $user->id, 'datapackage' => json_encode($locItems]));
                     DB::statement($theSqlCommand);
 
                     //     $visit->location = $vDat['location'];

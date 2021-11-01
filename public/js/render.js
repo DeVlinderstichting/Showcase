@@ -805,7 +805,7 @@ const showFitPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="fit_title">Title</h2>
+    <h2 id="fit_title">${translations.fit_postscreen_maintitle}</h2>
     <h3 id="fit_subtitle">Subtitle</h3>
     <div>
         <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>

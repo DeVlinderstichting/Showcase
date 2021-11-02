@@ -578,25 +578,24 @@ const show15mPostObservationScreen = () =>
         var speciesGroups = settings.speciesGroups;
         var speciesGroupsUsers = settings.userSettings.speciesGroupsUsers;
         var method = [];
-
         Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => 
         {
             if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var id = "15mpost_checkSpeciesGroup_"+element.id;
-                var isChecked = document.getElementById(id).checked;
+                var elemid = "15mpost_checkSpeciesGroup_" + element.id;
+                var isChecked = document.getElementById(elemid).checked;
                 if (isChecked)
                 {
                     var recordingLevel = "species";
-                    for (var i = 0; i < speciesGroupsUsers.length; i++)
+                    for (var i = 0; i < Object.keys(speciesGroupsUsers).length; i++)
                     {
-                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        if (speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].speciesgroup_id == element.id)
                         {
-                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                            recordingLevel = speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].recordinglevel_name;
                         }
                     }
                     
-                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
+                    var methodLine = {'speciesgroup_id':  element.id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }
@@ -606,7 +605,6 @@ const show15mPostObservationScreen = () =>
         visit.wind = wind;
         visit.temperature = temp;
         visit.cloud = cloud;
-
         storeTimedCount();
     }; 
     document.getElementById("15mpost_buttonCancel").onclick = function () { show15mObservationScreen() };
@@ -917,25 +915,25 @@ const showFitPostObservationScreen = () =>
         {
             if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var id = "fit_checkSpeciesGroup_"+element.id;
-                var isChecked = document.getElementById(id).checked;
+                var elemid = "fit_checkSpeciesGroup_" + element.id;
+                var isChecked = document.getElementById(elemid).checked;
                 if (isChecked)
                 {
                     var recordingLevel = "species";
-                    for (var i = 0; i < speciesGroupsUsers.length; i++)
+                    for (var i = 0; i < Object.keys(speciesGroupsUsers).length; i++)
                     {
-                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        if (speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].speciesgroup_id == element.id)
                         {
-                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                            recordingLevel = speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].recordinglevel_name;
                         }
                     }
                     
-                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
+                    var methodLine = {'speciesgroup_id':  element.id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }
-            
         });
+
         visit.method = method;
         visit.notes = notes;
         visit.wind = wind;
@@ -1274,24 +1272,25 @@ const showTransectPostObservationScreen = () =>
         {
             if (Object.values(speciesGroupsUsers).map(obj => {return obj.speciesgroup_id}).includes(element.id))
             {
-                var id = "transect_checkSpeciesGroup_"+element.id;
-                console.log(id);
-                var isChecked = document.getElementById(id).checked;
+                var elemid = "transect_checkSpeciesGroup_" + element.id;
+                var isChecked = document.getElementById(elemid).checked;
                 if (isChecked)
                 {
                     var recordingLevel = "species";
-                    for (var i = 0; i < speciesGroupsUsers.length; i++)
+                    for (var i = 0; i < Object.keys(speciesGroupsUsers).length; i++)
                     {
-                        if (speciesGroupsUsers[i].speciesgroup_id == id)
+                        if (speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].speciesgroup_id == element.id)
                         {
-                            recordingLevel = speciesGroupsUsers[i].recordinglevel_name;
+                            recordingLevel = speciesGroupsUsers[Object.keys(speciesGroupsUsers)[i]].recordinglevel_name;
                         }
                     }
-                    var methodLine = {'speciesgroup_id': id, 'recordinglevel_name': recordingLevel};
+                    
+                    var methodLine = {'speciesgroup_id':  element.id, 'recordinglevel_name': recordingLevel};
                     method.push(methodLine);
                 }
             }
         });
+
         visit.method = method;
         visit.notes = notes;
         visit.wind = wind;

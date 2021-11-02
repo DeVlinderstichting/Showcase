@@ -26,6 +26,7 @@ class TestDataSeeder extends Seeder
         \App\Models\Language::create(['key' => 'startButton', 'en'=>'Start']);
         \App\Models\Language::create(['key' => 'infoButton', 'en'=>'MORE INFO']);
         \App\Models\Language::create(['key' => 'searchSpeciesLabel', 'en'=>'SEARCH SPECIES']);
+        \App\Models\Language::create(['key' => 'SelectSpeciesPlaceholder', 'en'=>'Select a species...']);
         \App\Models\Language::create(['key' => 'stopwatchLabel', 'en'=>'STOPWATCH']);
         \App\Models\Language::create(['key' => 'restartStopwatchLabel', 'en'=>'Restart']);
         \App\Models\Language::create(['key' => 'NoTrackModalTitle', 'en'=>'No location!']);
@@ -71,12 +72,28 @@ class TestDataSeeder extends Seeder
         \App\Models\Language::create(['key' => '15mNumberLabel', 'en'=>'NUMBER OBSERVED']);
         \App\Models\Language::create(['key' => '15mInfoModalTitle', 'en'=>'More information']);
         \App\Models\Language::create(['key' => '15mInfoModalContents', 'en'=>'Here is more information about 15 minute observations']);
-        \App\Models\Language::create(['key' => '15mSelectSpeciesPlaceholder', 'en'=>'Select a species...']);
+        \App\Models\Language::create(['key' => '15mPostInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => '15mPostInfoModalContents', 'en'=>'Here is more information about 15 minute observations']);
         \App\Models\Language::create(['key' => '15mDeleteModalSpeciesTitle', 'en'=>'Edit observations']);
         \App\Models\Language::create(['key' => '15mPostTitle', 'en'=>'15 MINUTES COUNT']);
         \App\Models\Language::create(['key' => '15mPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
         
-
+        // Fit screen
+        \App\Models\Language::create(['key' => 'fitTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower']);
+        \App\Models\Language::create(['key' => 'fitPreTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitPreDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower, first select a flower']);
+        \App\Models\Language::create(['key' => 'fitNumberLabel', 'en'=>'NUMBER OBSERVED']);
+        \App\Models\Language::create(['key' => 'fitPreInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'fitPreInfoModalContents', 'en'=>'Here is more information about the preselection of the fit observation']);
+        \App\Models\Language::create(['key' => 'fitInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'fitInfoModalContents', 'en'=>'Here is more information about fit observations']);
+        \App\Models\Language::create(['key' => 'fitPostInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about fit observations']);
+        \App\Models\Language::create(['key' => 'fitDeleteModalSpeciesTitle', 'en'=>'Edit observations']);
+        \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
+        
         $user = \App\Models\User::create(['name'=> 'SirTestington','email'=> 'test@vlinderstichting.nl', 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
         $user->setRandomAccessToken();
         $user->save();

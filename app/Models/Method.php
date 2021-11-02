@@ -20,13 +20,14 @@ class Method extends Model
         $value = "";
         foreach(\App\Models\Speciesgroup::all() as $theId)
         {
-            $value .= "0";
+            $value .= "3"; //initialize at 3 for fun (or because recording level 3 = none (not recorded))
         }
         foreach($methodSpeciesgroups as $msg)
         {
             $recLevel = $msg->recordinglevel_id;
-            $value = substr_replace($value,$recLevel, $msg->speciesgroup_id,1);
+            $value = substr_replace($value, $recLevel, $msg->speciesgroup_id-1, 1);
         }
+
         $method = \App\Models\Method::where('value', $value)->first();
         if ($method == null)
         {

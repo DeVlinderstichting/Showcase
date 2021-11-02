@@ -21,7 +21,19 @@ class TestDataSeeder extends Seeder
         $user->setRandomAccessToken();
         $user->save();
 
-        $spGroup = \App\Models\SpeciesGroup::first();
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'butterflies')->first();
+        $recordingLevel = \App\Models\RecordingLevel::first();
+        $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
+
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'bees')->first();
+        $recordingLevel = \App\Models\RecordingLevel::first();
+        $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
+
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'plants')->first();
+        $recordingLevel = \App\Models\RecordingLevel::first();
+        $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
+
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'birds')->first();
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 

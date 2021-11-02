@@ -1535,9 +1535,19 @@ const showSettingsScreen = () =>
     {
         $('#settings_showPreviouslySeenCheck').prop('checked', true);
     }
-    // We can only attach butterfly group at this point...
+
+    // We can attach butterfly
     var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
         $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
+    // We can attach plants
+    var recPlants = settings.userSettings.speciesGroupsUsers.plants.recordinglevel_id;
+        $('#settings_selectButtonFlowers'+recPlants).addClass('circle');
+    // We can attach bees
+    var recBees = settings.userSettings.speciesGroupsUsers.bees.recordinglevel_id;
+        $('#settings_selectButtonBees'+recBees).addClass('circle');
+    // We can attach birds
+    var recBirds = settings.userSettings.speciesGroupsUsers.birds.recordinglevel_id;
+        $('#settings_selectButtonBirds'+recBirds).addClass('circle');
 
     // Attach the events
     $('#settings_useScientificNamesCheck').click( function () 
@@ -1564,7 +1574,7 @@ const showSettingsScreen = () =>
         logout();
     })
 
-    // We can only attach butterfly group at this point...
+    // We can attach butterfly group
     $('[id*=selectButtonButterflies]').click(function () 
     {
         $('[id*=selectButtonButterflies]').removeClass('circle');
@@ -1579,7 +1589,60 @@ const showSettingsScreen = () =>
         currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevelID;
         recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
         currentSettings.speciesGroupsUsers.butterflies.recordinglevel_name = recordingLevel;
+        storeSettingsData('userSettings', currentSettings);
+    });
 
+    // We can attach plant group
+    $('[id*=settings_selectButtonFlowers]').click(function () 
+    {
+        $('[id*=settings_selectButtonFlowers]').removeClass('circle');
+        $(this).addClass('circle');
+        currentSettings = getUserSettings().userSettings;
+        recordingLevelTranslator = {
+            1: "species",
+            2: "group",
+            3: "none"
+        };
+        recordingLevelID = parseInt($(this).attr('id').slice(-1));
+        currentSettings.speciesGroupsUsers.plants.recordinglevel_id = recordingLevelID;
+        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
+        currentSettings.speciesGroupsUsers.plants.recordinglevel_name = recordingLevel;
+        storeSettingsData('userSettings', currentSettings);
+    });
+
+    // We can attach bees group
+    $('[id*=settings_selectButtonBees]').click(function () 
+    {
+        $('[id*=settings_selectButtonBees]').removeClass('circle');
+        $(this).addClass('circle');
+        currentSettings = getUserSettings().userSettings;
+        recordingLevelTranslator = {
+            1: "species",
+            2: "group",
+            3: "none"
+        };
+        recordingLevelID = parseInt($(this).attr('id').slice(-1));
+        currentSettings.speciesGroupsUsers.bees.recordinglevel_id = recordingLevelID;
+        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
+        currentSettings.speciesGroupsUsers.bees.recordinglevel_name = recordingLevel;
+        storeSettingsData('userSettings', currentSettings);
+    });
+
+    // We can attach birds group
+    $('[id*=settings_selectButtonBirds]').click(function () 
+    {
+        $('[id*=settings_selectButtonBirds]').removeClass('circle');
+        $(this).addClass('circle');
+        currentSettings = getUserSettings().userSettings;
+        recordingLevelTranslator = {
+            1: "species",
+            2: "group",
+            3: "none"
+        };
+        recordingLevelID = parseInt($(this).attr('id').slice(-1));
+        currentSettings.speciesGroupsUsers.birds.recordinglevel_id = recordingLevelID;
+        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
+        currentSettings.speciesGroupsUsers.birds.recordinglevel_name = recordingLevel;
         storeSettingsData('userSettings', currentSettings);
     });
 

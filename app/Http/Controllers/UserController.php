@@ -116,8 +116,10 @@ class UserController extends Controller
         {
             $vDat = $visitDat['data'];
             $visitCarbonDate = Carbon::parse($vDat['startdate']);
+            $visitSearchDate = $visitCarbonDate->format('Y-m-d H:i:s');
          //   $visit = \App\Models\Visit::where('startdate',$vDat['startdate'])->where('user_id', $vDat['user_id'])->first();
-            $visit = \App\Models\Visit::whereDate('startdate', '=', $visitCarbonDate)->where('user_id', $vDat['user_id'])->first();
+            $visit = \App\Models\Visit::where('startdate', '=', $visitSearchDate)->where('user_id', $vDat['user_id'])->first();
+
             if ($visit == null)
             {
                 $visit = new \App\Models\Visit();
@@ -127,7 +129,7 @@ class UserController extends Controller
 
             if ($this->needsToBeStored($vDat['startdate']))
             {
-                $visit->startdate = $vDat['startdate'];
+                $visit->startdate = $visitSearchDate;
             }
             if ($this->needsToBeStored($vDat['enddate'])) {$visit->enddate = $vDat['enddate'];}
             $visit->sendtoserverdate = date("Y-m-d H:i:s");
@@ -144,7 +146,9 @@ class UserController extends Controller
                 if ($this->needsToBeStored($vDat['region_id'])) {$visit->region_id = $vDat['region_id'];}
             }
             if ($this->needsToBeStored($vDat['flower_id'])) {$visit->flower_id = $vDat['flower_id'];}
+
             $visit->method_id = $this->getRecordingMethod($vDat['method'])->id;
+
             $visit->save();
 
             if ($this->needsToBeStored($vDat['location']))
@@ -179,6 +183,18 @@ class UserController extends Controller
 
                     //     $visit->location = $vDat['location'];
                     //{"type":"MultiLineString","coordinates":[[[4.689148782214867,51.79723317223025],[4.689197266129314,51.797421111800307],[4.689149999246926,51.79752350760841]]]}}
+
+                    $allReg = \App\Models\Region::all();
+                    foreach($allReg as $reg)
+                    {
+                        $sqRes = DB::select("SELECT ST_Intersects( (select location from regions where id = " . $reg->id . "), (select location from visits where id = " . $visit->id . ") ) as intersect");
+                        if ($sqRes[0]->intersect != null)
+                        {
+                            $visit->region_id = $reg->id;
+                            $visit->save();
+                        }
+                    }
+
                 }
             }
 
@@ -187,7 +203,17 @@ class UserController extends Controller
 
             foreach($observations as $obsDat)
             {
-                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->first();
+                $obsCarbonDate = Carbon::parse($obsDat['observationtime']);
+                $obsSearchDate = $obsCarbonDate->format('Y-m-d H:i:s');
+                if ($obsDat['observationtime'] != '')
+                {
+                    $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->where('observationtime', '=',$obsSearchDate)->first();
+                }
+                else 
+                {
+                    $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->first();
+                }
+
                 if ($obs == null)
                 {
                     $obs = new \App\Models\Observation();
@@ -196,7 +222,7 @@ class UserController extends Controller
                 $obs->species_id = $obsDat['species_id'];
                 $obs->number = $obsDat['number'];
                 $obs->visit_id = $visit->id;
-                $obs->observationtime = $obsDat['observationtime'];
+                $obs->observationtime = $obsSearchDate;
                 if ($this->needsToBeStored($obsDat['transect_section_id'])) {$visit->transect_section_id = $obsDat['transect_section_id'];}
                 $obs->save();
 

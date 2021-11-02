@@ -97,8 +97,8 @@ class SpeciesSeeder extends Seeder
             'nlname' => 'vogels',
             'enname' => 'birds' 
         ]);
-        $plantSpGroup->defaultspecies_id = $defPlant->id;
-        $plantSpGroup->save();
+        $birdSpGroup->defaultspecies_id = $defBird->id;
+        $birdSpGroup->save();
 
         //create the species for each group 
         \App\Models\Species::create([

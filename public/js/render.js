@@ -1503,12 +1503,6 @@ const showSettingsScreen = () =>
                 <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
                 <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
             </div>
-            <h4>Flowers</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonFlowers3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonFlowers2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonFlowers1"><i class="fas fa-bug"></i></span>
-            </div>
             <h4>Birds</h4>
             <div class="d-inline">
                 <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
@@ -1539,9 +1533,6 @@ const showSettingsScreen = () =>
     // We can attach butterfly
     var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
         $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
-    // We can attach plants
-    var recPlants = settings.userSettings.speciesGroupsUsers.plants.recordinglevel_id;
-        $('#settings_selectButtonFlowers'+recPlants).addClass('circle');
     // We can attach bees
     var recBees = settings.userSettings.speciesGroupsUsers.bees.recordinglevel_id;
         $('#settings_selectButtonBees'+recBees).addClass('circle');
@@ -1589,24 +1580,6 @@ const showSettingsScreen = () =>
         currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevelID;
         recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
         currentSettings.speciesGroupsUsers.butterflies.recordinglevel_name = recordingLevel;
-        storeSettingsData('userSettings', currentSettings);
-    });
-
-    // We can attach plant group
-    $('[id*=settings_selectButtonFlowers]').click(function () 
-    {
-        $('[id*=settings_selectButtonFlowers]').removeClass('circle');
-        $(this).addClass('circle');
-        currentSettings = getUserSettings().userSettings;
-        recordingLevelTranslator = {
-            1: "species",
-            2: "group",
-            3: "none"
-        };
-        recordingLevelID = parseInt($(this).attr('id').slice(-1));
-        currentSettings.speciesGroupsUsers.plants.recordinglevel_id = recordingLevelID;
-        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
-        currentSettings.speciesGroupsUsers.plants.recordinglevel_name = recordingLevel;
         storeSettingsData('userSettings', currentSettings);
     });
 

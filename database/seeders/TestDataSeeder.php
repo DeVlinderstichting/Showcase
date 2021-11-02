@@ -29,10 +29,6 @@ class TestDataSeeder extends Seeder
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 
-        $spGroup = \App\Models\SpeciesGroup::where('name', 'plants')->first();
-        $recordingLevel = \App\Models\RecordingLevel::first();
-        $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
-
         $spGroup = \App\Models\SpeciesGroup::where('name', 'birds')->first();
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);

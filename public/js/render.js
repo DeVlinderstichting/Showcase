@@ -317,18 +317,18 @@ const show15mObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">Title</h2>
-    <h3 id="15m_subtitle">Subtitle</h3>
+    <h2 id="15m_title">${translations['15mTitle']}</h2>
+    <h3 id="15m_subtitle">${translations['15mDescr']}</h3>
     <div>
-        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="15m_stopwatchText">Start counting</h3>
+    <h3 id="15m_stopwatchText">${translations['stopwatchLabel']}</h3>
     <div>
         <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
-    <h3 id="15m_speciesText">Species</h3>
+    <h3 id="15m_speciesText">${translations['searchSpeciesLabel']}</h3>
     <div>
-        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['15mSelectSpeciesPlaceholder']}" tabindex="1">
             <option value=""></option>
         </select>
     </div>
@@ -336,22 +336,22 @@ const show15mObservationScreen = () =>
 
     </ul>
     <div>
-        <button id="15m_buttonSave">Save</button>
-        <button id="15m_buttonCancel">Cancel</button>
+        <button id="15m_buttonSave">${translations['saveButton']}</button>
+        <button id="15m_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
     
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['15mInfoModalTitle'],translations['15mInfoModalContents']);
     // No tracking message
-    mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    mb.innerHTML += renderModal(translations['NoTrackModalTitle'],translations['NoTrackModalContents'], 'no_loc');
     // Restart timer question
-    mb.innerHTML += renderModal('Note',
+    mb.innerHTML += renderModal(translations['RestartTimerModalTitle'],
     `
-        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        ${translations['RestartTimerModalContents']}
         <br>
-        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+        <center><button class="btn btn-danger" id="restartTimerButton">${translations['restartStopwatchLabel']}</button></center>
     `
     , 'restart_timer');
 
@@ -383,7 +383,7 @@ const show15mObservationScreen = () =>
             <li>${getSpeciesName(speciesInfo['id'])}
                 <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
                 <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
-                <button id="15m_editAmount_${speciesInfo['id']}">edit</button>
+                <button id="15m_editAmount_${speciesInfo['id']}">${translations['editButton']}</button>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -401,12 +401,12 @@ const show15mObservationScreen = () =>
                 modalContent += `
                     <li>
                         ${el.observationtime} - ${location1} ${location2} 
-                        <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button>
+                        <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">${translations['deleteButton']}</button>
                     </li>`;
             } );
             modalContent += '</ul>';
 
-            $("#mainBody").append(renderModal(`Edit observations ${getSpeciesName(speciesInfo['id'])}`,modalContent, `_${speciesInfo['id']}`));
+            $("#mainBody").append(renderModal(`${translations['15mDeleteModalSpeciesTitle']} ${getSpeciesName(speciesInfo['id'])}`,modalContent, `_${speciesInfo['id']}`));
 
             $('.delete_obs').click( function () {
                 timeToDelete = $(this).get(0).attributes.data_time.value;
@@ -478,20 +478,20 @@ const show15mPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15mpost_title">Title</h2>
-    <h3 id="15mpost_subtitle">Subtitle</h3>
+    <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
+    <h3 id="15mpost_subtitle">${translations['15mPostDescr']}</h3>
     <div>
-        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="15mpost_countedGroupsText">Counted groups</h3>
+    <h3 id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</h3>
     <div id="15mpost_countedGroupsContainer"></div>
-    <h3 id="15mpost_weatherText">Weather</h3>
+    <h3 id="15mpost_weatherText">${translations['weatherLabel']}</h3>
     <div id="15mpost_weatherContainer"></div>
-    <h3 id="15mpost_notesText">Notes</h3>
+    <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
     <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
     <div>
-        <button id="15mpost_buttonSave">Save</button>
-        <button id="15mpost_buttonCancel">Cancel</button>
+        <button id="15mpost_buttonSave">${translations['saveButton']}</button>
+        <button id="15mpost_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `
     // Attach the modals
@@ -526,12 +526,12 @@ const show15mPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="15mpost_temperatureText">Temperature</h4>
+    <h4 id="15mpost_temperatureText">${translations['temperatureLabel']}</h4>
     <button id="15mpost_minTemperature" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
     <input id="15mpost_inputTemperature" name="15mpost_inputTemperature" value=0>
     <button id="15mpost_plusTemperature" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
-    <h4 id="15mpost_windText">Wind</h4>
-    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="15mpost_windText">${translations['windLabel']}</h4>
+    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -541,8 +541,8 @@ const show15mPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="15mpost_cloudsText">Clouds</h4>
-    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="15mpost_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>

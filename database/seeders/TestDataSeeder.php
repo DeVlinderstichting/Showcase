@@ -83,17 +83,49 @@ class TestDataSeeder extends Seeder
         \App\Models\Language::create(['key' => 'fitDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower']);
         \App\Models\Language::create(['key' => 'fitPreTitle', 'en'=>'FIT COUNT']);
         \App\Models\Language::create(['key' => 'fitPreDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower, first select a flower']);
-        \App\Models\Language::create(['key' => 'fitNumberLabel', 'en'=>'NUMBER OBSERVED']);
         \App\Models\Language::create(['key' => 'fitPreInfoModalTitle', 'en'=>'More information']);
         \App\Models\Language::create(['key' => 'fitPreInfoModalContents', 'en'=>'Here is more information about the preselection of the fit observation']);
         \App\Models\Language::create(['key' => 'fitInfoModalTitle', 'en'=>'More information']);
         \App\Models\Language::create(['key' => 'fitInfoModalContents', 'en'=>'Here is more information about fit observations']);
         \App\Models\Language::create(['key' => 'fitPostInfoModalTitle', 'en'=>'More information']);
         \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about fit observations']);
-        \App\Models\Language::create(['key' => 'fitDeleteModalSpeciesTitle', 'en'=>'Edit observations']);
         \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FIT COUNT']);
         \App\Models\Language::create(['key' => 'fitPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
         
+        // Transect screen
+        \App\Models\Language::create(['key' => 'transectTitle', 'en'=>'WALK TRANSECT']);
+        \App\Models\Language::create(['key' => 'transectDescr', 'en'=>'Walk a predifined transect and record everything you see']);
+        \App\Models\Language::create(['key' => 'transectSectionSelector', 'en'=>'Section']);
+        \App\Models\Language::create(['key' => 'transectPreTitle', 'en'=>'WALK TRANSECT']);
+        \App\Models\Language::create(['key' => 'transectPreDescr', 'en'=>'Select a transect']);
+        \App\Models\Language::create(['key' => 'transectPreSelectTransectLabel', 'en'=>'Select a transect']);
+        \App\Models\Language::create(['key' => 'transectPreInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'transectPreInfoModalContents', 'en'=>'Here is more information about the preselection of the transect observation']);
+        \App\Models\Language::create(['key' => 'transectInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'transectInfoModalContents', 'en'=>'Here is more information about transect observations']);
+        \App\Models\Language::create(['key' => 'transectPostInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'transectPostInfoModalContents', 'en'=>'Here is more information about transect observations']);
+        \App\Models\Language::create(['key' => 'transectPostTitle', 'en'=>'transect COUNT']);
+        \App\Models\Language::create(['key' => 'transectPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
+        
+        // Data screen
+        \App\Models\Language::create(['key' => 'dataTitle', 'en'=>'DATA OVERVIEW']);
+        \App\Models\Language::create(['key' => 'dataDescr', 'en'=>'A overview of your visits and observations']);
+        \App\Models\Language::create(['key' => 'dataOverviewTableHeader', 'en'=>'Data overview']);
+        \App\Models\Language::create(['key' => 'dataSectionSelector', 'en'=>'Section']);
+        \App\Models\Language::create(['key' => 'dataPreTitle', 'en'=>'WALK data']);
+        \App\Models\Language::create(['key' => 'dataPreDescr', 'en'=>'Select a data']);
+        \App\Models\Language::create(['key' => 'dataPreSelectdataLabel', 'en'=>'Select a data']);
+        \App\Models\Language::create(['key' => 'dataPreInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'dataPreInfoModalContents', 'en'=>'Here is more information about the preselection of the data observation']);
+        \App\Models\Language::create(['key' => 'dataInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'dataInfoModalContents', 'en'=>'Here is more information about data observations']);
+        \App\Models\Language::create(['key' => 'dataPostInfoModalTitle', 'en'=>'More information']);
+        \App\Models\Language::create(['key' => 'dataPostInfoModalContents', 'en'=>'Here is more information about data observations']);
+        \App\Models\Language::create(['key' => 'dataPostTitle', 'en'=>'data COUNT']);
+        \App\Models\Language::create(['key' => 'dataPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
+
+
         $user = \App\Models\User::create(['name'=> 'SirTestington','email'=> 'test@vlinderstichting.nl', 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
         $user->setRandomAccessToken();
         $user->save();

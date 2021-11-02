@@ -862,8 +862,8 @@ const showFitPostObservationScreen = () =>
     <button id="fit_minTemperature" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
     <input id="fit_inputTemperature" name="fit_inputTemperature" value=0>
     <button id="fit_plusTemperature" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
-    <h4 id="fit_windText">${translations['temperatureLabel']}</h4>
-    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="${translations['temperatureLabel']}" tabindex="1">
+    <h4 id="fit_windText">${translations['windLabel']}</h4>
+    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -873,8 +873,8 @@ const showFitPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="fit_cloudsText">Clouds</h4>
-    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="fit_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>
@@ -965,24 +965,24 @@ const showTransectPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="pretransect_title">Title</h2>
-    <h3 id="pretransect_subtitle">Subtitle</h3>
+    <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
+    <h3 id="pretransect_subtitle">${translations['transectPreDescr']}</h3>
     <div>
-        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
     <div>
-        <label for="pretransect_selectTransects">Transects</label>
+        <label for="pretransect_selectTransects">${translations['transectPreSelectTransectLabel']}</label>
         <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
         </select>
     </div>
     <div>
-        <button id="pretransect_buttonSave">Save</button>
-        <button id="pretransect_buttonCancel">Cancel</button>
+        <button id="pretransect_buttonSave">${translations['saveButton']}</button>
+        <button id="pretransect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
 
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'], translations['456key']);
+    mb.innerHTML += renderModal(translations['transectPreInfoModalTitle'], translations['transectPreInfoModalContents']);
     
     for (var i = 0 ; i < transects.length; i++)
     {
@@ -1019,18 +1019,18 @@ const showTransectObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">Title</h2>
-    <h3 id="transect_subtitle">Subtitle</h3>
+    <h2 id="transect_title">${translations['transectTitle']}</h2>
+    <h3 id="transect_subtitle">${translations['transectDescr']}</h3>
     <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="transect_speciesText">Section</h3>
+    <h3 id="transect_speciesText">${translations['transectSectionSelector']}</h3>
     <button id="transect_prevTransButton" disabled> < </button>
     <span id="transect_transLabel" data_id="${transectSections[0].id}">${transectSections[0].name}</span>
     <button id="transect_nextTransButton"> > </button>
-    <h3 id="transect_speciesText">Species</h3>
+    <h3 id="transect_speciesText">${translations['searchSpeciesLabel']}</h3>
     <div>
-        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['transectPreTitle']}" tabindex="1">
             <option value=""></option>
         </select>
     </div>
@@ -1038,13 +1038,13 @@ const showTransectObservationScreen = () =>
 
     </ul>
     <div>
-        <button id="transect_buttonSave">Save</button>
-        <button id="transect_buttonCancel">Cancel</button>
+        <button id="transect_buttonSave">${translations['saveButton']}</button>
+        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
     
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['transectInfoModalTitle'],translations['transectInfoModalContents']);
 
     // Build the transect selector logic
     function transectChange() 
@@ -1168,25 +1168,25 @@ const showTransectPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">Title</h2>
-    <h3 id="transect_subtitle">Subtitle</h3>
+    <h2 id="transect_title">${translations['transectPostTitle']}</h2>
+    <h3 id="transect_subtitle">${translations['transectPostDescr']}</h3>
     <div>
         <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
-    <h3 id="transect_countedGroupsText">Counted groups</h3>
+    <h3 id="transect_countedGroupsText">${translations['countedGroupsLabel']}</h3>
     <div id="transect_countedGroupsContainer"></div>
-    <h3 id="transect_weatherText">Weather</h3>
+    <h3 id="transect_weatherText">${translations['weatherLabel']}</h3>
     <div id="transect_weatherContainer"></div>
-    <h3 id="transect_notesText">Notes</h3>
+    <h3 id="transect_notesText">${translations['notesLabel']}</h3>
     <textarea id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
     <div>
-        <button id="transect_buttonSave">Save</button>
-        <button id="transect_buttonCancel">Cancel</button>
+        <button id="transect_buttonSave">${translations['saveButton']}</button>
+        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['transectPostInfoModalTitle'],translations['transectPostInfoModalContents']);
 
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
@@ -1215,12 +1215,12 @@ const showTransectPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="transect_temperatureText">Temperature</h4>
+    <h4 id="transect_temperatureText">${translations['temperatureLabel']}</h4>
     <button id="transect_minTemperature" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
     <input id="transect_inputTemperature" name="transect_inputTemperature" value=0>
     <button id="transect_plusTemperature" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
-    <h4 id="transect_windText">Wind</h4>
-    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="transect_windText">${translations['windLabel']}</h4>
+    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -1230,8 +1230,8 @@ const showTransectPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="transect_cloudsText">Clouds</h4>
-    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="transect_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>
@@ -1329,12 +1329,12 @@ const showDataScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="data_title">Title</h2>
-    <h3 id="data_subtitle">Subtitle</h3>
+    <h2 id="data_title">${translations['dataTitle']}</h2>
+    <h3 id="data_subtitle">${translations['dataDescr']}</h3>
     <div>
-        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="data_stopwatchText">Data overview</h3>
+    <h3 id="data_dataOverviewText">${translations['dataOverviewTableHeader']}</h3>
     <table>
         <tr>
             <th>Data entries</th>

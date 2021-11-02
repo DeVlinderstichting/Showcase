@@ -78,7 +78,24 @@ class SpeciesSeeder extends Seeder
             'description' => 'plants',
        //     'imagelocation' => '',
             'nlname' => 'planten',
-            'enname' => 'plant' 
+            'enname' => 'plants' 
+        ]);
+        $plantSpGroup->defaultspecies_id = $defPlant->id;
+        $plantSpGroup->save();
+
+        $birdSpGroup = \App\Models\Speciesgroup::create(['name' => 'birds', 'description' => 'birds', 'usercancount' => false]);
+        $defBird = \App\Models\Species::create([
+            'genus' => 'aves',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/aves',
+            'speciesgroup_id' => $birdSpGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'birds',
+       //     'imagelocation' => '',
+            'nlname' => 'vogels',
+            'enname' => 'birds' 
         ]);
         $plantSpGroup->defaultspecies_id = $defPlant->id;
         $plantSpGroup->save();

@@ -127,7 +127,7 @@ class User extends Authenticatable
         foreach($spGroupsUsers as $spgu)
         {
             $spguItem = [];
-            $spguItem['speciesgroup_id'] = $spgu->id;
+            $spguItem['speciesgroup_id'] = $spgu->speciesgroup_id;
             $spguItem['speciesgroup_name'] = $spgu->speciesgroup->name;
             $spguItem['recordinglevel_id'] = $spgu->recordinglevel_id;
             $spguItem['recordinglevel_name'] = $spgu->recordinglevel->name;

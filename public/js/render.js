@@ -131,7 +131,6 @@ const showHomeScreen = () =>
 
     // Unset any running timers
     stopTimer();
-    resetTimer();
 
     // Build the DOM
     var mb = document.getElementById('mainBody');
@@ -188,7 +187,7 @@ const showHomeScreen = () =>
 
     // Attach the events; initialize the count and show the specific observation screen
     document.getElementById("home_specialButton").onclick = function () { initAnyCount(1); showSpecialObservationScreen(); };
-    document.getElementById("home_15Button").onclick = function () { initAnyCount(2); show15mObservationScreen(); };
+    document.getElementById("home_15Button").onclick = function () { resetTimer(); initAnyCount(2); show15mObservationScreen(); };
     if (!($.isEmptyObject(settings.transects)))
     {
         document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectPreObservationScreen(); };
@@ -661,7 +660,7 @@ const showFitPreObservationScreen = () =>
     });
     $("#prefit_selectSpecies").change();
 
-    document.getElementById("prefit_buttonSave").onclick = function () { showFitObservationScreen(); };
+    document.getElementById("prefit_buttonSave").onclick = function () { resetTimer(); showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
 }
 

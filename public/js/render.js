@@ -3,12 +3,15 @@ var renderNav = function(clear=false)
     var nav = document.getElementById("nav");
     if(!clear)
     {
+        settings = getUserSettings();
+        var translations = settings.translations;
+
         // Build the DOM
         nav.innerHTML =`
         <a class="navbar-brand" id="nav_homeLink" href="#"><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
-        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">STATISTICS <i class="fas fa-chart-pie"></i></a>
-        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">SETTINGS <i class="fas fa-cog"></i></a>
-        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">MESSAGES <i class="fas fa-comment-dots"></i></a>
+        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">${translations['navStatistics']} <i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">${translations['navSettings']} <i class="fas fa-cog"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">${translations['navMessages']} <i class="fas fa-comment-dots"></i></a>
         `
         nav.style.display = "flex";
         // Attach the events 
@@ -28,6 +31,9 @@ var renderNav = function(clear=false)
 
 var renderModal = function(title, body, postid='')
 {
+    settings = getUserSettings();
+    var translations = settings.translations;
+
     html = `
         <!-- Modal -->
             <div class="modal fade" id="modal_id${postid}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -41,7 +47,7 @@ var renderModal = function(title, body, postid='')
                     ${body}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${translations['closeButton']}</button>
                 </div>
                 </div>
             </div>
@@ -127,6 +133,9 @@ const showLoginScreen = () =>
 
 const showHomeScreen = () => 
 {
+    settings = getUserSettings();
+    var translations = settings.translations;
+
     renderNav();
 
     // Unset any running timers
@@ -141,42 +150,39 @@ const showHomeScreen = () =>
         <div class="row justify-content-center">
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/special-bg.svg');">
-                    <h2>I SAW SOMETHING SPECIAL</h2>
-                    <p style="height: 2rem;">Opportunistic observation</p>
-                    <a href="#" id="home_specialButton" class="btn">START</a>
+                    <h2>${translations['homeSpecialTitle']}</h2>
+                    <p style="height: 2rem;">${translations['homeSpecialDescr']}</p>
+                    <a href="#" id="home_specialButton" class="btn">${translations['startButton']}</a>
                 </div>
             </div>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/15-count-bg.svg');">
-                    <h2>15 MINUTES COUNT</h2>
-                    <p style="height: 2rem;">Count everything you see for 15 minutes</p>
-                    <a href="#" id="home_15Button" class="btn">START</a>
+                    <h2>${translations['home15mTitle']}</h2>
+                    <p style="height: 2rem;">${translations['home15mDescr']}</p>
+                    <a href="#" id="home_15Button" class="btn">${translations['startButton']}</a>
                 </div>
             </div>    
         </div>
         <div class="row justify-content-center">
     `;
 
-
-
-    var settings = getUserSettings();
     if (!($.isEmptyObject(settings.transects)))
     {
         theHtml += `
         <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                         <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
-                        <h2>WALK TRANSECT</h2>
-                        <p style="height: 2rem;">Walk a predifined transect and record everything you see</p>
-                        <a href="#" id="home_transectButton" class="btn">START</a>
+                        <h2>${translations['homeTransectTitle']}</h2>
+                        <p style="height: 2rem;">${translations['homeTransectDescr']}</p>
+                        <a href="#" id="home_transectButton" class="btn">${translations['startButton']}</a>
                         </div>
                     </div>`;
     }
     theHtml += `
     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
         <div class="box-background text-center" style="background-image:url('img/flower-count-bg.svg');">
-            <h2>FIT COUNT</h2>
-            <p style="height: 2rem;">Observe a single flower, record everything you see interacting with that flower</p>
-            <a href="#" id="home_fitButton" class="btn">START</a>
+            <h2>${translations['homeFitTitle']}</h2>
+            <p style="height: 2rem;">${translations['homeFitDescr']}</p>
+            <a href="#" id="home_fitButton" class="btn">${translations['startButton']}</a>
             </div>
             </div>
         </div>
@@ -217,9 +223,9 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center pt-5">
             <div class="col-md-12 text-center">
-                <h2>I SAW SOMETHING SPECIAL</h2>
-                <p>Opportunistic observation. <br>Enter your data!</p>
-                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">MORE INFO</button>
+                <h2>${translations['specialTitle']}</h2>
+                <p>${translations['specialDescr']}</p>
+                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
             </div>
             <div class="separator">
             </div>
@@ -227,13 +233,13 @@ const showSpecialObservationScreen = () =>
         
         
         <div class="row justify-content-center pb-3">
-        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> SEARCH SPECIES <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
+        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
         </select>
         </div>
 
        
-        <h3 class="pt-2"><i class="fas fa-list-ol"></i> NUMBER OBSERVED</h3>
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> ${translations['specialNumberLabel']}</h3>
 
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
@@ -245,7 +251,7 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="special_buttonSave" class="btn">SAVE</button> <button id="special_buttonCancel" class="btn-line">CANCEL</button>
+                <button id="special_buttonSave" class="btn">${translations['startButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 
@@ -253,8 +259,8 @@ const showSpecialObservationScreen = () =>
     `;
 
     // Attach the modals
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
-    mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
+    mb.innerHTML += renderModal(translations['specialInfoModalTitle'],translations['specialInfoModalContents']);
+    mb.innerHTML += renderModal(translations['specialInfoModalSpeciesTitle'], '', 'sp');
     
     // Populate the list of species to the chosen selector
     preselectCountableSpecies(species, 'special_selectSpecies');
@@ -268,7 +274,10 @@ const showSpecialObservationScreen = () =>
     document.getElementById("special_speciesInfo").onclick = function () { 
         speciesId = document.getElementById('special_selectSpecies').value;
         modalText = `
-        For extra info on this species see <a href="https://speciesinfo.vlinderstichting.nl/species/speciesId" target=”_blank”>this link</a> (opens outside of this application).
+        ${translations['specialInfoModalSpeciesContents']}<br>
+        <div style="text-align:center;">
+        <a class="btn-line-small" href="https://speciesinfo.vlinderstichting.nl/species/${speciesId}" target=”_blank”>${translations['infoButton']}</a>
+        </div>
         `
         document.getElementById("modal_bodysp").innerHTML = modalText;
         $('#modal_idsp').modal('show');

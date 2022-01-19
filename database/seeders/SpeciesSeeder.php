@@ -175,6 +175,8 @@ class SpeciesSeeder extends Seeder
             'enname' => 'Wild root' 
         ]);
 
+        
+
         \App\Models\Species::create(['genus' => 'Papilio', 'taxon' => 'machaon', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => 'koninginnenpage','enname' => 'Swallowtail','esname' => 'Macaón','sename' => 'Makaonfjäril']);
         \App\Models\Species::create(['genus' => 'Ochlodes', 'taxon' => 'sylvanus', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => 'groot dikkopje','enname' => 'Large Skipper','esname' => 'Dorada difusa','sename' => 'Ängssmygare']);
         \App\Models\Species::create(['genus' => 'Hesperia', 'taxon' => 'comma', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => 'kommavlinder','enname' => 'Silver-spotted Skipper','esname' => 'Dorada manchas blancas','sename' => 'Silversmygare']);
@@ -279,7 +281,6 @@ class SpeciesSeeder extends Seeder
         \App\Models\Species::create(['genus' => 'Pyronia', 'taxon' => 'bathseba', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => '','enname' => 'Spanish Gatekeeper','esname' => '','sename' => '']);
         \App\Models\Species::create(['genus' => 'Maniola', 'taxon' => 'jurtina', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => '','enname' => 'Meadow Brown','esname' => '','sename' => 'Slåttergräsfjäril']);
         \App\Models\Species::create(['genus' => 'Erebia', 'taxon' => 'ligea', 'speciesgroup_id' => $bfSpGroup->id, 'taxrank' => 'species', 'diurnal' => false, 'nlname' => '','enname' => 'Arran Brown','esname' => '','sename' => 'Skogsgräsfjäril']);
-
 
     }
 }

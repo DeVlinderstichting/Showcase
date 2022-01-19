@@ -3,12 +3,15 @@ var renderNav = function(clear=false)
     var nav = document.getElementById("nav");
     if(!clear)
     {
+        settings = getUserSettings();
+        var translations = settings.translations;
+
         // Build the DOM
         nav.innerHTML =`
         <a class="navbar-brand" id="nav_homeLink" href="#"><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
-        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">STATISTICS <i class="fas fa-chart-pie"></i></a>
-        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">SETTINGS <i class="fas fa-cog"></i></a>
-        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">MESSAGES <i class="fas fa-comment-dots"></i></a>
+        <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">${translations['navStatistics']} <i class="fas fa-chart-pie"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">${translations['navSettings']} <i class="fas fa-cog"></i></a>
+        <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">${translations['navMessages']} <i class="fas fa-comment-dots"></i></a>
         `
         nav.style.display = "flex";
         // Attach the events 
@@ -28,6 +31,9 @@ var renderNav = function(clear=false)
 
 var renderModal = function(title, body, postid='')
 {
+    settings = getUserSettings();
+    var translations = settings.translations;
+
     html = `
         <!-- Modal -->
             <div class="modal fade" id="modal_id${postid}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -41,7 +47,7 @@ var renderModal = function(title, body, postid='')
                     ${body}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">${translations['closeButton']}</button>
                 </div>
                 </div>
             </div>
@@ -127,6 +133,9 @@ const showLoginScreen = () =>
 
 const showHomeScreen = () => 
 {
+    settings = getUserSettings();
+    var translations = settings.translations;
+
     renderNav();
 
     // Unset any running timers
@@ -141,42 +150,39 @@ const showHomeScreen = () =>
         <div class="row justify-content-center">
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/special-bg.svg');">
-                    <h2>I SAW SOMETHING SPECIAL</h2>
-                    <p style="height: 2rem;">Opportunistic observation</p>
-                    <a href="#" id="home_specialButton" class="btn">START</a>
+                    <h2>${translations['homeSpecialTitle']}</h2>
+                    <p style="height: 2rem;">${translations['homeSpecialDescr']}</p>
+                    <a href="#" id="home_specialButton" class="btn">${translations['startButton']}</a>
                 </div>
             </div>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/15-count-bg.svg');">
-                    <h2>15 MINUTES COUNT</h2>
-                    <p style="height: 2rem;">Count everything you see for 15 minutes</p>
-                    <a href="#" id="home_15Button" class="btn">START</a>
+                    <h2>${translations['home15mTitle']}</h2>
+                    <p style="height: 2rem;">${translations['home15mDescr']}</p>
+                    <a href="#" id="home_15Button" class="btn">${translations['startButton']}</a>
                 </div>
             </div>    
         </div>
         <div class="row justify-content-center">
     `;
 
-
-
-    var settings = getUserSettings();
     if (!($.isEmptyObject(settings.transects)))
     {
         theHtml += `
         <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                         <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
-                        <h2>WALK TRANSECT</h2>
-                        <p style="height: 2rem;">Walk a predifined transect and record everything you see</p>
-                        <a href="#" id="home_transectButton" class="btn">START</a>
+                        <h2>${translations['homeTransectTitle']}</h2>
+                        <p style="height: 2rem;">${translations['homeTransectDescr']}</p>
+                        <a href="#" id="home_transectButton" class="btn">${translations['startButton']}</a>
                         </div>
                     </div>`;
     }
     theHtml += `
     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
         <div class="box-background text-center" style="background-image:url('img/flower-count-bg.svg');">
-            <h2>FIT COUNT</h2>
-            <p style="height: 2rem;">Observe a single flower, record everything you see interacting with that flower</p>
-            <a href="#" id="home_fitButton" class="btn">START</a>
+            <h2>${translations['homeFitTitle']}</h2>
+            <p style="height: 2rem;">${translations['homeFitDescr']}</p>
+            <a href="#" id="home_fitButton" class="btn">${translations['startButton']}</a>
             </div>
             </div>
         </div>
@@ -217,9 +223,9 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center pt-5">
             <div class="col-md-12 text-center">
-                <h2>I SAW SOMETHING SPECIAL</h2>
-                <p>Opportunistic observation. <br>Enter your data!</p>
-                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">MORE INFO</button>
+                <h2>${translations['specialTitle']}</h2>
+                <p>${translations['specialDescr']}</p>
+                <button id="special_buttonInfo" class="btn-line-small" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
             </div>
             <div class="separator">
             </div>
@@ -227,13 +233,13 @@ const showSpecialObservationScreen = () =>
         
         
         <div class="row justify-content-center pb-3">
-        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> SEARCH SPECIES <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
+        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
         <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
         </select>
         </div>
 
        
-        <h3 class="pt-2"><i class="fas fa-list-ol"></i> NUMBER OBSERVED</h3>
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> ${translations['specialNumberLabel']}</h3>
 
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
@@ -245,7 +251,7 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="special_buttonSave" class="btn">SAVE</button> <button id="special_buttonCancel" class="btn-line">CANCEL</button>
+                <button id="special_buttonSave" class="btn">${translations['startButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 
@@ -253,8 +259,8 @@ const showSpecialObservationScreen = () =>
     `;
 
     // Attach the modals
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
-    mb.innerHTML += renderModal('SPECIES INFORMATION', '', 'sp');
+    mb.innerHTML += renderModal(translations['specialInfoModalTitle'],translations['specialInfoModalContents']);
+    mb.innerHTML += renderModal(translations['specialInfoModalSpeciesTitle'], '', 'sp');
     
     // Populate the list of species to the chosen selector
     preselectCountableSpecies(species, 'special_selectSpecies');
@@ -268,7 +274,10 @@ const showSpecialObservationScreen = () =>
     document.getElementById("special_speciesInfo").onclick = function () { 
         speciesId = document.getElementById('special_selectSpecies').value;
         modalText = `
-        For extra info on this species see <a href="https://speciesinfo.vlinderstichting.nl/species/speciesId" target=”_blank”>this link</a> (opens outside of this application).
+        ${translations['specialInfoModalSpeciesContents']}<br>
+        <div style="text-align:center;">
+        <a class="btn-line-small" href="https://speciesinfo.vlinderstichting.nl/species/${speciesId}" target=”_blank”>${translations['infoButton']}</a>
+        </div>
         `
         document.getElementById("modal_bodysp").innerHTML = modalText;
         $('#modal_idsp').modal('show');
@@ -308,18 +317,18 @@ const show15mObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">Title</h2>
-    <h3 id="15m_subtitle">Subtitle</h3>
+    <h2 id="15m_title">${translations['15mTitle']}</h2>
+    <h3 id="15m_subtitle">${translations['15mDescr']}</h3>
     <div>
-        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="15m_stopwatchText">Start counting</h3>
+    <h3 id="15m_stopwatchText">${translations['stopwatchLabel']}</h3>
     <div>
         <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
-    <h3 id="15m_speciesText">Species</h3>
+    <h3 id="15m_speciesText">${translations['searchSpeciesLabel']}</h3>
     <div>
-        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
             <option value=""></option>
         </select>
     </div>
@@ -327,22 +336,22 @@ const show15mObservationScreen = () =>
 
     </ul>
     <div>
-        <button id="15m_buttonSave">Save</button>
-        <button id="15m_buttonCancel">Cancel</button>
+        <button id="15m_buttonSave">${translations['saveButton']}</button>
+        <button id="15m_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
     
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['15mInfoModalTitle'],translations['15mInfoModalContents']);
     // No tracking message
-    mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    mb.innerHTML += renderModal(translations['NoTrackModalTitle'],translations['NoTrackModalContents'], 'no_loc');
     // Restart timer question
-    mb.innerHTML += renderModal('Note',
+    mb.innerHTML += renderModal(translations['RestartTimerModalTitle'],
     `
-        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        ${translations['RestartTimerModalContents']}
         <br>
-        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+        <center><button class="btn btn-danger" id="restartTimerButton">${translations['restartStopwatchLabel']}</button></center>
     `
     , 'restart_timer');
 
@@ -374,7 +383,7 @@ const show15mObservationScreen = () =>
             <li>${getSpeciesName(speciesInfo['id'])}
                 <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
                 <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
-                <button id="15m_editAmount_${speciesInfo['id']}">edit</button>
+                <button id="15m_editAmount_${speciesInfo['id']}">${translations['editButton']}</button>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -392,12 +401,12 @@ const show15mObservationScreen = () =>
                 modalContent += `
                     <li>
                         ${el.observationtime} - ${location1} ${location2} 
-                        <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">delete</button>
+                        <button class="delete_obs" data_time="${el.observationtime}" data_speciesid="${el.species_id}">${translations['deleteButton']}</button>
                     </li>`;
             } );
             modalContent += '</ul>';
 
-            $("#mainBody").append(renderModal(`Edit observations ${getSpeciesName(speciesInfo['id'])}`,modalContent, `_${speciesInfo['id']}`));
+            $("#mainBody").append(renderModal(`${translations['15mDeleteModalSpeciesTitle']} ${getSpeciesName(speciesInfo['id'])}`,modalContent, `_${speciesInfo['id']}`));
 
             $('.delete_obs').click( function () {
                 timeToDelete = $(this).get(0).attributes.data_time.value;
@@ -469,25 +478,25 @@ const show15mPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15mpost_title">Title</h2>
-    <h3 id="15mpost_subtitle">Subtitle</h3>
+    <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
+    <h3 id="15mpost_subtitle">${translations['15mPostDescr']}</h3>
     <div>
-        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="15mpost_countedGroupsText">Counted groups</h3>
+    <h3 id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</h3>
     <div id="15mpost_countedGroupsContainer"></div>
-    <h3 id="15mpost_weatherText">Weather</h3>
+    <h3 id="15mpost_weatherText">${translations['weatherLabel']}</h3>
     <div id="15mpost_weatherContainer"></div>
-    <h3 id="15mpost_notesText">Notes</h3>
+    <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
     <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
     <div>
-        <button id="15mpost_buttonSave">Save</button>
-        <button id="15mpost_buttonCancel">Cancel</button>
+        <button id="15mpost_buttonSave">${translations['saveButton']}</button>
+        <button id="15mpost_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['15mPostInfoModalTitle'],translations['15mPostInfoModalContents']);
 
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
@@ -517,12 +526,12 @@ const show15mPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="15mpost_temperatureText">Temperature</h4>
+    <h4 id="15mpost_temperatureText">${translations['temperatureLabel']}</h4>
     <button id="15mpost_minTemperature" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
     <input id="15mpost_inputTemperature" name="15mpost_inputTemperature" value=0>
     <button id="15mpost_plusTemperature" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
-    <h4 id="15mpost_windText">Wind</h4>
-    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="15mpost_windText">${translations['windLabel']}</h4>
+    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -532,8 +541,8 @@ const show15mPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="15mpost_cloudsText">Clouds</h4>
-    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="15mpost_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>
@@ -623,24 +632,24 @@ const showFitPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="prefit_title">Title</h2>
-    <h3 id="prefit_subtitle">Subtitle</h3>
+    <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
+    <h3 id="prefit_subtitle">${translations['fitPreDescr']}</h3>
     <div>
-        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
     <div>
-        <label for="prefit_selectSpecies">Species</label>
+        <label for="prefit_selectSpecies">${translations['searchSpeciesLabel']}</label>
         <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
         </select>
     </div>
     <div>
-        <button id="prefit_buttonSave">Save</button>
-        <button id="prefit_buttonCancel">Cancel</button>
+        <button id="prefit_buttonSave">${translations['saveButton']}</button>
+        <button id="prefit_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
 
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['fitPreInfoModalTitle'],translations['fitPreInfoModalContents']);
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
@@ -680,18 +689,18 @@ const showFitObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">Title</h2>
-    <h3 id="15m_subtitle">Subtitle</h3>
+    <h2 id="15m_title">${translations['fitTitle']}</h2>
+    <h3 id="15m_subtitle">${translations['fitDescr']}</h3>
     <div>
-        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="fit_stopwatchText">Start counting</h3>
+    <h3 id="fit_stopwatchText">${translations['stopwatchLabel']}</h3>
     <div>
         <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
     </div>
-    <h3 id="fit_speciesText">Species</h3>
+    <h3 id="fit_speciesText">${translations['searchSpeciesLabel']}</h3>
     <div>
-        <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+        <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
             <option value=""></option>
         </select>
     </div>
@@ -699,21 +708,21 @@ const showFitObservationScreen = () =>
 
     </ul>
     <div>
-        <button id="fit_buttonSave">Save</button>
-        <button id="fit_buttonCancel">Cancel</button>
+        <button id="fit_buttonSave">${translations['saveButton']}</button>
+        <button id="fit_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
     
     // Attach the modals
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['fitInfoModalTitle'],translations['fitInfoModalContents']);
     // No tracking message
-    mb.innerHTML += renderModal('Note','Please start the count first to track your location...', 'no_loc');
+    mb.innerHTML += renderModal(translations['NoTrackModalTitle'],translations['NoTrackModalContents'], 'no_loc');
     // Restart timer question
-    mb.innerHTML += renderModal('Note',
+    mb.innerHTML += renderModal(translations['RestartTimerModalTitle'],
     `
-        Are you sure you want to restart the timer? The location track and the observations will be lost...
+        ${translations['RestartTimerModalContents']}
         <br>
-        <center><button class="btn btn-danger" id="restartTimerButton">Restart</button></center>
+        <center><button class="btn btn-danger" id="restartTimerButton">${translations['restartStopwatchLabel']}</button></center>
     `
     , 'restart_timer');
     // Populate the list of species and attach the chosen selector
@@ -802,25 +811,25 @@ const showFitPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="fit_title">${translations.fit_postscreen_maintitle}</h2>
-    <h3 id="fit_subtitle">Subtitle</h3>
+    <h2 id="fit_title">${translations['fitPostTitle']}</h2>
+    <h3 id="fit_subtitle">${translations['fitPostDescr']}</h3>
     <div>
-        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="fit_countedGroupsText">Counted groups</h3>
+    <h3 id="fit_countedGroupsText">${translations['countedGroupsLabel']}</h3>
     <div id="fit_countedGroupsContainer"></div>
-    <h3 id="fit_weatherText">Weather</h3>
+    <h3 id="fit_weatherText">${translations['weatherLabel']}</h3>
     <div id="fit_weatherContainer"></div>
-    <h3 id="fit_notesText">Notes</h3>
+    <h3 id="fit_notesText">${translations['notesLabel']}</h3>
     <textarea id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
     <div>
-        <button id="fit_buttonSave">Save</button>
-        <button id="fit_buttonCancel">Cancel</button>
+        <button id="fit_buttonSave">${translations['saveButton']}</button>
+        <button id="fit_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['fitPostInfoModalTitle'],translations['fitPostInfoModalContents']);
 
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
@@ -849,12 +858,12 @@ const showFitPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="fit_temperatureText">Temperature</h4>
+    <h4 id="fit_temperatureText">${translations['temperatureLabel']}</h4>
     <button id="fit_minTemperature" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
     <input id="fit_inputTemperature" name="fit_inputTemperature" value=0>
     <button id="fit_plusTemperature" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
-    <h4 id="fit_windText">Wind</h4>
-    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="fit_windText">${translations['windLabel']}</h4>
+    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -864,8 +873,8 @@ const showFitPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="fit_cloudsText">Clouds</h4>
-    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="fit_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>
@@ -956,24 +965,24 @@ const showTransectPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="pretransect_title">Title</h2>
-    <h3 id="pretransect_subtitle">Subtitle</h3>
+    <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
+    <h3 id="pretransect_subtitle">${translations['transectPreDescr']}</h3>
     <div>
-        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
     <div>
-        <label for="pretransect_selectTransects">Transects</label>
+        <label for="pretransect_selectTransects">${translations['transectPreSelectTransectLabel']}</label>
         <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
         </select>
     </div>
     <div>
-        <button id="pretransect_buttonSave">Save</button>
-        <button id="pretransect_buttonCancel">Cancel</button>
+        <button id="pretransect_buttonSave">${translations['saveButton']}</button>
+        <button id="pretransect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
 
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'], translations['456key']);
+    mb.innerHTML += renderModal(translations['transectPreInfoModalTitle'], translations['transectPreInfoModalContents']);
     
     for (var i = 0 ; i < transects.length; i++)
     {
@@ -1010,18 +1019,18 @@ const showTransectObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">Title</h2>
-    <h3 id="transect_subtitle">Subtitle</h3>
+    <h2 id="transect_title">${translations['transectTitle']}</h2>
+    <h3 id="transect_subtitle">${translations['transectDescr']}</h3>
     <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="transect_speciesText">Section</h3>
+    <h3 id="transect_speciesText">${translations['transectSectionSelector']}</h3>
     <button id="transect_prevTransButton" disabled> < </button>
     <span id="transect_transLabel" data_id="${transectSections[0].id}">${transectSections[0].name}</span>
     <button id="transect_nextTransButton"> > </button>
-    <h3 id="transect_speciesText">Species</h3>
+    <h3 id="transect_speciesText">${translations['searchSpeciesLabel']}</h3>
     <div>
-        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="Select a species..." tabindex="1">
+        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['transectPreTitle']}" tabindex="1">
             <option value=""></option>
         </select>
     </div>
@@ -1029,13 +1038,13 @@ const showTransectObservationScreen = () =>
 
     </ul>
     <div>
-        <button id="transect_buttonSave">Save</button>
-        <button id="transect_buttonCancel">Cancel</button>
+        <button id="transect_buttonSave">${translations['saveButton']}</button>
+        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `;
     
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['transectInfoModalTitle'],translations['transectInfoModalContents']);
 
     // Build the transect selector logic
     function transectChange() 
@@ -1159,25 +1168,25 @@ const showTransectPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">Title</h2>
-    <h3 id="transect_subtitle">Subtitle</h3>
+    <h2 id="transect_title">${translations['transectPostTitle']}</h2>
+    <h3 id="transect_subtitle">${translations['transectPostDescr']}</h3>
     <div>
         <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
     </div>
-    <h3 id="transect_countedGroupsText">Counted groups</h3>
+    <h3 id="transect_countedGroupsText">${translations['countedGroupsLabel']}</h3>
     <div id="transect_countedGroupsContainer"></div>
-    <h3 id="transect_weatherText">Weather</h3>
+    <h3 id="transect_weatherText">${translations['weatherLabel']}</h3>
     <div id="transect_weatherContainer"></div>
-    <h3 id="transect_notesText">Notes</h3>
+    <h3 id="transect_notesText">${translations['notesLabel']}</h3>
     <textarea id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
     <div>
-        <button id="transect_buttonSave">Save</button>
-        <button id="transect_buttonCancel">Cancel</button>
+        <button id="transect_buttonSave">${translations['saveButton']}</button>
+        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
     </div>
     `
     // Attach the modals
     // Info
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['transectPostInfoModalTitle'],translations['transectPostInfoModalContents']);
 
     // Attach the contents of the species group container
     speciesGroupsHtml = '<ul>';
@@ -1206,12 +1215,12 @@ const showTransectPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="transect_temperatureText">Temperature</h4>
+    <h4 id="transect_temperatureText">${translations['temperatureLabel']}</h4>
     <button id="transect_minTemperature" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
     <input id="transect_inputTemperature" name="transect_inputTemperature" value=0>
     <button id="transect_plusTemperature" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
-    <h4 id="transect_windText">Wind</h4>
-    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="transect_windText">${translations['windLabel']}</h4>
+    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
         <option value=1>1</option>
         <option value=2>2</option>
         <option value=3>3</option>
@@ -1221,8 +1230,8 @@ const showTransectPostObservationScreen = () =>
         <option value=7>7</option>
         <option value=8>8</option>
     </select>
-    <h4 id="transect_cloudsText">Clouds</h4>
-    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="Select a wind conditions..." tabindex="1">
+    <h4 id="transect_cloudsText">${translations['cloudsLabel']}</h4>
+    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
         <option value=1>1/8</option>
         <option value=2>2/8</option>
         <option value=3>3/8</option>
@@ -1320,12 +1329,12 @@ const showDataScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="data_title">Title</h2>
-    <h3 id="data_subtitle">Subtitle</h3>
+    <h2 id="data_title">${translations['dataTitle']}</h2>
+    <h3 id="data_subtitle">${translations['dataDescr']}</h3>
     <div>
-        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
+        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
     </div>
-    <h3 id="data_stopwatchText">Data overview</h3>
+    <h3 id="data_dataOverviewText">${translations['dataOverviewTableHeader']}</h3>
     <table>
         <tr>
             <th>Data entries</th>

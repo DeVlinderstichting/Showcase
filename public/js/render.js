@@ -317,10 +317,17 @@ const show15mObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">${translations['15mTitle']}</h2>
-    <h3 id="15m_subtitle">${translations['15mDescr']}</h3>
-    <div>
-        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="15m_title">${translations['15mTitle']}</h2>
+                <p id="15m_subtitle">${translations['15mDescr']}</p>
+                <button class="btn-line-small" id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
     </div>
     <h3 id="15m_stopwatchText">${translations['stopwatchLabel']}</h3>
     <div>

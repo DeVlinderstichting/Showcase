@@ -353,6 +353,7 @@ const show15mObservationScreen = () =>
                 background-position: bottom right !important;
                 min-height: 46px;
                 width: calc(100% - 30px);
+
                 ">
                 
                 <ul id="15m_listSpecies" style="list-style-type:none;">
@@ -511,28 +512,51 @@ const show15mPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
-    <h3 id="15mpost_subtitle">${translations['15mPostDescr']}</h3>
-    <div>
-        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
+                <p id="15mpost_subtitle">${translations['15mPostDescr']}</p>
+                <button class="btn-line-small" id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+        
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-bug"></i> <span id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</span></h3>
+            <div id="15mpost_countedGroupsContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+            <div id="15mpost_weatherContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
+            <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="15mpost_buttonSave">${translations['saveButton']}</button>
+            <button class="btn btn-line" id="15mpost_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
-    <h3 id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</h3>
-    <div id="15mpost_countedGroupsContainer"></div>
-    <h3 id="15mpost_weatherText">${translations['weatherLabel']}</h3>
-    <div id="15mpost_weatherContainer"></div>
-    <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
-    <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
-    <div>
-        <button id="15mpost_buttonSave">${translations['saveButton']}</button>
-        <button id="15mpost_buttonCancel">${translations['cancelButton']}</button>
-    </div>
+
+
+    
+
     `
     // Attach the modals
     // Info
     mb.innerHTML += renderModal(translations['15mPostInfoModalTitle'],translations['15mPostInfoModalContents']);
 
     // Attach the contents of the species group container
-    speciesGroupsHtml = '<ul>';
+    speciesGroupsHtml = '<ul style="list-style-type:none;">';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
 
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
@@ -559,32 +583,57 @@ const show15mPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="15mpost_temperatureText">${translations['temperatureLabel']}</h4>
-    <button id="15mpost_minTemperature" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
-    <input id="15mpost_inputTemperature" name="15mpost_inputTemperature" value=0>
-    <button id="15mpost_plusTemperature" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
-    <h4 id="15mpost_windText">${translations['windLabel']}</h4>
-    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-    </select>
-    <h4 id="15mpost_cloudsText">${translations['cloudsLabel']}</h4>
-    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1/8</option>
-        <option value=2>2/8</option>
-        <option value=3>3/8</option>
-        <option value=4>4/8</option>
-        <option value=5>5/8</option>
-        <option value=6>6/8</option>
-        <option value=7>7/8</option>
-        <option value=8>8/8</option>
-    </select>
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['temperatureLabel']}
+                <span style="float: right;  height: 20px;">
+                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <input id="15mpost_inputTemperature" class="form-control input-number" name="15mpost_inputTemperature" value=15 style="display: inline-block; width: 100px;">
+                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['windLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="15mpost_selectWind" id="15mpost_selectWind" class="form-control input-number" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['cloudsLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="15mpost_selectClouds" id="15mpost_selectClouds" class="form-control input-number" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1/8</option>
+                        <option value=2>2/8</option>
+                        <option value=3>3/8</option>
+                        <option value=4>4/8</option>
+                        <option value=5>5/8</option>
+                        <option value=6>6/8</option>
+                        <option value=7>7/8</option>
+                        <option value=8>8/8</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
     `;
 
     $('#15mpost_weatherContainer').html(weatherHtml);

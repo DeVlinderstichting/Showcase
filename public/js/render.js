@@ -328,24 +328,48 @@ const show15mObservationScreen = () =>
                             
             </div>  
         </div>
-    </div>
-    <h3 id="15m_stopwatchText">${translations['stopwatchLabel']}</h3>
-    <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
-    </div>
-    <h3 id="15m_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="15m_listSpecies">
 
-    </ul>
-    <div>
-        <button id="15m_buttonSave">${translations['saveButton']}</button>
-        <button id="15m_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-stopwatch"></i> <span id="15m_stopwatchText">${translations['stopwatchLabel']}</span></h3>
+            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+        </div>   
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="15m_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+                ">
+                
+                <ul id="15m_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="15m_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="15m_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
+
+
     `;
     
     // Attach the modals
@@ -387,10 +411,12 @@ const show15mObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
-            <li>${getSpeciesName(speciesInfo['id'])}
-                <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
-                <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
-                <button id="15m_editAmount_${speciesInfo['id']}">${translations['editButton']}</button>
+            <li class="mt-1 mb-1"><i>${getSpeciesName(speciesInfo['id'])}</i>
+                <span style="float:right;">
+                    <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
+                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}"><i class="fas fa-plus"></i></button>
+                    <button class="btn-counter" id="15m_editAmount_${speciesInfo['id']}"><i class="fas fa-pen"></i></button>
+                </span>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();

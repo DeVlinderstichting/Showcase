@@ -411,8 +411,8 @@ const show15mObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
-            <li class="mt-1 mb-1"><i>${getSpeciesName(speciesInfo['id'])}</i>
-                <span style="float:right;">
+            <li class="mt-3 mb-3"><i>${getSpeciesName(speciesInfo['id'])}</i>
+                <span style="float:right; height:20px;">
                     <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
                     <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}"><i class="fas fa-plus"></i></button>
                     <button class="btn-counter" id="15m_editAmount_${speciesInfo['id']}"><i class="fas fa-pen"></i></button>

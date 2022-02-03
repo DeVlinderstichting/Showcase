@@ -161,7 +161,23 @@ h6 {
     font-weight: 600;
 }
 
+.data-number { 
+    font-family: 'Oswald', sans-serif;
+    font-size:25px; 
+    line-height:28px; 
+    color:#6C6C97;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
 
+.user-name { 
+    font-size: 15px; 
+    line-height: 20px; 
+    font-weight: 900; 
+    color: #1b1939; 
+    font-family: 'Mulish', sans-serif;
+    float: right;
+}
 
 
 
@@ -178,6 +194,165 @@ h6 {
     background: #FFFFFF 0% 0% no-repeat padding-box;
 }
 .small-select select { padding: 13px 15px; }
+
+
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 24px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+    
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #fda230;
+    
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #fda230;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+    
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.img-count-settings {
+    padding: 40px;
+}
+
+
+
+
+
+
+/* radio buttons */
+
+.flex-radio-buttons {
+      display: flex;
+
+}
+
+.container-radio-buttons {
+
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 26px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+    
+    flex: 1 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+/* Hide the browser's default radio button */
+.container-radio-buttons input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Create a custom radio button */
+.checkmark {
+  position: absolute;
+ align-content: center;
+    top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+  height: 48px;
+  width: 48px;
+  background-color: #fff0;
+  border-radius: 50%;
+    
+    
+}
+
+/* On mouse-over, add a grey background color */
+.container-radio-buttons:hover input ~ .checkmark {
+  background-color: #fff0;
+}
+
+/* When the radio button is checked, add a blue background */
+.container-radio-buttons input:checked ~ .checkmark {
+  background-color: #fff0;
+    border: 4px solid #f5e590;
+}
+
+/* Create the indicator (the dot/circle - hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the indicator (dot/circle) when checked */
+.container-radio-buttons input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Style the indicator (dot/circle) */
+.container-radio-buttons .checkmark:after {
+ 	top: 9px;
+	left: 9px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	color: #fff0;
+
+}
+
 
 
 
@@ -450,13 +625,4 @@ $quantity-btn-color: #95d7fc;
 
 .justify-content-right {
     justify-content: right !important;
-}
-
-.messagsMenuBar {
-    font-size: 10px;
-    font-weight: 400;
-    font-style: normal;
-    font-family: oswald_regular, Arial;
-    text-align: center;
-    letter-spacing: 0.00px;
 }

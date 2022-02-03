@@ -1,5 +1,7 @@
 var renderNav = function(clear=false)
 {
+    $("#backgroundDiv").css("background", "linear-gradient(27deg, rgba(150,229,172,1) 50%, rgba(222,238,193,1) 100%)");
+
     var nav = document.getElementById("nav");
     if(!clear)
     {
@@ -1570,7 +1572,6 @@ const showTransectPostObservationScreen = () =>
 
 const showDataScreen = () =>
 {
-    
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -1584,14 +1585,66 @@ const showDataScreen = () =>
 
     // Build the DOM
     renderNav();
+    $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="data_title">${translations['dataTitle']}</h2>
-    <h3 id="data_subtitle">${translations['dataDescr']}</h3>
-    <div>
-        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="data_title" style="color: #e8de24">${translations['dataTitle']}</h2>
+                <p id="data_subtitle" style="color: #e8de24">${translations['dataDescr']}</p>
+                <button class="btn-line-small" id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id" style="color: #e8de24; border: 2px solid #e8de24">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+
+
+        <div class="row justify-content-center">
+             
+        <div class="row justify-content-center text-center"> 
+         <h3><span style="color: #e8de24">DATA OVERVIEW</span></h3>
+            <div class="separator"></div>
+         </div>   
+        <div class="row justify-content-center"> 
+                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                 <div class="">
+                     <div class="box-background text-center" style="background-image:url('img/icondata.png');">
+          
+                     <p><span class="data-number">100</span> Data entries</p>
+                   
+                     </div>
+                 </div>    
+                 <div class="">
+                      <div class="box-background text-center" style="background-image:url('img/iconobservation.png');">
+                      <p><span class="data-number">100</span> Observations</p>
+           
+                     </div>
+                 </div>
+            </div>
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                 <div class="">
+                     <div class="box-background text-center" style="background-image:url('img/iconinsect.png');">
+                    <p><span class="data-number">100</span> Insects seen</p>
+                   
+                     </div>
+                 </div>    
+                 <div class="">
+                      <div class="box-background text-center" style="background-image:url('img/icongroups.png');">
+                    <p><span class="data-number">100</span> Species groups seen</p>
+                  
+                     </div>
+                 </div>
+            </div>
+         </div>   
+
+     <div class="separator"></div>
+     </div>
+
     </div>
+
     <h3 id="data_dataOverviewText">${translations['dataOverviewTableHeader']}</h3>
     <table>
         <tr>

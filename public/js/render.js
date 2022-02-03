@@ -253,7 +253,7 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="special_buttonSave" class="btn">${translations['startButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+                <button id="special_buttonSave" class="btn">${translations['saveButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 
@@ -1601,82 +1601,89 @@ const showDataScreen = () =>
             </div>  
         </div>
 
-
         <div class="row justify-content-center">
-             
-        <div class="row justify-content-center text-center"> 
-         <h3><span style="color: #e8de24">DATA OVERVIEW</span></h3>
-            <div class="separator"></div>
-         </div>   
-        <div class="row justify-content-center"> 
-                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                 <div class="">
-                     <div class="box-background text-center" style="background-image:url('img/icondata.png');">
-          
-                     <p><span class="data-number">100</span> Data entries</p>
-                   
-                     </div>
-                 </div>    
-                 <div class="">
-                      <div class="box-background text-center" style="background-image:url('img/iconobservation.png');">
-                      <p><span class="data-number">100</span> Observations</p>
-           
-                     </div>
-                 </div>
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">${translations['dataOverviewTableHeader']}</span></h3>
+                <div class="separator"></div>
+                </div>
             </div>
-            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                 <div class="">
-                     <div class="box-background text-center" style="background-image:url('img/iconinsect.png');">
-                    <p><span class="data-number">100</span> Insects seen</p>
-                   
-                     </div>
-                 </div>    
-                 <div class="">
-                      <div class="box-background text-center" style="background-image:url('img/icongroups.png');">
-                    <p><span class="data-number">100</span> Species groups seen</p>
-                  
-                     </div>
-                 </div>
-            </div>
-         </div>   
+            
+            <div class="row justify-content-center"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/icondata.png');">
+                            <p><span class="data-number" id="data_nrDataEntries">0</span> Data entries</p>
+                        </div>
+                    </div>    
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/iconobservation.png');">
+                            <p><span class="data-number" id="data_nrObservations">0</span> Observations</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/iconinsect.png');">
+                            <p><span class="data-number" id="data_nrInsectsSeen">0</span> Insects seen</p>
+                        </div>
+                    </div>    
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/icongroups.png');">
+                            <p><span class="data-number" id="data_nrSpeciesSeen">0</span> Species seen</p>
+                        </div>
+                    </div>
+                </div>
+            </div>   
 
-     <div class="separator"></div>
-     </div>
+            <div class="separator"></div>
+            </div>
+
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">User activity</span></h3>
+                <div class="separator"></div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center text-center"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center">
+                            <canvas id="bar-chart" width="400" height="300"></canvas>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+            <div class="separator"></div>
+            </div>
+
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">Observations</span></h3>
+                <div class="separator"></div>
+                </div>
+            </div>
+
+            <div class="row"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="box-background">
+                        <table id="obsTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Species</th>
+                                    <th>Count</th>
+                                    <th>Details</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
 
     </div>
-
-    <h3 id="data_dataOverviewText">${translations['dataOverviewTableHeader']}</h3>
-    <table>
-        <tr>
-            <th>Data entries</th>
-            <td id="data_nrDataEntries"></td>
-        </tr>
-        <tr>
-            <th>Observations</th>
-            <td id="data_nrObservations"></td>
-        </tr>
-        <tr>
-            <th>Insects seen</th>
-            <td id="data_nrInsectsSeen"></td>
-        </tr>
-        <tr>
-            <th>Species seen</th>
-            <td id="data_nrSpeciesSeen"></td>
-        </tr>                
-    </table>
-    <h3 id="data_userActivityText">User activity</h3>
-    <canvas id="bar-chart" width="400" height="300"></canvas>
-    <h3 id="data_userObservations">Observations</h3>
-    <table id="obsTable">
-        <thead>
-            <td>Date</td>
-            <td>Species</td>
-            <td>Count</td>
-            <td>Details</td>
-        </thead>
-        <tbody>
-        </tbody>
-    <table>
     `
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);

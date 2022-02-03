@@ -1135,19 +1135,29 @@ const showTransectPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
-    <h3 id="pretransect_subtitle">${translations['transectPreDescr']}</h3>
-    <div>
-        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <div>
-        <label for="pretransect_selectTransects">${translations['transectPreSelectTransectLabel']}</label>
-        <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
-        </select>
-    </div>
-    <div>
-        <button id="pretransect_buttonSave">${translations['saveButton']}</button>
-        <button id="pretransect_buttonCancel">${translations['cancelButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
+                <p id="pretransect_subtitle">${translations['transectPreDescr']}</p>
+                <button class="btn-line-small" id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
+
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-route" style="align-self: center;"></i>  ${translations['transectPreSelectTransectLabel']}</h3>
+            <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
+            </select>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="pretransect_buttonSave" class="btn">${translations['saveButton']}</button> <button id="pretransect_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+            </div>
+        </div>
+
     </div>
     `;
 
@@ -1189,27 +1199,61 @@ const showTransectObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">${translations['transectTitle']}</h2>
-    <h3 id="transect_subtitle">${translations['transectDescr']}</h3>
-    <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <h3 id="transect_speciesText">${translations['transectSectionSelector']}</h3>
-    <button id="transect_prevTransButton" disabled> < </button>
-    <span id="transect_transLabel" data_id="${transectSections[0].id}">${transectSections[0].name}</span>
-    <button id="transect_nextTransButton"> > </button>
-    <h3 id="transect_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['transectPreTitle']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="transect_listSpecies">
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="transect_title">${translations['transectTitle']}</h2>
+                <p id="transect_subtitle">${translations['transectDescr']}</p>
+                <button class="btn-line-small" id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
 
-    </ul>
-    <div>
-        <button id="transect_buttonSave">${translations['saveButton']}</button>
-        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
+
+            <span style="height: 20px; width: auto">
+                <button class="btn-counter" id="transect_prevTransButton" disabled> < </button>
+                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="form-control" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
+                <button class="btn-counter" id="transect_nextTransButton"> > </button>
+            </span>
+        </div>
+
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="transect_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+
+                ">
+                
+                <ul id="transect_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="transect_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="transect_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
     `;
     
@@ -1238,7 +1282,7 @@ const showTransectObservationScreen = () =>
         else
         {
             sectionIndex--;
-            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').val(transectSections[sectionIndex].name);
             $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
             $('#transect_nextTransButton').removeAttr("disabled");
             transectChange();
@@ -1258,7 +1302,7 @@ const showTransectObservationScreen = () =>
         else
         {
             sectionIndex++;
-            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').val(transectSections[sectionIndex].name);
             $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
             $('#transect_prevTransButton').removeAttr("disabled");
             transectChange();
@@ -1286,10 +1330,10 @@ const showTransectObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#transect_listSpecies').append(`
-            <li>${getSpeciesName(speciesInfo['id'])}
-                <button id="transect_minAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="transect_inputAmount_${speciesInfo['id']}" name="transect_inputAmount_${speciesInfo['id']}" value=0>
-                <button id="transect_plusAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
+            <li class="m-3">${getSpeciesName(speciesInfo['id'])}
+                <button id="transect_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
+                <input id="transect_inputAmount_${speciesInfo['id']}" class="form-control input-number" name="transect_inputAmount_${speciesInfo['id']}" value=0 style="display: inline-block; width: 100px;">
+                <button id="transect_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
             </li>
         `)
         $(`#transect_selectSpecies option[value='${speciesInfo['id']}']`).remove();

@@ -1663,7 +1663,7 @@ const showDataScreen = () =>
                 </div>
             </div>
 
-            <div class="row"> 
+            <div class="row justify-content-center"> 
                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                     <div class="box-background">
                         <table id="obsTable">
@@ -1775,69 +1775,216 @@ const showSettingsScreen = () =>
 
     // Build the DOM
     renderNav();
+    $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <style>
-    .circle {
-        background-color: #F80;
-        border: 3px solid #FFF;
-        border-radius: 18px;
-        box-shadow: 0 0 2px #888;
-        height: 30px;
-        width: 30px;
-      }
-    </style>
-    <h2 id="settings_title">Settings</h2>
-    <h3 id="settings_subtitle">Lorem ipsum dolor sit amet</h3>
-    <h3 id="settings_generalSettingsText">General settings</h3>
-    <table>
-        <tr>
-            <th>User</th>
-            <th id="settings_userTable"></th>
-        </tr>
-        <tr>
-            <th>Registered at</th>
-            <td id="settings_registeredAtTable"></td>
-        </tr>
-        <tr>
-            <td>Use scientific names</td>
-            <td><input type="checkbox" id="settings_useScientificNamesCheck"></td>
-        </tr>
-        <tr>
-            <td>Show previously seen</td>
-            <td><input type="checkbox" id="settings_showPreviouslySeenCheck"></td>
-        </tr>
-        <tr>
-            <td>Show common species</td>
-            <td><input type="checkbox" id="settings_showCommonSpeciesCheck"></td>
-        </tr>                        
-    </table>
-    <button id="settings_logoutButton">Logout</button>
-    <h3 id="settings_whatCountText">What do you want to count</h3>
-    <div>
-            <h4>Butterflies</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
-            </div>
-            <h4>Bees</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
-            </div>
-            <h4>Birds</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
-            </div>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2><span style="color: #ffe421">SETTINGS</span></h2>
             
-    </div>
+            </div>
+            <div class="separator">
+                
+            </div>
+        </div>
 
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                <h3><span style="color: #e8de24">GENERAL SETTINGS</span></h3>
+                <div class="box-background">
+                    <div class="row">
+                        <p>User <span class="user-name">A. J de Vries</span></p>
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>Use scientific names <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>Show previously seen <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>Show common species <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 text-center">
+                            <a href="#" class="btn-line">LOG OUT</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                <h3><span style="color: #e8de24">WHAT DO YOU WANT TO COUNT</span></h3>
+                <div class="">
+                    <div class="row" style="margin-top: 8px;">   
+                        <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">No counts</span></p>
+                    </div>
+                    <div class="row">
+                        <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count number within group (not at species level)</span></p>
+                    </div>
+                    <div class="row">
+                        <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count species within group</span></p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row" style="margin-top: 8px;">
+                        <img src="img/butterflies.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                    <input type="radio" checked="checked" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                    <input type="radio" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                    <input type="radio" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class="row" style="margin-top: 8px;">
+                            <img src="img/birds.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                    <input type="radio" checked="checked" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                    <input type="radio" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                    <input type="radio" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row" style="margin-top: 8px;">
+                            <img src="img/bees.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                  <input type="radio" checked="checked" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                  <input type="radio" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                  <input type="radio" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class="row" style="margin-top: 8px;">
+                            <img src="img/flowers.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                  <input type="radio" checked="checked" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                  <input type="radio" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                  <input type="radio" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     `
+    
+    // mb.innerHTMLOld = `
+    // <style>
+    // .circle {
+    //     background-color: #F80;
+    //     border: 3px solid #FFF;
+    //     border-radius: 18px;
+    //     box-shadow: 0 0 2px #888;
+    //     height: 30px;
+    //     width: 30px;
+    //   }
+    // </style>
+    // <h2 id="settings_title">Settings</h2>
+    // <h3 id="settings_subtitle">Lorem ipsum dolor sit amet</h3>
+    // <h3 id="settings_generalSettingsText">General settings</h3>
+    // <table>
+    //     <tr>
+    //         <th>User</th>
+    //         <th id="settings_userTable"></th>
+    //     </tr>
+    //     <tr>
+    //         <th>Registered at</th>
+    //         <td id="settings_registeredAtTable"></td>
+    //     </tr>
+    //     <tr>
+    //         <td>Use scientific names</td>
+    //         <td><input type="checkbox" id="settings_useScientificNamesCheck"></td>
+    //     </tr>
+    //     <tr>
+    //         <td>Show previously seen</td>
+    //         <td><input type="checkbox" id="settings_showPreviouslySeenCheck"></td>
+    //     </tr>
+    //     <tr>
+    //         <td>Show common species</td>
+    //         <td><input type="checkbox" id="settings_showCommonSpeciesCheck"></td>
+    //     </tr>                        
+    // </table>
+    // <button id="settings_logoutButton">Logout</button>
+    // <h3 id="settings_whatCountText">What do you want to count</h3>
+    // <div>
+    //         <h4>Butterflies</h4>
+    //         <div class="d-inline">
+    //             <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
+    //         </div>
+    //         <h4>Bees</h4>
+    //         <div class="d-inline">
+    //             <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
+    //         </div>
+    //         <h4>Birds</h4>
+    //         <div class="d-inline">
+    //             <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
+    //             <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
+    //         </div>
+            
+    // </div>
+
+    // `
 
     // Populate the data
     $("#settings_userTable").html(settings.userSettings.name);

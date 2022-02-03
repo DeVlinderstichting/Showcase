@@ -58,7 +58,7 @@ a:hover, a:focus { text-decoration: none; outline: none; outline-offset:0; color
 a, a.nav-link, a:active, a:focus { color: #FDA230; }
 a, a.nav-link, .btn, .btn-line, input, textarea, select { transition: all 0.3s ease-in-out; -moz-transition: all 0.3s ease-in-out; -webkit-transition: all 0.3s ease-in-out; -ms-transition: all 0.3s ease-in-out; -o-transition: all 0.3s ease-in-out; }
 img { max-width: 100%; height: auto; }
-p { margin: 0 0 25px; }
+/* p { margin: 0 0 25px; } */
 b, strong { font-weight: 900; }
 i { font-weight: 300; }
 .alt-font strong { font-weight: 900; }

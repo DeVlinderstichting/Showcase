@@ -233,9 +233,9 @@ const showSpecialObservationScreen = () =>
         
         
         <div class="row justify-content-center pb-3">
-        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
-        <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
-        </select>
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
+            <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
+            </select>
         </div>
 
        
@@ -714,19 +714,29 @@ const showFitPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
-    <h3 id="prefit_subtitle">${translations['fitPreDescr']}</h3>
-    <div>
-        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <div>
-        <label for="prefit_selectSpecies">${translations['searchSpeciesLabel']}</label>
-        <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
-        </select>
-    </div>
-    <div>
-        <button id="prefit_buttonSave">${translations['saveButton']}</button>
-        <button id="prefit_buttonCancel">${translations['cancelButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
+                <p id="prefit_subtitle">${translations['fitPreDescr']}</p>
+                <button class="btn-line-small" id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
+
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']}</h3>
+            <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
+            </select>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+            </div>
+        </div>
+
     </div>
     `;
 
@@ -771,28 +781,60 @@ const showFitObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">${translations['fitTitle']}</h2>
-    <h3 id="15m_subtitle">${translations['fitDescr']}</h3>
-    <div>
-        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <h3 id="fit_stopwatchText">${translations['stopwatchLabel']}</h3>
-    <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
-    </div>
-    <h3 id="fit_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="fit_listSpecies">
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="prefit_title">${translations['fitTitle']}</h2>
+                <p id="prefit_subtitle">${translations['fitDescr']}</p>
+                <button class="btn-line-small" id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
 
-    </ul>
-    <div>
-        <button id="fit_buttonSave">${translations['saveButton']}</button>
-        <button id="fit_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-stopwatch"></i> <span id="fit_stopwatchText">${translations['stopwatchLabel']}</span></h3>
+            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+        </div>  
+
+
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="fit_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+
+                ">
+                
+                <ul id="fit_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="fit_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="fit_buttonCancel">${translations['cancelButton']}</button>
+        </div>
     </div>
+
     `;
     
     // Attach the modals

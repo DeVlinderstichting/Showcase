@@ -536,7 +536,7 @@ const show15mPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
+            <h3 id="15mpost_notesText"><i class="fas fa-pen"> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
         </div>
 
@@ -1382,20 +1382,39 @@ const showTransectPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">${translations['transectPostTitle']}</h2>
-    <h3 id="transect_subtitle">${translations['transectPostDescr']}</h3>
-    <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
-    </div>
-    <h3 id="transect_countedGroupsText">${translations['countedGroupsLabel']}</h3>
-    <div id="transect_countedGroupsContainer"></div>
-    <h3 id="transect_weatherText">${translations['weatherLabel']}</h3>
-    <div id="transect_weatherContainer"></div>
-    <h3 id="transect_notesText">${translations['notesLabel']}</h3>
-    <textarea id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
-    <div>
-        <button id="transect_buttonSave">${translations['saveButton']}</button>
-        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
+
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="transect_title">${translations['transectPostTitle']}</h2>
+                <p id="transect_subtitle">${translations['transectPostDescr']}</p>
+                <button class="btn-line-small" id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+        
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-bug"></i> <span id="transect_countedGroupsText">${translations['countedGroupsLabel']}</span></h3>
+            <div id="transect_countedGroupsContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="transect_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+            <div id="transect_weatherContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="transect_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
+            <textarea style="width: calc(100% - 30px);" id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="transect_buttonSave">${translations['saveButton']}</button>
+            <button class="btn btn-line" id="transect_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
     `
     // Attach the modals
@@ -1403,7 +1422,7 @@ const showTransectPostObservationScreen = () =>
     mb.innerHTML += renderModal(translations['transectPostInfoModalTitle'],translations['transectPostInfoModalContents']);
 
     // Attach the contents of the species group container
-    speciesGroupsHtml = '<ul>';
+    speciesGroupsHtml = '<ul style="list-style-type:none;">';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
@@ -1429,32 +1448,57 @@ const showTransectPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="transect_temperatureText">${translations['temperatureLabel']}</h4>
-    <button id="transect_minTemperature" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
-    <input id="transect_inputTemperature" name="transect_inputTemperature" value=0>
-    <button id="transect_plusTemperature" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
-    <h4 id="transect_windText">${translations['windLabel']}</h4>
-    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-    </select>
-    <h4 id="transect_cloudsText">${translations['cloudsLabel']}</h4>
-    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1/8</option>
-        <option value=2>2/8</option>
-        <option value=3>3/8</option>
-        <option value=4>4/8</option>
-        <option value=5>5/8</option>
-        <option value=6>6/8</option>
-        <option value=7>7/8</option>
-        <option value=8>8/8</option>
-    </select>
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['temperatureLabel']}
+                <span style="float: right;  height: 20px;">
+                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <input id="transect_inputTemperature" class="form-control input-number" name="transect_inputTemperature" value=15 style="display: inline-block; width: 100px;">
+                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['windLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectWind" id="transect_selectWind" class="form-control input-number" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['cloudsLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectClouds" id="transect_selectClouds" class="form-control input-number" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1/8</option>
+                        <option value=2>2/8</option>
+                        <option value=3>3/8</option>
+                        <option value=4>4/8</option>
+                        <option value=5>5/8</option>
+                        <option value=6>6/8</option>
+                        <option value=7>7/8</option>
+                        <option value=8>8/8</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
     `;
 
     $('#transect_weatherContainer').html(weatherHtml);

@@ -1612,24 +1612,24 @@ const showDataScreen = () =>
                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                     <div class="">
                         <div class="box-background text-center" style="background-image:url('img/icondata.png');">
-                            <p><span class="data-number" id="data_nrDataEntries">0</span> Data entries</p>
+                            <p><span class="data-number" id="data_nrDataEntries">0</span> ${translations['dataDataEntries']}</p>
                         </div>
                     </div>    
                     <div class="">
                         <div class="box-background text-center" style="background-image:url('img/iconobservation.png');">
-                            <p><span class="data-number" id="data_nrObservations">0</span> Observations</p>
+                            <p><span class="data-number" id="data_nrObservations">0</span> ${translations['dataObservations']}</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                     <div class="">
                         <div class="box-background text-center" style="background-image:url('img/iconinsect.png');">
-                            <p><span class="data-number" id="data_nrInsectsSeen">0</span> Insects seen</p>
+                            <p><span class="data-number" id="data_nrInsectsSeen">0</span> ${translations['dataInsectsSeen']}</p>
                         </div>
                     </div>    
                     <div class="">
                         <div class="box-background text-center" style="background-image:url('img/icongroups.png');">
-                            <p><span class="data-number" id="data_nrSpeciesSeen">0</span> Species seen</p>
+                            <p><span class="data-number" id="data_nrSpeciesSeen">0</span> ${translations['dataSpeciesSeen']}</p>
                         </div>
                     </div>
                 </div>
@@ -1639,7 +1639,7 @@ const showDataScreen = () =>
             </div>
 
             <div class="row justify-content-center text-center"> 
-                <h3><span style="color: #e8de24">User activity</span></h3>
+                <h3><span style="color: #e8de24">${translations['dataUserActivity']}</span></h3>
                 <div class="separator"></div>
                 </div>
             </div>
@@ -1658,7 +1658,7 @@ const showDataScreen = () =>
             </div>
 
             <div class="row justify-content-center text-center"> 
-                <h3><span style="color: #e8de24">Observations</span></h3>
+                <h3><span style="color: #e8de24">${translations['dataObservations']}</span></h3>
                 <div class="separator"></div>
                 </div>
             </div>
@@ -1669,10 +1669,10 @@ const showDataScreen = () =>
                         <table id="obsTable">
                             <thead>
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Species</th>
-                                    <th>Count</th>
-                                    <th>Details</th>
+                                    <th>${translations['dataTableDate']}</th>
+                                    <th>${translations['dataTableSpecies']}</th>
+                                    <th>${translations['dataTableCount']}</th>
+                                    <th>${translations['dataTableDetails']}</th>
                                 </tr>
                             </thead>
                         </table>
@@ -1772,6 +1772,7 @@ const showSettingsScreen = () =>
 {
     // Get the settings and species
     var settings = getUserSettings();
+    var translations = settings.translations;
 
     // Build the DOM
     renderNav();
@@ -1782,7 +1783,7 @@ const showSettingsScreen = () =>
     <div class="container">
         <div class="row justify-content-center pt-5">
             <div class="col-md-12 text-center">
-                <h2><span style="color: #ffe421" id="settings_title">SETTINGS</span></h2>
+                <h2><span style="color: #ffe421" id="settings_title">${translations['settingsTitle']}</span></h2>
             
             </div>
             <div class="separator">
@@ -1792,13 +1793,13 @@ const showSettingsScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                <h3><span style="color: #e8de24" id="settings_generalSettingsText">GENERAL SETTINGS</span></h3>
+                <h3><span style="color: #e8de24" id="settings_generalSettingsText">${translations['settingsGeneralTitle']}</span></h3>
                 <div class="box-background">
                     <div class="row">
-                        <p>User <span class="user-name" id="settings_userTable"></span></p>
+                        <p>${translations['settingsUser']} <span class="user-name" id="settings_userTable"></span></p>
                     </div>
                     <div class="row" style="margin-top: 8px;">
-                        <p>Use scientific names <span class="user-name">   
+                        <p>${translations['settingsUseScientificNames']} <span class="user-name">   
                             <label class="switch">
                             <input type="checkbox" id="settings_useScientificNamesCheck">
                             <span class="slider round"></span>
@@ -1807,7 +1808,7 @@ const showSettingsScreen = () =>
                         </p>   
                     </div>
                     <div class="row" style="margin-top: 8px;">
-                        <p>Show previously seen <span class="user-name">   
+                        <p>${translations['settingsShowPreviouslySeen']} <span class="user-name">   
                             <label class="switch">
                             <input type="checkbox" id="settings_showPreviouslySeenCheck">
                             <span class="slider round"></span>
@@ -1816,7 +1817,7 @@ const showSettingsScreen = () =>
                         </p>   
                     </div>
                     <div class="row" style="margin-top: 8px;">
-                        <p>Show common species <span class="user-name">   
+                        <p>${translations['settingsShowCommonSpecies']} <span class="user-name">   
                             <label class="switch">
                             <input type="checkbox" id="settings_showCommonSpeciesCheck">
                             <span class="slider round"></span>
@@ -1826,22 +1827,22 @@ const showSettingsScreen = () =>
                     </div>
                     <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
-                            <button id="settings_logoutButton" class="btn-line">LOG OUT</button>
+                            <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10 mb-3">
-                <h3><span style="color: #e8de24">WHAT DO YOU WANT TO COUNT</span></h3>
+                <h3><span style="color: #e8de24">${translations['settingsWhatDoYouWantToCount']}</span></h3>
                 <div class="">
                     <div class="row" style="margin-top: 8px;">   
-                        <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">No counts</span></p>
+                        <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">${translations['settingsNoCounts']}</span></p>
                     </div>
                     <div class="row">
-                        <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count number within group (not at species level)</span></p>
+                        <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">${translations['settingsCountGroup']}</span></p>
                     </div>
                     <div class="row">
-                        <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count species within group</span></p>
+                        <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">${translations['settingsCountSpecies']}</span></p>
                     </div>
                 </div>
 
@@ -2058,6 +2059,7 @@ const showMessagesScreen = () =>
 {
     var settings = getUserSettings();
     var messages = Object.values(settings.messages);
+    var translations = settings.translations;
 
     renderNav();
     $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
@@ -2076,7 +2078,7 @@ const showMessagesScreen = () =>
         else
         {
             read = false;
-            readdate = 'Unread';
+            readdate = `${translations['messagesTitle']}`;
             styling = 'style="font-weight:bold;"';
         }
         messArg = JSON.stringify(messages[i])
@@ -2096,7 +2098,7 @@ const showMessagesScreen = () =>
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h5 class="card-header">Messages</h5>
+                    <h5 class="card-header">${translations['messagesTitle']}</h5>
                     <div class="card-body">
                         <div class="list-group">
                             ${ messagesHTML }

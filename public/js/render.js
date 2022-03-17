@@ -1,5 +1,7 @@
 var renderNav = function(clear=false)
 {
+    $("#backgroundDiv").css("background", "linear-gradient(27deg, rgba(150,229,172,1) 50%, rgba(222,238,193,1) 100%)");
+
     var nav = document.getElementById("nav");
     if(!clear)
     {
@@ -233,9 +235,9 @@ const showSpecialObservationScreen = () =>
         
         
         <div class="row justify-content-center pb-3">
-        <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
-        <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
-        </select>
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
+            <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
+            </select>
         </div>
 
        
@@ -251,7 +253,7 @@ const showSpecialObservationScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="special_buttonSave" class="btn">${translations['startButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+                <button id="special_buttonSave" class="btn">${translations['saveButton']}</button> <button id="special_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 
@@ -317,28 +319,60 @@ const show15mObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">${translations['15mTitle']}</h2>
-    <h3 id="15m_subtitle">${translations['15mDescr']}</h3>
-    <div>
-        <button id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <h3 id="15m_stopwatchText">${translations['stopwatchLabel']}</h3>
-    <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
-    </div>
-    <h3 id="15m_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="15m_listSpecies">
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="15m_title">${translations['15mTitle']}</h2>
+                <p id="15m_subtitle">${translations['15mDescr']}</p>
+                <button class="btn-line-small" id="15m_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
 
-    </ul>
-    <div>
-        <button id="15m_buttonSave">${translations['saveButton']}</button>
-        <button id="15m_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-stopwatch"></i> <span id="15m_stopwatchText">${translations['stopwatchLabel']}</span></h3>
+            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+        </div>   
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="15m_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="15m_selectSpecies" id="15m_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+
+                ">
+                
+                <ul id="15m_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="15m_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="15m_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
+
+
     `;
     
     // Attach the modals
@@ -380,10 +414,12 @@ const show15mObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#15m_listSpecies').append(`
-            <li>${getSpeciesName(speciesInfo['id'])}
-                <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
-                <button id="15m_plusAmount_${speciesInfo['id']}">+</button>
-                <button id="15m_editAmount_${speciesInfo['id']}">${translations['editButton']}</button>
+            <li class="mt-3 mb-3"><i>${getSpeciesName(speciesInfo['id'])}</i>
+                <span style="float:right; height:20px;">
+                    <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
+                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}"><i class="fas fa-plus"></i></button>
+                    <button class="btn-counter" id="15m_editAmount_${speciesInfo['id']}"><i class="fas fa-pen"></i></button>
+                </span>
             </li>
         `)
         $(`#15m_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -478,28 +514,51 @@ const show15mPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
-    <h3 id="15mpost_subtitle">${translations['15mPostDescr']}</h3>
-    <div>
-        <button id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="15mpost_title">${translations['15mPostTitle']}</h2>
+                <p id="15mpost_subtitle">${translations['15mPostDescr']}</p>
+                <button class="btn-line-small" id="15mpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+        
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-bug"></i> <span id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</span></h3>
+            <div id="15mpost_countedGroupsContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+            <div id="15mpost_weatherContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_notesText"><i class="fas fa-pen"> ${translations['notesLabel']}</h3>
+            <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="15mpost_buttonSave">${translations['saveButton']}</button>
+            <button class="btn btn-line" id="15mpost_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
-    <h3 id="15mpost_countedGroupsText">${translations['countedGroupsLabel']}</h3>
-    <div id="15mpost_countedGroupsContainer"></div>
-    <h3 id="15mpost_weatherText">${translations['weatherLabel']}</h3>
-    <div id="15mpost_weatherContainer"></div>
-    <h3 id="15mpost_notesText">${translations['notesLabel']}</h3>
-    <textarea id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
-    <div>
-        <button id="15mpost_buttonSave">${translations['saveButton']}</button>
-        <button id="15mpost_buttonCancel">${translations['cancelButton']}</button>
-    </div>
+
+
+    
+
     `
     // Attach the modals
     // Info
     mb.innerHTML += renderModal(translations['15mPostInfoModalTitle'],translations['15mPostInfoModalContents']);
 
     // Attach the contents of the species group container
-    speciesGroupsHtml = '<ul>';
+    speciesGroupsHtml = '<ul style="list-style-type:none;">';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
 
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
@@ -526,32 +585,57 @@ const show15mPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="15mpost_temperatureText">${translations['temperatureLabel']}</h4>
-    <button id="15mpost_minTemperature" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
-    <input id="15mpost_inputTemperature" name="15mpost_inputTemperature" value=0>
-    <button id="15mpost_plusTemperature" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
-    <h4 id="15mpost_windText">${translations['windLabel']}</h4>
-    <select name="15mpost_selectWind" id="15mpost_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-    </select>
-    <h4 id="15mpost_cloudsText">${translations['cloudsLabel']}</h4>
-    <select name="15mpost_selectClouds" id="15mpost_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1/8</option>
-        <option value=2>2/8</option>
-        <option value=3>3/8</option>
-        <option value=4>4/8</option>
-        <option value=5>5/8</option>
-        <option value=6>6/8</option>
-        <option value=7>7/8</option>
-        <option value=8>8/8</option>
-    </select>
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['temperatureLabel']}
+                <span style="float: right;  height: 20px;">
+                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <input id="15mpost_inputTemperature" class="form-control input-number" name="15mpost_inputTemperature" value=15 style="display: inline-block; width: 100px;">
+                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['windLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="15mpost_selectWind" id="15mpost_selectWind" class="form-control input-number" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['cloudsLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="15mpost_selectClouds" id="15mpost_selectClouds" class="form-control input-number" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1/8</option>
+                        <option value=2>2/8</option>
+                        <option value=3>3/8</option>
+                        <option value=4>4/8</option>
+                        <option value=5>5/8</option>
+                        <option value=6>6/8</option>
+                        <option value=7>7/8</option>
+                        <option value=8>8/8</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
     `;
 
     $('#15mpost_weatherContainer').html(weatherHtml);
@@ -632,19 +716,29 @@ const showFitPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
-    <h3 id="prefit_subtitle">${translations['fitPreDescr']}</h3>
-    <div>
-        <button id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <div>
-        <label for="prefit_selectSpecies">${translations['searchSpeciesLabel']}</label>
-        <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
-        </select>
-    </div>
-    <div>
-        <button id="prefit_buttonSave">${translations['saveButton']}</button>
-        <button id="prefit_buttonCancel">${translations['cancelButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
+                <p id="prefit_subtitle">${translations['fitPreDescr']}</p>
+                <button class="btn-line-small" id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
+
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']}</h3>
+            <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
+            </select>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+            </div>
+        </div>
+
     </div>
     `;
 
@@ -689,28 +783,60 @@ const showFitObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="15m_title">${translations['fitTitle']}</h2>
-    <h3 id="15m_subtitle">${translations['fitDescr']}</h3>
-    <div>
-        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <h3 id="fit_stopwatchText">${translations['stopwatchLabel']}</h3>
-    <div>
-        <i class="fas fa-stopwatch"></i> <span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i>
-    </div>
-    <h3 id="fit_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="fit_listSpecies">
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="prefit_title">${translations['fitTitle']}</h2>
+                <p id="prefit_subtitle">${translations['fitDescr']}</p>
+                <button class="btn-line-small" id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
 
-    </ul>
-    <div>
-        <button id="fit_buttonSave">${translations['saveButton']}</button>
-        <button id="fit_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-stopwatch"></i> <span id="fit_stopwatchText">${translations['stopwatchLabel']}</span></h3>
+            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+        </div>  
+
+
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="fit_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="fit_selectSpecies" id="fit_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+            
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+
+                ">
+                
+                <ul id="fit_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="fit_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="fit_buttonCancel">${translations['cancelButton']}</button>
+        </div>
     </div>
+
     `;
     
     // Attach the modals
@@ -746,10 +872,12 @@ const showFitObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#fit_listSpecies').append(`
-            <li>${getSpeciesName(speciesInfo['id'])}
-                <button id="fit_minAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="fit_inputAmount_${speciesInfo['id']}" name="fit_inputAmount_${speciesInfo['id']}" value=${number}>
-                <button id="fit_plusAmount_${speciesInfo['id']}" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
+            <li class="m-3">${getSpeciesName(speciesInfo['id'])}
+                <span style="float: right;  height: 20px;">
+                    <button id="fit_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-minus"></i></button>
+                    <input id="fit_inputAmount_${speciesInfo['id']}" class="form-control input-number" name="fit_inputAmount_${speciesInfo['id']}" value=${number} style="display: inline-block; width: 100px;">
+                    <button id="fit_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-plus"></i></button>
+                </span>
             </li>
         `)
         $(`#fit_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -811,28 +939,48 @@ const showFitPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="fit_title">${translations['fitPostTitle']}</h2>
-    <h3 id="fit_subtitle">${translations['fitPostDescr']}</h3>
-    <div>
-        <button id="fit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="fitpost_title">${translations['fitPostTitle']}</h2>
+                <p id="fitpost_subtitle">${translations['fitPostDescr']}</p>
+                <button class="btn-line-small" id="fitpost_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-bug"></i> <span id="fit_countedGroupsText">${translations['countedGroupsLabel']}</span></h3>
+            <div id="fit_countedGroupsContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="fit_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+            <div id="fit_weatherContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="fit_notesText">${translations['notesLabel']}</h3>
+            <textarea style="width: calc(100% - 30px);" id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="fit_buttonSave">${translations['saveButton']}</button>
+            <button class="btn btn-line" id="fit_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
-    <h3 id="fit_countedGroupsText">${translations['countedGroupsLabel']}</h3>
-    <div id="fit_countedGroupsContainer"></div>
-    <h3 id="fit_weatherText">${translations['weatherLabel']}</h3>
-    <div id="fit_weatherContainer"></div>
-    <h3 id="fit_notesText">${translations['notesLabel']}</h3>
-    <textarea id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
-    <div>
-        <button id="fit_buttonSave">${translations['saveButton']}</button>
-        <button id="fit_buttonCancel">${translations['cancelButton']}</button>
-    </div>
+
     `
     // Attach the modals
     // Info
     mb.innerHTML += renderModal(translations['fitPostInfoModalTitle'],translations['fitPostInfoModalContents']);
 
     // Attach the contents of the species group container
-    speciesGroupsHtml = '<ul>';
+    speciesGroupsHtml = '<ul style="list-style-type:none;">';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
@@ -858,34 +1006,58 @@ const showFitPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="fit_temperatureText">${translations['temperatureLabel']}</h4>
-    <button id="fit_minTemperature" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
-    <input id="fit_inputTemperature" name="fit_inputTemperature" value=0>
-    <button id="fit_plusTemperature" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
-    <h4 id="fit_windText">${translations['windLabel']}</h4>
-    <select name="fit_selectWind" id="fit_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-    </select>
-    <h4 id="fit_cloudsText">${translations['cloudsLabel']}</h4>
-    <select name="fit_selectClouds" id="fit_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1/8</option>
-        <option value=2>2/8</option>
-        <option value=3>3/8</option>
-        <option value=4>4/8</option>
-        <option value=5>5/8</option>
-        <option value=6>6/8</option>
-        <option value=7>7/8</option>
-        <option value=8>8/8</option>
-    </select>
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['temperatureLabel']}
+                <span style="float: right;  height: 20px;">
+                    <button id="fit_minTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <input id="fit_inputTemperature" class="form-control input-number" name="fit_inputTemperature" value=15 style="display: inline-block; width: 100px;">
+                    <button id="fit_plusTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['windLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="fit_selectWind" id="fit_selectWind" class="form-control input-number" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['cloudsLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="fit_selectClouds" id="fit_selectClouds" class="form-control input-number" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1/8</option>
+                        <option value=2>2/8</option>
+                        <option value=3>3/8</option>
+                        <option value=4>4/8</option>
+                        <option value=5>5/8</option>
+                        <option value=6>6/8</option>
+                        <option value=7>7/8</option>
+                        <option value=8>8/8</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
     `;
-
     $('#fit_weatherContainer').html(weatherHtml);
 
     // Make sure we get proper input on change of the number input
@@ -965,19 +1137,29 @@ const showTransectPreObservationScreen = () =>
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
-    <h3 id="pretransect_subtitle">${translations['transectPreDescr']}</h3>
-    <div>
-        <button id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <div>
-        <label for="pretransect_selectTransects">${translations['transectPreSelectTransectLabel']}</label>
-        <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
-        </select>
-    </div>
-    <div>
-        <button id="pretransect_buttonSave">${translations['saveButton']}</button>
-        <button id="pretransect_buttonCancel">${translations['cancelButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="pretransect_title">${translations['transectPreTitle']}</h2>
+                <p id="pretransect_subtitle">${translations['transectPreDescr']}</p>
+                <button class="btn-line-small" id="pretransect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
+
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-route" style="align-self: center;"></i>  ${translations['transectPreSelectTransectLabel']}</h3>
+            <select class="chosen-select" name="pretransect_selectTransects" id="pretransect_selectTransects">
+            </select>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-md-12 text-center">
+                <button id="pretransect_buttonSave" class="btn">${translations['saveButton']}</button> <button id="pretransect_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+            </div>
+        </div>
+
     </div>
     `;
 
@@ -1019,27 +1201,61 @@ const showTransectObservationScreen = () =>
     // Build the DOM
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">${translations['transectTitle']}</h2>
-    <h3 id="transect_subtitle">${translations['transectDescr']}</h3>
-    <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-    </div>
-    <h3 id="transect_speciesText">${translations['transectSectionSelector']}</h3>
-    <button id="transect_prevTransButton" disabled> < </button>
-    <span id="transect_transLabel" data_id="${transectSections[0].id}">${transectSections[0].name}</span>
-    <button id="transect_nextTransButton"> > </button>
-    <h3 id="transect_speciesText">${translations['searchSpeciesLabel']}</h3>
-    <div>
-        <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['transectPreTitle']}" tabindex="1">
-            <option value=""></option>
-        </select>
-    </div>
-    <ul id="transect_listSpecies">
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="transect_title">${translations['transectTitle']}</h2>
+                <p id="transect_subtitle">${translations['transectDescr']}</p>
+                <button class="btn-line-small" id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">     
+            </div>  
+        </div>
 
-    </ul>
-    <div>
-        <button id="transect_buttonSave">${translations['saveButton']}</button>
-        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
+        <div class="row justify-content-center pb-3">
+            <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
+
+            <span style="height: 20px; width: auto">
+                <button class="btn-counter" id="transect_prevTransButton" disabled> < </button>
+                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="form-control" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
+                <button class="btn-counter" id="transect_nextTransButton"> > </button>
+            </span>
+        </div>
+
+        <div class="row justify-content-center mb-3"> 
+            <h3><i class="fas fa-bug"></i> <span id="transect_speciesText">${translations['searchSpeciesLabel']}</span></h3>
+            <div>
+                <select class="chosen-select" name="transect_selectSpecies" id="transect_selectSpecies" data-placeholder="${translations['SelectSpeciesPlaceholder']}" tabindex="1">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-3"> 
+            <div style="
+                background: #FFFFFF 0% 0% no-repeat padding-box;
+                background-position-x: 0%;
+                background-position-y: 0%;
+                box-shadow: 4px 3px 4px #00000029;
+                border-radius: 10px;
+                opacity: 0.8;
+                background-position: bottom right !important;
+                min-height: 46px;
+                width: calc(100% - 30px);
+
+                ">
+                
+                <ul id="transect_listSpecies" style="list-style-type:none;">
+                </ul>
+
+            </div>
+        <div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="transect_buttonSave">${translations['saveButton']}</button>
+            <button class="btn-line" id="transect_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
     `;
     
@@ -1068,7 +1284,7 @@ const showTransectObservationScreen = () =>
         else
         {
             sectionIndex--;
-            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').val(transectSections[sectionIndex].name);
             $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
             $('#transect_nextTransButton').removeAttr("disabled");
             transectChange();
@@ -1088,7 +1304,7 @@ const showTransectObservationScreen = () =>
         else
         {
             sectionIndex++;
-            $('#transect_transLabel').html(transectSections[sectionIndex].name);
+            $('#transect_transLabel').val(transectSections[sectionIndex].name);
             $('#transect_transLabel').attr('data_id', transectSections[sectionIndex].id);
             $('#transect_prevTransButton').removeAttr("disabled");
             transectChange();
@@ -1116,10 +1332,10 @@ const showTransectObservationScreen = () =>
         var speciesId = id;
         var speciesInfo = species[speciesId];
         $('#transect_listSpecies').append(`
-            <li>${getSpeciesName(speciesInfo['id'])}
-                <button id="transect_minAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
-                <input id="transect_inputAmount_${speciesInfo['id']}" name="transect_inputAmount_${speciesInfo['id']}" value=0>
-                <button id="transect_plusAmount_${speciesInfo['id']}" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
+            <li class="m-3">${getSpeciesName(speciesInfo['id'])}
+                <button id="transect_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value--; $('#transect_inputAmount_${speciesInfo['id']}').change();">-</button>
+                <input id="transect_inputAmount_${speciesInfo['id']}" class="form-control input-number" name="transect_inputAmount_${speciesInfo['id']}" value=0 style="display: inline-block; width: 100px;">
+                <button id="transect_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#transect_inputAmount_${speciesInfo['id']}').get(0).value++; $('#transect_inputAmount_${speciesInfo['id']}').change();">+</button>
             </li>
         `)
         $(`#transect_selectSpecies option[value='${speciesInfo['id']}']`).remove();
@@ -1168,20 +1384,39 @@ const showTransectPostObservationScreen = () =>
     
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="transect_title">${translations['transectPostTitle']}</h2>
-    <h3 id="transect_subtitle">${translations['transectPostDescr']}</h3>
-    <div>
-        <button id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">Info</button>
-    </div>
-    <h3 id="transect_countedGroupsText">${translations['countedGroupsLabel']}</h3>
-    <div id="transect_countedGroupsContainer"></div>
-    <h3 id="transect_weatherText">${translations['weatherLabel']}</h3>
-    <div id="transect_weatherContainer"></div>
-    <h3 id="transect_notesText">${translations['notesLabel']}</h3>
-    <textarea id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
-    <div>
-        <button id="transect_buttonSave">${translations['saveButton']}</button>
-        <button id="transect_buttonCancel">${translations['cancelButton']}</button>
+
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="transect_title">${translations['transectPostTitle']}</h2>
+                <p id="transect_subtitle">${translations['transectPostDescr']}</p>
+                <button class="btn-line-small" id="transect_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+        
+        <div class="row justify-content-center mb-3">
+            <h3><i class="fas fa-bug"></i> <span id="transect_countedGroupsText">${translations['countedGroupsLabel']}</span></h3>
+            <div id="transect_countedGroupsContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="transect_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+            <div id="transect_weatherContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="transect_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
+            <textarea style="width: calc(100% - 30px);" id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <button class="btn" id="transect_buttonSave">${translations['saveButton']}</button>
+            <button class="btn btn-line" id="transect_buttonCancel">${translations['cancelButton']}</button>
+        </div>
+
     </div>
     `
     // Attach the modals
@@ -1189,7 +1424,7 @@ const showTransectPostObservationScreen = () =>
     mb.innerHTML += renderModal(translations['transectPostInfoModalTitle'],translations['transectPostInfoModalContents']);
 
     // Attach the contents of the species group container
-    speciesGroupsHtml = '<ul>';
+    speciesGroupsHtml = '<ul style="list-style-type:none;">';
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
@@ -1215,32 +1450,57 @@ const showTransectPostObservationScreen = () =>
     // Attach the contents of the weather container
     weatherHtml = 
     `
-    <h4 id="transect_temperatureText">${translations['temperatureLabel']}</h4>
-    <button id="transect_minTemperature" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
-    <input id="transect_inputTemperature" name="transect_inputTemperature" value=0>
-    <button id="transect_plusTemperature" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
-    <h4 id="transect_windText">${translations['windLabel']}</h4>
-    <select name="transect_selectWind" id="transect_selectWind" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1</option>
-        <option value=2>2</option>
-        <option value=3>3</option>
-        <option value=4>4</option>
-        <option value=5>5</option>
-        <option value=6>6</option>
-        <option value=7>7</option>
-        <option value=8>8</option>
-    </select>
-    <h4 id="transect_cloudsText">${translations['cloudsLabel']}</h4>
-    <select name="transect_selectClouds" id="transect_selectClouds" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1">
-        <option value=1>1/8</option>
-        <option value=2>2/8</option>
-        <option value=3>3/8</option>
-        <option value=4>4/8</option>
-        <option value=5>5/8</option>
-        <option value=6>6/8</option>
-        <option value=7>7/8</option>
-        <option value=8>8/8</option>
-    </select>
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['temperatureLabel']}
+                <span style="float: right;  height: 20px;">
+                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <input id="transect_inputTemperature" class="form-control input-number" name="transect_inputTemperature" value=15 style="display: inline-block; width: 100px;">
+                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['windLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectWind" id="transect_selectWind" class="form-control input-number" data-placeholder="${translations['windSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                        <option value=4>4</option>
+                        <option value=5>5</option>
+                        <option value=6>6</option>
+                        <option value=7>7</option>
+                        <option value=8>8</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['cloudsLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectClouds" id="transect_selectClouds" class="form-control input-number" data-placeholder="${translations['cloudSelectorPlaceholder']}" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1/8</option>
+                        <option value=2>2/8</option>
+                        <option value=3>3/8</option>
+                        <option value=4>4/8</option>
+                        <option value=5>5/8</option>
+                        <option value=6>6/8</option>
+                        <option value=7>7/8</option>
+                        <option value=8>8/8</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
     `;
 
     $('#transect_weatherContainer').html(weatherHtml);
@@ -1312,7 +1572,6 @@ const showTransectPostObservationScreen = () =>
 
 const showDataScreen = () =>
 {
-    
     // Get the settings and species
     var settings = getUserSettings();
     var species = settings.species;
@@ -1326,46 +1585,105 @@ const showDataScreen = () =>
 
     // Build the DOM
     renderNav();
+    $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <h2 id="data_title">${translations['dataTitle']}</h2>
-    <h3 id="data_subtitle">${translations['dataDescr']}</h3>
-    <div>
-        <button id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2 id="data_title" style="color: #e8de24">${translations['dataTitle']}</h2>
+                <p id="data_subtitle" style="color: #e8de24">${translations['dataDescr']}</p>
+                <button class="btn-line-small" id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id" style="color: #e8de24; border: 2px solid #e8de24">${translations['infoButton']}</button>
+            </div>     
+            <div class="separator">
+                            
+            </div>  
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">${translations['dataOverviewTableHeader']}</span></h3>
+                <div class="separator"></div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/icondata.png');">
+                            <p><span class="data-number" id="data_nrDataEntries">0</span> ${translations['dataDataEntries']}</p>
+                        </div>
+                    </div>    
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/iconobservation.png');">
+                            <p><span class="data-number" id="data_nrObservations">0</span> ${translations['dataObservations']}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/iconinsect.png');">
+                            <p><span class="data-number" id="data_nrInsectsSeen">0</span> ${translations['dataInsectsSeen']}</p>
+                        </div>
+                    </div>    
+                    <div class="">
+                        <div class="box-background text-center" style="background-image:url('img/icongroups.png');">
+                            <p><span class="data-number" id="data_nrSpeciesSeen">0</span> ${translations['dataSpeciesSeen']}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>   
+
+            <div class="separator"></div>
+            </div>
+
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">${translations['dataUserActivity']}</span></h3>
+                <div class="separator"></div>
+                </div>
+            </div>
+            
+            <div class="row justify-content-center text-center"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="">
+                        <div class="box-background text-center">
+                            <canvas id="bar-chart" width="400" height="300"></canvas>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+
+            <div class="separator"></div>
+            </div>
+
+            <div class="row justify-content-center text-center"> 
+                <h3><span style="color: #e8de24">${translations['dataObservations']}</span></h3>
+                <div class="separator"></div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center"> 
+                <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                    <div class="box-background">
+                        <table id="obsTable">
+                            <thead>
+                                <tr>
+                                    <th>${translations['dataTableDate']}</th>
+                                    <th>${translations['dataTableSpecies']}</th>
+                                    <th>${translations['dataTableCount']}</th>
+                                    <th>${translations['dataTableDetails']}</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
     </div>
-    <h3 id="data_dataOverviewText">${translations['dataOverviewTableHeader']}</h3>
-    <table>
-        <tr>
-            <th>Data entries</th>
-            <td id="data_nrDataEntries"></td>
-        </tr>
-        <tr>
-            <th>Observations</th>
-            <td id="data_nrObservations"></td>
-        </tr>
-        <tr>
-            <th>Insects seen</th>
-            <td id="data_nrInsectsSeen"></td>
-        </tr>
-        <tr>
-            <th>Species seen</th>
-            <td id="data_nrSpeciesSeen"></td>
-        </tr>                
-    </table>
-    <h3 id="data_userActivityText">User activity</h3>
-    <canvas id="bar-chart" width="400" height="300"></canvas>
-    <h3 id="data_userObservations">Observations</h3>
-    <table id="obsTable">
-        <thead>
-            <td>Date</td>
-            <td>Species</td>
-            <td>Count</td>
-            <td>Details</td>
-        </thead>
-        <tbody>
-        </tbody>
-    <table>
     `
     // Attach the modal
     mb.innerHTML += renderModal(translations['123key'],translations['456key']);
@@ -1454,73 +1772,158 @@ const showSettingsScreen = () =>
 {
     // Get the settings and species
     var settings = getUserSettings();
+    var translations = settings.translations;
 
     // Build the DOM
     renderNav();
+    $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
-    <style>
-    .circle {
-        background-color: #F80;
-        border: 3px solid #FFF;
-        border-radius: 18px;
-        box-shadow: 0 0 2px #888;
-        height: 30px;
-        width: 30px;
-      }
-    </style>
-    <h2 id="settings_title">Settings</h2>
-    <h3 id="settings_subtitle">Lorem ipsum dolor sit amet</h3>
-    <h3 id="settings_generalSettingsText">General settings</h3>
-    <table>
-        <tr>
-            <th>User</th>
-            <th id="settings_userTable"></th>
-        </tr>
-        <tr>
-            <th>Registered at</th>
-            <td id="settings_registeredAtTable"></td>
-        </tr>
-        <tr>
-            <td>Use scientific names</td>
-            <td><input type="checkbox" id="settings_useScientificNamesCheck"></td>
-        </tr>
-        <tr>
-            <td>Show previously seen</td>
-            <td><input type="checkbox" id="settings_showPreviouslySeenCheck"></td>
-        </tr>
-        <tr>
-            <td>Show common species</td>
-            <td><input type="checkbox" id="settings_showCommonSpeciesCheck"></td>
-        </tr>                        
-    </table>
-    <button id="settings_logoutButton">Logout</button>
-    <h3 id="settings_whatCountText">What do you want to count</h3>
-    <div>
-            <h4>Butterflies</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonButterflies3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonButterflies1"><i class="fas fa-bug"></i></span>
-            </div>
-            <h4>Bees</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonBees3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBees1"><i class="fas fa-bug"></i></span>
-            </div>
-            <h4>Birds</h4>
-            <div class="d-inline">
-                <span id="settings_selectButtonBirds3"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds2"><i class="fas fa-bug"></i></span>
-                <span id="settings_selectButtonBirds1"><i class="fas fa-bug"></i></span>
-            </div>
+    <div class="container">
+        <div class="row justify-content-center pt-5">
+            <div class="col-md-12 text-center">
+                <h2><span style="color: #ffe421" id="settings_title">${translations['settingsTitle']}</span></h2>
             
+            </div>
+            <div class="separator">
+                
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+                <h3><span style="color: #e8de24" id="settings_generalSettingsText">${translations['settingsGeneralTitle']}</span></h3>
+                <div class="box-background">
+                    <div class="row">
+                        <p>${translations['settingsUser']} <span class="user-name" id="settings_userTable"></span></p>
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>${translations['settingsUseScientificNames']} <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox" id="settings_useScientificNamesCheck">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>${translations['settingsShowPreviouslySeen']} <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox" id="settings_showPreviouslySeenCheck">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>${translations['settingsShowCommonSpecies']} <span class="user-name">   
+                            <label class="switch">
+                            <input type="checkbox" id="settings_showCommonSpeciesCheck">
+                            <span class="slider round"></span>
+                            </label>
+                        </span>
+                        </p>   
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-12 text-center">
+                            <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-xl-5 col-lg-10 col-md-10 mb-3">
+                <h3><span style="color: #e8de24">${translations['settingsWhatDoYouWantToCount']}</span></h3>
+                <div class="">
+                    <div class="row" style="margin-top: 8px;">   
+                        <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">${translations['settingsNoCounts']}</span></p>
+                    </div>
+                    <div class="row">
+                        <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">${translations['settingsCountGroup']}</span></p>
+                    </div>
+                    <div class="row">
+                        <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">${translations['settingsCountSpecies']}</span></p>
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row" style="margin-top: 8px;">
+                        <img src="img/butterflies.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonButterflies3" checked="checked" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonButterflies2" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonButterflies1" name="butterflies-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <div class="row" style="margin-top: 8px;">
+                            <img src="img/birds.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonBirds3" checked="checked" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonBirds2" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                    <input type="radio" id="settings_selectButtonBirds1" name="birds-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="row" style="margin-top: 8px;">
+                            <img src="img/bees.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonBees3" checked="checked" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonBees2" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonBees1" name="bees-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div>
+                        <!-- <div class="row" style="margin-top: 8px;">
+                            <img src="img/flowers.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">   
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonFlowers3" checked="checked" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonFlowers2" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                  <input type="radio" id="settings_selectButtonFlowers1" name="flowers-check">
+                                  <span class="checkmark"></span>
+                                </label>
+                            </div> 
+                        </div> --> 
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
     `
-
     // Populate the data
     $("#settings_userTable").html(settings.userSettings.name);
     $("#settings_registeredAtTable").html(settings.userSettings.settingsSynchedAt); //NOTE THIS IS NOT THE RIGHT FIELD, DOES NOT EXIST YET IN DATABASE
@@ -1539,13 +1942,13 @@ const showSettingsScreen = () =>
 
     // We can attach butterfly
     var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
-        $('#settings_selectButtonButterflies'+recButterfly).addClass('circle');
+        $('#settings_selectButtonButterflies'+recButterfly).prop('checked', true);
     // We can attach bees
     var recBees = settings.userSettings.speciesGroupsUsers.bees.recordinglevel_id;
-        $('#settings_selectButtonBees'+recBees).addClass('circle');
+        $('#settings_selectButtonBees'+recBees).prop('checked', true);
     // We can attach birds
     var recBirds = settings.userSettings.speciesGroupsUsers.birds.recordinglevel_id;
-        $('#settings_selectButtonBirds'+recBirds).addClass('circle');
+        $('#settings_selectButtonBirds'+recBirds).prop('checked', true);
 
     // Attach the events
     $('#settings_useScientificNamesCheck').click( function () 
@@ -1575,8 +1978,8 @@ const showSettingsScreen = () =>
     // We can attach butterfly group
     $('[id*=selectButtonButterflies]').click(function () 
     {
-        $('[id*=selectButtonButterflies]').removeClass('circle');
-        $(this).addClass('circle');
+        $('[id*=selectButtonButterflies]').prop('checked', false);
+        $(this).prop('checked', true);
         currentSettings = getUserSettings().userSettings;
         recordingLevelTranslator = {
             1: "species",
@@ -1593,8 +1996,8 @@ const showSettingsScreen = () =>
     // We can attach bees group
     $('[id*=settings_selectButtonBees]').click(function () 
     {
-        $('[id*=settings_selectButtonBees]').removeClass('circle');
-        $(this).addClass('circle');
+        $('[id*=settings_selectButtonBees]').prop('checked', false);
+        $(this).prop('checked', true);
         currentSettings = getUserSettings().userSettings;
         recordingLevelTranslator = {
             1: "species",
@@ -1611,8 +2014,8 @@ const showSettingsScreen = () =>
     // We can attach birds group
     $('[id*=settings_selectButtonBirds]').click(function () 
     {
-        $('[id*=settings_selectButtonBirds]').removeClass('circle');
-        $(this).addClass('circle');
+        $('[id*=settings_selectButtonBirds]').prop('checked', false);
+        $(this).prop('checked', true);
         currentSettings = getUserSettings().userSettings;
         recordingLevelTranslator = {
             1: "species",
@@ -1656,8 +2059,10 @@ const showMessagesScreen = () =>
 {
     var settings = getUserSettings();
     var messages = Object.values(settings.messages);
+    var translations = settings.translations;
 
     renderNav();
+    $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
     var mb = document.getElementById('mainBody');
 
@@ -1673,7 +2078,7 @@ const showMessagesScreen = () =>
         else
         {
             read = false;
-            readdate = 'Unread';
+            readdate = `${translations['messagesTitle']}`;
             styling = 'style="font-weight:bold;"';
         }
         messArg = JSON.stringify(messages[i])
@@ -1693,7 +2098,7 @@ const showMessagesScreen = () =>
         <div class="row">
             <div class="col">
                 <div class="card">
-                    <h5 class="card-header">Messages</h5>
+                    <h5 class="card-header">${translations['messagesTitle']}</h5>
                     <div class="card-body">
                         <div class="list-group">
                             ${ messagesHTML }

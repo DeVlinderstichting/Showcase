@@ -112,19 +112,33 @@ class TestDataSeeder extends Seeder
         \App\Models\Language::create(['key' => 'dataTitle', 'en'=>'DATA OVERVIEW']);
         \App\Models\Language::create(['key' => 'dataDescr', 'en'=>'A overview of your visits and observations']);
         \App\Models\Language::create(['key' => 'dataOverviewTableHeader', 'en'=>'Data overview']);
-        \App\Models\Language::create(['key' => 'dataSectionSelector', 'en'=>'Section']);
-        \App\Models\Language::create(['key' => 'dataPreTitle', 'en'=>'WALK data']);
-        \App\Models\Language::create(['key' => 'dataPreDescr', 'en'=>'Select a data']);
-        \App\Models\Language::create(['key' => 'dataPreSelectdataLabel', 'en'=>'Select a data']);
-        \App\Models\Language::create(['key' => 'dataPreInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'dataPreInfoModalContents', 'en'=>'Here is more information about the preselection of the data observation']);
-        \App\Models\Language::create(['key' => 'dataInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'dataInfoModalContents', 'en'=>'Here is more information about data observations']);
-        \App\Models\Language::create(['key' => 'dataPostInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'dataPostInfoModalContents', 'en'=>'Here is more information about data observations']);
-        \App\Models\Language::create(['key' => 'dataPostTitle', 'en'=>'data COUNT']);
-        \App\Models\Language::create(['key' => 'dataPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
+        \App\Models\Language::create(['key' => 'dataDataEntries', 'en'=>'Data entries']);
+        \App\Models\Language::create(['key' => 'dataInsectsSeen', 'en'=>'Insects seen']);
+        \App\Models\Language::create(['key' => 'dataObservations', 'en'=>'Observations']);
+        \App\Models\Language::create(['key' => 'dataSpeciesSeen', 'en'=>'Species seen']);
+        \App\Models\Language::create(['key' => 'dataUserActivity', 'en'=>'User activity']);
+        \App\Models\Language::create(['key' => 'dataUserActivity', 'en'=>'User activity']);
+        \App\Models\Language::create(['key' => 'dataTableDate', 'en'=>'User activity']);
+        \App\Models\Language::create(['key' => 'dataTableSpecies', 'en'=>'User activity']);
+        \App\Models\Language::create(['key' => 'dataTableCount', 'en'=>'User activity']);
+        \App\Models\Language::create(['key' => 'dataTableDetails', 'en'=>'User activity']);
 
+        // Settings screen
+        \App\Models\Language::create(['key' => 'settingsTitle', 'en'=>'Settings']);
+        \App\Models\Language::create(['key' => 'settingsGeneralTitle', 'en'=>'Settings']);
+        \App\Models\Language::create(['key' => 'settingsUser', 'en'=>'User']);
+        \App\Models\Language::create(['key' => 'settingsUseScientificNames', 'en'=>'Use scientific names']);
+        \App\Models\Language::create(['key' => 'settingsShowPreviouslySeen', 'en'=>'Show previously seen']);
+        \App\Models\Language::create(['key' => 'settingsShowCommonSpecies', 'en'=>'Show common species']);
+        \App\Models\Language::create(['key' => 'settingsLogOut', 'en'=>'LOG OUT']);
+        \App\Models\Language::create(['key' => 'settingsWhatDoYouWantToCount', 'en'=>'WHAT DO YOU WANT TO COUNT']);
+        \App\Models\Language::create(['key' => 'settingsNoCounts', 'en'=>'No counts']);
+        \App\Models\Language::create(['key' => 'settingsCountGroup', 'en'=>'Count number within group (not at species level)']);
+        \App\Models\Language::create(['key' => 'settingsCountSpecies', 'en'=>'Count species within group']);
+
+        // Messages screen
+        \App\Models\Language::create(['key' => 'messagesTitle', 'en'=>'Messages']);
+        \App\Models\Language::create(['key' => 'messagesUnread', 'en'=>'Unread']);
 
         $user = \App\Models\User::create(['name'=> 'SirTestington','email'=> 'test@vlinderstichting.nl', 'password'=> Hash::make('123test'), 'accesstoken' => '123token']);
         $user->setRandomAccessToken();

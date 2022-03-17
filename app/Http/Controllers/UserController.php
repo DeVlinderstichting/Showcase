@@ -11,7 +11,44 @@ use DB;
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
 class UserController extends Controller
 {
-    
+    public function welcome()
+    {
+        return view ('userLogin');
+    }
+    public function userLogin(Request $request)
+    {
+        $input = request()->all();
+        $this->validate($request, [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
+        {
+            $user = Auth::user();
+            $user->last_login_date = Carbon::now()->toDateTimeString();
+            $user->save();
+            return redirect()->route('home');
+        } 
+        else 
+        {
+            return redirect()->route('welcome')->withErrors(["username"=>"Ongeldige gebruikersnaam of wachtwoord"]);
+            //    ->with('error','Email-Address And Password Are Wrong.');
+        }
+    }
+    public function showHome()
+    {
+        return view('userHome');
+    }
+    public function showPushMessages()
+    {
+        $user = Auth::user();
+        $mes = $user->usersMessages()->get();
+        return view('userMessages',['messages' => $mes]);
+    }
+
+
+
     public function requestUserPackage()
     {
         $valDat = request()->validate([

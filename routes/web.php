@@ -12,6 +12,17 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/welcome', 'App\Http\Controllers\UserController@welcome');
+Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
+Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
+
+Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
+Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');
+Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@showProjectInfo');
+Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
+
+
 Route::get('/adminLogin', 'App\Http\Controllers\AdminController@adminWelcome');
 Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');
 Route::get('/adminHome', 'App\Http\Controllers\AdminController@adminHome');

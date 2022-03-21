@@ -9,11 +9,6 @@ Users
 @endsection
 
 @section('content')
-    <body style="background-color: #f1f1f1;">
-    <!-- titlebar -->
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">De Vlinderstichting Meetnetten</a>
-    </nav>
 
     <!-- Main content -->
 
@@ -114,19 +109,7 @@ Users
 
             </div>
         </div>
-        <div class="row justify-content-center" id="myFooter">
-            <div class="card-deck mt-4">
-                <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-                    <img src="/images/logo-vlinderstichting.png" class="card-img-top logo">
-                </div>
-                <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-                    <img src="/images/cbs-brand.svg" class="card-img-top logo">
-                </div>
-                <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-                    <img src="/images/lnvmbkl.png" class="card-img-top logo">
-                </div>
-            </div>
-        </div>
+
     </main>
 
 </body>

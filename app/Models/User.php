@@ -60,7 +60,7 @@ class User extends Authenticatable
 
     public function visits()
     {
-        return $this->hasMany('App\Models\Visits', 'App\Models\Visit');
+        return $this->hasMany('App\Models\Visit', 'user_id', 'id');
     }
     public function regions()
     {

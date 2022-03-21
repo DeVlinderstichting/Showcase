@@ -14,5 +14,9 @@ class Species extends Model
     {
         return $this->belongsTo('App\Models\Speciesgroup', 'speciesgroup_id', 'id');
     }
+    public function getName(User $user)
+    {
+        return $this->enname; //update this to incorporate other languages based on user settings 
+    }
 
 }

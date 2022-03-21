@@ -22,6 +22,7 @@ Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHe
 Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@showProjectInfo');
 Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
 
+Route::get('/visitIndex', '\App\Http\Controllers\VisitController@VisitIndex');
 
 Route::get('/adminLogin', 'App\Http\Controllers\AdminController@adminWelcome');
 Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');

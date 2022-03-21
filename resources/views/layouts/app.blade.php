@@ -13,9 +13,11 @@
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     
-    
+    <!-- Font awesome -->
     <link href="/css/all.css" rel="stylesheet">
 
+    <link href="/css/showcase_web.css" rel="stylesheet">
+    
     <script>
         $.ajaxSetup({
             headers: {

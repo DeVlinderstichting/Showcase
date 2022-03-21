@@ -1,0 +1,12 @@
+.background-container {
+    background: url('../img/background_1920x1080.png');
+    background-size: cover;
+    min-height: 800px;
+}
+
+.sign-in-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}

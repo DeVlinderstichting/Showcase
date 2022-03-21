@@ -68,9 +68,9 @@
                                     <td>{{$tr->startdate}}</td>
                                     <td>{{$tr->getDuration()}}</td>
                                     <td>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$tr->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$tr->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$tr->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -100,9 +100,9 @@
                                     <td>{{\App\Models\Species::find($f->flower_id)->first()->getName($user)}}</td>
                                     <td>{{$f->observations()->count()}}</td>
                                     <td>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$f->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$f->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$f->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -133,9 +133,9 @@
                                     <td>{{$f->observations()->count()}}</td>
                                     <td></td>
                                     <td>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$ti->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$ti->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$ti->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
                             @endforeach

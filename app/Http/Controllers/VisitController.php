@@ -26,6 +26,7 @@ class VisitController extends Controller
 
     public function visitShow(Visit $visit)
     {
-        return view ('visitShow', ['visit' => $visit]);
+        $user = Auth::user();
+        return view ('visitShow', ['visit' => $visit, 'user' => $user]);
     }
 }

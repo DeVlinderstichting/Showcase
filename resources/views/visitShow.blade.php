@@ -54,98 +54,220 @@
                             <th>Value</th>
                         </thead>
                         <tbody id="dataTable">
-                            <td>Date</td>
-                            <td>{{$visit->startdate}}</td>
-                            <td>Notes</td>
-                            <td>{{$visit->notes}}</td>
                             @if ($isSingle)
+                                <tr>
+                                    <td>Date</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
                             @endif
                             @if($isTimed)
-                            
+                                <tr>
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Cloud coverage</td>
+                                    <td>{{$visit->cloud}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature</td>
+                                    <td>{{$visit->temperature}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wind</td>
+                                    <td>{{$visit->wind}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
                             @endif
-
-
-                            <tr>
-                                <td>{$so->startdate}</td>
-                                <td>{$so->observations()->first()->id}
-                            </tr>
+                            @if($isTransect)
+                                <tr>
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td>{{$visit->getDuration()}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cloud coverage</td>
+                                    <td>{{$visit->cloud}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature</td>
+                                    <td>{{$visit->temperature}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wind</td>
+                                    <td>{{$visit->wind}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
+                            @endif
+                            @if($isFit)
+                                <tr>
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td>{{$visit->getDuration()}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Observed flower</td>
+                                    <td>{{\App\Models\Species::find($visit->flower_id)->getName($user)}}
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
-                Transect
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="#">Add new visit</a>
-            </h5>
-            <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
+                        Observation
                         <thead>
-                            <th><td>Date<td></th>
-                            <th><td>Name</td></th>
-                            <th><td></td></th>
+                            <th>Species</th>
+                            <th>Number</th>
+                            @if($isTransect)
+                                <th>Section</th>
+                            @endif
                         </thead>
                         <tbody id="dataTable">
-                            @foreach($transect as $tr)
+                            @if ($isSingle)
                                 <tr>
-                                    <td>{$tr->startdate}</td>
-                                    <td>{$tr->observations()->first()->id}
+                                    <td>Date</td>
+                                    <td>{{$visit->startdate}}</td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
-                Fit counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="#">Add new fit count</a>
-            </h5>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
-                        <thead>
-                            <th><td>Flower<td></th>
-                            <th><td>Number of Species</td></th>
-                            <th><td></td></th>
-                        </thead>
-                        <tbody id="dataTable">
-                            @foreach($fit as $f)
                                 <tr>
-                                    <td>{\App\Models\Species::find($f->flower_id)->first()->getName($user)}</td>
-                                    <td>{$f->observations()->count()}
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
                                 </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
-                Timed counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="#">Add new timed count</a>
-            </h5>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
-                        <thead>
-                            <th><td>Startdate<td></th>
-                            <th><td>Enddate</td></th>
-                            <th><td>Number of observations</td></th>
-                            <th><td>Location</td></th>
-                            <th><td></td></th>
-                        </thead>
-                        <tbody id="dataTable">
-                            @foreach($timed as $ti)
+                            @endif
+                            @if($isTimed)
                                 <tr>
-                                    <td>{$ti->startdate}</td>
-                                    <td>{$ti->observations()->first()->id}
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
                                 </tr>
-                            @endforeach
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Cloud coverage</td>
+                                    <td>{{$visit->cloud}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature</td>
+                                    <td>{{$visit->temperature}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wind</td>
+                                    <td>{{$visit->wind}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
+                            @endif
+                            @if($isTransect)
+                                <tr>
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td>{{$visit->getDuration()}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Cloud coverage</td>
+                                    <td>{{$visit->cloud}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature</td>
+                                    <td>{{$visit->temperature}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Wind</td>
+                                    <td>{{$visit->wind}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
+                            @endif
+                            @if($isFit)
+                                <tr>
+                                    <td>Startdate</td>
+                                    <td>{{$visit->startdate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Enddate</td>
+                                    <td>{{$visit->enddate}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Duration</td>
+                                    <td>{{$visit->getDuration()}}</td>
+                                </tr>
+                                <tr>
+                                    <td>Number of observations</td>
+                                    <td>{{$visit->observations()->count()}}
+                                </tr>
+                                <tr>
+                                    <td>Observed flower</td>
+                                    <td>{{\App\Models\Species::find($visit->flower_id)->getName($user)}}
+                                </tr>
+                                <tr>
+                                    <td>Notes</td>
+                                    <td>{{$visit->notes}}</td>
+                                </tr>
+                            @endif
                         </tbody>
                     </table>
                 </div>

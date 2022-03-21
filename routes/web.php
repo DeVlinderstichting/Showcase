@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
+
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 

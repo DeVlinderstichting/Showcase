@@ -7,39 +7,17 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="shortcut icon" href="/favicon.ico">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.1/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/js/bootstrap.min.js"></script>
-    <style>
-        html,
-        body,        <div class="card-group mt-4">
-            <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-              <img src="/images/logo-vlinderstichting.png" class="card-img-top logo">
-            </div>
-            <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-              <img src="/images/cbs-brand.svg" class="card-img-top logo">
-            </div>
-            <div class="card border-0" style="background-color: rgba(245, 245, 245, 0);">
-              <img src="/images/lnvmbkl.png" class="card-img-top logo">
-            </div>
-          </div>
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-family: "Roboto", sans-serif;
-        }
+    
+    <!-- Font awesome -->
+    <link href="/css/all.css" rel="stylesheet">
 
-
-    </style>
-    <title>@yield('title')</title>
-
+    <link href="/css/showcase_web.css" rel="stylesheet">
+    
     <script>
         $.ajaxSetup({
             headers: {
@@ -47,56 +25,50 @@
             }
         });
 
-        function submitExtraQuestion(postTo, answerValue) {
-            $.ajax({
-                type: 'POST',
-                url: postTo,
-                data: {
-                    "answer": answerValue
-                }
-            });
-        }
-
     </script>
 
 </head>
 
 <body>
 
-    <!-- titlebar -->
-    <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a href="/adminHome" class="navbar-brand col-md-3 col-lg-2 mr-0 px-3"><i class="fa fa-home"></i> Showcase</a>
-        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse"
-            data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </nav>
+    <!-- navbar -->
 
-    <div class="container-fluid">
-        <div class="row">
-            @yield('sidebar')
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+          <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+            <span class="fs-4">Showcase</span>
+          </a>
+    
+          <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Monitoring</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Identification</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">News</a></li>
+            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i></a></li>
+          </ul>
+        </header>
+      </div>
 
+        @yield('content')
 
-            <!-- Main content -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+    <div class="container">
+        <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+          <p class="col-md-4 mb-0 text-muted">&copy; 2022 Showcase</p>
+      
+          <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+            <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+          </a>
+      
+          <ul class="nav col-md-4 justify-content-end">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Monitoring</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Identification</a></li>
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">News</a></li>
+          </ul>
+        </footer>
+      </div>
 
-                <div class="d-flex flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom">
-                    <h2 class="h2">@yield('title')</h2>
-                </div>
-
-                @if($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-                </div>
-                @endif
-                
-                @yield('content')
-            <!-- END MAIN -->
-            </main>
-        </div>
-    </div>
 </body>
 
 </html>

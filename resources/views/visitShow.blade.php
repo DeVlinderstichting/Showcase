@@ -54,8 +54,14 @@
                             <th>Value</th>
                         </thead>
                         <tbody id="dataTable">
-                            @if (@isSingle)
-
+                            <td>Date</td>
+                            <td>{{$visit->startdate}}</td>
+                            <td>Notes</td>
+                            <td>{{$visit->notes}}</td>
+                            @if ($isSingle)
+                            @endif
+                            @if($isTimed)
+                            
                             @endif
 
 

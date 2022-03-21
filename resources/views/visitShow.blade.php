@@ -17,7 +17,7 @@
         $acm = \App\Models\CountingMethod::all();
         foreach($acm as $cm)
         {
-            if ($visit->countingmethod_id == $cm-id)
+            if ($visit->countingmethod_id == $cm->id)
             {
                 if ($cm->name == 'single')
                 {

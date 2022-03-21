@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/welcome', 'App\Http\Controllers\UserController@welcome');
+
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 
@@ -61,3 +61,5 @@ Route::get('logoff', function()
 //Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
 Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
 
+
+Route::get('/*', 'App\Http\Controllers\GeneralPagesController@welcome');

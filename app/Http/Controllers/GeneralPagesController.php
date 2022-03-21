@@ -6,7 +6,11 @@ use Illuminate\Http\Request;
 
 class GeneralPagesController extends Controller
 {
-    
+    public function welcome()
+    {
+        return view ('landingpage');
+    }
+
     public function showIdHelp()
     {
         $idhelps = \App\Models\Region::all()->pluck('species_id_help');

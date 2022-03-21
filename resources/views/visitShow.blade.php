@@ -21,6 +21,7 @@
                         <thead>
                             <th><td>Date<td></th>
                             <th><td>Species</td></th>
+                            <th><td></td></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($singleObservations as $so)
@@ -45,6 +46,7 @@
                         <thead>
                             <th><td>Date<td></th>
                             <th><td>Name</td></th>
+                            <th><td></td></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($transect as $tr)
@@ -69,6 +71,7 @@
                         <thead>
                             <th><td>Flower<td></th>
                             <th><td>Number of Species</td></th>
+                            <th><td></td></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($fit as $f)
@@ -95,6 +98,7 @@
                             <th><td>Enddate</td></th>
                             <th><td>Number of observations</td></th>
                             <th><td>Location</td></th>
+                            <th><td></td></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($timed as $ti)

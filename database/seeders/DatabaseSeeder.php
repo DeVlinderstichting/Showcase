@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             SpeciesSeeder::class,
             CountingMethodsSeeder::class,
             RecordingLevelsSeeder::class,
+            LanguageSeeder::class,
             TestDataSeeder::class,
         ]);
     }

@@ -168,106 +168,15 @@
                             @endif
                         </thead>
                         <tbody id="dataTable">
-                            @if ($isSingle)
+                            @foreach($visit->observations()->get() as $obs)
                                 <tr>
-                                    <td>Date</td>
-                                    <td>{{$visit->startdate}}</td>
+                                    <td>{{$obs->species()->first()->getName($user)}}</td>
+                                    <td>{{$obs->number}}</td>
+                                    @if($isTransect)
+                                        <td>{{$obs->transectSection()->get()->name}}</td>
+                                    @endif
                                 </tr>
-                                <tr>
-                                    <td>Notes</td>
-                                    <td>{{$visit->notes}}</td>
-                                </tr>
-                            @endif
-                            @if($isTimed)
-                                <tr>
-                                    <td>Startdate</td>
-                                    <td>{{$visit->startdate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Enddate</td>
-                                    <td>{{$visit->enddate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Number of observations</td>
-                                    <td>{{$visit->observations()->count()}}
-                                </tr>
-                                <tr>
-                                    <td>Cloud coverage</td>
-                                    <td>{{$visit->cloud}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Temperature</td>
-                                    <td>{{$visit->temperature}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Wind</td>
-                                    <td>{{$visit->wind}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Notes</td>
-                                    <td>{{$visit->notes}}</td>
-                                </tr>
-                            @endif
-                            @if($isTransect)
-                                <tr>
-                                    <td>Startdate</td>
-                                    <td>{{$visit->startdate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Enddate</td>
-                                    <td>{{$visit->enddate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Duration</td>
-                                    <td>{{$visit->getDuration()}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Cloud coverage</td>
-                                    <td>{{$visit->cloud}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Temperature</td>
-                                    <td>{{$visit->temperature}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Wind</td>
-                                    <td>{{$visit->wind}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Number of observations</td>
-                                    <td>{{$visit->observations()->count()}}
-                                </tr>
-                                <tr>
-                                    <td>Notes</td>
-                                    <td>{{$visit->notes}}</td>
-                                </tr>
-                            @endif
-                            @if($isFit)
-                                <tr>
-                                    <td>Startdate</td>
-                                    <td>{{$visit->startdate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Enddate</td>
-                                    <td>{{$visit->enddate}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Duration</td>
-                                    <td>{{$visit->getDuration()}}</td>
-                                </tr>
-                                <tr>
-                                    <td>Number of observations</td>
-                                    <td>{{$visit->observations()->count()}}
-                                </tr>
-                                <tr>
-                                    <td>Observed flower</td>
-                                    <td>{{\App\Models\Species::find($visit->flower_id)->getName($user)}}
-                                </tr>
-                                <tr>
-                                    <td>Notes</td>
-                                    <td>{{$visit->notes}}</td>
-                                </tr>
-                            @endif
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

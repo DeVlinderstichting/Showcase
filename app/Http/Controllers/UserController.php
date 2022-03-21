@@ -47,8 +47,6 @@ class UserController extends Controller
         return view('userMessages',['messages' => $mes]);
     }
 
-
-
     public function requestUserPackage()
     {
         $valDat = request()->validate([

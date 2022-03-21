@@ -24,4 +24,8 @@ class observation extends Model
     {
         return $this->hasMany('App\Models\Photos', 'visit_id');
     }
+    public function transectSection()
+    {
+        return $this->belongsTo('App\Models\TransectSections', 'transect_section_id', 'id');
+    }
 }

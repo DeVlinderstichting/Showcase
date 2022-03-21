@@ -29,4 +29,16 @@ class VisitController extends Controller
         $user = Auth::user();
         return view ('visitShow', ['visit' => $visit, 'user' => $user]);
     }
+    public function visitCreate($visit_id = null, $visitType = 1)
+    {
+        $user = Auth::user();
+        $visit=null;
+        if (($visit_id!= null) && ($visit_id > 0))
+        {
+            $visit= \App\Models\Visit::find($visit_id);
+        }
+        $minDate = date('Y-m-d', strtotime("2022-01-01"));
+        $maxDate = date('Y-m-d');
+        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user]);
+    }
 }

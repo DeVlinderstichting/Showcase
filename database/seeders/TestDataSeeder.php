@@ -61,15 +61,25 @@ class TestDataSeeder extends Seeder
         \App\Models\TransectsUsers::create(['transect_id'=> $tr->id, 'user_id' => $user->id]);
         \App\Models\TransectsUsers::create(['transect_id'=> $tr2->id, 'user_id' => $user->id]);
 
-    /*    $countingmethod_id = \App\CountingMethod::first()->id;
+        $fitCom = \App\Models\CountingMethod::where('name', 'fit')->first();
+        $singleCom = \App\Models\CountingMethod::where('name', 'single')->first();
+        $transectCom = \App\Models\CountingMethod::where('name', 'transect')->first();
+        $timedCom = \App\Models\CountingMethod::where('name', 'timed')->first();
+        $speciesGroupRecordingLevels = [];
+        $speciesGroupRecordingLevel1 = \App\Models\MethodSpeciesgroupRecordinglevel::create(['recordinglevel_id' => \App\Models\RecordingLevel::where('name', 'species')->first()->id, 'speciesgroup_id' => \App\Models\Speciesgroup::where('name', 'butterflies')->first()->id]);
+        $speciesGroupRecordingLevel2 = \App\Models\MethodSpeciesgroupRecordinglevel::create(['recordinglevel_id' => \App\Models\RecordingLevel::where('name', 'group')->first()->id, 'speciesgroup_id' => \App\Models\Speciesgroup::where('name', 'bees')->first()->id]);
+        $speciesGroupRecordingLevels[] = $speciesGroupRecordingLevel1; 
+        $speciesGroupRecordingLevels[] = $speciesGroupRecordingLevel2; 
 
-        $theVisit = \App\Models\Visit::create(['countingmethod_id' => $countingmethod_id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '3','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','flower_id' => '1','method_id' => '1']);
+        $method = \App\Models\Method::getMethod($speciesGroupRecordingLevels);
+        $rawGeom = '{ "type":"Point","coordinates":[52.2457984,6.23188379999999]}';
+        $geom = \DB::raw("ST_GeomFromGeoJSON('".$rawGeom."')");
+        $theVisit = \App\Models\Visit::create(['countingmethod_id' => $singleCom->id,'startdate' => '2022-01-02 12:01:03','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
         $sp = \App\Models\Species::where('nlname', 'koninginnenpage')->first();
-    //    \App\Models\Observation::create(['species_id' => $sp->id,'observationtime' => '','number' => '','visit_id' => '','transect_section_id' => '','location' => '']);
+        \App\Models\Observation::create(['species_id' => $sp->id,'observationtime' => '2022-01-02 12:23:03','number' => 1,'visit_id' => $theVisit->id]);
 
-        \App\Models\Visit::create(['countingmethod_id' => $countingmethod_id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '3','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','flower_id' => '1','method_id' => '2']);
-        \App\Models\Visit::create(['countingmethod_id' => $countingmethod_id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '3','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','flower_id' => '1','method_id' => '3']);
-        \App\Models\Visit::create(['countingmethod_id' => $countingmethod_id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '3','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','flower_id' => '1','method_id' => '4']);
-        */
+        \App\Models\Visit::create(['countingmethod_id' => $fitCom->id,'startdate' => '2022-01-02 12:01:03','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','region_id' => '1','flower_id' => '1','method_id' => $method->id, 'location' => $geom]);
+        \App\Models\Visit::create(['countingmethod_id' => $transectCom->id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
+        \App\Models\Visit::create(['countingmethod_id' => $timedCom->id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
     }
 }

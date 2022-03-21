@@ -3,11 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use \App\Models\Visit;
 use Auth;
 
 class VisitController extends Controller
 {
-    public function VisitIndex()
+    public function visitIndex()
     {
         $singleObsCountingMethodId = \App\Models\CountingMethod::where('name', 'single')->first()->id;
         $fitCountingMethodId = \App\Models\CountingMethod::where('name', 'fit')->first()->id;
@@ -21,5 +22,10 @@ class VisitController extends Controller
         $transect = $user->visits()->where('countingmethod_id', $transectCountingMethodId)->get();
 
         return view('visitIndex',['singleObservations' => $singleObs, 'fit' => $fit, 'timed' => $timed, 'transect' => $transect, 'user' => $user]);
+    }
+
+    public function visitShow(Visit $visit)
+    {
+        return view ('visitShow', ['visit' => $visit]);
     }
 }

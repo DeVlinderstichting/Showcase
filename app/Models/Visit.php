@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Visit extends Model
 {
@@ -33,5 +34,20 @@ class Visit extends Model
     public function method()
     {
         return $this->belongsTo('App\Models\Method', 'method_id', 'id');
+    }
+    public function transect()
+    {
+        return $this->belongsTo('App\Models\Transect', 'region_id', 'id');
+    }
+    public function getDuration()
+    {
+        if (($this->startdate == null) || ($this->enddate == null))
+        {
+            return "-";
+        }
+        $start = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->startdate);
+        $end = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->enddate);
+        $diff = $start->diffInHours($end) . ':' . str_pad($start->diffInMinutes($end) - (floor($start->diffInHours($end)) * 60), 2, '0', STR_PAD_LEFT);
+        return $diff;
     }
 }

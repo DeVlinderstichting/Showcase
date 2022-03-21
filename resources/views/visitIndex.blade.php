@@ -19,14 +19,27 @@
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
                         <thead>
-                            <th><td>Date<td></th>
-                            <th><td>Species</td></th>
+                            <th>Date</th>
+                            <th>Species</th>
+                            <th>Number</th>
+                            <th></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($singleObservations as $so)
                                 <tr>
-                                    <td>{$so->startdate}</td>
-                                    <td>{$so->observations()->first()->id}
+                                    <td>{{$so->startdate}}</td>
+                                    @if($so->observations()->first() != null) 
+                                        <td>{{$so->observations->first()->species()->first()->getName($user)}}</td>
+                                        <td>{{$so->observations->first()->count()}}</td>
+                                        @else
+                                            <td>-</td><td>-</td>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -43,14 +56,22 @@
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
                         <thead>
-                            <th><td>Date<td></th>
-                            <th><td>Name</td></th>
+                            <th>Name</th>
+                            <th>Date</th>
+                            <th>Duration</th>
+                            <th></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($transect as $tr)
                                 <tr>
-                                    <td>{$tr->startdate}</td>
-                                    <td>{$tr->observations()->first()->id}
+                                    <td>{{$tr->transect()->first()->name}}</td>
+                                    <td>{{$tr->startdate}}</td>
+                                    <td>{{$tr->getDuration()}}</td>
+                                    <td>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -67,14 +88,22 @@
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
                         <thead>
-                            <th><td>Flower<td></th>
-                            <th><td>Number of Species</td></th>
+                            <th>Date</th>
+                            <th>Flower</th>
+                            <th>Number of Species</th>
+                            <th></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($fit as $f)
                                 <tr>
-                                    <td>{\App\Models\Species::find($f->flower_id)->first()->getName($user)}</td>
-                                    <td>{$f->observations()->count()}
+                                    <td>{{$f->startdate}}</td>
+                                    <td>{{\App\Models\Species::find($f->flower_id)->first()->getName($user)}}</td>
+                                    <td>{{$f->observations()->count()}}</td>
+                                    <td>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -91,16 +120,23 @@
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
                         <thead>
-                            <th><td>Startdate<td></th>
-                            <th><td>Enddate</td></th>
-                            <th><td>Number of observations</td></th>
-                            <th><td>Location</td></th>
+                            <th>Startdate</th>
+                            <th>Enddate</th>
+                            <th>Number of observations</th>
+                            <th></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach($timed as $ti)
                                 <tr>
-                                    <td>{$ti->startdate}</td>
-                                    <td>{$ti->observations()->first()->id}
+                                    <td>{{$ti->startdate}}</td>
+                                    <td>{{$ti->enddate}}</td>
+                                    <td>{{$f->observations()->count()}}</td>
+                                    <td></td>
+                                    <td>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$so->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

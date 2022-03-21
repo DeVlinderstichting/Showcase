@@ -55,7 +55,11 @@ class CreateVisitsTable extends Migration
         });
 
         DB::statement("ALTER TABLE visits ADD CONSTRAINT check_location CHECK (status = 1 OR (status = 2 AND location is not null));");
-        DB::statement("ALTER TABLE visits ADD CONSTRAINT check_enddate CHECK (status = 1 OR (status = 2 AND countingmethod_id = 1 AND enddate is null) OR (status = 2 AND countingmethod_id = 2 AND enddate is not null) OR (status = 2 AND countingmethod_id = 3 AND enddate is null) OR (status = 2 AND countingmethod_id = 4 AND enddate is null));");
+        DB::statement("ALTER TABLE visits ADD CONSTRAINT check_enddate CHECK (status = 1 
+            OR (status = 2 AND countingmethod_id = 1 AND enddate is null) 
+            OR (status = 2 AND countingmethod_id = 2 AND enddate is not null) 
+            OR (status = 2 AND countingmethod_id = 3 AND enddate is not null) 
+            OR (status = 2 AND countingmethod_id = 4 AND enddate is null));");
         DB::statement("ALTER TABLE visits ADD CONSTRAINT check_wind CHECK (status = 1 
             OR (status = 2 AND countingmethod_id = 1 AND wind is null) 
             OR (status = 2 AND countingmethod_id = 2 AND wind is not null) 

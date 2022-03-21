@@ -18,7 +18,7 @@ Admin home
                 My data 
             </h5>
             <div class="card-body">
-                <a class="btn btn-primary btn-sm" role="button" href="/visitIndex">My visits</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/visit">My visits</a>
                 <a class="btn btn-primary btn-sm" role="button" href="/user/create/-1">Data download</a>
                 <a class="btn btn-primary btn-sm" role="button" href="/user">Data summary</a>
                 <a class="btn btn-primary btn-sm" role="button" href="/user">Map</a>

@@ -10,10 +10,13 @@
     min-height: 600px;
 }
 
-.sign-in-container {
+.central-container {
     width: 100%;
     max-width: 600px;
     padding: 15px;
     margin: auto;
 }
 
+.switch-direction {
+    flex-direction: row-reverse;
+}

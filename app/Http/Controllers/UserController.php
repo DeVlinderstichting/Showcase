@@ -28,7 +28,7 @@ class UserController extends Controller
             $user = Auth::user();
             $user->last_login_date = Carbon::now()->toDateTimeString();
             $user->save();
-            return redirect()->route('home');
+            return view ('userHome');
         } 
         else 
         {

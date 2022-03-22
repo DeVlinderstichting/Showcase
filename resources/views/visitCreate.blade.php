@@ -86,7 +86,7 @@
                         <div class="invalid-feedback"> {{$errors->first('notes')}} </div>
                     @endif
                 </div>
-                    @if(($isTransect) || ($isTimed)
+                    @if(($isTransect) || ($isTimed))
                         <label for="cloud" class="col-md-3 col-form-label">Cloud cover</label>
                         <div class="col-md-9">
                             <input type="time" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">

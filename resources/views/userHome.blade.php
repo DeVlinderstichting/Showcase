@@ -21,10 +21,10 @@ My Profile
 <div class="container mb-3">
     <h1 class="p-4">Statistics</h1>
     <div class="row">
-        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">100 Observations</div></div>
-        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">100 Species seen</div></div>
-        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">100 Species groups seen</div></div>
-        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">100 Total insects seen</div></div>
+        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">{{$obsCount}} observations</div></div>
+        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">{{$spCount}} Species seen</div></div>
+        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">{{$spGroupCount}} Species groups seen</div></div>
+        <div class="col-md-6 d-flex justify-content-center"><div class="p-4 border rounded w-75 my-4">{{$nrOfInsects}} Total insects seen</div></div>
     </div>
     <div class="row my-4">
         <div class="col-lg-6">
@@ -97,33 +97,132 @@ My Profile
       'April',
       'May',
       'June',
+      'July',
+      'August',
+      'September',
+      'October', 
+      'November',
+      'December'
     ];
-  
-    const data = {
+    var thisYearAll = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var thisYearMine = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var lastYearAll = [0,0,0,0,0,0,0,0,0,0,0,0];
+    var lastYearMine = [0,0,0,0,0,0,0,0,0,0,0,0];
+
+    var countPerSpeciesAll = [];
+    var countPerSpeciesMine = [];
+    var speciesLabels = [];
+    var colorScheme = [];
+
+    @foreach($allSpMonthlyData as $asmd)
+        @if($asmd->year == date("Y"))
+            thisYearAll
+        @else 
+            lastYearAll
+        @endif 
+        [{{$asmd->month}}] = {{$asmd->count}};
+    @endforeach
+    @foreach($userSpMonthlyData as $usmd)
+        @if($usmd->year == date("Y"))
+            thisYearMine
+        @else 
+            lastYearMine
+        @endif 
+        [{{$usmd->month}}] = {{$usmd->count}};
+    @endforeach
+
+    function getRandomColor() 
+    {
+        var letters = '0123456789ABCDEF';
+        var color = '#';
+        for (var i = 0; i < 6; i++) 
+        {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+    @foreach($countPerSpeciesUser as $userSp)
+        speciesLabels.push('{{\App\Models\Species::find($userSp->species_id)->getName($user)}}');
+        countPerSpeciesMine.push({{$userSp->sum}});
+        if (colorScheme.length == 0) { colorScheme.push('red'); }
+        if (colorScheme.length == 1) { colorScheme.push('green'); }
+        if (colorScheme.length == 2) { colorScheme.push('blue'); }
+        if (colorScheme.length == 3) { colorScheme.push('yellow'); }
+        if (colorScheme.length == 4) { colorScheme.push('orange'); }
+        if (colorScheme.length == 5) { colorScheme.push('gray'); }
+        if (colorScheme.length == 6) { colorScheme.push('purple'); }
+        if (colorScheme.length > 6) { colorScheme.push(getRandomColor()); }
+        var randomColor = Math.floor(Math.random()*16777215).toString(16);
+        @foreach($countPerSpeciesAll as $allSp)
+            @if ($allSp->species_id == $userSp->species_id)
+                countPerSpeciesAll.push({{$allSp->sum}});
+                @break;
+            @endif
+        @endforeach
+    @endforeach
+
+    //for(var i = 0 ; i < allSpDat.length; i++)
+
+    const barData = {
       labels: labels,
       datasets: [{
-        label: 'Species per month',
+        label: 'Species per month (all {{date("Y")}})',
+        backgroundColor: 'rgb(180, 50, 70)',
+        borderColor: 'rgb(180, 50, 70)',
+        data: thisYearAll,
+      },{
+        label: 'Species per month (all {{date("Y",strtotime("-1 year"))}})',
         backgroundColor: 'rgb(255, 99, 132)',
         borderColor: 'rgb(255, 99, 132)',
-        data: [0, 10, 5, 2, 20, 30, 45],
+        data: lastYearAll,
+      },
+      {
+        label: 'Species per month (mine {{date("Y")}})',
+        backgroundColor: 'rgb(70, 50, 180)',
+        borderColor: 'rgb(70, 50, 180)',
+        data: thisYearMine,
+      },
+      {
+        label: 'Species per month (mine {{date("Y",strtotime("-1 year"))}})',
+        backgroundColor: 'rgb(132, 99, 255)',
+        borderColor: 'rgb(132, 99, 255)',
+        data: lastYearMine,
       }]
+    };
+
+    const pie1Data = {
+        labels: speciesLabels,
+        datasets: [{
+        label: 'Seen species (mine)',
+        backgroundColor: colorScheme,
+        borderColor: colorScheme,
+        data: countPerSpeciesMine}]
+    };
+    const pie2Data = {
+        labels: speciesLabels,
+        datasets: [{
+        label: 'Seen species (all)',
+        backgroundColor : colorScheme,
+        borderColor: colorScheme,
+        data: countPerSpeciesAll}]
     };
   
     const config1 = {
       type: 'bar',
-      data: data,
+      data: barData,
       options: {}
     };
   
     const config2 = {
       type: 'pie',
-      data: data,
+      data: pie1Data,
       options: {}
     };
   
     const config3 = {
       type: 'pie',
-      data: data,
+      data: pie2Data,
       options: {}
     };
   </script>

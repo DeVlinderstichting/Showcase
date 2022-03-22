@@ -41,10 +41,10 @@
           </a>
     
           <ul class="nav nav-pills">
-            <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">About</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Monitoring</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Identification</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">News</a></li>
+            <li class="nav-item"><a href="/showProjectInfo" class="nav-link active" aria-current="page">About</a></li>
+            <li class="nav-item"><a href="/showRecordingMethodExplanation" class="nav-link">Monitoring</a></li>
+            <li class="nav-item"><a href="/showIdHelp" class="nav-link">Identification</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">News</a></li>
             <li class="nav-item"><a href="/showLoginScreen" class="nav-link"><i class="fas fa-user"></i></a></li>
           </ul>
         </header>

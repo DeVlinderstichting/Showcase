@@ -29,7 +29,7 @@ class UserController extends Controller
             $user = Auth::user();
             $user->last_login_date = Carbon::now()->toDateTimeString();
             $user->save();
-            return view ('userHome');
+            return ($this->showHome());
         } 
         else 
         {
@@ -39,7 +39,39 @@ class UserController extends Controller
     }
     public function showHome()
     {
-        return view('userHome');
+        $user = Auth::user();
+        $allObs = $user->observations()->get();
+        $allSpIds = $allObs->pluck('species_id')->unique(); 
+        $speciesNr = $allSpIds->count();
+        $spList = \App\Models\Species::whereIn('id', $allSpIds)->get();
+        $spGroups = $spList->pluck('speciesgroup_id')->unique();
+        $spGroupCount = $spGroups->count();
+        $speciesNr = $allObs->pluck('species_id')->unique()->count();
+        $nrOfInsects = $allObs->pluck('number')->sum();
+
+        ##select species count per year for user and for eba 
+        ## + all indivs per species for me and for eba (last year)
+        $dateOneYearAgo = Carbon::now()->subYear()->toDateTimeString();
+
+     /*   select count(distinct(species_id)), 
+extract (year from startdate) as year, 
+extract (month from startdate) as month from visits 
+join observations on visits.id = observations.visit_id 
+where visits.startdate > '2021-01-01' 
+group by year, month */
+
+        $getAllSpCountsQLine="select count(distinct(species_id)), sum(number), extract (year from startdate) as year, extract (month from startdate) as month from visits  join observations on visits.id = observations.visit_id where visits.startdate > '$dateOneYearAgo' group by year, month";
+        $getUserSpCountQLine="select count(distinct(species_id)), sum(number), extract (year from startdate) as year, extract (month from startdate) as month from visits  join observations on visits.id = observations.visit_id where visits.startdate > '$dateOneYearAgo' and visits.user_id = $user->id group by year, month";
+
+       // $getAllSpCountsQLine= "select species_id, sum(number), extract (year from startdate) as year from visits  join observations on visits.id = observations.visit_id where visits.startdate > $dateOneYearAgo group by species_id, year";
+       // $getUserSpCountQLine = "select species_id, sum(number), extract (year from startdate) as year from visits join observations on visits.id = observations.visit_id where visits.startdate > $dateOneYearAgo and visits.user_id = $user->id group by species_id, year";
+        $countPerMonthAllSp = DB::select(DB::raw($getAllSpCountsQLine));
+        $countPerMonthUser = DB::select(DB::raw($getUserSpCountQLine));
+
+        $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id, number"));
+        $countPerSpeciesAll = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id"));
+
+        return view('userHome', ['obsCount' => $allObs->count(), 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user]);
     }
     public function showSettings()
     {

@@ -18,8 +18,10 @@ Translations
                 Identifiction help
             </h5>
             <div class="card-body">
-                @foreach($idhelps as $idHelp)
-
+                @foreach($idHelps as $idHelp)
+                    @if ($idHelp != null)
+                        {{$idHelp}}
+                    @endif
                 @endforeach
             </div>
         </div>

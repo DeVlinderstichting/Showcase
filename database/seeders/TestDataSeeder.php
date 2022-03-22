@@ -76,7 +76,18 @@ class TestDataSeeder extends Seeder
         $geom = \DB::raw("ST_GeomFromGeoJSON('".$rawGeom."')");
         $theVisit = \App\Models\Visit::create(['countingmethod_id' => $singleCom->id,'startdate' => '2022-01-02 12:01:03','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
         $sp = \App\Models\Species::where('nlname', 'koninginnenpage')->first();
-        \App\Models\Observation::create(['species_id' => $sp->id,'observationtime' => '2022-01-02 12:23:03','number' => 1,'visit_id' => $theVisit->id]);
+        \App\Models\Observation::create(['species_id' => $sp->id,'observationtime' => '2022-01-02 12:23:03','number' => 3,'visit_id' => $theVisit->id]);
+        $sp2 = \App\Models\Species::where('nlname', 'aardbeivlinder')->first();
+        \App\Models\Observation::create(['species_id' => $sp2->id,'observationtime' => '2022-01-02 12:23:03','number' => 1,'visit_id' => $theVisit->id]);
+        $sp3 = \App\Models\Species::where('nlname', 'dagpauwoog')->first();
+        \App\Models\Observation::create(['species_id' => $sp3->id,'observationtime' => '2022-01-02 12:23:03','number' => 6,'visit_id' => $theVisit->id]);
+
+        $theVisit2 = \App\Models\Visit::create(['countingmethod_id' => $singleCom->id,'startdate' => '2022-01-02 12:01:03','status' => '2','user_id' => $user2->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
+        \App\Models\Observation::create(['species_id' => $sp->id,'observationtime' => '2022-01-02 12:23:03','number' => 1,'visit_id' => $theVisit2->id]);
+        \App\Models\Observation::create(['species_id' => $sp2->id,'observationtime' => '2022-01-02 12:23:03','number' => 3,'visit_id' => $theVisit2->id]);
+        $sp4 = \App\Models\Species::where('nlname', 'boomblauwtje')->first();
+        \App\Models\Observation::create(['species_id' => $sp4->id,'observationtime' => '2022-01-02 12:23:03','number' => 3,'visit_id' => $theVisit2->id]);
+
 
         \App\Models\Visit::create(['countingmethod_id' => $fitCom->id,'startdate' => '2022-01-02 12:01:03','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','region_id' => '1','flower_id' => '1','method_id' => $method->id, 'location' => $geom]);
         \App\Models\Visit::create(['countingmethod_id' => $transectCom->id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','transect_id' => '1','region_id' => '1','method_id' => $method->id, 'location' => $geom]);

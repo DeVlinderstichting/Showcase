@@ -57,7 +57,6 @@ class User extends Authenticatable
         return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'id', 'countingmethod_id', 'id');
     }
 
-
     public function visits()
     {
         return $this->hasMany('App\Models\Visit', 'user_id', 'id');
@@ -69,7 +68,7 @@ class User extends Authenticatable
 
     public function observations()
     {
-        return $this->hasManyThrough('App\Models\Observations', 'App\Models\visits', 'user_id', 'visit_id', 'id', 'id');
+        return $this->hasManyThrough('App\Models\Observation', 'App\Models\Visit', 'user_id', 'visit_id', 'id', 'id');
     }
 
     public function transects()

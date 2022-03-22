@@ -32,7 +32,7 @@ class UserController extends Controller
         } 
         else 
         {
-            return redirect()->route('welcome')->withErrors(["username"=>"Ongeldige gebruikersnaam of wachtwoord"]);
+            return redirect()->route('showLogin')->withErrors(["username"=>"Ongeldige gebruikersnaam of wachtwoord"]);
             //    ->with('error','Email-Address And Password Are Wrong.');
         }
     }

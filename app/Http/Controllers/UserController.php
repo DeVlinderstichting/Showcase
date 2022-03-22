@@ -22,7 +22,8 @@ class UserController extends Controller
             'username' => 'required',
             'password' => 'required',
         ]);
-        $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+      //  $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
+        $fieldType = 'email';
         if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             $user = Auth::user();

@@ -10,14 +10,14 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js" integrity="sha512-QSkVNOCYLtj73J4hbmVoOV6KVZuMluZlioC+trLpewV8qMjsWqlIQvkn1KGX2StWvPMdWGBqim1xlC8krl1EKQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
     <!-- Font awesome -->
     <link href="/css/all.css" rel="stylesheet">
 
     <link href="/css/showcase_web.css" rel="stylesheet">
-    
+
     <script>
         $.ajaxSetup({
             headers: {
@@ -45,7 +45,7 @@
             <li class="nav-item"><a href="#" class="nav-link">Monitoring</a></li>
             <li class="nav-item"><a href="#" class="nav-link">Identification</a></li>
             <li class="nav-item"><a href="#" class="nav-link">News</a></li>
-            <li class="nav-item"><a href="#" class="nav-link"><i class="fas fa-user"></i></a></li>
+            <li class="nav-item"><a href="/showLoginScreen" class="nav-link"><i class="fas fa-user"></i></a></li>
           </ul>
         </header>
       </div>

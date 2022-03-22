@@ -78,7 +78,7 @@ My Profile
     <h1 class="p-4">Observations</h1>
     <div class="row">
         <div class="col-md-3 d-flex align-items-center justify-content-center">
-            <a href="/observations" class="btn btn-outline-primary m-4">All Observations</a>
+            <a href="/visit" class="btn btn-outline-primary m-4">All Observations</a>
         </div>
         <div class="col-md-9">
             <div class="map border rounded ratio ratio-4x3 bg-secondary align-middle text-center">

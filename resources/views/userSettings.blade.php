@@ -56,6 +56,9 @@ User settings
                     </tr>                                        
                 </tbody>
             </table>
+            <div class="container-fluid text-center">
+                <a href="#" class="btn btn-outline-primary">Logout</a>
+            </div>
         </div>
     </div>
 </div>

@@ -40,6 +40,11 @@ class UserController extends Controller
     {
         return view('userHome');
     }
+    public function showSettings()
+    {
+        return view('userSettings');
+    }
+
     public function showPushMessages()
     {
         $user = Auth::user();

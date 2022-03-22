@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/showLoginScreen', 'App\Http\Controllers\UserController@showLogin')->name('showLogin');
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
+Route::get('/settings', '\App\Http\Controllers\UserController@showSettings')->name('home')->middleware('auth');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');

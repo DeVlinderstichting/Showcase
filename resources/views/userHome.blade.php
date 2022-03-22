@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Admin home
+My Profile
 @endsection
 
 @section('sidebar')
@@ -13,7 +13,8 @@ Admin home
 
 @section('content')
 <div class="container mb-3">
-    <h1 class="p-4">My Profile</h1>
+    <h1 class="p-4">My Profile <a href="/settings" class="btn btn-outline-primary float-end">Settings</a></h1>
+    
 </div>
 
 

@@ -39,6 +39,7 @@ class VisitController extends Controller
         }
         $minDate = date('Y-m-d', strtotime("2022-01-01"));
         $maxDate = date('Y-m-d');
-        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user]);
+        $speciesList = \App\Models\Species::all();
+        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
     }
 }

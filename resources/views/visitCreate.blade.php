@@ -38,14 +38,12 @@
             }
         }
     ?>
-
+    <div class="container mb-3">
+        <h1 class="p-4">Create a visit</h1>
+    </div>
 
     <div class="container mt-4">
         <div class="card mb-2">
-            <h5 class="card-header">
-                Visit
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="#">Edit visit</a>
-            </h5>
             <div class="card-body">
                 <label for="date" class="col-md-3 col-form-label">Date</label>
                 <div class="col-md-9">
@@ -103,6 +101,32 @@
                             @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
                         </div>
                     @endif
+                    <h2>Observations</h2>
+
+                <div class="table-responsive">
+                    <table class="table table-sm table-striped table-hover vertical-align">
+                        <thead>
+                            <th>Species</th>
+                            <th>Number</th>
+                            @if($isTransect)
+                                <th>Section</th>
+                            @endif
+                        </thead>
+                        <tbody id="dataTable">
+                            @forelse($visit->observations()->get() as $obs)
+                                <tr>
+                                    <td>{{$obs->species()->first()->getName($user)}}</td>
+                                    <td>{{$obs->number}}</td>
+                                    @if($isTransect)
+                                        <td>{{$obs->transectSection()->get()->name}}</td>
+                                    @endif
+                                </tr>
+                            @empty
+                                <tr><td colspan="100%">No observations</td></tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
                     <div> Location </div>
                     <div>photo</div>
                 </div>

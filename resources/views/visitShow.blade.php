@@ -38,21 +38,16 @@
             }
         }
     ?>
+    <div class="container mb-3">
+        <h1 class="p-4">Visit details <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="#">Edit visit</a></h1>
+    </div>
 
-
-    <div class="container mt-4">
-        <div class="card mb-2">
-            <h5 class="card-header">
-                Visit
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="#">Edit visit</a>
-            </h5>
+    <div class="container mb-3">
+        <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
-                        <thead>
-                            <th>Item</th>
-                            <th>Value</th>
-                        </thead>
+                    <h2>General information</h2>
+                    <table class="table table-sm table-borderless">
                         <tbody id="dataTable">
                             @if ($isSingle)
                                 <tr>
@@ -157,9 +152,10 @@
                         </tbody>
                     </table>
                 </div>
+                <h2>Observations</h2>
+
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
-                        Observation
                         <thead>
                             <th>Species</th>
                             <th>Number</th>
@@ -168,7 +164,7 @@
                             @endif
                         </thead>
                         <tbody id="dataTable">
-                            @foreach($visit->observations()->get() as $obs)
+                            @forelse($visit->observations()->get() as $obs)
                                 <tr>
                                     <td>{{$obs->species()->first()->getName($user)}}</td>
                                     <td>{{$obs->number}}</td>
@@ -176,7 +172,9 @@
                                         <td>{{$obs->transectSection()->get()->name}}</td>
                                     @endif
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr><td colspan="100%">No observations</td></tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

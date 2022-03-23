@@ -21,6 +21,8 @@ class CreateSpeciesgroupsTable extends Migration
             $table->text('description');
             $table->boolean('usercancount');
             $table->unsignedBigInteger('defaultspecies_id')->nullable();
+            $table->text('imageLocation')->nullable();
+            $table->boolean('visibible_for_users')->default('false');
         });
     }
 

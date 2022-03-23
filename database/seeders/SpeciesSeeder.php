@@ -15,7 +15,7 @@ class SpeciesSeeder extends Seeder
     {
         //first create the speciesgroups
 
-        $bfSpGroup = \App\Models\Speciesgroup::create(['name' => 'butterflies', 'description' => 'butterflies', 'usercancount' => true]);
+        $bfSpGroup = \App\Models\Speciesgroup::create(['name' => 'butterflies', 'description' => 'butterflies', 'usercancount' => true, 'imageLocation' => "img/butterflies.png", 'visibible_for_users'=> true]);
         $defBf = \App\Models\Species::create([
             'genus' => 'lepidoptera',
             'taxon' => '',
@@ -32,7 +32,7 @@ class SpeciesSeeder extends Seeder
         $bfSpGroup->defaultspecies_id = $defBf->id;
         $bfSpGroup->save();
 
-        $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true]);
+        $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true, 'imageLocation' => 'img/butterflies.png']);
         $defMoth = \App\Models\Species::create([
             'genus' => 'heterocera',
             'taxon' => '',
@@ -49,7 +49,7 @@ class SpeciesSeeder extends Seeder
         $mothSpeciesGroup->defaultspecies_id = $defMoth->id;
         $mothSpeciesGroup->save();
 
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
         $defBee = \App\Models\Species::create([
             'genus' => 'apoidea',
             'taxon' => '',
@@ -83,7 +83,7 @@ class SpeciesSeeder extends Seeder
         $plantSpGroup->defaultspecies_id = $defPlant->id;
         $plantSpGroup->save();
 
-        $birdSpGroup = \App\Models\Speciesgroup::create(['name' => 'birds', 'description' => 'birds', 'usercancount' => false]);
+        $birdSpGroup = \App\Models\Speciesgroup::create(['name' => 'birds', 'description' => 'birds', 'usercancount' => false, 'imageLocation' => 'img/birds.png', 'visibible_for_users' => true]);
         $defBird = \App\Models\Species::create([
             'genus' => 'aves',
             'taxon' => '',

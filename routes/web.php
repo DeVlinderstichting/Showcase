@@ -22,6 +22,7 @@ Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPu
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');
 Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@showProjectInfo');
 Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
+Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logOff');
 
 Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');
 Route::get('/visit/{visit}', '\App\Http\Controllers\VisitController@visitShow');
@@ -41,6 +42,8 @@ Route::get('/user/create/{userId}', '\App\Http\Controllers\AdminController@creat
 Route::post('/user/create/{userId}', '\App\Http\Controllers\AdminController@storeUser');
 Route::get('/user', '\App\Http\Controllers\AdminController@userIndex');
 Route::post('/user/indexAjax', '\App\Http\Controllers\AdminController@userIndexAjax');
+Route::post('/user/setUserSettingsAjax', '\App\Http\Controllers\UserController@setUserSettingsAjax');
+Route::post('/user/setUserRecordingLevelAjax', '\App\Http\Controllers\UserController@setUserRecordingLevelAjax');
 
 Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
 Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');

@@ -28,7 +28,7 @@ class CreateObservationsTable extends Migration
             $table->unsignedBigInteger('transect_section_id')->nullable();
             $table->foreign('transect_section_id')->references('id')->on('transect_sections')->onDelete('cascade');
             $table->index('transect_section_id');
-            $table->GEOMETRY('location')->nullable();
+            $table->GEOMETRY('location');
         });
         DB::statement('ALTER TABLE observations ADD CONSTRAINT check_number CHECK (number > 0);');
     }

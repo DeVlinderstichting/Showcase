@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Auth;
 
 class GeneralPagesController extends Controller
 {
@@ -23,5 +24,10 @@ class GeneralPagesController extends Controller
     public function showRecordingMethodExplanation()
     {
         return view ('recordingMethodExplanation');
+    }
+    public function logoff()
+    {
+        Auth::logout();
+        return redirect()->route('showLogin');
     }
 }

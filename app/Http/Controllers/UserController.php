@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use \App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Validation\Rule;
 use Auth;
 use DB;
 
@@ -71,11 +72,55 @@ group by year, month */
         $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id, number"));
         $countPerSpeciesAll = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id"));
 
-        return view('userHome', ['obsCount' => $allObs->count(), 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user]);
+        $userMessages = $user->usersMessages()->get()->pluck('pushmessage_id');
+        $messages = \App\Models\PushMessage::whereIn('id', $userMessages)->get();
+        $allObs = $user->observations()->get();
+        return view('userHome', ['obsCount' => $allObs->count(), 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allObservations' => $allObs]);
     }
     public function showSettings()
     {
-        return view('userSettings');
+        $user = Auth::user();
+        return view('userSettings', ['user' => $user]);
+    }
+    public function setUserSettingsAjax()
+    {
+        $valDat = request()->validate([
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon']),
+            'settingsvalue' => ['required', 'integer', 'between:0,1']
+        ]);
+        $user = Auth::user();
+        if ($valDat['settingsname'] == 'sciName')
+        {
+            $user->sci_names = $valDat['settingsvalue'];
+        }
+        if ($valDat['settingsname'] == 'prevSeen')
+        {
+            $user->show_previous_observed_species = $valDat['settingsvalue'];
+        }
+        if ($valDat['settingsname'] == 'showCommon')
+        {
+            $user->show_only_common_species = $valDat['settingsvalue'];
+        }
+        $user->save();
+    }
+    public function setUserRecordingLevelAjax()
+    {
+        $valDat = request()->validate([
+            'speciesgroup_id' => ['required', 'exists:speciesgroups,id'],
+            'recordinglevel_id' => ['required', 'exists:recordinglevels,id']
+        ]);
+        $user = Auth::user();
+        $found = false;
+        $recLevel = $user->speciesgroupsRecordingLevels()->where('speciesgroup_id', $valDat['speciesgroup_id'])->first();
+        if ($recLevel == null)
+        {
+            \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $valDat['speciesgroup_id'], 'recordinglevel_id' => $valDat['recordinglevel_id']]);
+        }
+        else 
+        {
+            $recLevel->recordinglevel_id = $valDat['recordinglevel_id'];
+            $recLevel->save();
+        }
     }
 
     public function showPushMessages()

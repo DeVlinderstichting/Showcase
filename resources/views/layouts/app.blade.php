@@ -61,10 +61,10 @@
           </a>
       
           <ul class="nav col-md-4 justify-content-end">
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Monitoring</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Identification</a></li>
-            <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">News</a></li>
+            <li class="nav-item"><a href="/showProjectInfo" class="nav-link px-2 text-muted">About</a></li>
+            <li class="nav-item"><a href="/showRecordingMethodExplanation" class="nav-link px-2 text-muted">Monitoring</a></li>
+            <li class="nav-item"><a href="/showIdHelp" class="nav-link px-2 text-muted">Identification</a></li>
+            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">News</a></li>
           </ul>
         </footer>
       </div>

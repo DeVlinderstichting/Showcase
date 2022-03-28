@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Users
-@endsection
-
-@section('sidebar')
-    @include('layouts.navbar',['menuActive'=>'users'])
+Guide to monitoring
 @endsection
 
 @section('content')

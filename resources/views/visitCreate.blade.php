@@ -134,6 +134,20 @@
 
                 <div> Location </div>
                 <div>photo</div>
+                <div class="row justify-content-center mt-3">
+                    <b>Check the speciesgroups that you counted:</b>
+                    @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
+                        <div class="col-md-4">
+                            <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                  Observed
+                                </label>
+                            </div> 
+                        </div>
+                    @endforeach
+                </div>
                 </div>
             </div>
         </div>

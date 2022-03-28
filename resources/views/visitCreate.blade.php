@@ -127,10 +127,33 @@
                         </tbody>
                     </table>
                 </div>
-                    <div> Location </div>
-                    <div>photo</div>
+                <b>Add species</b>
+                    {{ $user }}
+                <div> Location </div>
+                <div>photo</div>
                 </div>
             </div>
         </div>
     </div>
+
+<script>
+@if($user->sci_names)
+    specArray = [
+        @foreach ($species as $spec)
+            [id: {{$spec->id}}, name: "{{$spec->Genus}} {{$spec->Taxon}}"],
+        @endforeach
+    ]
+@else
+    <?php
+    $prop = $user->prefered_language.'name';
+    ?>
+    specArray = [
+            @foreach ($species as $spec)
+                [id: {{$spec->id}}, name: "{{$spec->$prop}}"],
+            @endforeach
+        ]
+@endif
+console.log(specArray);
+
+</script>
 @endsection

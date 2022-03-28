@@ -132,7 +132,7 @@ User settings
                     </div>
 
                     <div class="row justify-content-center">
-                        @foreach(\App\Models\SpeciesGroup::where('visibible_for_users', true)->get() as $sg)
+                        @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
                             <div class="col-md-4">
                                 <img src="{{$sg->imageLocation}}" alt="" class="img-count-settings">
                                 <div class="flex-radio-buttons">

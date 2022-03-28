@@ -44,17 +44,24 @@ My Profile
     </div>
 </div>
 
+<?php
+    use Illuminate\Support\Str;
+?>
+
 <div class="container mb-3">
     <h1 class="p-4">Messages</h1>
     <div class="list-group">
-        <?php //dd($userMessages); ?>
         @foreach($userMessages as $um)
-            <a href="#" class="list-group-item list-group-item-action" aria-current="true">
+        <?php
+            $truncCont = Str::limit($um->content, 100, ' (...)');
+        ?>
+  
+            <a href="#" data_header="{{$um->header}}" data_at="{{$um->created_at}}" data_content="{{$um->content}}" onClick="showModal(this); event.preventDefault();" class="list-group-item list-group-item-action" aria-current="true">
                 <div class="d-flex w-100 justify-content-between">
                     <h5 class="mb-1">{{$um->header}}</h5>
                     <small>{{$um->created_at}}</small>
                 </div>
-                <p class="mb-1">{{$um->content}}</p>
+                <p class="mb-1">{{$truncCont}}</p>
             </a>
         @endforeach
     </div>
@@ -74,7 +81,40 @@ My Profile
 
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="messageTitle">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" id="messageContent">
+          ...
+        </div>
+        <span class="text-end text-small p-3" id="messageAt"></span>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
+
+    function showModal(elem) 
+    {
+        var myModal = new bootstrap.Modal(document.getElementById('modalId'), {
+                keyboard: false
+            })
+        $('#messageTitle').html(elem.getAttribute('data_header'));
+        $('#messageContent').html(elem.getAttribute('data_content'));
+        $('#messageAt').html(elem.getAttribute('data_at'));
+        myModal.show();
+
+    }
+
+
     const labels = [
       'January',
       'February',
@@ -147,7 +187,6 @@ My Profile
         @endforeach
     @endforeach
 
-    //for(var i = 0 ; i < allSpDat.length; i++)
 
     const barData = {
       labels: labels,

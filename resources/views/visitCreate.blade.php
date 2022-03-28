@@ -52,22 +52,18 @@
                         <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
                     @endif
                 </div>
+                <label for="starttime" class="col-md-3 col-form-label">
+                @if($isSingle)Time @else Starttime @endif</label>
                 <div class="col-md-9">
-                    <label for="starttime" class="col-md-3 col-form-label">
-                    @if($isSingle)Time @else Starttime @endif</label>
-                    <div class="col-md-9">
-                        <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
-                        @if($errors->has('starttime')) <div class="invalid-feedback"> {{$errors->first('starttime')}} </div>@endif
-                    </div>
+                    <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
+                    @if($errors->has('starttime')) <div class="invalid-feedback"> {{$errors->first('starttime')}} </div>@endif
                 </div>
 
                 @if (!$isSingle)
+                    <label for="endtime" class="col-md-3 col-form-label">Endtime</label>
                     <div class="col-md-9">
-                        <label for="endtime" class="col-md-3 col-form-label">Endtime</label>
-                        <div class="col-md-9">
-                            <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
-                            @if($errors->has('endtime')) <div class="invalid-feedback"> {{$errors->first('endtime')}} </div>@endif
-                        </div>
+                        <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
+                        @if($errors->has('endtime')) <div class="invalid-feedback"> {{$errors->first('endtime')}} </div>@endif
                     </div>
                     
                     @if($isTransect)
@@ -113,17 +109,21 @@
                             @endif
                         </thead>
                         <tbody id="dataTable">
-                            @forelse($visit->observations()->get() as $obs)
-                                <tr>
-                                    <td>{{$obs->species()->first()->getName($user)}}</td>
-                                    <td>{{$obs->number}}</td>
-                                    @if($isTransect)
-                                        <td>{{$obs->transectSection()->get()->name}}</td>
-                                    @endif
-                                </tr>
-                            @empty
+                            @if($visit)
+                                @forelse($visit->observations()->get() as $obs)
+                                    <tr>
+                                        <td>{{$obs->species()->first()->getName($user)}}</td>
+                                        <td>{{$obs->number}}</td>
+                                        @if($isTransect)
+                                            <td>{{$obs->transectSection()->get()->name}}</td>
+                                        @endif
+                                    </tr>
+                                @empty
+                                    <tr><td colspan="100%">No observations</td></tr>
+                                @endforelse
+                            @else
                                 <tr><td colspan="100%">No observations</td></tr>
-                            @endforelse
+                            @endif
                         </tbody>
                     </table>
                 </div>

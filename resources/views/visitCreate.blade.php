@@ -97,7 +97,7 @@
                             @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
                         </div>
                     @endif
-                    <h2>Observations</h2>
+                    <h2 class="mt-3">Observations</h2>
 
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
@@ -128,7 +128,10 @@
                     </table>
                 </div>
                 <b>Add species</b>
-                    {{ $user }}
+                <div class="col-md-9 mb-3">
+                    <select class="add-species-select w-100"></select>
+                </div>
+
                 <div> Location </div>
                 <div>photo</div>
                 </div>
@@ -140,20 +143,47 @@
 @if($user->sci_names)
     specArray = [
         @foreach ($species as $spec)
-            [id: {{$spec->id}}, name: "{{$spec->Genus}} {{$spec->Taxon}}"],
+            {id: {{$spec->id}}, text: "{{$spec->Genus}} {{$spec->Taxon}}"},
         @endforeach
-    ]
+    ];
 @else
     <?php
     $prop = $user->prefered_language.'name';
     ?>
     specArray = [
             @foreach ($species as $spec)
-                [id: {{$spec->id}}, name: "{{$spec->$prop}}"],
+                {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
             @endforeach
-        ]
+        ];
 @endif
-console.log(specArray);
+
+$(".add-species-select").select2({
+  data: specArray
+})
+
+$(".add-species-select").on("select2:select", function (evt) {
+    var element = evt.params.data.element;
+    var $element = $(element);
+    $element.detach();
+    var specId = element.value;
+    var specName = element.innerHTML;
+    $("tr td:contains('No observations')").parent().remove()
+
+    var contTable = document.getElementById('dataTable');
+    var newRow = contTable.insertRow();
+    var newCell = newRow.insertCell();
+    var newText = document.createTextNode(specName);
+    newCell.appendChild(newText);
+    var newCell = newRow.insertCell();
+    var input = document.createElement("input");
+    input.type = 'number';
+    input.id = `amount_${specId}`;
+    input.name = `amount_${specId}`;
+    input.min = 0;
+    input.max = 1000;
+    newCell.appendChild(input);
+
+});
 
 </script>
 @endsection

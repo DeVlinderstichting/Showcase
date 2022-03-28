@@ -10,12 +10,12 @@ Guide to monitoring
     <h2 class="px-4">Subtitle</h2>
 </div>
 <div class="container text-center mt-3 mb-3">
-    <button class="btn btn-primary">Netherlands</button>
-    <button class="btn btn-primary">United Kingdom</button>
-    <button class="btn btn-primary">Spain</button>
-    <button class="btn btn-primary">Germany</button>
+    <a href="#nl" class="btn btn-primary">Netherlands</a>
+    <a href="#gb" class="btn btn-primary">United Kingdom</a>
+    <a href="#es" class="btn btn-primary">Spain</a>
+    <a href="#de" class="btn btn-primary">Germany</a>
 </div>
-<div class="container mb-3">
+<div class="container mb-3" id="nl">
     <div class="row">
         <div class="col-md d-flex p-4">
             <img src="images/bf6.jpg" class="img-fluid"> 
@@ -28,7 +28,7 @@ Guide to monitoring
         </div>
     </div>
 </div>
-<div class="container mb-3">
+<div class="container mb-3" id="gb">
     <div class="row switch-direction">
         <div class="col-md d-flex p-4">
             <img src="images/bf6.jpg" class="img-fluid"> 
@@ -41,7 +41,7 @@ Guide to monitoring
         </div>
     </div>
 </div>
-<div class="container mb-3">
+<div class="container mb-3" id="es">
     <div class="row">
         <div class="col-md d-flex p-4">
             <img src="images/bf6.jpg" class="img-fluid"> 
@@ -54,7 +54,7 @@ Guide to monitoring
         </div>
     </div>
 </div>
-<div class="container mb-3">
+<div class="container mb-3" id="de">
     <div class="row switch-direction">
         <div class="col-md d-flex p-4">
             <img src="images/bf6.jpg" class="img-fluid"> 

@@ -13,7 +13,7 @@
         <div class="card mb-2">
             <h5 class="card-header">
                 Single observation
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="/visit/0/1/create">Add new single observation</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/1/create">Add new single observation</a>
             </h5>
             <div class="card-body">
                 <div class="table-responsive">
@@ -50,7 +50,7 @@
         <div class="card mb-2">
             <h5 class="card-header">
                 Transect
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="/visit/0/3/create">Add new visit</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/3/create">Add new visit</a>
             </h5>
             <div class="card-body">
                 <div class="table-responsive">
@@ -82,7 +82,7 @@
         <div class="card mb-2">
             <h5 class="card-header">
                 Fit counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="/visit/0/4/create">Add new fit count</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/4/create">Add new fit count</a>
             </h5>
             <div class="card-body">
                 <div class="table-responsive">
@@ -114,7 +114,7 @@
         <div class="card mb-2">
             <h5 class="card-header">
                 Timed counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-right" role="button" href="/visit/0/2/create">Add new timed count</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/2/create">Add new timed count</a>
             </h5>
             <div class="card-body">
                 <div class="table-responsive">

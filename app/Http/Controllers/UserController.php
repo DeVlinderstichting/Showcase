@@ -41,6 +41,7 @@ class UserController extends Controller
     public function showHome()
     {
         $this->authenticateUser();
+        $user = Auth::user();
         $allObs = $user->observations()->get();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();

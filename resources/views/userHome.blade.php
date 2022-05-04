@@ -12,6 +12,15 @@ My Profile
 @endsection
 
 @section('content')
+<style>
+  .messages-list{
+    max-height: 300px;
+    margin-bottom: 10px;
+    overflow-y:scroll;
+    -webkit-overflow-scrolling: touch;
+}
+</style>
+
 <div class="container mb-3">
     <h1 class="p-4">My Profile <a href="/settings" class="btn btn-outline-primary float-end">Settings</a></h1>
     
@@ -50,7 +59,7 @@ My Profile
 
 <div class="container mb-3">
     <h1 class="p-4">Messages</h1>
-    <div class="list-group">
+    <div class="list-group messages-list">
         @foreach($userMessages as $um)
         <?php
             $truncCont = Str::limit($um->content, 100, ' (...)');

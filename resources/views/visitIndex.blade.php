@@ -69,7 +69,7 @@
                                     <td>{{$tr->getDuration()}}</td>
                                     <td>
                                         <a href='/visit/{{$tr->id}}'><i class='fa fa-search' style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{$tr->id}}/create'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
+                                        <a href='/visit/{{$tr->id}}/edit'><i class='fa fa-pencil' style='font-size:24px;'></i></a>
                                         <a href='/visit/{{$tr->id}}'><i class='fa fa-trash' style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>

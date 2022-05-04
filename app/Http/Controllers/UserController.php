@@ -43,6 +43,7 @@ class UserController extends Controller
         $this->authenticateUser();
         $user = Auth::user();
         $allObs = $user->observations()->get();
+        $allObsAllUsers = \App\Models\Observation::all();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();
         $spList = \App\Models\Species::whereIn('id', $allSpIds)->get();
@@ -76,7 +77,7 @@ group by year, month */
         $userMessages = $user->usersMessages()->get()->pluck('pushmessage_id');
         $messages = \App\Models\PushMessage::whereIn('id', $userMessages)->get();
         $allObs = $user->observations()->get();
-        return view('userHome', ['obsCount' => $allObs->count(), 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allObservations' => $allObs]);
+        return view('userHome', ['obsCount' => $allObs->count(), 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allUserObservations' => $allObs, 'allObservations' => $allObsAllUsers]);
     }
     public function showSettings()
     {

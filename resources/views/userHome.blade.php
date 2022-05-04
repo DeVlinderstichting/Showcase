@@ -250,13 +250,25 @@ My Profile
     const config2 = {
       type: 'pie',
       data: pie1Data,
-      options: {}
+      options: {
+        plugins: {
+            title: {
+                display: true,
+                text: 'Seen species (mine)'
+            }
+        }
+      }
     };
   
     const config3 = {
       type: 'pie',
       data: pie2Data,
-      options: {}
+      options: {plugins: {
+            title: {
+                display: true,
+                text: 'Seen species (all)'
+            }
+        }}
     };
   </script>
   

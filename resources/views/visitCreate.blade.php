@@ -162,7 +162,6 @@
                     </div>
 
                     <div>Location </div>
-                    <div>photo</div>
                     <div class="row justify-content-center mt-3">
                         <b>Check the speciesgroups that you counted:</b>
                         <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>

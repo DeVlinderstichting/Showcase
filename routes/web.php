@@ -27,6 +27,7 @@ Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logOff');
 Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');
 Route::get('/visit/{visit}', '\App\Http\Controllers\VisitController@visitShow');
 Route::get('/visit/{visit_id}/{visitType}/create', '\App\Http\Controllers\VisitController@visitCreate');
+Route::post('/visit/store/{visit_id}', '\App\Http\Controllers\VisitController@visitStore');
 Route::get('/visit/{visit}/edit', '\App\Http\Controllers\VisitController@visitEdit');
 Route::delete('/visit/{visit}/delete', '\App\Http\Controllers\VisitController@visitDelete');
 

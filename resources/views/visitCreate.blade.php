@@ -45,7 +45,18 @@
     <div class="container mt-4">
         <div class="card mb-2">
             <div class="card-body">
-                <form method="post">
+                @if($errors->any())
+                    <div class="alert alert-danger" role="alert">
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </div>
+                @endif
+
+                <form method="post" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
+                    @csrf
+                    <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
+                    <input type='hidden' id="observations" name="observations" value=[]>
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
                         @if($visit)
@@ -171,14 +182,17 @@
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" 
                                     <?php 
-                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
-                                        if ($rl != null)
+                                        if ($visit != null)
                                         {
-                                            if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                            $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
+                                            if ($rl != null)
                                             {
-                                                echo(' checked ');
+                                                if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                                {
+                                                    echo(' checked ');
+                                                }
                                             }
-                                        } 
+                                        }
                                     ?>
                                     value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">

@@ -55,4 +55,10 @@ class VisitController extends Controller
         $title = 'Edit visit';
         return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);
     }
+
+    public function visitDelete(Visit $visit)
+    {
+        $user = Auth::user();
+        $visit->delete();
+    }
 }

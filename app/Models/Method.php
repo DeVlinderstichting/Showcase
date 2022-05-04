@@ -15,6 +15,10 @@ class Method extends Model
     {
         return $this->hasMany('App\Models\MethodSpeciesgroupRecordinglevel', 'method_id', 'id');
     }
+    public function getSpeciesGroupRecordingLevel($speciesgroup_id)
+    {
+        return $this->speciesGroupRecordingLevel()->where('speciesgroup_id', $speciesgroup_id)->first();
+    }
     public static function getMethod($methodSpeciesgroups)
     {
         $value = "";

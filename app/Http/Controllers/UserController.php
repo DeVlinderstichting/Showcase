@@ -109,6 +109,7 @@ group by year, month */
     }
     public function setUserRecordingLevelAjax()
     {
+        $this->authenticateUser();
         $valDat = request()->validate([
             'speciesgroup_id' => ['required', 'exists:speciesgroups,id'],
             'recordinglevel_id' => ['required', 'exists:recordinglevels,id']
@@ -423,5 +424,15 @@ group by year, month */
             }
         }
         return false;
+    }
+
+    private authenticateUser()
+    {
+        $user = Auth::user();
+        if ($user == null)
+        {
+            return redirect()->route('showLogin');
+        }
+        return true;
     }
 }

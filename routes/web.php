@@ -28,7 +28,7 @@ Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');
 Route::get('/visit/{visit}', '\App\Http\Controllers\VisitController@visitShow');
 Route::get('/visit/{visit_id}/{visitType}/create', '\App\Http\Controllers\VisitController@visitCreate');
 Route::get('/visit/{visit}/edit', '\App\Http\Controllers\VisitController@visitEdit');
-Route::get('/visit/{visit}/delete', '\App\Http\Controllers\VisitController@visitShow');
+Route::delete('/visit/{visit}/delete', '\App\Http\Controllers\VisitController@visitDelete');
 
 Route::get('/adminLogin', 'App\Http\Controllers\AdminController@adminWelcome');
 Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');

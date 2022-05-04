@@ -11,7 +11,7 @@ Login
 @section('content')
 <div class="container-fluid background-container d-flex">
     <div class="central-container">
-        <h1>PLEASE, SIGN IN</h1>
+        <h1>Welcome</h1>
         @if($errors->has('username'))
             <div class="alert alert-danger" role="alert">
                 {{$errors->first('username')}}
@@ -21,7 +21,7 @@ Login
             @csrf
 
             <label for="username"
-                class="">{{ __('welcome.E-Mail Address Or Username') }}</label>
+                class="">Email</label>
 
             <div class="">
                 <input id="username" type="text"
@@ -37,7 +37,7 @@ Login
             </div>
 
             <label for="password"
-                class="">{{ __('welcome.Password') }}</label>
+                class="">Password</label>
 
             <div class="">
                 <input id="password" type="password"
@@ -56,19 +56,19 @@ Login
                         id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                     <label class="form-check-label" for="remember">
-                        {{ __('welcome.Remember Me') }}
+                        Remember Me
                     </label>
                 </div>
             </div>
 
             <div class="">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('welcome.Login') }}
+                    Login
                 </button>
 
                 @if (Route::has('password.request'))
                     <a class="btn btn-link" href="{{ route('password.request') }}">
-                        {{ __('welcome.Forgot Your Password?') }}
+                        Forgot Your Password
                     </a>
                 @endif
             </div>

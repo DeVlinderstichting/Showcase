@@ -165,11 +165,23 @@
                     <div>photo</div>
                     <div class="row justify-content-center mt-3">
                         <b>Check the speciesgroups that you counted:</b>
+                        <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>
                         @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
                             <div class="col-md-4">
                                 <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                    <input class="form-check-input" type="checkbox" 
+                                    <?php 
+                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
+                                        if ($rl != null)
+                                        {
+                                            if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                            {
+                                                echo(' checked ');
+                                            }
+                                        } 
+                                    ?>
+                                    value="" id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
                                     Observed
                                     </label>
@@ -185,64 +197,64 @@
         </div>
     </div>
 
-<script>
-<?php
-    if ($visit != null)
-    {
-        $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
-    }
-    else 
-    {
-        $speciesIdsUsed = [];
-    }
-?>
-@if($user->sci_names)
-    specArray = [
-        @foreach ($species as $spec)
-            @if(!in_array($spec->id, $speciesIdsUsed))
-                {id: {{$spec->id}}, text: "{{$spec->Genus}} {{$spec->Taxon}}"},
-            @endif
-        @endforeach
-    ];
-@else
+    <script>
     <?php
-    $prop = $user->prefered_language.'name';
+        if ($visit != null)
+        {
+            $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
+        }
+        else 
+        {
+            $speciesIdsUsed = [];
+        }
     ?>
-    specArray = [
+    @if($user->sci_names)
+        specArray = [
             @foreach ($species as $spec)
                 @if(!in_array($spec->id, $speciesIdsUsed))
-                    {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                    {id: {{$spec->id}}, text: "{{$spec->Genus}} {{$spec->Taxon}}"},
                 @endif
             @endforeach
         ];
-@endif
+    @else
+        <?php
+        $prop = $user->prefered_language.'name';
+        ?>
+        specArray = [
+                @foreach ($species as $spec)
+                    @if(!in_array($spec->id, $speciesIdsUsed))
+                        {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                    @endif
+                @endforeach
+            ];
+    @endif
 
-$(".add-species-select").select2({
-  data: specArray
-})
+    $(".add-species-select").select2({
+      data: specArray
+    })
 
-$(".add-species-select").on("select2:select", function (evt) {
-    var element = evt.params.data.element;
-    var $element = $(element);
-    $element.detach();
-    var specId = element.value;
-    var specName = element.innerHTML;
-    $("tr td:contains('No observations')").parent().remove()
+    $(".add-species-select").on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+        $element.detach();
+        var specId = element.value;
+        var specName = element.innerHTML;
+        $("tr td:contains('No observations')").parent().remove()
 
-    var contTable = document.getElementById('dataTable');
-    var newRow = contTable.insertRow();
-    var newCell = newRow.insertCell();
-    var newText = document.createTextNode(specName);
-    newCell.appendChild(newText);
-    var newCell = newRow.insertCell();
-    var input = document.createElement("input");
-    input.type = 'number';
-    input.id = `amount_${specId}`;
-    input.name = `amount_${specId}`;
-    input.min = 0;
-    input.max = 1000;
-    newCell.appendChild(input);
-});
+        var contTable = document.getElementById('dataTable');
+        var newRow = contTable.insertRow();
+        var newCell = newRow.insertCell();
+        var newText = document.createTextNode(specName);
+        newCell.appendChild(newText);
+        var newCell = newRow.insertCell();
+        var input = document.createElement("input");
+        input.type = 'number';
+        input.id = `amount_${specId}`;
+        input.name = `amount_${specId}`;
+        input.min = 0;
+        input.max = 1000;
+        newCell.appendChild(input);
+    });
 
-</script>
+    </script>
 @endsection

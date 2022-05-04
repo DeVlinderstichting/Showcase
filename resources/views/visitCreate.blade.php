@@ -174,10 +174,15 @@
     </div>
 
 <script>
+<?php
+    $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
+?>
 @if($user->sci_names)
     specArray = [
         @foreach ($species as $spec)
-            {id: {{$spec->id}}, text: "{{$spec->Genus}} {{$spec->Taxon}}"},
+            @if(!in_array($spec->id, $speciesIdsUsed))
+                {id: {{$spec->id}}, text: "{{$spec->Genus}} {{$spec->Taxon}}"},
+            @endif
         @endforeach
     ];
 @else
@@ -186,8 +191,9 @@
     ?>
     specArray = [
             @foreach ($species as $spec)
-                @if(!$servicesImpacted->contains('name', $service->name))
-                {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                @if(!in_array($spec->id, $speciesIdsUsed))
+                    {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                @endif
             @endforeach
         ];
 @endif

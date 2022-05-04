@@ -42,13 +42,13 @@ class AdminController extends Controller
     }
     public function regionCreate()
     {
-    	if ($this->checkIsAdmin())
+    	if (!$this->checkIsAdmin())
     	{
-    		return view('regionCreate');
+    		return view('adminLogin');
     	}
         $region = new Region();
         $region->id = -1;
-        return view('adminLogin', ['region' => $region]);
+        return view('regionCreate', ['region' => $region]);
     }
     public function regionStore($regionId = null)
     {

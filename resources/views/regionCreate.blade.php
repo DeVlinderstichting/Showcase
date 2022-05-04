@@ -14,6 +14,7 @@ Admin home
 @section('content')
     <?php //$region = new \App\Models\Region();// $region->id = -1; ?>
     <form action="/regionCreate/{{$region->id}}" method="post" id="editRegionForm" >
+
         @csrf
         <div class="container mt-4">
             <div class="card mb-2">
@@ -132,16 +133,20 @@ Admin home
                             e.preventDefault();
                             var res = "";
                             var format = new ol.format.WKT();
-                            if (vecDat[0] != "")
+                            if ((vecDat.length > 0) &&(vecDat[0] != ""))
                             {
                                 var tr = vecDat[0].transform('EPSG:3857', 'EPSG:4326');
                                 var strLine = format.writeGeometry(tr);
                                 res = strLine;
+                                var elem = document.getElementById('regionData');
+                                elem.value = JSON.stringify(res);
+                                this.submit();
                             }
-                            var elem = document.getElementById('regionData');
-                            elem.value = JSON.stringify(res);
-                          //  console.log(elem.value);
-                            this.submit();
+                            else 
+                            {
+                                alert("unable to create location (did you enter a valid geometry?)");
+                            }
+                            
                             // return false; //I put it here as a fallback
                         });
                     </script>

@@ -52,19 +52,19 @@
                     <div class="form-group row">
                         <label for="sci_names" class="col-md-3 col-form-label">Scientific names</label>
                         <div class="col-sm-10">
-                            <input type="checkbox" class="form-control @if($errors->has('sci_names')) is-invalid @endif" name="sci_names" id="sci_names" {{$user->sci_names ? "checked" : ""}}> 
+                            <input type="checkbox" class="form-check-input @if($errors->has('sci_names')) is-invalid @endif" name="sci_names" id="sci_names" {{$user->sci_names ? "checked" : ""}}> 
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="show_previous_observed_species" class="col-md-3 col-form-label">Show previous observations</label>
                         <div class="col-sm-10">
-                            <input type="checkbox" class="form-control @if($errors->has('show_previous_observed_species')) is-invalid @endif" name="show_previous_observed_species" id="show_previous_observed_species" {{$user->show_previous_observed_species ? "checked" : ""}}> 
+                            <input type="checkbox" class="form-check-input @if($errors->has('show_previous_observed_species')) is-invalid @endif" name="show_previous_observed_species" id="show_previous_observed_species" {{$user->show_previous_observed_species ? "checked" : ""}}> 
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="show_only_common_species" class="col-md-3 col-form-label">Show common species</label>
                         <div class="col-sm-10">
-                            <input type="checkbox" class="form-control @if($errors->has('show_only_common_species')) is-invalid @endif" name="show_only_common_species" id="show_only_common_species" {{$user->show_only_common_species ? "checked" : ""}}> 
+                            <input type="checkbox" class="form-check-input @if($errors->has('show_only_common_species')) is-invalid @endif" name="show_only_common_species" id="show_only_common_species" {{$user->show_only_common_species ? "checked" : ""}}> 
                         </div>
                     </div>
 
@@ -80,7 +80,7 @@
                                 @foreach(\App\Models\Region::all() as $region)
                                     <tr><td>{{$region->name}}</td><td>
                                         <div class="col-sm-10">
-                                            <input type="checkbox" class="form-control @if($errors->has('region')) is-invalid @endif" name="region_{{$region->id}}" id="region_{{$region->id}}"
+                                            <input type="checkbox" class="form-check-input @if($errors->has('region')) is-invalid @endif" name="region_{{$region->id}}" id="region_{{$region->id}}"
                                             <?php 
                                                 foreach($userRegions as $key => $value)
                                                 {

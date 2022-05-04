@@ -41,6 +41,10 @@ class UserController extends Controller
     public function showHome()
     {
         $user = Auth::user();
+        if ($user == null)
+        {
+            return redirect()->route('showLogin');
+        }
         $allObs = $user->observations()->get();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();

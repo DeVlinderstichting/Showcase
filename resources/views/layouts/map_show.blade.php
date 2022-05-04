@@ -62,6 +62,7 @@
                 $('#map').data('map', map);
                 $('#map').data('vector', vector);
 
+
                 var extentEmpty = true;
                 var extent = ol.extent.createEmpty();
                 @foreach($countObjects as $object)
@@ -379,5 +380,9 @@
             map.getView().setZoom(map.getView().getZoom()+{{$zoomModifier}});
         }
         addObjectsToMap();
+        if (map.getView().getZoom() > 18)
+        {
+            map.getView().setZoom(18);
+        }
     @endif
 </script>

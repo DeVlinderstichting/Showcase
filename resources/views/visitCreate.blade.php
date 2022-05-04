@@ -100,17 +100,29 @@
                         @if(($isTransect) || ($isTimed))
                             <label for="cloud" class="col-md-3 col-form-label">Cloud cover</label>
                             <div class="col">
-                                <input type="time" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
+                                @if($visit)
+                                    <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
+                                @else
+                                    <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
+                                @endif
                                 @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif
                             </div>
                             <label for="wind" class="col-md-3 col-form-label">Wind speed</label>
                             <div class="col">
-                                <input type="time" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
+                                @if($visit)
+                                    <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
+                                @else
+                                    <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
+                                @endif
                                 @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
                             </div>
                             <label for="temp" class="col-md-3 col-form-label">Temperature</label>
                             <div class="col">
-                                <input type="time" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp')}}">
+                                @if($visit)
+                                    <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp', $visit->temp)}}">
+                                @else
+                                    <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp')}}">
+                                @endif
                                 @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
                             </div>
                         @endif

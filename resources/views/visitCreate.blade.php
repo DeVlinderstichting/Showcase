@@ -48,22 +48,34 @@
                 <form method="post">
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
-                        <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate')}}"}}>
-                        @if($errors->has('startdate')) 
+                        @if($visit)
+                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
+                        @else
+                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate')}}"}}>
+                        @endif
+                            @if($errors->has('startdate')) 
                             <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
                         @endif
                     </div>
                     <label for="starttime" class="col-md-3 col-form-label">
                     @if($isSingle)Time @else Starttime @endif</label>
                     <div class="col">
-                        <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
+                        @if($visit)
+                            <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->startdate)[1])}}">
+                        @else
+                            <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
+                        @endif
                         @if($errors->has('starttime')) <div class="invalid-feedback"> {{$errors->first('starttime')}} </div>@endif
                     </div>
 
                     @if (!$isSingle)
                         <label for="endtime" class="col-md-3 col-form-label">Endtime</label>
                         <div class="col">
+                        @if($visit)
+                            <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime', explode(' ', $visit->enddate)[1])}}">
+                        @else
                             <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
+                        @endif
                             @if($errors->has('endtime')) <div class="invalid-feedback"> {{$errors->first('endtime')}} </div>@endif
                         </div>
                         
@@ -76,7 +88,11 @@
                     @endif
                     <div class="col">
                         <label for="endtime" class="col-md-3 col-form-label">Notes</label>
-                        <input type="text" class="form-control @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes')}}"}}>
+                        @if($visit)
+                            <input type="text" class="form-control @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes', $visit->notes)}}"}}>
+                        @else
+                            <input type="text" class="form-control @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes')}}"}}>
+                        @endif
                         @if($errors->has('notes')) 
                             <div class="invalid-feedback"> {{$errors->first('notes')}} </div>
                         @endif
@@ -114,7 +130,7 @@
                                     @forelse($visit->observations()->get() as $obs)
                                         <tr>
                                             <td>{{$obs->species()->first()->getName($user)}}</td>
-                                            <td>{{$obs->number}}</td>
+                                            <td><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
                                                 <td>{{$obs->transectSection()->get()->name}}</td>
                                             @endif
@@ -133,7 +149,7 @@
                         <select class="add-species-select w-100"></select>
                     </div>
 
-                    <div> Location </div>
+                    <div>Location </div>
                     <div>photo</div>
                     <div class="row justify-content-center mt-3">
                         <b>Check the speciesgroups that you counted:</b>
@@ -170,6 +186,7 @@
     ?>
     specArray = [
             @foreach ($species as $spec)
+                @if(!$servicesImpacted->contains('name', $service->name))
                 {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
             @endforeach
         ];
@@ -200,7 +217,6 @@ $(".add-species-select").on("select2:select", function (evt) {
     input.min = 0;
     input.max = 1000;
     newCell.appendChild(input);
-
 });
 
 </script>

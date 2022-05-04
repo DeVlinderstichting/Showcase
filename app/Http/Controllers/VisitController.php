@@ -29,6 +29,7 @@ class VisitController extends Controller
         $user = Auth::user();
         return view ('visitShow', ['visit' => $visit, 'user' => $user]);
     }
+    
     public function visitCreate($visit_id = null, $visitType = 1)
     {
         $user = Auth::user();
@@ -43,6 +44,7 @@ class VisitController extends Controller
         $title = 'Create a visit';
         return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
     }
+
     public function visitEdit(Visit $visit)
     {
         $user = Auth::user();

@@ -187,7 +187,14 @@
 
 <script>
 <?php
-    $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
+    if ($visit != null)
+    {
+        $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
+    }
+    else 
+    {
+        $speciesIdsUsed = [];
+    }
 ?>
 @if($user->sci_names)
     specArray = [

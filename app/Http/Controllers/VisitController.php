@@ -42,4 +42,13 @@ class VisitController extends Controller
         $speciesList = \App\Models\Species::all();
         return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
     }
+    public function visitEdit(Visit $visit)
+    {
+        $user = Auth::user();
+        $minDate = date('Y-m-d', strtotime("2022-01-01"));
+        $maxDate = date('Y-m-d');
+        $speciesList = \App\Models\Species::all();
+        $countingMethodId = $visit->countingmethod_id;
+        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);
+    }
 }

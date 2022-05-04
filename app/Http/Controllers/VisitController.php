@@ -40,7 +40,23 @@ class VisitController extends Controller
         }
         $minDate = date('Y-m-d', strtotime("2022-01-01"));
         $maxDate = date('Y-m-d');
-        $speciesList = \App\Models\Species::all();
+        $speciesgroupsUser = \App\Models\SpeciesgroupsUsers::where('user_id', $user->id)->get();
+        $speciesList = collect();
+        foreach($speciesgroupsUser as $sg)
+        {
+            if(\App\Models\RecordingLevel::where('id', $sg->recordinglevel_id)->first()->name == 'species')
+            {
+                $selSpecies = \App\Models\Species::where('speciesgroup_id', $sg->speciesgroup_id)->where('taxrank', 'species')->get();
+                $speciesList = $speciesList->merge($selSpecies);
+            }
+            if(\App\Models\RecordingLevel::where('id', $sg->recordinglevel_id)->first()->name == 'group')
+            {
+                $selSpecies = \App\Models\Species::where('speciesgroup_id', $sg->speciesgroup_id)->where('taxrank', 'speciesgroup')->get();
+                $speciesList = $speciesList->merge($selSpecies);
+            }
+            // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
+
+        }
         $title = 'Create a visit';
         return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
     }
@@ -50,7 +66,23 @@ class VisitController extends Controller
         $user = Auth::user();
         $minDate = date('Y-m-d', strtotime("2022-01-01"));
         $maxDate = date('Y-m-d');
-        $speciesList = \App\Models\Species::all();
+        $speciesgroupsUser = \App\Models\SpeciesgroupsUsers::where('user_id', $user->id)->get();
+        $speciesList = collect();
+        foreach($speciesgroupsUser as $sg)
+        {
+            if(\App\Models\RecordingLevel::where('id', $sg->recordinglevel_id)->first()->name == 'species')
+            {
+                $selSpecies = \App\Models\Species::where('speciesgroup_id', $sg->speciesgroup_id)->where('taxrank', 'species')->get();
+                $speciesList = $speciesList->merge($selSpecies);
+            }
+            if(\App\Models\RecordingLevel::where('id', $sg->recordinglevel_id)->first()->name == 'group')
+            {
+                $selSpecies = \App\Models\Species::where('speciesgroup_id', $sg->speciesgroup_id)->where('taxrank', 'speciesgroup')->get();
+                $speciesList = $speciesList->merge($selSpecies);
+            }
+            // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
+
+        }
         $countingMethodId = $visit->countingmethod_id;
         $title = 'Edit visit';
         return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);

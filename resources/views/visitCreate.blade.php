@@ -39,7 +39,7 @@
         }
     ?>
     <div class="container mb-3">
-        <h1 class="p-4">Create a visit</h1>
+        <h1 class="p-4">{{ $title }}</h1>
     </div>
 
     <div class="container mt-4">

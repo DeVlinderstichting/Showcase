@@ -40,7 +40,8 @@ class VisitController extends Controller
         $minDate = date('Y-m-d', strtotime("2022-01-01"));
         $maxDate = date('Y-m-d');
         $speciesList = \App\Models\Species::all();
-        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
+        $title = 'Create a visit';
+        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
     }
     public function visitEdit(Visit $visit)
     {
@@ -49,6 +50,7 @@ class VisitController extends Controller
         $maxDate = date('Y-m-d');
         $speciesList = \App\Models\Species::all();
         $countingMethodId = $visit->countingmethod_id;
-        return view ('visitCreate', ['minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);
+        $title = 'Edit visit';
+        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);
     }
 }

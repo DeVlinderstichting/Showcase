@@ -186,6 +186,9 @@
             });
     @else 
 
+
+        var vectorSource = new ol.source.Vector({wrapX: true});
+        vector = new ol.layer.Vector({source: vectorSource});
         var map = new ol.Map(
         {
             projection: 'EPSG:4326',
@@ -194,7 +197,7 @@
                 new ol.layer.Tile(
                 {
                     source: new ol.source.OSM(),
-                })//,
+                }), vector //,
               /*  new ol.layer.Tile(
                 {
                     opacity: 0.7,
@@ -385,4 +388,7 @@
             map.getView().setZoom(18);
         }
     @endif
+    $('#map').data('vector', vector);
+    $('#map').data('map', map);
+    
 </script>

@@ -40,11 +40,7 @@ class UserController extends Controller
     }
     public function showHome()
     {
-        $user = Auth::user();
-        if ($user == null)
-        {
-            return redirect()->route('showLogin');
-        }
+        $this->authenticateUser();
         $allObs = $user->observations()->get();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();
@@ -83,6 +79,7 @@ group by year, month */
     }
     public function showSettings()
     {
+        $this->authenticateUser();
         $user = Auth::user();
         return view('userSettings', ['user' => $user]);
     }
@@ -426,7 +423,7 @@ group by year, month */
         return false;
     }
 
-    private authenticateUser()
+    private function authenticateUser()
     {
         $user = Auth::user();
         if ($user == null)

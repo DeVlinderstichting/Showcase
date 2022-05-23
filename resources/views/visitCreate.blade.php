@@ -53,7 +53,7 @@
                     </div>
                 @endif
 
-                <form method="post" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
+                <form method="post" if="visitcreateform" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
                     @csrf
                     <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
                     <input type='hidden' id="observations" name="observations" value=[]>
@@ -108,36 +108,36 @@
                             <div class="invalid-feedback"> {{$errors->first('notes')}} </div>
                         @endif
                     </div>
-                        @if(($isTransect) || ($isTimed))
-                            <label for="cloud" class="col-md-3 col-form-label">Cloud cover</label>
-                            <div class="col">
-                                @if($visit)
-                                    <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
-                                @else
-                                    <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
-                                @endif
-                                @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif
-                            </div>
-                            <label for="wind" class="col-md-3 col-form-label">Wind speed</label>
-                            <div class="col">
-                                @if($visit)
-                                    <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
-                                @else
-                                    <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
-                                @endif
-                                @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
-                            </div>
-                            <label for="temp" class="col-md-3 col-form-label">Temperature</label>
-                            <div class="col">
-                                @if($visit)
-                                    <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp', $visit->temp)}}">
-                                @else
-                                    <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp')}}">
-                                @endif
-                                @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
-                            </div>
-                        @endif
-                        <h2 class="mt-3">Observations</h2>
+                    @if(($isTransect) || ($isTimed))
+                        <label for="cloud" class="col-md-3 col-form-label">Cloud cover</label>
+                        <div class="col">
+                            @if($visit)
+                                <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
+                            @else
+                                <input type="number" class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
+                            @endif
+                            @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif
+                        </div>
+                        <label for="wind" class="col-md-3 col-form-label">Wind speed</label>
+                        <div class="col">
+                            @if($visit)
+                                <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
+                            @else
+                                <input type="number" class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
+                            @endif
+                            @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
+                        </div>
+                        <label for="temp" class="col-md-3 col-form-label">Temperature</label>
+                        <div class="col">
+                            @if($visit)
+                                <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp', $visit->temp)}}">
+                            @else
+                                <input type="number" class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp')}}">
+                            @endif
+                            @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
+                        </div>
+                    @endif
+                    <h2 class="mt-3">Observations</h2>
 
                     <div class="table-responsive">
                         <table class="table table-sm table-striped table-hover vertical-align">
@@ -173,37 +173,40 @@
                     </div>
 
                     <div>Location </div>
-                    <div class="row justify-content-center mt-3">
-                        <b>Check the speciesgroups that you counted:</b>
-                        <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>
-                        @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
-                            <div class="col-md-4">
-                                <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" 
-                                    <?php 
-                                        if ($visit != null)
-                                        {
-                                            $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
-                                            if ($rl != null)
+
+                    @if (!$isSingle)
+                        <div class="row justify-content-center mt-3">
+                            <b>Check the speciesgroups that you counted:</b>
+                            <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>
+                            @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
+                                <div class="col-md-4">
+                                    <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" 
+                                        <?php 
+                                            if ($visit != null)
                                             {
-                                                if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                                $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
+                                                if ($rl != null)
                                                 {
-                                                    echo(' checked ');
+                                                    if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                                    {
+                                                        echo(' checked ');
+                                                    }
                                                 }
                                             }
-                                        }
-                                    ?>
-                                    value="" id="flexCheckDefault">
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                    Observed
-                                    </label>
-                                </div> 
-                            </div>
-                        @endforeach
-                    </div>
+                                        ?>
+                                        value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        {{$sg->name}}
+                                        </label>
+                                    </div> 
+                                </div>
+                            @endforeach
+                        </div>
+                    @endif
                     <br>
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                 </form>
                 </div>
             </div>
@@ -266,7 +269,29 @@
         input.name = `amount_${specId}`;
         input.min = 0;
         input.max = 1000;
+        input.value = 1;
         newCell.appendChild(input);
+    });
+
+    $('#visitcreateform').submit(function(e) 
+    {
+        var contTable = document.getElementById('dataTable');
+        var resArr = document.getElementById('observations');
+        for (let i in table.rows) 
+        {
+            let row = table.contTable[i];
+            for (let j in row.cells) 
+            {
+                var ch = row.cells[j].children();
+                console.log(ch[1].value);
+            }
+        }
+
+
+       // console.log(tempArr);
+        resArr.value=JSON.stringify(tempArr);
+       // console.log(resArr.value);
+        return true; 
     });
 
     </script>

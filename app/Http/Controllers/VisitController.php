@@ -114,7 +114,7 @@ class VisitController extends Controller
         $countType = ($firstValDat['counttype']);
 
         $rules = [];
-        $rules['startedate'] = ['required', 'date'];
+        $rules['startdate'] = ['required', 'date'];
         $rules['observations'] = ['required', 'array'];
         $rules['observations.*.number'] = ['required', 'integer', 'between:0,1001'];
         $rules['observations.*.species_id'] = ['required', 'exists:species,id'];

@@ -53,10 +53,9 @@
                     </div>
                 @endif
 
-                <form method="post" if="visitcreateform" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
+                <form method="post" id="visitcreateform" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
                     @csrf
                     <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
-                    <input type='hidden' id="observations" name="observations" value=[]>
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
                         @if($visit)
@@ -144,6 +143,7 @@
                             <thead>
                                 <th>Species</th>
                                 <th>Number</th>
+                                <th>Time</th>
                                 @if($isTransect)
                                     <th>Section</th>
                                 @endif
@@ -154,6 +154,7 @@
                                         <tr>
                                             <td>{{$obs->species()->first()->getName($user)}}</td>
                                             <td><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
+                                            <td><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
                                                 <td>{{$obs->transectSection()->get()->name}}</td>
                                             @endif
@@ -271,28 +272,52 @@
         input.max = 1000;
         input.value = 1;
         newCell.appendChild(input);
+
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        var newCell = newRow.insertCell();
+        var input = document.createElement("input");
+        input.type = 'datetime-local';
+        input.id = `time_${specId}`;
+        input.name = `time_${specId}`;
+        input.min = 0;
+        input.max = 1000;
+        input.value = now.toISOString().slice(0, -8);
+        newCell.appendChild(input);
     });
 
-    $('#visitcreateform').submit(function(e) 
-    {
-        var contTable = document.getElementById('dataTable');
-        var resArr = document.getElementById('observations');
-        for (let i in table.rows) 
-        {
-            let row = table.contTable[i];
-            for (let j in row.cells) 
-            {
-                var ch = row.cells[j].children();
-                console.log(ch[1].value);
-            }
-        }
+    $("#visitcreateform").on("submit", function (e) {
+        // e.preventDefault();//stop submit event
+        var form = $(this);//this form
+        var results = [];
+        var count = 0;
+        $('*[id*=amount_]').each(function(){
+            var input1 = document.createElement('input');
+            input1.type = 'hidden';
+            input1.name = `observations[${count}][species_id]`;
+            input1.value = this.id.split('_')[1];
+            form[0].appendChild(input1);
 
+            var input2 = document.createElement('input');
+            input2.type = 'hidden';
+            input2.name = `observations[${count}][number]`;
+            input2.value = this.value;
+            form[0].appendChild(input2);
 
-       // console.log(tempArr);
-        resArr.value=JSON.stringify(tempArr);
-       // console.log(resArr.value);
-        return true; 
+            var input3 = document.createElement('input');
+            input3.type = 'hidden';
+            input3.name = `observations[${count}][observationtime]`;
+            input3.value =  $('#time_' + this.id.split('_')[1]).val();
+            form[0].appendChild(input3);
+
+            count++;
+        });
+
+        // form.submit();//submit form
+        return true;
     });
+
+        
 
     </script>
 @endsection

@@ -172,7 +172,49 @@
                         <select class="add-species-select w-100"></select>
                     </div>
 
-                    <div>Location </div>
+                    <script>
+                        var currentGeom = "";
+                    </script>
+                        
+
+                    <div>Location 
+                        @include('layouts.map_create', ['showLine'=>false, 'showPoints'=>true, 'showPolygon'=>false, 'finishDrawFunction' => 'handleFinishDraw', 'finishModifyFunction' => 'handleFinishModify', 'initMapFunction' => 'initMap'])
+                    </div>
+
+                    <script>
+                        function initMap(e)
+                        {
+
+                        }
+                    </script>
+
+                    <script>
+                        function handleFinishDraw(e)
+                        {
+                            drawMap(false);
+                        }
+
+                        function handleFinishModify(e)
+                        {
+                            drawMap(true);
+                        }
+
+                        function drawMap(restoreLast) //I have no idea why this works... 
+                        {
+                            var features = vector.getSource().getFeatures();
+                            var lastFeature = "";
+                            features.forEach((feature) => 
+                            {
+                                lastFeature = feature;
+                                vector.getSource().removeFeature(feature);
+                            });
+                            vector.getSource().clear();
+                            if (restoreLast)
+                            {
+                                vector.getSource().addFeature(lastFeature); //remove everything but the last, to ensure there is only ever one feature
+                            }
+                        }
+                    </script>
 
                     @if (!$isSingle)
                         <div class="row justify-content-center mt-3">

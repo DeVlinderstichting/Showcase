@@ -42,6 +42,27 @@
         <h1 class="p-4">{{ $title }}</h1>
     </div>
 
+    @if($isTransect)
+        <?php $transects = $user->transects()->get(); ?>
+        <script>
+            function getTransectSections(transectId)
+            {
+                @foreach($transects as $tr)
+                    if (transectId == {{$tr->id}})
+                    {
+                        var res = [];
+                        @foreach($tr->transectSections()->get() as $trSec)
+                            var item = [{{$trSec->id}},{{$trSec->name}}];
+                            res.push(item);
+                        @endforeach
+                        return res;
+                    }
+                @endforeach
+            }
+        </script>
+    @endif
+
+
     <div class="container mt-4">
         <div class="card mb-2">
             <div class="card-body">
@@ -61,12 +82,18 @@
                     <div class="col">
 
                         @if($isTransect)
-                            <?php $transects = $user->transects()->get(); ?>
                             <select id="transect_id" name="transect_id">
                                 @foreach($transects as $transect)
-                                    <option value="{{$plant->id}}">{{$plant->getName($user)}}</option>
+                                    <option onChange="updateTransectSectionList()" value="{{$transect->id}}">{{$transect->name}}</option>
                                 @endforeach
                             </select>
+
+                            <script>
+                                function updateTransectSectionList()
+                                {
+                                    
+                                }
+                            </script>
                         @endif
 
                         @if($visit)

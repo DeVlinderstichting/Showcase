@@ -45,6 +45,8 @@
     @if($isTransect)
         <?php $transects = $user->transects()->get(); ?>
         <script>
+            var currentTransectId = {{ $transects->first()->id }};
+
             function getTransectSections(transectId)
             {
                 @foreach($transects as $tr)
@@ -52,7 +54,7 @@
                     {
                         var res = [];
                         @foreach($tr->transectSections()->get() as $trSec)
-                            var item = [{{$trSec->id}},{{$trSec->name}}];
+                            var item = [{{$trSec->id}},"{{$trSec->name}}"];
                             res.push(item);
                         @endforeach
                         return res;
@@ -62,7 +64,25 @@
         </script>
     @endif
 
+    <div class="modal" id="changeTransectModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Transect change</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>You are about to change the transect. If you proceed all sections of your observations will be reset to the first section of the new transect. Press cancel if you wish to maintain the current data...</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" onclick="dismissTransectChange();">Cancel</button>
+              <button type="button" class="btn btn-danger" onclick="acceptTransectChange();">Proceed</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      
     <div class="container mt-4">
         <div class="card mb-2">
             <div class="card-body">
@@ -78,24 +98,54 @@
                     @csrf
                     <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
                     <input type='hidden' id="geometry" name="geometry" value="">
-                    <label for="date" class="col-md-3 col-form-label">Date</label>
-                    <div class="col">
-
-                        @if($isTransect)
-                            <select id="transect_id" name="transect_id">
+                    @if($isTransect)
+                        <label for="transect_id" class="col-md-3 col-form-label">Select transect</label>
+                        <div class="col">
+                            <select id="transect_id" name="transect_id" class="form-select" onChange="updateTransectSectionList()">
                                 @foreach($transects as $transect)
-                                    <option onChange="updateTransectSectionList()" value="{{$transect->id}}">{{$transect->name}}</option>
+                                    <option value="{{$transect->id}}">{{$transect->name}}</option>
                                 @endforeach
                             </select>
+                        </div>
 
-                            <script>
-                                function updateTransectSectionList()
-                                {
-                                    
-                                }
-                            </script>
-                        @endif
+                        <script>
+                            var transectModal = new bootstrap.Modal('#changeTransectModal', {});
 
+                            function updateTransectSectionList()
+                            {
+                                transectModal.show();
+                            }
+
+                            function dismissTransectChange()
+                            {
+                                document.getElementById("transect_id").value = currentTransectId;
+                                transectModal.hide();
+                            }
+
+                            function acceptTransectChange()
+                            {
+                                $('*[id*=section_]').each(function()
+                                    {
+                                        $(this).empty();
+                                        //Create and append the options
+                                        var sectionArray = getTransectSections(document.getElementById("transect_id").value);
+                                        for (var i = 0; i < sectionArray.length; i++) {
+                                            
+                                            var option = new Option(sectionArray[i][1], sectionArray[i][0]);
+                                            $(this).append(option);
+                                        }
+
+                                    });
+                                currentTransectId = document.getElementById("transect_id").value;
+                                transectModal.hide();
+
+ 
+                            }
+                        </script>
+
+                    @endif
+                    <label for="date" class="col-md-3 col-form-label">Date</label>
+                    <div class="col">
                         @if($visit)
                             <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
@@ -203,7 +253,11 @@
                                             <td><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
                                             <td><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
-                                                <td>{{$obs->transectSection()->get()->name}}</td>
+                                                <td data-sectionname="{{$obs->transectSection()->get()->name}}">
+                                                    <select id="section_{{$obs->species()->first()->id}}" name="section_{{$obs->species()->first()->id}}">
+
+                                                    </select>
+                                                </td>
                                             @endif
                                         </tr>
                                     @empty
@@ -386,6 +440,21 @@
         input.max = 1000;
         input.value = now.toISOString().slice(0, -8);
         newCell.appendChild(input);
+
+        //Create and append select list
+        var newCell = newRow.insertCell();
+        var selectList = document.createElement("select");
+        selectList.id = `section_${specId}`;
+        newCell.appendChild(selectList);
+
+        //Create and append the options
+        var sectionArray = getTransectSections(document.getElementById("transect_id").value);
+        for (var i = 0; i < sectionArray.length; i++) {
+            var option = document.createElement("option");
+            option.value = sectionArray[i][0];
+            option.text = sectionArray[i][1];
+            selectList.appendChild(option);
+        }
     });
 
     $("#visitcreateform").on("submit", function (e) 

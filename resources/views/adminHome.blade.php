@@ -42,6 +42,15 @@ Admin home
         </div>
         <div class="card mb-2">
             <h5 class="card-header">
+                News
+            </h5>
+            <div class="card-body">
+                <a class="btn btn-primary btn-sm" role="button" href="/newsItem/create/-1">Create new news item</a>
+                <a class="btn btn-primary btn-sm" role="button" href="/newsItem/">Manage news items</a>
+            </div>
+        </div>
+        <div class="card mb-2">
+            <h5 class="card-header">
                 Translations
             </h5>
             <div class="card-body">

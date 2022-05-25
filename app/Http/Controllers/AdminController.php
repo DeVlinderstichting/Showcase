@@ -52,9 +52,6 @@ class AdminController extends Controller
     }
     public function regionStore($regionId = null)
     {
-
-dd(request());
-
     	if (!($this->checkIsAdmin()))
     	{
     		return view('adminLogin');
@@ -337,6 +334,32 @@ dd(request());
         }
         return view ('pushMessageIndex', ['messages' => \App\Models\PushMessage::all()]);
     }
+
+    public function newsItemsIndex()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        return view ('newsItemIndex', ['messages' => \App\Models\NewsItem::all()]);
+    }
+    public function createNewsItem()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        return view ('newsItemCreate', ['messages' => \App\Models\NewsItem::all()]);
+    }
+    public function storeNewsItem()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        return redirect()->route('newsindex');
+    }
+
     public function translationIndex()
     {
         if (!($this->checkIsAdmin()))

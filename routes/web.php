@@ -53,6 +53,10 @@ Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageInd
 Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');
 Route::post('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@storePushmessage');
 
+Route::get('/newsItem', '\App\Http\Controllers\AdminController@newsItemIndex');
+Route::get('/newsItem/create/{messageId}', '\App\Http\Controllers\AdminController@createNewsItem');
+Route::post('/newsItem/create/{messageId}', '\App\Http\Controllers\AdminController@storeNewsItem');
+
 Route::get('translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
 Route::get('translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');
 Route::get('translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');

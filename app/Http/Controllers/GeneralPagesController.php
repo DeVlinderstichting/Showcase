@@ -30,6 +30,10 @@ class GeneralPagesController extends Controller
         $newsItems = \App\Models\NewsItem::all();
         return view ('news', ['newsItems' => $newsItems]);
     }
+    public function showNewsItem(\App\Models\NewsItem $newsItem)
+    {
+        return view ('newsItem', ['newsItem' => $newsItem]);
+    }
     public function logoff()
     {
         Auth::logout();

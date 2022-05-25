@@ -21,8 +21,8 @@
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2>{{ $newsItem->title }}</h2>
-            <p>{{ $newsItem->introduction }}</p>
-
+            <p>{{ Str::words($newsItem->introduction,75, ' (...)' )}}</p>
+            <p><a href="/news/{{ $newsItem->id }}">Read more...</a></p>
         </div>
     </div>
 </div>

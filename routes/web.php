@@ -23,6 +23,7 @@ Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHe
 Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@showProjectInfo');
 Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
 Route::get('/news', '\App\Http\Controllers\GeneralPagesController@showNews');
+Route::get('/news/{newsItem}', '\App\Http\Controllers\GeneralPagesController@showNewsItem');
 Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logOff');
 
 Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');

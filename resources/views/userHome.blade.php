@@ -71,7 +71,7 @@
                 <?php $truncCont = Str::limit($um->content, 100, ' (...)'); ?>
 
                 <a href="#" data_header="{{ $um->header }}" data_at="{{ $um->created_at }}"
-                    data_content="{{ $um->content }}" onClick="showModal(this); event.preventDefault();"
+                    data_content="{{ $um->content }}" data_image1="{{ $um->image_primary }}" data_image2="{{ $um->image_secondary }}" onClick="showModal(this); event.preventDefault();"
                     class="list-group-item list-group-item-action" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ $um->header }}</h5>
@@ -111,6 +111,8 @@
                 <div class="modal-body" id="messageContent">
                     ...
                 </div>
+                <img src="..." id="messageImage1" class="img-fluid">
+                <img src="..." id="messageImage2" class="img-fluid">
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -127,10 +129,12 @@
             $('#messageTitle').html(elem.getAttribute('data_header'));
             $('#messageContent').html(elem.getAttribute('data_content'));
             $('#messageAt').html(elem.getAttribute('data_at'));
+            $('#messageImage1').attr('src', elem.getAttribute('data_image1'));
+            $('#messageImage2').attr('src', elem.getAttribute('data_image2'));
+            ($('#messageImage1').attr('src') == "" ) ? $('#messageImage1').hide() : $('#messageImage1').show();
+            ($('#messageImage2').attr('src') == "" ) ? $('#messageImage2').hide() : $('#messageImage2').show();
             myModal.show();
-
         }
-
 
         const labels = [
             'January',

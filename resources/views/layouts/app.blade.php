@@ -33,9 +33,7 @@
 </head>
 
 <body>
-
     <!-- navbar -->
-
     <div class="container">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
           <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
@@ -44,10 +42,10 @@
           </a>
     
           <ul class="nav nav-pills">
-            <li class="nav-item"><a href="/showProjectInfo" class="nav-link active" aria-current="page">About</a></li>
-            <li class="nav-item"><a href="/showRecordingMethodExplanation" class="nav-link">Monitoring</a></li>
-            <li class="nav-item"><a href="/showIdHelp" class="nav-link">Identification</a></li>
-            <li class="nav-item"><a href="/" class="nav-link">News</a></li>
+            <li class="nav-item"><a href="/showProjectInfo" class="nav-link {{ Request::is('showProjectInfo') ? 'active' : '' }}" aria-current="page">About</a></li>
+            <li class="nav-item"><a href="/showRecordingMethodExplanation" class="nav-link {{ Request::is('showRecordingMethodExplanation') ? 'active' : '' }}">Monitoring</a></li>
+            <li class="nav-item"><a href="/showIdHelp" class="nav-link {{ Request::is('showIdHelp') ? 'active' : '' }}">Identification</a></li>
+            <li class="nav-item"><a href="/news" class="nav-link {{ Request::is('news') ? 'active' : '' }}">News</a></li>
             <li class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-user"></i></a></li>
           </ul>
         </header>
@@ -67,7 +65,7 @@
             <li class="nav-item"><a href="/showProjectInfo" class="nav-link px-2 text-muted">About</a></li>
             <li class="nav-item"><a href="/showRecordingMethodExplanation" class="nav-link px-2 text-muted">Monitoring</a></li>
             <li class="nav-item"><a href="/showIdHelp" class="nav-link px-2 text-muted">Identification</a></li>
-            <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">News</a></li>
+            <li class="nav-item"><a href="/news" class="nav-link px-2 text-muted">News</a></li>
           </ul>
         </footer>
       </div>

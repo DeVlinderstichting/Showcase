@@ -23,7 +23,7 @@ Welcome to showcase
             <h4>Line 1</h4>
             <h4>Line 2</h4>
             <h4>Line 3</h4>
-            <a href="#" class="btn btn-outline-primary w-75">Button</a>
+            <a href="/showRecordingMethodExplanation" class="btn btn-outline-primary w-75">Button</a>
         </div>
     </div>
 </div>
@@ -37,7 +37,7 @@ Welcome to showcase
             <h4>Line 1</h4>
             <h4>Line 2</h4>
             <h4>Line 3</h4>
-            <a href="#" class="btn btn-outline-primary w-75">Button</a>
+            <a href="/showIdHelp" class="btn btn-outline-primary w-75">Button</a>
         </div>
     </div>
 </div>
@@ -51,7 +51,7 @@ Welcome to showcase
             <h4>Line 1</h4>
             <h4>Line 2</h4>
             <h4>Line 3</h4>
-            <a href="#" class="btn btn-outline-primary w-75">Button</a>
+            <a href="/news" class="btn btn-outline-primary w-75">Button</a>
         </div>
     </div>
 </div>

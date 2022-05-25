@@ -73,7 +73,7 @@ class VisitController extends Controller
         {
             $regIds = $user->regions()->pluck('region_id');
             $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
-            $plantsSpGroup = \App\Models\SpeciesGroup::where('name', 'plants')->first();
+            $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
             $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
         }
         $title = 'Create a visit';

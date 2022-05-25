@@ -104,12 +104,16 @@
                         
                         @endif
                         @if($isFit)
-                            <label for="flower_id">Choose a flower</label>
-                            <select id="flower_id" name="flower_id">
+                            <label for="flower_id" class="col-md-3 col-form-label">Choose a flower</label>
+                            <div class="col">
+                            <select id="flower_id" name="flower_id" class="form-select">
                                 @foreach($plantSp as $plant)
-                                    <option value="{{$plant->id}}">{{$plant->getName($user)}}</option>
+                                    @if($plant->taxon)
+                                        <option value="{{$plant->id}}">{{$plant->getName($user)}}</option>
+                                    @endif
                                 @endforeach
                             </select> 
+                            </div>
                         @endif
                     @endif
                     <div class="col">
@@ -317,7 +321,9 @@
 
     $(".add-species-select").select2({
       data: specArray
-    })
+    });
+
+    $(".add-species-select").prepend('<option selected class="placeholdered" value="">Select from the list of species</option>');
 
     $(".add-species-select").on("select2:select", function (evt) {
         var element = evt.params.data.element;

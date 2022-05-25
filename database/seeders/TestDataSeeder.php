@@ -96,5 +96,24 @@ class TestDataSeeder extends Seeder
 
         $pushMessage = \App\Models\PushMessage::create(['region_id' => $region->id, 'content' => "Test message content", 'header' => 'testMessage header', 'image_primary' => '', 'image_secondary'=> '']);
         \App\Models\UsersPushMessage::create(['pushmessage_id' => $pushMessage->id, 'user_id' => $user->id]);
+
+        \App\Models\NewsItem::create(
+            [
+                'title' => 'News item 1',
+                'introduction' => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+                'maintext' => 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pellentesque lacinia fermentum. Ut eget risus quam. Curabitur ut est ut nibh accumsan egestas. Nunc maximus sit amet velit nec faucibus. Praesent blandit orci suscipit, vehicula enim eget, tincidunt nibh. Ut ut odio interdum, accumsan turpis eget, sollicitudin ipsum. Phasellus vitae faucibus risus. Vivamus bibendum nulla orci, nec suscipit ligula aliquet sed. In ut quam nibh. Praesent tincidunt blandit sapien non ultrices. Curabitur id tellus vel libero finibus bibendum et in nibh. Morbi venenatis sem sapien, et vestibulum mauris ullamcorper sit amet. Nam lorem tellus, scelerisque nec facilisis eget, rhoncus dictum odio. Duis blandit lacus sollicitudin lacinia pellentesque. Aliquam erat volutpat.
+                
+                Nam lobortis lacus vitae odio pretium hendrerit. Aliquam euismod turpis ipsum, a auctor ante lacinia quis. Pellentesque blandit lectus neque, in ullamcorper leo lobortis sit amet. Nunc molestie dolor non pharetra ullamcorper. Quisque at vehicula diam. Sed iaculis congue consectetur. Nullam eu nisi luctus, lacinia ex sed, ullamcorper sem. Nunc lobortis consequat velit, vitae commodo felis suscipit ut. Quisque mollis pretium dolor, eget rutrum justo interdum sit amet. Quisque vel quam tristique purus tincidunt consequat vel at odio. Fusce sagittis convallis ante et venenatis. Maecenas id arcu sed est tristique elementum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nullam eu faucibus leo, a tempus risus. Curabitur pharetra arcu quis nibh rhoncus laoreet. Sed ultricies leo nec ex consequat vehicula.
+                
+                Quisque molestie tortor in turpis ultrices sodales a nec tortor. Donec vitae justo faucibus, ornare nibh in, varius sapien. Aliquam metus justo, sodales at aliquam non, placerat at purus. Praesent consectetur, lectus auctor egestas tempus, nisl quam dapibus mi, posuere pulvinar nisl lorem nec velit. In eget elit sed tellus vulputate ultricies in vitae nisi. Sed vel tristique ligula. Donec rutrum pulvinar diam vel dapibus. Donec vestibulum neque a ultrices condimentum. Donec pharetra nisl tortor. Aenean auctor, sem sit amet imperdiet volutpat, leo erat faucibus diam, sit amet lobortis leo diam at orci. Vestibulum quis felis urna.
+                
+                Vestibulum interdum elit eu commodo vestibulum. Morbi metus ipsum, malesuada quis enim a, interdum bibendum ex. Nam posuere fringilla pulvinar. In id turpis nisi. Praesent dictum vulputate arcu, ac rhoncus sem facilisis ut. Duis vehicula varius erat sed ultricies. Morbi ut libero vitae urna aliquet mattis quis eu orci. Suspendisse suscipit mi et commodo pellentesque. Nullam blandit, orci pellentesque condimentum feugiat, quam ipsum tempus risus, vitae suscipit tellus turpis a ex. Vivamus gravida condimentum nulla ullamcorper pulvinar. Proin nisl ex, pretium accumsan cursus in, viverra vel dolor. Proin sodales neque at ligula finibus, eget accumsan tortor porta. Maecenas in magna vel lectus malesuada tempor. Nulla eget nisi sapien. Donec mollis metus quis ex lobortis, non ornare nunc semper. Quisque scelerisque id dolor nec tincidunt.
+                
+                Integer pulvinar posuere dui blandit maximus. Integer posuere, ex vel convallis hendrerit, erat velit maximus nisl, eu ornare ante ipsum id nibh. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vivamus sagittis ligula a est ullamcorper scelerisque. In hac habitasse platea dictumst. Ut ac nisl non lacus placerat malesuada. In rhoncus fermentum tortor, ac rutrum augue congue sit amet. Nunc id tempus ipsum, vitae ultricies dui. ',
+                'moreinfo' => 'https://www.lipsum.com/'
+
+            ]
+            );
+
     }
 }

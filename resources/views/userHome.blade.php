@@ -111,8 +111,11 @@
                 <div class="modal-body" id="messageContent">
                     ...
                 </div>
-                <img src="..." id="messageImage1" class="img-fluid">
-                <img src="..." id="messageImage2" class="img-fluid">
+                <div class="modal-body">
+
+                    <img src="..." id="messageImage1" class="img-fluid">
+                    <img src="..." id="messageImage2" class="img-fluid">
+                </div>
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

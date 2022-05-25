@@ -94,8 +94,10 @@ class TestDataSeeder extends Seeder
         \App\Models\Visit::create(['countingmethod_id' => $timedCom->id,'startdate' => '2022-01-02 12:01:03','enddate' => '2022-01-02 13:00:00','status' => '2','user_id' => $user->id,'recorders' => 1,'notes' => 'I have only noted that there is nothing to note','wind' => '1','temperature' => '23','cloud' => '3','region_id' => '1','method_id' => $method->id, 'location' => $geom]);
 
 
-        $pushMessage = \App\Models\PushMessage::create(['region_id' => $region->id, 'content' => "Test message content", 'header' => 'testMessage header', 'image_primary' => '', 'image_secondary'=> '']);
+        $pushMessage = \App\Models\PushMessage::create(['region_id' => $region->id, 'content' => "Test message content", 'header' => 'testMessage header', 'image_primary' => 'images/bf1.jpg', 'image_secondary'=> 'images/bf2.jpg']);
+        $pushMessage2 = \App\Models\PushMessage::create(['region_id' => $region->id, 'content' => "Test message content2", 'header' => 'testMessage header', 'image_primary' => 'images/bf3.jpg', 'image_secondary'=> 'images/bf4.jpg']);
         \App\Models\UsersPushMessage::create(['pushmessage_id' => $pushMessage->id, 'user_id' => $user->id]);
+        \App\Models\UsersPushMessage::create(['pushmessage_id' => $pushMessage2->id, 'user_id' => $user->id]);
 
         \App\Models\NewsItem::create(
             [

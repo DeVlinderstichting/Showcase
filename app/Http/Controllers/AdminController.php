@@ -52,6 +52,9 @@ class AdminController extends Controller
     }
     public function regionStore($regionId = null)
     {
+
+dd(request());
+
     	if (!($this->checkIsAdmin()))
     	{
     		return view('adminLogin');

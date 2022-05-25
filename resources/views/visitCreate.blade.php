@@ -56,6 +56,7 @@
                 <form method="post" id="visitcreateform" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
                     @csrf
                     <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
+                    <input type='hidden' id="geometry" name="geometry" value="">
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
                         @if($visit)
@@ -328,12 +329,14 @@
         newCell.appendChild(input);
     });
 
-    $("#visitcreateform").on("submit", function (e) {
+    $("#visitcreateform").on("submit", function (e) 
+    {
         // e.preventDefault();//stop submit event
         var form = $(this);//this form
         var results = [];
         var count = 0;
-        $('*[id*=amount_]').each(function(){
+        $('*[id*=amount_]').each(function()
+        {
             var input1 = document.createElement('input');
             input1.type = 'hidden';
             input1.name = `observations[${count}][species_id]`;
@@ -354,6 +357,30 @@
 
             count++;
         });
+
+        var format = new ol.format.WKT();
+        var geomElem = document.getElementById('geometry');
+        var features = vector.getSource().getFeatures();
+        var feat = "";
+        if (features.length > 0)
+        {
+            var feature = features[0];
+var transformed = ol.proj.transform(features[0], 'EPSG:3857', 'EPSG:4326');
+            var tr = vecDat[i].transform('EPSG:3857', 'EPSG:4326');
+        var strLine = format.writeGeometry(transformed);
+            geomElem.value = strLine;
+
+                                
+
+       //     feat = features[0];
+        //    feat = feat.transform('EPSG:3857', 'EPSG:4326');
+          //  geomElem.value = feat.getGeometry();
+        }
+
+       // var tr = feat.transform('EPSG:3857', 'EPSG:4326');
+      //  var strLine = format.writeGeometry(tr);
+       // console.log(strLine);
+       // geomElem.value = JSON.stringify(feat.getGeometry());
 
         // form.submit();//submit form
         return true;

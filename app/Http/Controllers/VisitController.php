@@ -102,26 +102,10 @@ class VisitController extends Controller
         }
     }
 
-    private function needsToBeStored($variable)
-    {
-        if ($variable != null)
-        {
-            if (!empty($variable))
-            {
-                if ($variable != "")
-                {
-                    if (($variable != -1) && ($variable != "-1"))
-                    {
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
     public function visitStore($visit_id)
     {
+
+        dd(request());
         if ($visit_id != null)
         {
             $visit = \App\Models\Visit::find($visit_id);
@@ -272,6 +256,24 @@ class VisitController extends Controller
         {
             $visit->delete();
         }
+    }
+
+    private function needsToBeStored($variable)
+    {
+        if ($variable != null)
+        {
+            if (!empty($variable))
+            {
+                if ($variable != "")
+                {
+                    if (($variable != -1) && ($variable != "-1"))
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private function userHasVisitRights($visit = null)

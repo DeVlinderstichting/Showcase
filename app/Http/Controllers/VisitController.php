@@ -68,8 +68,16 @@ class VisitController extends Controller
             // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
 
         }
+        $plantSp = [];
+        if ($visitType == 4)
+        {
+            $regIds = $user->regions()->pluck('region_id');
+            $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
+            $plantsSpGroup = \App\Models\SpeciesGroup::where('name', 'plants')->first();
+            $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
+        }
         $title = 'Create a visit';
-        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList]);
+        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp]);
     }
 
     public function visitEdit(Visit $visit)
@@ -131,6 +139,10 @@ class VisitController extends Controller
         if ($countType != 3) //not a transect so a geometry is required 
         {
             $rules['geometry'] = ['required'];
+        }
+        if ($countType == 4) // fit count, plant type is required 
+        {
+            $rules['flower_id'] = ['required', 'exists:species,id'];
         }
 
         $valDat = request()->validate($rules);

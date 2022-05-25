@@ -59,12 +59,22 @@
                     <input type='hidden' id="geometry" name="geometry" value="">
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
+
+                        @if($isTransect)
+                            <?php $transects = $user->transects()->get(); ?>
+                            <select id="transect_id" name="transect_id">
+                                @foreach($transects as $transect)
+                                    <option value="{{$plant->id}}">{{$plant->getName($user)}}</option>
+                                @endforeach
+                            </select>
+                        @endif
+
                         @if($visit)
                             <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
                             <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate')}}"}}>
                         @endif
-                            @if($errors->has('startdate')) 
+                        @if($errors->has('startdate')) 
                             <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
                         @endif
                     </div>

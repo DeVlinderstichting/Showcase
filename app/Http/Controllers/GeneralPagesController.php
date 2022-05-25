@@ -25,6 +25,11 @@ class GeneralPagesController extends Controller
     {
         return view ('recordingMethodExplanation');
     }
+    public function showNews()
+    {
+        $newsItems = \App\Models\NewsItem::all();
+        return view ('news', ['newsItems' => $newsItems]);
+    }
     public function logoff()
     {
         Auth::logout();

@@ -2,6 +2,16 @@
             <script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js"></script>
             <div id="map" class="map" style="height:600px; width=100%"></div>
 
+            <style>
+                .mapSelector {
+                    top: .5em;
+                    right: .5em;
+                    position: absolute;
+                    border-radius: 4px;
+                    padding: 2px;
+                }
+            </style>
+
             <script>
 
                 fetch('https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0?&request=GetCapabilities')
@@ -58,7 +68,7 @@
                     var draw, snap;
 
                     $(".ol-overlaycontainer-stopevent").append(`
-                        <select id="geomType" style="pointer-events: auto;" class="mapSelector ol-control">
+                        <select id="geomType" style="pointer-events: auto; background-color: white;" class="mapSelector ol-control">
                             @if($showPoints==1) <option value="Point">Punt</option> @endif
                             @if($showLine==1)<option value="LineString" selected>Lijn</option> @endif
                             @if($showPolygon==1)<option value="Polygon">Polygoon</option> @endif

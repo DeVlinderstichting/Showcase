@@ -180,7 +180,7 @@
                         
 
                     <div>Location 
-                        @include('layouts.map_create', ['showLine'=>false, 'showPoints'=>true, 'showPolygon'=>false, 'finishDrawFunction' => 'handleFinishDraw', 'finishModifyFunction' => 'handleFinishModify', 'initMapFunction' => 'initMap'])
+                        @include('layouts.map_create', ['showLine'=>true, 'showPoints'=>true, 'showPolygon'=>false, 'finishDrawFunction' => 'handleFinishDraw', 'finishModifyFunction' => 'handleFinishModify', 'initMapFunction' => 'initMap'])
                     </div>
 
                     <script>
@@ -211,7 +211,7 @@
                                 vector.getSource().removeFeature(feature);
                             });
                             vector.getSource().clear();
-                            if (restoreLast)
+                            if (restoreLast && lastFeature != "")
                             {
                                 vector.getSource().addFeature(lastFeature); //remove everything but the last, to ensure there is only ever one feature
                             }
@@ -364,11 +364,20 @@
         var feat = "";
         if (features.length > 0)
         {
-            var feature = features[0];
+            feat = features[0];
+            var transformedFeat = feat.getGeometry().transform('EPSG:3857', 'EPSG:4326');
+            var strLine = format.writeGeometry(transformedFeat);
+
+    /*        var feature = features[0];
 var transformed = ol.proj.transform(features[0], 'EPSG:3857', 'EPSG:4326');
-            var tr = vecDat[i].transform('EPSG:3857', 'EPSG:4326');
+         //   var tr = vecDat[i].transform('EPSG:3857', 'EPSG:4326');
         var strLine = format.writeGeometry(transformed);
+
+        */
+
+
             geomElem.value = strLine;
+
 
                                 
 

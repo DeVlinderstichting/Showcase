@@ -104,8 +104,6 @@ class VisitController extends Controller
 
     public function visitStore($visit_id)
     {
-
-        dd(request());
         if ($visit_id != null)
         {
             $visit = \App\Models\Visit::find($visit_id);
@@ -129,7 +127,10 @@ class VisitController extends Controller
             $rules['wind'] = ['required', 'integer', 'between:0,8'];
             $rules['cloud'] = ['required', 'integer', 'between:0,8'];
             $rules['temp'] = ['required', 'integer', 'between:-10,60'];
-
+        }
+        if ($countType != 3) //not a transect so a geometry is required 
+        {
+            $rules['geometry'] = ['required'];
         }
 
         $valDat = request()->validate($rules);
@@ -158,8 +159,10 @@ class VisitController extends Controller
         if (array_key_exists('flower_id', $valDat)) $visit->flower_id = $valDat['flower_id'];
 
         //  $visit->method_id = $this->getRecordingMethod($valDat['method'])->id;
-
+        $visit->location = $valDat['geometry'];
         $visit->save();
+
+/*
         if (array_key_exists('location', $valDat))
         {
             if ($this->needsToBeStored($valDat['location']))
@@ -209,7 +212,7 @@ class VisitController extends Controller
                 }
             }
         }
-        
+        */
 
         $observations = $valDat['observations'];
 
@@ -235,17 +238,20 @@ class VisitController extends Controller
             $obs->number = $obsDat['number'];
             $obs->visit_id = $visit->id;
             $obs->observationtime = $obsSearchDate;
-            
+            $obs->location = $valDat['geometry'];
+
             if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = $obsDat['transect_section_id'];}
             $obs->save();
+
+            return redirect("/visit");
 
             //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
             //\DB::raw("ST_GeomFromGeoJSON('$geom')"
         //  $obs->location = "POINT(" . $obsDat['location'] . ")";
-            $locItems = explode(",", $obsDat['location']);
-            $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
+        //    $locItems = explode(",", $obsDat['location']);
+         //   $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
 
-            DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
+          //  DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
         }
 
     }

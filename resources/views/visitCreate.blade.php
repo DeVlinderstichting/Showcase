@@ -178,10 +178,21 @@
                         var currentGeom = "";
                     </script>
                         
+                    <?php 
+                        $showPoint = true;
+                        $showLine = false;
+                        if ($isTimed)
+                        {
+                            $showPoint = false;
+                            $showLine = true;
+                        }
+                    ?>
 
-                    <div>Location 
-                        @include('layouts.map_create', ['showLine'=>true, 'showPoints'=>true, 'showPolygon'=>false, 'finishDrawFunction' => 'handleFinishDraw', 'finishModifyFunction' => 'handleFinishModify', 'initMapFunction' => 'initMap'])
-                    </div>
+                    @if (!$isTransect)
+                        <div>Location 
+                            @include('layouts.map_create', ['showLine'=>$showLine, 'showPoints'=>$showPoint, 'showPolygon'=>false, 'finishDrawFunction' => 'handleFinishDraw', 'finishModifyFunction' => 'handleFinishModify', 'initMapFunction' => 'initMap'])
+                        </div>
+                    @endif
 
                     <script>
                         function initMap(e)

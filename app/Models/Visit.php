@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use DB;
 
 class Visit extends Model
 {
@@ -49,5 +50,11 @@ class Visit extends Model
         $end = \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $this->enddate);
         $diff = $start->diffInHours($end) . ':' . str_pad($start->diffInMinutes($end) - (floor($start->diffInHours($end)) * 60), 2, '0', STR_PAD_LEFT);
         return $diff;
+    }
+
+    public function getLocationsAsGeoJson()
+    {
+        $res = DB::select("SELECT ST_AsGeoJSON(location) as loc from visits where id = $this->id");
+        return $res[0]->loc;
     }
 }

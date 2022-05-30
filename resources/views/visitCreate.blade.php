@@ -518,9 +518,10 @@
                 combined.push([species[i], sections[i]]);
             };
             let setComb  = new Set(combined.map(JSON.stringify)); 
-            if(!(myAcombinedrray.length === setComb.size))
+            if(!(combined.length === setComb.size))
             {
-                alert('It is not possible to have the same species multiple times on the same section')
+                alert('It is not possible to have the same species multiple times on the same section');
+                return false;
             }
         @endif
 

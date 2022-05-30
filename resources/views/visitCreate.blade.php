@@ -255,7 +255,7 @@
                                             <td><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
                                             <td><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
-                                                <td data-sectionname="{{$obs->transectSection()->get()->name}}">
+                                                <td data-sectionname="{{$obs->transectSection()->first()->name}}">
                                                     <select id="section_{{$obs->species()->first()->id}}" name="section_{{$obs->species()->first()->id}}">
 
                                                     </select>
@@ -357,7 +357,7 @@
                                         <input class="form-check-input" type="checkbox" 
                                         <?php 
                                             if ($visit != null)
-                                            {
+                                            {   
                                                 $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
                                                 if ($rl != null)
                                                 {

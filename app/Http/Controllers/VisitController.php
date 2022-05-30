@@ -270,6 +270,7 @@ class VisitController extends Controller
                 {
                     $theTransectSection = \App\Models\TransectSections::find($obsDat['section']);
                     $obs->location = $theTransectSection->location;
+                    $obs->transect_section_id = $obsDat['section'];
                 }
             }
 

@@ -510,7 +510,7 @@
         datetime.value = toISOLocal(new Date(startDate + ' ' + startTime));
         form[0].appendChild(datetime);
 
-        if(!$isSingle)
+        @if(!$isSingle)
             var endTime = $('#endtime').val();
         @else
         @endif

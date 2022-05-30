@@ -352,6 +352,7 @@ class AdminController extends Controller
         if ($newsItem == -1)
         {
             $newsItem = new \App\Models\NewsItem();
+            $newsItem->id = -1;
         }
         else
         {
@@ -360,7 +361,7 @@ class AdminController extends Controller
 
         return view ('newsItemCreate', ['newsItem' => $newsItem]);
     }
-    public function storeNewsItem()
+    public function storeNewsItem($messageId)
     {
         if (!($this->checkIsAdmin()))
         {
@@ -369,11 +370,40 @@ class AdminController extends Controller
         $valDat = request()->validate([
             'title' => ['required'],
             'introduction' => ['required'], 
-            'moreinfo' => ['required'], 
+            'moreinfo' => ['nullable'], 
             'maintext' => ['required'], 
             'image1' => ['nullable'], 
             'image2' => ['nullable']
         ]);
+
+        if ($messageId == -1)
+        {
+            \App\Models\NewsItem::create($valDat);
+        }
+        else 
+        {
+            $ni = \App\Models\NewsItem::find($messageId);
+            if ($ni != null)
+            {
+                $ni->title = $valDat['title'];
+                $ni->introduction = $valDat['introduction'];
+                $ni->maintext = $valDat['maintext'];
+                if (array_key_exists('moreinfo', $valDat))
+                {
+                    $ni->moreinfo = $valDat['moreinfo'];
+                }
+                if (array_key_exists('image1', $valDat))
+                {
+                    $ni->image1 = $valDat['image1'];
+                }
+                if (array_key_exists('image2', $valDat))
+                {
+                    $ni->image2 = $valDat['image2'];
+                }
+                $ni->save();
+            }
+        }
+
         return redirect()->route('newsindex');
     }
 

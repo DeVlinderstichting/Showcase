@@ -104,9 +104,17 @@ class VisitController extends Controller
                 // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
 
             }
+            $plantSp = [];
+            if ($visit->flower_id != null) //it is a fit count)
+            {
+                $regIds = $user->regions()->pluck('region_id');
+                $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
+                $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
+                $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
+            }
             $countingMethodId = $visit->countingmethod_id;
             $title = 'Edit visit';
-            return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList]);
+            return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp]);
         }
     }
 

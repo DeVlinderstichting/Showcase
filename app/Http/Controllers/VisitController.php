@@ -112,7 +112,6 @@ class VisitController extends Controller
 
     public function visitStore($visit_id)
     {
-        dd(request());
         if ($visit_id != null)
         {
             $visit = \App\Models\Visit::find($visit_id);

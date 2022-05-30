@@ -341,16 +341,23 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        return view ('newsItemIndex', ['messages' => \App\Models\NewsItem::all()]);
+        return view ('newsItemIndex', ['newsitems' => \App\Models\NewsItem::all()]);
     }
-    public function createNewsItem()
+    public function createNewsItem($newsItem = -1)
     {
         if (!($this->checkIsAdmin()))
         {
             return view('adminLogin');
         }
-        $newsItem = new \App\Models\NewsItem();
-        $newsItem->id = -1;
+        if ($newsItem == -1)
+        {
+            $newsItem = new \App\Models\NewsItem();
+        }
+        else
+        {
+            $newsItem = \App\Models\NewsItem::find($newsItem);
+        }
+
         return view ('newsItemCreate', ['newsItem' => $newsItem]);
     }
     public function storeNewsItem()

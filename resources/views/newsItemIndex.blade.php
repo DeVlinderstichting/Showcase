@@ -4,29 +4,38 @@
     News
 @endsection
 
+@section('sidebar')
+    @include('layouts.navbar',['menuActive'=>'adminhome'])
+@endsection
+
+@section('extraNavItems')
+@endsection
+
 @section('content')
-<div class="container mb-3">
-    <h1 class="p-4">News</h1>
-    <h2 class="px-4">{{ $newsItem->title }}</h2>
-</div>
-<div class="container mb-3" id="special">
-    <div class="row">
-        <div class="col-md-2 p-4">
-            <p>{{ $newsItem->created_at->format('Y-m-d') }}</p>
-            @if( $newsItem->moreinfo )
-                <a href="{{ $newsItem->moreinfo }}" target="_blank">More info...</a>
-            @endif
-        </div>
-        <div class="col-md-10 d-flex flex-column p-4">
-            <p class="fw-bold">{{ $newsItem->introduction }}</p>
-            @if( $newsItem->image1 )
-                <img src="{{$newsItem->image1}}" class="img-fluid">
-            @endif
-            <p>{!! nl2br(e($newsItem->maintext)) !!}</p>
-            @if( $newsItem->image2 )
-                <img src="{{$newsItem->image2}}" class="img-fluid">
-            @endif        
+    <div class="container mt-4">
+        <div class="card mb-2">
+            <h5 class="card-header">
+                News items
+            </h5>
+            <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <th>Title</th>
+                            <th>Introduction</th>
+                            <th>Main text</th>
+                            <th>More info</th>
+                        </tr>
+                        @foreach($newsitems as $item)
+                            <tr>
+                                <td><a href="/newsItem/create/{{ $item->id }}">{{ $item->title }}</a></td>
+                                <td>{{ substr($item->introduction, 0, 100) }} . . . </td>
+                                <td>{{ substr($item->maintext, 0, 100) }} . . . </td>
+                                <td>{{ $item->moreinfo }} </td>
+                            </tr>
+                        @endforeach
+                    </table>
+                <a href="/adminHome" class="btn btn-secondary m-1">Terug</a>
+            </div>
         </div>
     </div>
-</div>
 @endsection

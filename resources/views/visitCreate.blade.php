@@ -410,8 +410,12 @@
 
     $(".add-species-select").on("select2:select", function (evt) {
         var element = evt.params.data.element;
-        var $element = $(element);
-        $element.detach();
+
+        @if(!$isTransect)
+            var $element = $(element);
+            $element.detach();
+        @endif
+        $(".add-species-select").val('').trigger('change')
         var specId = element.value;
         var specName = element.innerHTML;
         $("tr td:contains('No observations')").parent().remove()

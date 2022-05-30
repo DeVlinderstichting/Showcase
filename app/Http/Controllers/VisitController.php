@@ -253,9 +253,21 @@ class VisitController extends Controller
             $obs->number = $obsDat['number'];
             $obs->visit_id = $visit->id;
             $obs->observationtime = $obsSearchDate;
-            $obs->location = $valDat['geometry'];
+            if ($countType != 3) //not a transect so a geometry is required 
+            {
+                $obs->location = $valDat['geometry'];
+            }
+            else 
+            {
+                if (array_key_exists('transect_section_id', $obsDat)) 
+                {
+                    $theTransectSection = \App\Models\TransectSection::find($obsDat['transect_section_id']);
+                    $obs->location = $theTransectSection->location;
+                }
+            }
 
-            if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = $obsDat['transect_section_id'];}
+          //  if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = 
+          // $obsDat['transect_section_id'];}
             $obs->save();
 
             return redirect("/visit");

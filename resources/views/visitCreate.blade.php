@@ -223,14 +223,14 @@
                             @endif
                             @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
                         </div>
-                        <label for="temp" class="col-md-3 col-form-label">Temperature</label>
+                        <label for="temperature" class="col-md-3 col-form-label">Temperature</label>
                         <div class="col">
                             @if($visit)
-                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp', $visit->temp)}}">
+                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature', $visit->temperature)}}">
                             @else
-                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temp')) is-invalid @endif" id="temp" name="temp" value="{{old('temp')}}">
+                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature')}}">
                             @endif
-                            @if($errors->has('temp')) <div class="invalid-feedback"> {{$errors->first('temp')}} </div>@endif
+                            @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif
                         </div>
                     @endif
                     <h2 class="mt-3">Observations</h2>
@@ -484,6 +484,10 @@
             input3.name = `observations[${count}][observationtime]`;
             input3.value =  $('#time_' + this.id.split('_')[1]).val();
             form[0].appendChild(input3);
+
+            @if($isTransect)
+                
+            @endif
 
             count++;
         });

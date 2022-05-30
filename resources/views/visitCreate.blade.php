@@ -510,6 +510,17 @@
         datetime.value = toISOLocal(new Date(startDate + ' ' + startTime));
         form[0].appendChild(datetime);
 
+        if(!$isSingle)
+            var endTime = $('#endtime').val();
+        @else
+        @endif
+        
+        var enddatetime = document.createElement('input');
+        enddatetime.type = 'hidden';
+        enddatetime.name = `enddate`;
+        enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
+        form[0].appendChild(datetime);
+
         @if($isTransect)
             var species = Array.from(document.querySelectorAll("[name^=amount_]")).map(x => x.name);
             var sections = Array.from(document.querySelectorAll("[id^=section_]")).map(x => x.value);
@@ -518,9 +529,10 @@
                 combined.push([species[i], sections[i]]);
             };
             let setComb  = new Set(combined.map(JSON.stringify)); 
-            if(!(myAcombinedrray.length === setComb.size))
+            if(!(combined.length === setComb.size))
             {
-                alert('It is not possible to have the same species multiple times on the same section')
+                alert('It is not possible to have the same species multiple times on the same section');
+                return false;
             }
         @endif
 

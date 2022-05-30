@@ -510,16 +510,19 @@
         datetime.value = toISOLocal(new Date(startDate + ' ' + startTime));
         form[0].appendChild(datetime);
 
-        @if(!$isSingle)
-            var endTime = $('#endtime').val();
-        @else
-        @endif
-        
         var enddatetime = document.createElement('input');
         enddatetime.type = 'hidden';
         enddatetime.name = `enddate`;
-        enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
-        form[0].appendChild(datetime);
+        @if(!$isSingle)
+            var endTime = $('#endtime').val();
+            enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
+            form[0].appendChild(enddatetime);
+        @else
+            var newDateObj = new Date(startDate + ' ' + startTime) + 1*60000;
+            enddatetime.value = toISOLocal(newDateObj)
+            form[0].appendChild(enddatetime);
+        @endif
+    
 
         @if($isTransect)
             var species = Array.from(document.querySelectorAll("[name^=amount_]")).map(x => x.name);

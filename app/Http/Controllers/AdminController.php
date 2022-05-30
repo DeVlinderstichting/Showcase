@@ -341,7 +341,7 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        return view ('newsItemIndex', ['messages' => \App\Models\NewsItem::all()]);
+        return view ('newsItemIndex', ['newsitems' => \App\Models\NewsItem::all()]);
     }
     public function createNewsItem()
     {

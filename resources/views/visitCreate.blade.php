@@ -97,7 +97,9 @@
                 <form method="post" id="visitcreateform" action="/visit/store/@if($visit != null){{$visit->id}}"@else-1" @endif>
                     @csrf
                     <input type='hidden' id="counttype" name="counttype" value="{{$visitType}}">
-                    <input type='hidden' id="geometry" name="geometry" value="">
+                    @if(!$isTransect)
+                        <input type='hidden' id="geometry" name="geometry" value="">
+                    @endif
                     @if($isTransect)
                         <label for="transect_id" class="col-md-3 col-form-label">Select transect</label>
                         <div class="col">

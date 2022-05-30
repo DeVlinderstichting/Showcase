@@ -562,7 +562,11 @@
             form[0].appendChild(input3);
 
             @if($isTransect)
-                
+                var input3 = document.createElement('input');
+                input3.type = 'hidden';
+                input3.name = `observations[${count}][section]`;
+                input3.value =  $('#section_' + this.id.split('_')[1]).val();
+                form[0].appendChild(input3);
             @endif
 
             count++;

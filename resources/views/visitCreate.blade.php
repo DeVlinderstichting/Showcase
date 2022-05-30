@@ -516,12 +516,12 @@
         console.log(enddatetime);
         @if(!$isSingle)
             var endTime = $('#endtime').val();
-            console.log(endTime);
             enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
             form[0].appendChild(enddatetime);
         @else
-            var newDateObj = new Date(startDate + ' ' + startTime) + 1*60000;
-            enddatetime.value = toISOLocal(newDateObj)
+            var newDateObj = new Date(startDate + ' ' + startTime);
+            var newEndDateObj = new Date(newDateObj.getTime() + 1*60000) ;
+            enddatetime.value = toISOLocal(newEndDateObj)
             form[0].appendChild(enddatetime);
         @endif
     
@@ -602,8 +602,8 @@ var transformed = ol.proj.transform(features[0], 'EPSG:3857', 'EPSG:4326');
        // geomElem.value = JSON.stringify(feat.getGeometry());
 
         // form.submit();//submit form
-        return false;
-  //      return true;
+        // return false;
+       return true;
     });
 
         

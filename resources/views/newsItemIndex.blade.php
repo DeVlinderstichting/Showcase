@@ -27,7 +27,7 @@
                         </tr>
                         @foreach($newsitems as $item)
                             <tr>
-                                <td><a href="/newsitem/create/{{ $item->id }}">{{ $item->title }}</a></td>
+                                <td><a href="/newsItem/create/{{ $item->id }}">{{ $item->title }}</a></td>
                                 <td>{{ substr($item->introduction, 0, 100) }} . . . </td>
                                 <td>{{ substr($item->maintext, 0, 100) }} . . . </td>
                                 <td>{{ $item->moreinfo }} </td>

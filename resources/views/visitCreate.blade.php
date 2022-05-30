@@ -149,9 +149,9 @@
                     <label for="date" class="col-md-3 col-form-label">Date</label>
                     <div class="col">
                         @if($visit)
-                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
+                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
-                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdate" name="startdate" value="{{old('startdate')}}"}}>
+                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate')}}"}}>
                         @endif
                         @if($errors->has('startdate')) 
                             <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
@@ -465,12 +465,50 @@
         @endif
     });
 
+    function toISOLocal(d) {
+        var z  = n =>  ('0' + n).slice(-2);
+        var zz = n => ('00' + n).slice(-3);
+        var off = d.getTimezoneOffset();
+        var sign = off > 0? '-' : '+';
+        off = Math.abs(off);
+
+        return d.getFullYear() + '-'
+                + z(d.getMonth()+1) + '-' +
+                z(d.getDate()) + ' ' +
+                z(d.getHours()) + ':'  + 
+                z(d.getMinutes());
+        }
+
+
     $("#visitcreateform").on("submit", function (e) 
     {
         // e.preventDefault();//stop submit event
         var form = $(this);//this form
         var results = [];
         var count = 0;
+
+        var startDate = $('#startdatedummy').val();
+        var startTime = $('#starttime').val();
+        var datetime = document.createElement('input');
+        datetime.type = 'hidden';
+        datetime.name = `startdate`;
+        datetime.value = toISOLocal(new Date(startDate + ' ' + startTime));
+        form[0].appendChild(datetime);
+
+        @if($isTransect)
+            var species = Array.from(document.querySelectorAll("[name^=amount_]")).map(x => x.name);
+            var sections = Array.from(document.querySelectorAll("[id^=section_]")).map(x => x.value);
+            var combined = [];
+            for(var i=0; i < species.length; i++){
+                combined.push([species[i], sections[i]]);
+            };
+            let setComb  = new Set(combined.map(JSON.stringify)); 
+            if(!(myAcombinedrray.length === setComb.size))
+            {
+                alert('It is not possible to have the same species multiple times on the same section')
+            }
+        @endif
+
         $('*[id*=amount_]').each(function()
         {
             var input1 = document.createElement('input');

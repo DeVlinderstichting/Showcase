@@ -335,7 +335,7 @@ class AdminController extends Controller
         return view ('pushMessageIndex', ['messages' => \App\Models\PushMessage::all()]);
     }
 
-    public function newsItemsIndex()
+    public function newsItemIndex()
     {
         if (!($this->checkIsAdmin()))
         {
@@ -349,7 +349,9 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        return view ('newsItemCreate', ['messages' => \App\Models\NewsItem::all()]);
+        $newsItem = new \App\Models\NewsItem();
+        $newsItem->id = -1;
+        return view ('newsItemCreate', ['newsItem' => $newsItem]);
     }
     public function storeNewsItem()
     {
@@ -357,6 +359,14 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
+        $valDat = request()->validate([
+            'title' => ['required'],
+            'introduction' => ['required'], 
+            'moreinfo' => ['required'], 
+            'maintext' => ['required'], 
+            'image1' => ['nullable'], 
+            'image2' => ['nullable']
+        ]);
         return redirect()->route('newsindex');
     }
 

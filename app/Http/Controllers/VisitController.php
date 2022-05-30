@@ -129,6 +129,9 @@ class VisitController extends Controller
         $rules['observations'] = ['required', 'array'];
         $rules['observations.*.number'] = ['required', 'integer', 'between:0,1001'];
         $rules['observations.*.species_id'] = ['required', 'exists:species,id'];
+        $rules['recorders'] = ['nullable', 'integer'];
+        $rules['notes'] = ['nullable', 'alpha_num_jsonarray'];
+        $rules['region_id'] = ['nullable', 'exists:regions,id'];
 
         if ($countType == 2)
         {
@@ -139,6 +142,10 @@ class VisitController extends Controller
         if ($countType != 3) //not a transect so a geometry is required 
         {
             $rules['geometry'] = ['required'];
+        }
+        else 
+        {
+            $rules['transect_id'] = ['exists:transects,id'];
         }
         if ($countType == 4) // fit count, plant type is required 
         {

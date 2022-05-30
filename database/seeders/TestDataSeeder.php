@@ -49,15 +49,18 @@ class TestDataSeeder extends Seeder
           //  $region->species()->attach($sp);
         }
 
+        $rawGeom = '{ "type":"Point","coordinates":[6.23188379999999,52.2457984]}';
+        $geom = \DB::raw("ST_GeomFromGeoJSON('".$rawGeom."')");
+
         $tr = \App\Models\Transect::create(['name' => 'testTransect']);
-        \App\Models\TransectSections::create(['name' => 't1', 'transect_id' => $tr->id, 'sequence' => '1']);
-        \App\Models\TransectSections::create(['name' => 't2', 'transect_id' => $tr->id, 'sequence' => '2']);
-        \App\Models\TransectSections::create(['name' => 't3', 'transect_id' => $tr->id, 'sequence' => '3']);        
+        \App\Models\TransectSections::create(['name' => 't1', 'transect_id' => $tr->id, 'sequence' => '1', 'location' => $geom]);
+        \App\Models\TransectSections::create(['name' => 't2', 'transect_id' => $tr->id, 'sequence' => '2', 'location' => $geom]);
+        \App\Models\TransectSections::create(['name' => 't3', 'transect_id' => $tr->id, 'sequence' => '3', 'location' => $geom]);        
         $tr2 = \App\Models\Transect::create(['name' => 'testTransect2']);
         
-        \App\Models\TransectSections::create(['name' => 'a1', 'transect_id' => $tr2->id, 'sequence' => '1']);
-        \App\Models\TransectSections::create(['name' => 'b2', 'transect_id' => $tr2->id, 'sequence' => '2']);
-        \App\Models\TransectSections::create(['name' => 'c3', 'transect_id' => $tr2->id, 'sequence' => '3']);        
+        \App\Models\TransectSections::create(['name' => 'a1', 'transect_id' => $tr2->id, 'sequence' => '1', 'location' => $geom]);
+        \App\Models\TransectSections::create(['name' => 'b2', 'transect_id' => $tr2->id, 'sequence' => '2', 'location' => $geom]);
+        \App\Models\TransectSections::create(['name' => 'c3', 'transect_id' => $tr2->id, 'sequence' => '3', 'location' => $geom]);        
         \App\Models\TransectsUsers::create(['transect_id'=> $tr->id, 'user_id' => $user->id]);
         \App\Models\TransectsUsers::create(['transect_id'=> $tr2->id, 'user_id' => $user->id]);
 

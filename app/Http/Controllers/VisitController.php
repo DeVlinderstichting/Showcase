@@ -266,9 +266,9 @@ class VisitController extends Controller
             }
             else 
             {
-                if (array_key_exists('transect_section_id', $obsDat)) 
+                if (array_key_exists('section', $obsDat)) 
                 {
-                    $theTransectSection = \App\Models\TransectSection::find($obsDat['transect_section_id']);
+                    $theTransectSection = \App\Models\TransectSections::find($obsDat['section']);
                     $obs->location = $theTransectSection->location;
                 }
             }

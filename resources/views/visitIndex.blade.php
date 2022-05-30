@@ -70,7 +70,10 @@
                         <tbody id="dataTable">
                             @foreach ($transect as $tr)
                                 <tr>
-                                    <td>{{ $tr->transect()->first()->name }}</td>
+                                    <?php 
+                                        $trObject = \App\Models\Transect::find($tr->transect_id);
+                                    ?>
+                                    <td>{{ $trObject->name }}</td>
                                     <td>{{ $tr->startdate }}</td>
                                     <td>{{ $tr->getDuration() }}</td>
                                     <td>

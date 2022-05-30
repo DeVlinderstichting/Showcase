@@ -145,7 +145,7 @@ class VisitController extends Controller
         {
             $rules['wind'] = ['required', 'integer', 'between:0,8'];
             $rules['cloud'] = ['required', 'integer', 'between:0,8'];
-            $rules['temp'] = ['required', 'integer', 'between:-10,60'];
+            $rules['temperature'] = ['required', 'integer', 'between:-10,60'];
         }
         if ($countType != 3) //not a transect so a geometry is required 
         {

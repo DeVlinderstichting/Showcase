@@ -18,4 +18,9 @@ class Transect extends Model
     {
         return $this->hasMany('App\Models\TransectSections', 'transect_id');
     }
+
+    public function visits()
+    {
+        return $this->hasMany('App\Models\Visit', 'transect_id');
+    }
 }

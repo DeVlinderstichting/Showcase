@@ -126,7 +126,7 @@ class VisitController extends Controller
         $rules = [];
         $rules['startdate'] = ['required', 'date'];
         $rules['enddate'] = ['required', 'date'];
-        $rules['observations'] = ['required', 'array'];
+        $rules['observations'] = ['nullable', 'array'];
         $rules['observations.*.number'] = ['required', 'integer', 'between:0,1001'];
         $rules['observations.*.species_id'] = ['required', 'exists:species,id'];
         $rules['recorders'] = ['nullable', 'integer'];
@@ -275,6 +275,7 @@ class VisitController extends Controller
 
           //  if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = 
           // $obsDat['transect_section_id'];}
+
             $obs->save();
 
             return redirect("/visit");

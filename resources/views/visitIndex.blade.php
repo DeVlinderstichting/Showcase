@@ -31,7 +31,7 @@
                                     <td>{{ $so->startdate }}</td>
                                     @if ($so->observations()->first() != null)
                                         <td>{{ $so->observations->first()->species()->first()->getName($user) }}</td>
-                                        <td>{{ $so->observations->first()->count() }}</td>
+                                        <td>{{ $so->observations->first()->number }}</td>
                                     @else
                                         <td>-</td>
                                         <td>-</td>

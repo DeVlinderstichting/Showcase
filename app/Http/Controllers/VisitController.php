@@ -171,7 +171,10 @@ class VisitController extends Controller
         if (array_key_exists('flower_id', $valDat)) $visit->flower_id = $valDat['flower_id'];
 
         //  $visit->method_id = $this->getRecordingMethod($valDat['method'])->id;
-        $visit->location = $valDat['geometry'];
+        if ($countType != 3) //not a transect so a geometry is required 
+        {
+            $visit->location = $valDat['geometry'];
+        }
         $visit->save();
 
 /*

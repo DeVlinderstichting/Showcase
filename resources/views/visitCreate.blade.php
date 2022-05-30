@@ -441,20 +441,22 @@
         input.value = now.toISOString().slice(0, -8);
         newCell.appendChild(input);
 
-        //Create and append select list
-        var newCell = newRow.insertCell();
-        var selectList = document.createElement("select");
-        selectList.id = `section_${specId}`;
-        newCell.appendChild(selectList);
+        @if($isTransect)
+            //Create and append select list
+            var newCell = newRow.insertCell();
+            var selectList = document.createElement("select");
+            selectList.id = `section_${specId}`;
+            newCell.appendChild(selectList);
 
-        //Create and append the options
-        var sectionArray = getTransectSections(document.getElementById("transect_id").value);
-        for (var i = 0; i < sectionArray.length; i++) {
-            var option = document.createElement("option");
-            option.value = sectionArray[i][0];
-            option.text = sectionArray[i][1];
-            selectList.appendChild(option);
-        }
+            //Create and append the options
+            var sectionArray = getTransectSections(document.getElementById("transect_id").value);
+            for (var i = 0; i < sectionArray.length; i++) {
+                var option = document.createElement("option");
+                option.value = sectionArray[i][0];
+                option.text = sectionArray[i][1];
+                selectList.appendChild(option);
+            }
+        @endif
     });
 
     $("#visitcreateform").on("submit", function (e) 

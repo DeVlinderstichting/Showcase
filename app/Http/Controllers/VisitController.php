@@ -120,10 +120,9 @@ class VisitController extends Controller
                 return "user not authorized to edit visit";
             }
         }
-            
+        
         $firstValDat = request()->validate(['counttype' => ['required', 'in:1,2,3,4']]);
         $countType = ($firstValDat['counttype']);
-
         $rules = [];
         $rules['startdate'] = ['required', 'date'];
         $rules['observations'] = ['required', 'array'];

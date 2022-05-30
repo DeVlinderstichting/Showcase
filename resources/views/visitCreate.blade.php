@@ -299,7 +299,22 @@
                     <script>
                         function initMap(e)
                         {
-
+                            var map = $('#map').data('map');
+                            var vector = $('#map').data('vector');
+                            var vectorSource = vector.getSource();
+                            @if ($visit != null)
+                                @if ($visit->getLocationsAsGeoJson() != '')
+                                    var feats = new ol.format.GeoJSON().readFeatures( <?php print_r($visit->getLocationsAsGeoJson()); ?> , {
+                                        dataProjection: 'EPSG:4326',
+                                        featureProjection: map.getView().getProjection()
+                                    });
+                                    for (var i = 0 ; i < feats.length; i++)
+                                    {
+                                        vectorSource.addFeature(feats[i]);
+                                        var theGeom = feats[i].getGeometry();
+                                    }
+                                @endif
+                            @endif
                         }
                     </script>
 

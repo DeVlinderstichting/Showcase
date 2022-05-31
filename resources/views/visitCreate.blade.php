@@ -257,6 +257,13 @@
                                             @if($isTransect)
                                                 <td data-sectionname="{{$obs->transectSection()->first()->name}}">
                                                     <select id="section_{{$obs->species()->first()->id}}" name="section_{{$obs->species()->first()->id}}">
+                                                        @foreach(\App\Models\Transect::find($visit->transect_id)->transectSections()->get() as $tr)
+                                                            <option value="{{$tr->id}}"
+                                                                @if ($obs->transectSection()->first()->id == $tr->id)
+                                                                    selected
+                                                                @endif
+                                                                >{{$tr->name}}</option>
+                                                        @endforeach
 
                                                     </select>
                                                 </td>

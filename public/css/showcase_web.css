@@ -130,6 +130,20 @@ h5 {}
 .uservisitindex-cell {}
 .uservisitindex-actionbutton {}
 
+/* USER VISIT CREATE/EDIT PAGE */
+.uservisitcreate-title-header {}
+.uservisitcreate-section-title {}
+.uservisitcreate-button {}
+.uservisitcreate-card {}
+.uservisitcreate-card-body {}
+.uservisitcreate-form-label {}
+.uservisitcreate-form-input {}
+.uservisitcreate-table {}
+.uservisitcreate-header {}
+.uservisitcreate-cell {}
+.uservisitcreate-speciesselect2 {}
+
+.uservisitcreate-actionbutton {}
 
 /* These are in use */
 .background-container {

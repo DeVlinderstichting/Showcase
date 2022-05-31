@@ -39,7 +39,7 @@
         }
     ?>
     <div class="container mb-3">
-        <h1 class="p-4">{{ $title }}</h1>
+        <h1 class="p-4 uservisitcreate-title-header">{{ $title }}</h1>
     </div>
 
     @if($isTransect)
@@ -68,15 +68,15 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title">Transect change</h5>
+              <h5 class="modal-title uservisitcreate-section-title">Transect change</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <p>You are about to change the transect. If you proceed all sections of your observations will be reset to the first section of the new transect. Press cancel if you wish to maintain the current data...</p>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" onclick="dismissTransectChange();">Cancel</button>
-              <button type="button" class="btn btn-danger" onclick="acceptTransectChange();">Proceed</button>
+              <button type="button" class="btn btn-secondary uservisitcreate-button" onclick="dismissTransectChange();">Cancel</button>
+              <button type="button" class="btn btn-danger uservisitcreate-button" onclick="acceptTransectChange();">Proceed</button>
             </div>
           </div>
         </div>
@@ -84,8 +84,8 @@
 
       
     <div class="container mt-4">
-        <div class="card mb-2">
-            <div class="card-body">
+        <div class="card mb-2 uservisitcreate-card">
+            <div class="card-body uservisitcreate-card-body">
                 @if($errors->any())
                     <div class="alert alert-danger" role="alert">
                         @foreach ($errors->all() as $error)
@@ -101,9 +101,9 @@
                         <input type='hidden' id="geometry" name="geometry" value="">
                     @endif
                     @if($isTransect)
-                        <label for="transect_id" class="col-md-3 col-form-label">Select transect</label>
+                        <label for="transect_id" class="col-md-3 col-form-label uservisitcreate-form-label">Select transect</label>
                         <div class="col">
-                            <select id="transect_id" name="transect_id" class="form-select" onChange="updateTransectSectionList()">
+                            <select id="transect_id" name="transect_id" class="form-select uservisitcreate-form-input" onChange="updateTransectSectionList()">
                                 @foreach($transects as $transect)
                                     <option value="{{$transect->id}}">{{$transect->name}}</option>
                                 @endforeach
@@ -146,35 +146,35 @@
                         </script>
 
                     @endif
-                    <label for="date" class="col-md-3 col-form-label">Date</label>
+                    <label for="date" class="col-md-3 col-form-label uservisitcreate-form-label">Date</label>
                     <div class="col">
                         @if($visit)
-                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
+                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
-                            <input type="date" class="form-control @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate')}}"}}>
+                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate')}}"}}>
                         @endif
                         @if($errors->has('startdate')) 
                             <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
                         @endif
                     </div>
-                    <label for="starttime" class="col-md-3 col-form-label">
+                    <label for="starttime" class="col-md-3 col-form-label uservisitcreate-form-label">
                     @if($isSingle)Time @else Starttime @endif</label>
                     <div class="col">
                         @if($visit)
-                            <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->startdate)[1])}}">
+                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->startdate)[1])}}">
                         @else
-                            <input type="time" class="form-control @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
+                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('starttime')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
                         @endif
                         @if($errors->has('starttime')) <div class="invalid-feedback"> {{$errors->first('starttime')}} </div>@endif
                     </div>
 
                     @if (!$isSingle)
-                        <label for="endtime" class="col-md-3 col-form-label">Endtime</label>
+                        <label for="endtime" class="col-md-3 col-form-label uservisitcreate-form-label">Endtime</label>
                         <div class="col">
                         @if($visit)
-                            <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime', explode(' ', $visit->enddate)[1])}}">
+                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime', explode(' ', $visit->enddate)[1])}}">
                         @else
-                            <input type="time" class="form-control @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
+                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('endtime')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
                         @endif
                             @if($errors->has('endtime')) <div class="invalid-feedback"> {{$errors->first('endtime')}} </div>@endif
                         </div>
@@ -183,9 +183,9 @@
                         
                         @endif
                         @if($isFit)
-                            <label for="flower_id" class="col-md-3 col-form-label">Choose a flower</label>
+                            <label for="flower_id" class="col-md-3 col-form-label uservisitcreate-form-label">Choose a flower</label>
                             <div class="col">
-                            <select id="flower_id" name="flower_id" class="form-select">
+                            <select id="flower_id" name="flower_id" class="form-select uservisitcreate-form-input">
                                 @foreach($plantSp as $plant)
                                     @if($plant->taxon)
                                         <option value="{{$plant->id}}">{{$plant->getName($user)}}</option>
@@ -196,41 +196,41 @@
                         @endif
                     @endif
                     <div class="col">
-                        <label for="endtime" class="col-md-3 col-form-label">Notes</label>
+                        <label for="endtime" class="col-md-3 col-form-label uservisitcreate-form-label">Notes</label>
                         @if($visit)
-                            <input type="text" class="form-control @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes', $visit->notes)}}"}}>
+                            <input type="text" class="form-control uservisitcreate-form-input @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes', $visit->notes)}}"}}>
                         @else
-                            <input type="text" class="form-control @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes')}}"}}>
+                            <input type="text" class="form-control uservisitcreate-form-input @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes')}}"}}>
                         @endif
                         @if($errors->has('notes')) 
                             <div class="invalid-feedback"> {{$errors->first('notes')}} </div>
                         @endif
                     </div>
                     @if(($isTransect) || ($isTimed))
-                        <label for="cloud" class="col-md-3 col-form-label">Cloud cover</label>
+                        <label for="cloud" class="col-md-3 col-form-label uservisitcreate-form-label">Cloud cover</label>
                         <div class="col">
                             @if($visit)
-                                <input type="number" min = 0, max = 8 class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
+                                <input type="number" min = 0, max = 8 class="form-control uservisitcreate-form-input @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
                             @else
-                                <input type="number" min = 0, max = 8  class="form-control @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
+                                <input type="number" min = 0, max = 8  class="form-control uservisitcreate-form-input @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
                             @endif
                             @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif
                         </div>
-                        <label for="wind" class="col-md-3 col-form-label">Wind speed</label>
+                        <label for="wind" class="col-md-3 col-form-label uservisitcreate-form-label">Wind speed</label>
                         <div class="col">
                             @if($visit)
-                                <input type="number" min = 0, max = 7 class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
+                                <input type="number" min = 0, max = 7 class="form-control uservisitcreate-form-input @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
                             @else
-                                <input type="number" min = 0, max = 7 class="form-control @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
+                                <input type="number" min = 0, max = 7 class="form-control uservisitcreate-form-input @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
                             @endif
                             @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
                         </div>
-                        <label for="temperature" class="col-md-3 col-form-label">Temperature</label>
+                        <label for="temperature" class="col-md-3 col-form-label uservisitcreate-form-label">Temperature</label>
                         <div class="col">
                             @if($visit)
-                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature', $visit->temperature)}}">
+                                <input type="number" min = -20, max = 55 class="form-control uservisitcreate-form-input @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature', $visit->temperature)}}">
                             @else
-                                <input type="number" min = -20, max = 55 class="form-control @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature')}}">
+                                <input type="number" min = -20, max = 55 class="form-control uservisitcreate-form-input @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature')}}">
                             @endif
                             @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif
                         </div>
@@ -238,24 +238,24 @@
                     <h2 class="mt-3">Observations</h2>
 
                     <div class="table-responsive">
-                        <table class="table table-sm table-striped table-hover vertical-align">
+                        <table class="table table-sm table-striped table-hover vertical-align uservisitcreate-table">
                             <thead>
-                                <th>Species</th>
-                                <th>Number</th>
-                                <th>Time</th>
+                                <th class="uservisitcreate-header">Species</th>
+                                <th class="uservisitcreate-header">Number</th>
+                                <th class="uservisitcreate-header">Time</th>
                                 @if($isTransect)
-                                    <th>Section</th>
+                                    <th class="uservisitcreate-header">Section</th>
                                 @endif
                             </thead>
                             <tbody id="dataTable">
                                 @if($visit)
                                     @forelse($visit->observations()->get() as $obs)
                                         <tr>
-                                            <td>{{$obs->species()->first()->getName($user)}}</td>
-                                            <td><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
-                                            <td><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
+                                            <td class="uservisitcreate-cell">{{$obs->species()->first()->getName($user)}}</td>
+                                            <td class="uservisitcreate-cell"><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
+                                            <td class="uservisitcreate-cell"><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
-                                                <td data-sectionname="{{$obs->transectSection()->first()->name}}">
+                                                <td class="uservisitcreate-cell" data-sectionname="{{$obs->transectSection()->first()->name}}">
                                                     <select id="section_{{$obs->species()->first()->id}}" name="section_{{$obs->species()->first()->id}}">
                                                         @foreach(\App\Models\Transect::find($visit->transect_id)->transectSections()->get() as $tr)
                                                             <option value="{{$tr->id}}"
@@ -270,17 +270,17 @@
                                             @endif
                                         </tr>
                                     @empty
-                                        <tr><td colspan="100%">No observations</td></tr>
+                                        <tr><td class="uservisitcreate-cell" colspan="100%">No observations</td></tr>
                                     @endforelse
                                 @else
-                                    <tr><td colspan="100%">No observations</td></tr>
+                                    <tr><td class="uservisitcreate-cell" colspan="100%">No observations</td></tr>
                                 @endif
                             </tbody>
                         </table>
                     </div>
                     <b>Add species</b>
                     <div class="col mb-3">
-                        <select class="add-species-select w-100"></select>
+                        <select class="add-species-select w-100 uservisitcreate-speciesselect2"></select>
                     </div>
 
                     <script>

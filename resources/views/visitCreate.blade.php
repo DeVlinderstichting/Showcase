@@ -368,8 +368,8 @@
                                                 }
                                             }
                                         ?>
-                                        value="" id="flexCheckDefault">
-                                        <label class="form-check-label" for="flexCheckDefault">
+                                        value="{{$sg->id}}" id="speciesgrouprecordinglevel" name="speciesgrouprecordinglevel[]">
+                                        <label class="form-check-label" for="speciesgrouprecordinglevel">
                                         {{$sg->name}}
                                         </label>
                                     </div> 

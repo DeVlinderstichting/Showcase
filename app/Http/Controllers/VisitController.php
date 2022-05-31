@@ -120,6 +120,8 @@ class VisitController extends Controller
 
     public function visitStore($visit_id)
     {
+        $user = Auth::user();
+
         if ($visit_id != null)
         {
             $visit = \App\Models\Visit::find($visit_id);
@@ -140,8 +142,9 @@ class VisitController extends Controller
         $rules['recorders'] = ['nullable', 'integer'];
         $rules['notes'] = ['nullable', 'alpha_num_jsonarray'];
         $rules['region_id'] = ['nullable', 'exists:regions,id'];
+        $rules['speciesgrouprecordinglevel'] = ['nullable', 'array'];
 
-        if ($countType == 2)
+        if ($countType == 2 || $countType == 3)
         {
             $rules['wind'] = ['required', 'integer', 'between:0,8'];
             $rules['cloud'] = ['required', 'integer', 'between:0,8'];
@@ -186,6 +189,18 @@ class VisitController extends Controller
         if (array_key_exists('flower_id', $valDat)) $visit->flower_id = $valDat['flower_id'];
 
         //  $visit->method_id = $this->getRecordingMethod($valDat['method'])->id;
+
+        $speciesGroupRecordingLevels = [];
+
+        foreach( $valDat['speciesgrouprecordinglevel'] as $id)
+        {
+            $sgUser = \App\Models\SpeciesgroupsUsers::where(['user_id' => $user->id, 'speciesgroup_id' => $id])->first();
+            $speciesGroupRecordingLevels[] = \App\Models\MethodSpeciesgroupRecordinglevel::firstOrNew(['speciesgroup_id' => $id, 'recordinglevel_id' => $sgUser->recordinglevel_id]);
+        }
+
+        $method = \App\Models\Method::getMethod($speciesGroupRecordingLevels);
+        $visit->method_id = $method->id;
+
         if ($countType != 3) //not a transect so a geometry is required 
         {
             $visit->location = $valDat['geometry'];

@@ -30,6 +30,13 @@ h5 {}
 .list-group {}
 .list-group-item {}
 
+.modal {}
+.modal-content {}
+.modal-header {}
+.modal-title {}
+.modal-body {}
+.modal-footer {}
+
 /* LANDING PAGE */
 .landingpage-title-container {
     background: url('../img/background_1920x1080.png');
@@ -79,6 +86,19 @@ h5 {}
 .news-section-title {}
 .news-section-intro {}
 .news-section-more {}
+
+/* USERHOME PAGE */
+.userhome-title-header {}
+.userhome-title-sub {}
+.userhome-section-statscard {}
+.userhome-section-title {}
+.userhome-section-graph {}
+.userhome-section-messages-list {}
+.userhome-section-messages-list-item {}
+.userhome-section-message-image {}
+.userhome-section-button {}
+.userhome-section-map {}
+
 
 /* These are in use */
 .background-container {

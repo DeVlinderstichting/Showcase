@@ -1,14 +1,76 @@
+/* This is the main stylesheet for Showcase website */
+/* The primary layout is done with Bootstrap CSS */
+/* To change the bootstrap style make ammendments in this stylesheet to the relevant classes */
+
+/* GENERAL CLASSES */
+.general-body-class {}
+.general-navbar-class {}
+.general-navbar-title-class {}
+.general-navbar-buttons-class {}
+.general-footer-copyright-class {}
+
+/* GENERAL CLASSES -> BOOTSTRAP */
+body {}
+
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+
+.nav {}
+.nav-pills {}
+.nav-link {}
+.nav-item {}
+
+.img-fluid {}
+
+.btn {}
+
+/* LANDING PAGE */
+.landingpage-title-container {
+    background: url('../img/background_1920x1080.png');
+    background-size: cover;
+    min-height: 600px;
+}
+
+.landingpage-title-header {}
+.landingpage-title-sub {}
+.landingpage-section-image {}
+.landingpage-section-title {}
+.landingpage-section-subtitle {}
+.landingpage-section-button {}
+
+/* ABOUT PAGE */
+.about-title-header {}
+.about-title-sub {}
+.about-section-image {}
+.about-section-title {}
+.about-section-subtitle {}
+.about-institution-scroller {}
+.about-institution-item {}
+.about-team-container {}
+.about-team-item {}
+
+/* MONITORING PAGE */
+.monitoring-title-header {}
+.monitoring-title-sub {}
+.monitoring-section-image {}
+.monitoring-section-title {}
+.monitoring-section-subtitle {}
+.monitoring-institution-scroller {}
+.monitoring-institution-item {}
+.monitoring-team-container {}
+.monitoring-team-item {}
+
+/* These are in use */
 .background-container {
     background: url('../img/background_1920x1080.png');
     background-size: cover;
     min-height: 800px;
 }
 
-.title-container {
-    background: url('../img/background_1920x1080.png');
-    background-size: cover;
-    min-height: 600px;
-}
+
 
 .central-container {
     width: 100%;

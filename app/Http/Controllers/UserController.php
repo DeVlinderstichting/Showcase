@@ -71,7 +71,7 @@ group by year, month */
         $countPerMonthAllSp = DB::select(DB::raw($getAllSpCountsQLine));
         $countPerMonthUser = DB::select(DB::raw($getUserSpCountQLine));
 
-        $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id, number"));
+        $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id"));
         $countPerSpeciesAll = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id"));
 
         $userMessages = $user->usersMessages()->get()->pluck('pushmessage_id');

@@ -287,8 +287,6 @@ class VisitController extends Controller
 
             $obs->save();
 
-            return redirect("/visit");
-
             //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
             //\DB::raw("ST_GeomFromGeoJSON('$geom')"
         //  $obs->location = "POINT(" . $obsDat['location'] . ")";
@@ -297,7 +295,7 @@ class VisitController extends Controller
 
           //  DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
         }
-
+        return redirect("/visit");
     }
 
     public function visitDelete(Visit $visit)

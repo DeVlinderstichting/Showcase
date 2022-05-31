@@ -39,7 +39,7 @@
         }
     ?>
     <div class="container mb-3">
-        <h1 class="p-4">Visit details <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="#">Edit visit</a></h1>
+        <h1 class="p-4">Visit details <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/{{ $visit->id }}/edit">Edit visit</a></h1>
     </div>
 
     <div class="container mb-3">
@@ -169,7 +169,7 @@
                                     <td>{{$obs->species()->first()->getName($user)}}</td>
                                     <td>{{$obs->number}}</td>
                                     @if($isTransect)
-                                        <td>{{$obs->transectSection()->get()->name}}</td>
+                                        <td>{{$obs->transectSection()->first()->name}}</td>
                                     @endif
                                 </tr>
                             @empty

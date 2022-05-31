@@ -37,6 +37,13 @@ h5 {}
 .modal-body {}
 .modal-footer {}
 
+.card {}
+.card-header {}
+.card-title {}
+.card-body {}
+
+.form-switch {}
+
 /* LANDING PAGE */
 .landingpage-title-container {
     background: url('../img/background_1920x1080.png');
@@ -98,6 +105,20 @@ h5 {}
 .userhome-section-message-image {}
 .userhome-section-button {}
 .userhome-section-map {}
+
+/* USER SETTINGS PAGE */
+.usersettings-title-header {}
+.usersettings-title-sub {}
+.usersettings-card {}
+.usersettings-card-body {}
+.usersettings-table {}
+.usersettings-switch {}
+.usersettings-section-title {}
+.usersettings-section-button {}
+.usersettings-count-item {}
+.usersettings-count-item-selector {}
+.usersettings-count-item-selector-image {}
+.usersettings-count-item-selector-input {}
 
 
 /* These are in use */

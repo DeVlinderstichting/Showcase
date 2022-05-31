@@ -13,14 +13,15 @@ User settings
 
 @section('content')
     <div class="container mb-3">
-        <h1 class="p-4">User settings</h1>
+        <h1 class="p-4 usersettings-title-header">User settings</h1>
+        <h2 class="px-4 news-title-sub usersettings-title-sub">Subtitle</h2>
     </div>
 
     <div class="container mb-3">
-        <h1 class="p-4">General settings</h1>
-        <div class="card">
-            <div class="card-body">
-                <table class="table table-borderless">
+        <h2 class="p-4 usersettings-section-title">General settings</h2>
+        <div class="card usersettings-card">
+            <div class="card-body usersettings-card-body">
+                <table class="table table-borderless usersettings-table">
                     <tbody>
                         <tr>
                             <td>User</td>
@@ -33,7 +34,7 @@ User settings
                         <tr>
                             <td>Use scientific names</td>
                             <td>
-                                <div class="form-check form-switch">
+                                <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingSciName" class="form-check-input" onchange="changeUserSetting('sciName');" @if($user->sci_names) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
@@ -41,7 +42,7 @@ User settings
                         <tr>
                             <td>Show previously seen</td>
                             <td>
-                                <div class="form-check form-switch">
+                                <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingPrevSeen" class="form-check-input" onchange="changeUserSetting('prevSeen');" @if($user->show_previous_observed_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
@@ -49,7 +50,7 @@ User settings
                         <tr>
                             <td>Show common species</td>
                             <td>
-                                <div class="form-check form-switch">
+                                <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingShowCommon" class="form-check-input" onchange="changeUserSetting('showCommon');" @if($user->show_only_common_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
@@ -57,7 +58,7 @@ User settings
                     </tbody>
                 </table>
                 <div class="container-fluid text-center">
-                    <a href="/logOff" class="btn btn-outline-primary">Logout</a>
+                    <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">Logout</a>
                 </div>
             </div>
         </div>
@@ -114,19 +115,19 @@ User settings
     </script>
 
     <div class="container mb-3">
-        <h1 class="p-4">Specific settings</h1>
-        <div class="card">
-            <div class="card-body">
+        <h2 class="p-4 usersettings-section-title">Specific settings</h2>
+        <div class="card usersettings-card">
+            <div class="card-body usersettings-card-body">
                 <div class="col mb-3">
-                    <h3><span>What do you want to count?</span></h3>
+                    <h3 class="usersettings-title-sub"></h3>
                     <div>
-                        <div class="row" style="margin-top: 8px;">   
+                        <div class="row usersettings-count-item" style="margin-top: 8px;">   
                             <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">No counts</span></p>
                         </div>
-                        <div class="row">
+                        <div class="row usersettings-count-item">
                             <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count only speciesgroups</span></p>
                         </div>
-                        <div class="row">
+                        <div class="row usersettings-count-item">
                             <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count all species</span></p>
                         </div>
                     </div>
@@ -134,11 +135,11 @@ User settings
                     <div class="row justify-content-center">
                         @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
                             <div class="col-md-4">
-                                <img src="{{$sg->imageLocation}}" alt="" class="img-count-settings">
-                                <div class="flex-radio-buttons">
+                                <img src="{{$sg->imageLocation}}" alt="" class="img-count-settings usersettings-count-item-selector-image">
+                                <div class="flex-radio-buttons usersettings-count-item-selector">
                                     @foreach(\App\Models\RecordingLevel::all() as $rl)
                                         <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                            <input type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
+                                            <input class="usersettings-count-item-selector-input" type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
                                             <?php 
                                                 $checked = "";
                                                 $userSet = $user->speciesgroupsRecordingLevels()->where('speciesgroup_id', $sg->id)->first();

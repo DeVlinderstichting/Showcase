@@ -265,14 +265,16 @@ class VisitController extends Controller
         {
             $obsCarbonDate = Carbon::parse($obsDat['observationtime']);
             $obsSearchDate = $obsCarbonDate->format('Y-m-d H:i:s');
+            $obsQ = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id']);
             if ($obsDat['observationtime'] != '')
             {
-                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->where('observationtime', '=',$obsSearchDate)->first();
+                $obsQ = $obsQ->where('observationtime', '=',$obsSearchDate);
             }
-            else 
+            if (array_key_exists('section', $obsDat['']))
             {
-                $obs = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id'])->first();
+                $obsQ = $obsQ->where('transect_section_id', $obsDat['section']);
             }
+            $obs = $obsQ->first();
 
             if ($obs == null)
             {

@@ -27,6 +27,9 @@ h5 {}
 
 .btn {}
 
+.list-group {}
+.list-group-item {}
+
 /* LANDING PAGE */
 .landingpage-title-container {
     background: url('../img/background_1920x1080.png');
@@ -55,13 +58,19 @@ h5 {}
 /* MONITORING PAGE */
 .monitoring-title-header {}
 .monitoring-title-sub {}
+.monitoring-section-button {}
 .monitoring-section-image {}
 .monitoring-section-title {}
 .monitoring-section-subtitle {}
-.monitoring-institution-scroller {}
-.monitoring-institution-item {}
-.monitoring-team-container {}
-.monitoring-team-item {}
+
+/* IDENTIFICATION PAGE */
+.identification-title-header {}
+.identification-title-sub {}
+.identification-section-button {}
+.identification-section-button-list {}
+.identification-section-title {}
+.identification-list-group {}
+.identification-list-group-item {}
 
 /* These are in use */
 .background-container {
@@ -69,8 +78,6 @@ h5 {}
     background-size: cover;
     min-height: 800px;
 }
-
-
 
 .central-container {
     width: 100%;

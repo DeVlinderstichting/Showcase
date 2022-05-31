@@ -120,6 +120,16 @@ h5 {}
 .usersettings-count-item-selector-image {}
 .usersettings-count-item-selector-input {}
 
+/* USER VISIT INDEX PAGE */
+.uservisitindex-card {}
+.uservisitindex-card-header {}
+.uservisitindex-card-body {}
+.uservisitindex-button {}
+.uservisitindex-table {}
+.uservisitindex-header {}
+.uservisitindex-cell {}
+.uservisitindex-actionbutton {}
+
 
 /* These are in use */
 .background-container {

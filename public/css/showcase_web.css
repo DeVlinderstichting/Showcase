@@ -72,6 +72,14 @@ h5 {}
 .identification-list-group {}
 .identification-list-group-item {}
 
+/* NEWS PAGE */
+.news-title-header {}
+.news-title-sub {}
+.news-section-image {}
+.news-section-title {}
+.news-section-intro {}
+.news-section-more {}
+
 /* These are in use */
 .background-container {
     background: url('../img/background_1920x1080.png');

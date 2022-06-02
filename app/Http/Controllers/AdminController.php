@@ -445,7 +445,33 @@ class AdminController extends Controller
         $theKey->$theFieldname = $valDat['value'];
         $theKey->save();
     }
+    public function handleRApiRequest()
+    {
+        $valDat = request()->validate(
+        [
+            'accesstoken' => ['required', 'min:50', 'exists:users,accesstoken'],
+            'username' => ['required', 'min:2', 'exists:users,name'],
+            'table_name' => ['required', Rule::in(['observations', 'visits'])],
+        ]);
+        $user = \App\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
+        if (($user == null) || (!$user->isadmin))
+        {
+            die("invalid user");
+        }
+        Auth::login($user);
+        $sqLine = "";
+        if ($valDat['table_name'] == 'observations')
+        {
+            $sqLine = "SELECT * FROM observations";
+        }
+        if ($valDat['table_name'] == 'visits')
+        {
+            $sqLine = "SELECT * FROM visits";
+        }
 
+        $res = DB::select(DB::raw($sqLine));
+        return json_encode($res);
+    }
 
     private function checkIsAdmin()
     {

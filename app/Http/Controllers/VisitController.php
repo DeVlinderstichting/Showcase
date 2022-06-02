@@ -195,14 +195,21 @@ class VisitController extends Controller
 
         $speciesGroupRecordingLevels = [];
 
-        foreach( $valDat['speciesgrouprecordinglevel'] as $id)
+        if (array_key_exists('speciesgrouprecordinglevel', $valDat))
         {
-            $sgUser = \App\Models\SpeciesgroupsUsers::where(['user_id' => $user->id, 'speciesgroup_id' => $id])->first();
-            $speciesGroupRecordingLevels[] = \App\Models\MethodSpeciesgroupRecordinglevel::firstOrNew(['speciesgroup_id' => $id, 'recordinglevel_id' => $sgUser->recordinglevel_id]);
+            foreach( $valDat['speciesgrouprecordinglevel'] as $id)
+            {
+                $sgUser = \App\Models\SpeciesgroupsUsers::where(['user_id' => $user->id, 'speciesgroup_id' => $id])->first();
+                $speciesGroupRecordingLevels[] = \App\Models\MethodSpeciesgroupRecordinglevel::firstOrNew(['speciesgroup_id' => $id, 'recordinglevel_id' => $sgUser->recordinglevel_id]);
+            }
+            $method = \App\Models\Method::getMethod($speciesGroupRecordingLevels);
+            $visit->method_id = $method->id;
         }
+        else //no method is present, which sucks -> assume single (or not)   
+        {
 
-        $method = \App\Models\Method::getMethod($speciesGroupRecordingLevels);
-        $visit->method_id = $method->id;
+        }
+        
 
         if ($countType != 3) //not a transect so a geometry is required 
         {
@@ -264,7 +271,6 @@ class VisitController extends Controller
 
         $observations = $valDat['observations'];
 
-        dd($observations);
         foreach($observations as $obsDat)
         {
             $obsCarbonDate = Carbon::parse($obsDat['observationtime']);

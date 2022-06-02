@@ -28,7 +28,7 @@ class CreateVisitsTable extends Migration
             $table->dateTime('sendtoserverdate', 0)->nullable();
             $table->integer('status')->default(1); //1=incomplete, 2=completed, 3=sealed (once shipped to server it can only be changed online)
 
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index('user_id');
             $table->integer('recorders');

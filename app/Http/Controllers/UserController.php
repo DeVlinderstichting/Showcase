@@ -210,24 +210,27 @@ group by year, month */
         $data = []; //array of arrays containing items in same order as header
 
         $user = Auth::user();
-        $obs = \App\Models\Observation::where('user_id', $user->id);
+        $visitIds = \App\Models\Visit::where('user_id', $user->id)->pluck('visits.id');
+        $obs = \App\Models\Observation::whereIn('visit_id', $visitIds)->get();
 
         foreach($obs as $ob)
         {
             $entryLine = [];
-            $obVisit = $ob->visit()->get();
+            $obVisit = $ob->visit()->first();
             array_push($entryLine, $obVisit->startdate);
-            array_push($entryLine, $obVisit->countingmethod()->description());
-            $sp = $ob->species();
-            array_push($entryLine, $sp->getName());
-            array_push($entryLine, $sp->genus());
-            array_push($entryLine, $sp->taxon());
+            array_push($entryLine, $obVisit->countingmethod()->first()->description);
+            $sp = $ob->species()->first();
+            array_push($entryLine, $sp->getName($user));
+            array_push($entryLine, $sp->genus);
+            array_push($entryLine, $sp->taxon);
             array_push($entryLine, $ob->number);
 
             $res = DB::select("select ST_AsText(location) as geom from observations where id = " . $ob->id);
             $geom = $res[0]->geom;
             array_push($entryLine, $geom);
+            array_push($data, $entryLine);
         }
+
 
         $sep = ";";
         $file = fopen('php://output', 'w');

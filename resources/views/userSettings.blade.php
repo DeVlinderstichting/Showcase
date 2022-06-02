@@ -154,8 +154,9 @@ User settings
                                                             {
                                                                 $checked = 'checked="checked"';
                                                             }
-                                                        } 
-                                                    ?> 
+                                                        }
+                                                    } 
+                                                ?> 
                                                 {{$checked}} name="check_{{$sg->id}}">
                                                 <span class="checkmark"></span>
                                             </label>

@@ -87,6 +87,7 @@ group by year, month */
     }
     public function setUserSettingsAjax()
     {
+        $this->authenticateUser();
         $valDat = request()->validate([
             'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon']),
             'settingsvalue' => ['required', 'integer', 'between:0,1']
@@ -129,6 +130,7 @@ group by year, month */
 
     public function showPushMessages()
     {
+        $this->authenticateUser();
         $user = Auth::user();
         $mes = $user->usersMessages()->get();
         return view('userMessages',['messages' => $mes]);
@@ -198,6 +200,51 @@ group by year, month */
             }
         }
         return "authentication failed";      
+    }
+
+    public function serveDataDownload()
+    {
+        $this->authenticateUser();
+
+        $headers = array('date', 'recordingtype', 'species name', 'species genus', 'species taxon', 'number', 'location');
+        $data = []; //array of arrays containing items in same order as header
+
+        $user = Auth::user();
+        $obs = \App\Models\Observation::where('user_id', $user->id);
+
+        foreach($obs as $ob)
+        {
+            $entryLine = [];
+            $obVisit = $ob->visit()->get();
+            array_push($entryLine, $obVisit->startdate);
+            array_push($entryLine, $obVisit->countingmethod()->description());
+            $sp = $ob->species();
+            array_push($entryLine, $sp->getName());
+            array_push($entryLine, $sp->genus());
+            array_push($entryLine, $sp->taxon());
+            array_push($entryLine, $ob->number);
+
+            $res = DB::select("select ST_AsText(location) as geom from observations where id = " . $ob->id);
+            $geom = $res[0]->geom;
+            array_push($entryLine, $geom);
+        }
+
+        $sep = ";";
+        $file = fopen('php://output', 'w');
+        if ($file) 
+        {
+            header('Content-Type: text/csv; charset=utf-8');
+            header('Content-Disposition: attachment; filename="ShowcaseDataExport.csv"');
+            header('Pragma: no-cache');
+            header('Expires: 0');
+            fputcsv($file, $headers, $sep);
+            foreach($data as $theRow)
+            {
+                fputcsv($file, array_values($theRow), $sep);
+            }
+        }
+        fclose($file);
+        return;
     }
 
     private function processUserDataPackage(User $user, $dataPackage)

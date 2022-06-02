@@ -13,7 +13,7 @@ Guide to monitoring
     <a href="#special" class="btn btn-primary">I saw something special</a>
     <a href="#15min" class="btn btn-primary">15 minutes count</a>
     <a href="#transect" class="btn btn-primary">Walk transect</a>
-    <a href="#fit" class="btn btn-primary">Fit count</a>
+    <a href="#fit" class="btn btn-primary">Flowerpatch count</a>
 </div>
 <div class="container mb-3" id="special">
     <div class="row">

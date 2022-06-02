@@ -41,23 +41,6 @@ Project information
         </div>
     </div>
 </div>
-<div class="container mb-3">
-    <div class="row">
-        <div class="col-md p-4">
-            <h2 class="px-4 about-section-title">Team</h2>
-        </div>
-        <div class="d-flex flex-wrap about-team-container">
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-            <div class="flex-shrink-0 rounded-circle about-team-item" style="margin: 2rem; background-color: grey; width: 200px; height: 200px;"></div>
-        </div>
-    </div>
-</div>
+
 
 @endsection

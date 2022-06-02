@@ -50,7 +50,7 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'home15mDescr', 'en'=>'Opportunistic observation']);
         \App\Models\Language::create(['key' => 'homeTransectTitle', 'en'=>'WALK TRANSECT']);
         \App\Models\Language::create(['key' => 'homeTransectDescr', 'en'=>'Walk a predifined transect and record everything you see']);
-        \App\Models\Language::create(['key' => 'homeFitTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'homeFitTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'homeFitDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower']);
 
         // Special Observation screen
@@ -75,17 +75,17 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => '15mPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
         
         // Fit screen
-        \App\Models\Language::create(['key' => 'fitTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'fitDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower']);
-        \App\Models\Language::create(['key' => 'fitPreTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitPreTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'fitPreDescr', 'en'=>'Observe a single flower, record everything you see interacting with that flower, first select a flower']);
         \App\Models\Language::create(['key' => 'fitPreInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'fitPreInfoModalContents', 'en'=>'Here is more information about the preselection of the fit observation']);
+        \App\Models\Language::create(['key' => 'fitPreInfoModalContents', 'en'=>'Here is more information about the preselection of the flowerpatch count']);
         \App\Models\Language::create(['key' => 'fitInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'fitInfoModalContents', 'en'=>'Here is more information about fit observations']);
+        \App\Models\Language::create(['key' => 'fitInfoModalContents', 'en'=>'Here is more information about flowerpatch count']);
         \App\Models\Language::create(['key' => 'fitPostInfoModalTitle', 'en'=>'More information']);
-        \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about fit observations']);
-        \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FIT COUNT']);
+        \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about flowerpatch count']);
+        \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'fitPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
         
         // Transect screen

@@ -13,9 +13,9 @@ class CountingMethodsSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\CountingMethod::create(['name' => 'single']);
-        \App\Models\CountingMethod::create(['name' => 'timed']);
-        \App\Models\CountingMethod::create(['name' => 'transect']);
-        \App\Models\CountingMethod::create(['name' => 'fit']);
+        \App\Models\CountingMethod::create(['name' => 'single', 'description'=> 'single observation']);
+        \App\Models\CountingMethod::create(['name' => 'timed', 'description'=> 'timed count']);
+        \App\Models\CountingMethod::create(['name' => 'transect', 'description'=> 'transect']);
+        \App\Models\CountingMethod::create(['name' => 'fit', 'description'=> 'flowerpatch count']);
     }
 }

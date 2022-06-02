@@ -12,6 +12,7 @@ class VisitController extends Controller
 {
     public function visitIndex()
     {
+        $this->authenticateUser();
         $singleObsCountingMethodId = \App\Models\CountingMethod::where('name', 'single')->first()->id;
         $fitCountingMethodId = \App\Models\CountingMethod::where('name', 'fit')->first()->id;
         $timedCountingMethodId = \App\Models\CountingMethod::where('name', 'timed')->first()->id;
@@ -37,6 +38,7 @@ class VisitController extends Controller
     
     public function visitCreate($visit_id = null, $visitType = 1)
     {
+        $this->authenticateUser();
         $user = Auth::user();
 
         $visit=null;
@@ -120,6 +122,7 @@ class VisitController extends Controller
 
     public function visitStore($visit_id)
     {
+        $this->authenticateUser();
         $user = Auth::user();
 
         if ($visit_id != null)
@@ -261,6 +264,7 @@ class VisitController extends Controller
 
         $observations = $valDat['observations'];
 
+        dd($observations);
         foreach($observations as $obsDat)
         {
             $obsCarbonDate = Carbon::parse($obsDat['observationtime']);
@@ -268,9 +272,9 @@ class VisitController extends Controller
             $obsQ = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id']);
             if ($obsDat['observationtime'] != '')
             {
-                $obsQ = $obsQ->where('observationtime', '=',$obsSearchDate);
+                $obsQ = $obsQ->where('observationtime', '=', $obsSearchDate);
             }
-            if (array_key_exists('section', $obsDat['']))
+            if (array_key_exists('section', $obsDat))
             {
                 $obsQ = $obsQ->where('transect_section_id', $obsDat['section']);
             }
@@ -354,6 +358,15 @@ class VisitController extends Controller
             {
                 return false;
             }
+        }
+        return true;
+    }
+    private function authenticateUser()
+    {
+        $user = Auth::user();
+        if ($user == null)
+        {
+            return redirect()->route('showLogin');
         }
         return true;
     }

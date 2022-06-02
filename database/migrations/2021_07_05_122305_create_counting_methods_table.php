@@ -18,6 +18,7 @@ class CreateCountingMethodsTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('name');
+            $table->text('description');
         });
     }
 

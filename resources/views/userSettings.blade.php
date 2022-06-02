@@ -131,28 +131,32 @@ User settings
                         </div>
                     </div>
 
+
                     <div class="row justify-content-center">
                         @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
                             <div class="col-md-4">
                                 <img src="{{$sg->imageLocation}}" alt="" class="img-count-settings">
+                                <br>{{$sg->name}}
                                 <div class="flex-radio-buttons">
                                     @foreach(\App\Models\RecordingLevel::all() as $rl)
-                                        <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                            <input type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
-                                            <?php 
-                                                $checked = "";
-                                                $userSet = $user->speciesgroupsRecordingLevels()->where('speciesgroup_id', $sg->id)->first();
-                                                if ($userSet != null)
-                                                {
-                                                    if ($userSet->recordinglevel_id == $rl->id)
+                                        @if ((($rl->name=='species') && ($sg->name == 'butterflies')) || ($rl->name!='species'))
+                                            <label class="container-radio-buttons"><i class="fas fa-bug" style="color: <?php if ($rl->name == 'none'){echo "#f5e590";} if ($rl->name == 'group'){ echo "#ffe421";} if ($rl->name == 'species'){ echo "#fda230";} ?>; opacity: 0.5; font-size: 18px;"></i>
+                                                <input type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
+                                                <?php 
+                                                    $checked = "";
+                                                    $userSet = $user->speciesgroupsRecordingLevels()->where('speciesgroup_id', $sg->id)->first();
+                                                    if ($userSet != null)
                                                     {
-                                                        $checked = 'checked="checked"';
-                                                    }
-                                                } 
-                                            ?> 
-                                            {{$checked}} name="check_{{$sg->id}}">
-                                            <span class="checkmark"></span>
-                                        </label>
+                                                        if ($userSet->recordinglevel_id == $rl->id)
+                                                        {
+                                                            $checked = 'checked="checked"';
+                                                        }
+                                                    } 
+                                                ?> 
+                                                {{$checked}} name="check_{{$sg->id}}">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        @endif
                                     @endforeach
                                 </div> 
                             </div>

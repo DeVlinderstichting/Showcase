@@ -38,7 +38,11 @@ class Visit extends Model
     }
     public function transect()
     {
-        return $this->belongsTo('App\Models\Transect', 'region_id', 'id');
+        return $this->belongsTo('App\Models\Transect', 'transect_id', 'id');
+    }
+    public function countingmethod()
+    {
+        return $this->belongsTo('App\Models\CountingMethod', 'countingmethod_id', 'id');
     }
     public function getDuration()
     {

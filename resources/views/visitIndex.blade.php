@@ -93,9 +93,8 @@
         </div>
         <div class="card mb-2">
             <h5 class="card-header">
-                Fit counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/4/create">Add new fit
-                    count</a>
+                Flowerpatch counts
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/4/create">Add new flowerpatch count</a>
             </h5>
             <div class="card-body">
                 <div class="table-responsive">
@@ -162,6 +161,14 @@
                         </tbody>
                     </table>
                 </div>
+            </div>
+        </div>
+        <div class="card mb-2">
+            <h5 class="card-header">
+                Data download
+            </h5>
+            <div class="card-body">
+                <a class="btn btn-primary mr-3 ml-3 btn-sm" role="button" href="/user/dataDownload">Download data</a>
             </div>
         </div>
     </div>

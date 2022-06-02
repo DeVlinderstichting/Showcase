@@ -27,6 +27,23 @@ h5 {}
 
 .btn {}
 
+.list-group {}
+.list-group-item {}
+
+.modal {}
+.modal-content {}
+.modal-header {}
+.modal-title {}
+.modal-body {}
+.modal-footer {}
+
+.card {}
+.card-header {}
+.card-title {}
+.card-body {}
+
+.form-switch {}
+
 /* LANDING PAGE */
 .landingpage-title-container {
     background: url('../img/background_1920x1080.png');
@@ -55,13 +72,78 @@ h5 {}
 /* MONITORING PAGE */
 .monitoring-title-header {}
 .monitoring-title-sub {}
+.monitoring-section-button {}
 .monitoring-section-image {}
 .monitoring-section-title {}
 .monitoring-section-subtitle {}
-.monitoring-institution-scroller {}
-.monitoring-institution-item {}
-.monitoring-team-container {}
-.monitoring-team-item {}
+
+/* IDENTIFICATION PAGE */
+.identification-title-header {}
+.identification-title-sub {}
+.identification-section-button {}
+.identification-section-button-list {}
+.identification-section-title {}
+.identification-list-group {}
+.identification-list-group-item {}
+
+/* NEWS PAGE */
+.news-title-header {}
+.news-title-sub {}
+.news-section-image {}
+.news-section-title {}
+.news-section-intro {}
+.news-section-more {}
+
+/* USERHOME PAGE */
+.userhome-title-header {}
+.userhome-title-sub {}
+.userhome-section-statscard {}
+.userhome-section-title {}
+.userhome-section-graph {}
+.userhome-section-messages-list {}
+.userhome-section-messages-list-item {}
+.userhome-section-message-image {}
+.userhome-section-button {}
+.userhome-section-map {}
+
+/* USER SETTINGS PAGE */
+.usersettings-title-header {}
+.usersettings-title-sub {}
+.usersettings-card {}
+.usersettings-card-body {}
+.usersettings-table {}
+.usersettings-switch {}
+.usersettings-section-title {}
+.usersettings-section-button {}
+.usersettings-count-item {}
+.usersettings-count-item-selector {}
+.usersettings-count-item-selector-image {}
+.usersettings-count-item-selector-input {}
+
+/* USER VISIT INDEX PAGE */
+.uservisitindex-card {}
+.uservisitindex-card-header {}
+.uservisitindex-card-body {}
+.uservisitindex-button {}
+.uservisitindex-table {}
+.uservisitindex-header {}
+.uservisitindex-cell {}
+.uservisitindex-actionbutton {}
+
+/* USER VISIT CREATE/EDIT PAGE */
+.uservisitcreate-title-header {}
+.uservisitcreate-section-title {}
+.uservisitcreate-button {}
+.uservisitcreate-card {}
+.uservisitcreate-card-body {}
+.uservisitcreate-form-label {}
+.uservisitcreate-form-input {}
+.uservisitcreate-table {}
+.uservisitcreate-header {}
+.uservisitcreate-cell {}
+.uservisitcreate-speciesselect2 {}
+
+.uservisitcreate-actionbutton {}
 
 /* These are in use */
 .background-container {
@@ -69,8 +151,6 @@ h5 {}
     background-size: cover;
     min-height: 800px;
 }
-
-
 
 .central-container {
     width: 100%;

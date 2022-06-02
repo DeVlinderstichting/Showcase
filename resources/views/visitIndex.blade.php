@@ -10,39 +10,39 @@
 
 @section('content')
     <div class="container mt-4">
-        <div class="card mb-2">
-            <h5 class="card-header">
+        <div class="card mb-2 uservisitindex-card">
+            <h5 class="card-header uservisitindex-card-header">
                 Single observation
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/1/create">Add new single
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button" role="button" href="/visit/0/1/create">Add new single
                     observation</a>
             </h5>
-            <div class="card-body">
+            <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
+                    <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th>Date</th>
-                            <th>Species</th>
-                            <th>Number</th>
-                            <th></th>
+                            <th class="uservisitindex-header">Date</th>
+                            <th class="uservisitindex-header">Species</th>
+                            <th class="uservisitindex-header">Number</th>
+                            <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach ($singleObservations as $so)
                                 <tr>
-                                    <td>{{ $so->startdate }}</td>
+                                    <td class="uservisitindex-cell">{{ $so->startdate }}</td>
                                     @if ($so->observations()->first() != null)
-                                        <td>{{ $so->observations->first()->species()->first()->getName($user) }}</td>
-                                        <td>{{ $so->observations->first()->number }}</td>
+                                        <td class="uservisitindex-cell">{{ $so->observations->first()->species()->first()->getName($user) }}</td>
+                                        <td class="uservisitindex-cell">{{ $so->observations->first()->number }}</td>
                                     @else
-                                        <td>-</td>
-                                        <td>-</td>
+                                        <td class="uservisitindex-cell">-</td>
+                                        <td class="uservisitindex-cell">-</td>
                                     @endif
                                     </td>
-                                    <td>
-                                        <a href='/visit/{{ $so->id }}'><i class='fa fa-search'
+                                    <td class="uservisitindex-cell">
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $so->id }}'><i class='fa fa-search'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{ $so->id }}/edit'><i class='fa fa-pencil'
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $so->id }}/edit'><i class='fa fa-pencil'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='#' delete_link='/visit/{{ $so->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
+                                        <a class="uservisitindex-actionbutton" href='#' delete_link='/visit/{{ $so->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
                                                 style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
@@ -52,20 +52,20 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
+        <div class="card mb-2 uservisitindex-card">
+            <h5 class="card-header uservisitindex-card-header">
                 Transect
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/3/create">Add new
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/3/create">Add new
                     visit</a>
             </h5>
-            <div class="card-body">
+            <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
+                    <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th>Name</th>
-                            <th>Date</th>
-                            <th>Duration</th>
-                            <th></th>
+                            <th class="uservisitindex-header">Name</th>
+                            <th class="uservisitindex-header">Date</th>
+                            <th class="uservisitindex-header">Duration</th>
+                            <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach ($transect as $tr)
@@ -73,15 +73,15 @@
                                     <?php 
                                         $trObject = \App\Models\Transect::find($tr->transect_id);
                                     ?>
-                                    <td>{{ $trObject->name }}</td>
-                                    <td>{{ $tr->startdate }}</td>
-                                    <td>{{ $tr->getDuration() }}</td>
-                                    <td>
-                                        <a href='/visit/{{ $tr->id }}'><i class='fa fa-search'
+                                    <td class="uservisitindex-cell">{{ $trObject->name }}</td>
+                                    <td class="uservisitindex-cell">{{ $tr->startdate }}</td>
+                                    <td class="uservisitindex-cell">{{ $tr->getDuration() }}</td>
+                                    <td class="uservisitindex-cell">
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $tr->id }}'><i class='fa fa-search'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{ $tr->id }}/edit'><i class='fa fa-pencil'
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $tr->id }}/edit'><i class='fa fa-pencil'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='#' delete_link='/visit/{{ $tr->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
+                                        <a class="uservisitindex-actionbutton" href='#' delete_link='/visit/{{ $tr->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
                                                 style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
@@ -91,32 +91,33 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
-                Flowerpatch counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/4/create">Add new flowerpatch count</a>
+        <div class="card mb-2 uservisitindex-card">
+            <h5 class="card-header uservisitindex-card-header">
+                Flowerpatch observations
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/4/create">Add new fit
+                    count</a>
             </h5>
-            <div class="card-body">
+            <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
+                    <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th>Date</th>
-                            <th>Flower</th>
-                            <th>Number of Species</th>
-                            <th></th>
+                            <th class="uservisitindex-header">Date</th>
+                            <th class="uservisitindex-header">Flower</th>
+                            <th class="uservisitindex-header">Number of Species</th>
+                            <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach ($fit as $f)
                                 <tr>
-                                    <td>{{ $f->startdate }}</td>
-                                    <td>{{ \App\Models\Species::find($f->flower_id)->first()->getName($user) }}</td>
-                                    <td>{{ $f->observations()->count() }}</td>
-                                    <td>
-                                        <a href='/visit/{{ $f->id }}'><i class='fa fa-search'
+                                    <td class="uservisitindex-cell">{{ $f->startdate }}</td>
+                                    <td class="uservisitindex-cell">{{ \App\Models\Species::find($f->flower_id)->first()->getName($user) }}</td>
+                                    <td class="uservisitindex-cell">{{ $f->observations()->count() }}</td>
+                                    <td class="uservisitindex-cell">
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $f->id }}'><i class='fa fa-search'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{ $f->id }}/edit'><i class='fa fa-pencil'
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $f->id }}/edit'><i class='fa fa-pencil'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='#' delete_link='/visit/{{ $f->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
+                                        <a class="uservisitindex-actionbutton" href='#' delete_link='/visit/{{ $f->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
                                                 style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>
@@ -126,34 +127,34 @@
                 </div>
             </div>
         </div>
-        <div class="card mb-2">
-            <h5 class="card-header">
+        <div class="card mb-2 uservisitindex-card">
+            <h5 class="card-header uservisitindex-card-header">
                 Timed counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/0/2/create">Add new timed
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/2/create">Add new timed
                     count</a>
             </h5>
-            <div class="card-body">
+            <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
-                    <table class="table table-sm table-striped table-hover vertical-align">
+                    <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th>Startdate</th>
-                            <th>Enddate</th>
-                            <th>Number of observations</th>
-                            <th></th>
+                            <th class="uservisitindex-header">Startdate</th>
+                            <th class="uservisitindex-header">Enddate</th>
+                            <th class="uservisitindex-header">Number of observations</th>
+                            <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
                             @foreach ($timed as $ti)
                                 <tr>
-                                    <td>{{ $ti->startdate }}</td>
-                                    <td>{{ $ti->enddate }}</td>
-                                    <td>{{ $ti->observations()->count() }}</td>
-                                    <td></td>
-                                    <td>
-                                        <a href='/visit/{{ $ti->id }}'><i class='fa fa-search'
+                                    <td class="uservisitindex-cell">{{ $ti->startdate }}</td>
+                                    <td class="uservisitindex-cell">{{ $ti->enddate }}</td>
+                                    <td class="uservisitindex-cell">{{ $ti->observations()->count() }}</td>
+                                    <td class="uservisitindex-cell"></td>
+                                    <td class="uservisitindex-cell">
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $ti->id }}'><i class='fa fa-search'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='/visit/{{ $ti->id }}/edit'><i class='fa fa-pencil'
+                                        <a class="uservisitindex-actionbutton" href='/visit/{{ $ti->id }}/edit'><i class='fa fa-pencil'
                                                 style='font-size:24px;'></i></a>
-                                        <a href='#' delete_link='/visit/{{ $ti->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
+                                        <a class="uservisitindex-actionbutton" href='#' delete_link='/visit/{{ $ti->id }}/delete' onclick="showModal(this); event.preventDefault();"><i class='fa fa-trash'
                                                 style='font-size:24px;'></i></a>
                                     </td>
                                 </tr>

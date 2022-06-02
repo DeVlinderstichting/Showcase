@@ -19,42 +19,40 @@
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
         }
-
     </style>
 
     <div class="container mb-3">
-        <h1 class="p-4">My Profile <a href="/settings" class="btn btn-outline-primary float-end">Settings</a></h1>
-
+        <h2 class="p-4 userhome-title-header">My Profile <a href="/settings" class="btn btn-outline-primary float-end">Settings</a></h2>
+        <h2 class="px-4 news-title-sub userhome-title-sub">Subtitle</h2>
     </div>
 
-
     <div class="container mb-3">
-        <h1 class="p-4">Statistics</h1>
+        <h2 class="p-4 userhome-section-title">Statistics</h2>
         <div class="row">
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4">{{ $obsCount }} observations</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $obsCount }} observations</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4">{{ $spCount }} Species seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spCount }} Species seen</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4">{{ $spGroupCount }} Species groups seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spGroupCount }} Species groups seen</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4">{{ $nrOfInsects }} Total insects seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $nrOfInsects }} Total insects seen</div>
             </div>
         </div>
         <div class="row my-4">
-            <div class="col-lg-6">
+            <div class="col-lg-6 userhome-section-graph">
                 <canvas id="chartBar"></canvas>
                 <br><br>
             </div>
             <div class="col-lg-6">
                 <div class="d-flex justify-content-center">
-                    <div>
+                    <div class="userhome-section-graph">
                         <canvas id="chartPie1"></canvas>
                     </div>
-                    <div>
+                    <div class="userhome-section-graph">
                         <canvas id="chartPie2"></canvas>
                     </div>
                 </div>
@@ -65,14 +63,14 @@
     <?php use Illuminate\Support\Str; ?>
 
     <div class="container mb-3">
-        <h1 class="p-4">Messages</h1>
-        <div class="list-group messages-list">
+        <h2 class="p-4 userhome-section-title">Messages</h2>
+        <div class="list-group messages-list userhome-section-messages-list">
             @foreach ($userMessages as $um)
                 <?php $truncCont = Str::limit($um->content, 100, ' (...)'); ?>
 
                 <a href="#" data_header="{{ $um->header }}" data_at="{{ $um->created_at }}"
                     data_content="{{ $um->content }}" data_image1="{{ $um->image_primary }}" data_image2="{{ $um->image_secondary }}" onClick="showModal(this); event.preventDefault();"
-                    class="list-group-item list-group-item-action" aria-current="true">
+                    class="list-group-item list-group-item-action userhome-section-messages-list-item" aria-current="true">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">{{ $um->header }}</h5>
                         <small>{{ $um->created_at }}</small>
@@ -84,12 +82,12 @@
     </div>
 
     <div class="container mb-3">
-        <h1 class="p-4">Observations</h1>
+        <h2 class="p-4 userhome-section-title">Observations</h2>
         <div class="row">
             <div class="col-md-3 d-flex align-items-center justify-content-center">
-                <a href="/visit" class="btn btn-outline-primary m-4">See my observations</a>
+                <a href="/visit" class="btn btn-outline-primary m-4 userhome-section-button">See my observations</a>
             </div>
-            <div class="col-md-9">
+            <div class="col-md-9 userhome-section-map">
                 <?php
                 // dd($allObservations[0]->getLocationsAsGeoJson());
                 ?>
@@ -113,12 +111,12 @@
                 </div>
                 <div class="modal-body">
 
-                    <img src="..." id="messageImage1" class="img-fluid">
-                    <img src="..." id="messageImage2" class="img-fluid">
+                    <img src="..." id="messageImage1" class="img-fluid userhome-section-message-image">
+                    <img src="..." id="messageImage2" class="img-fluid userhome-section-message-image">
                 </div>
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary userhome-section-button" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
         </div>

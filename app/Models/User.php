@@ -54,7 +54,9 @@ class User extends Authenticatable
 
     public function countingMethods()
     {
-        return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'id', 'countingmethod_id', 'id');
+        $cmIds = \App\Models\CountingMethodsUsers::where('user_id', $this->id)->pluck('countingmethod_id');
+        return \App\Models\CountingMethod::whereIn('id', $cmIds);
+      //  return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'id', 'countingmethod_id', 'id');
     }
 
     public function visits()

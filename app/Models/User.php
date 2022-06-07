@@ -8,6 +8,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use App\Models\CountingMethodsUsers;
+
 
 class User extends Authenticatable
 {
@@ -54,7 +56,7 @@ class User extends Authenticatable
 
     public function countingMethods()
     {
-        $cmIds = \App\Models\CountingMethodsUsers::where('user_id', $this->id)->pluck('countingmethod_id');
+        $cmIds = CountingMethodsUsers::where('user_id', $this->id)->pluck('countingmethod_id');
         return \App\Models\CountingMethod::whereIn('id', $cmIds);
       //  return $this->hasManyThrough('App\Models\CountingMethod', 'App\Models\CountingMethodsUsers', 'user_id', 'id', 'countingmethod_id', 'id');
     }

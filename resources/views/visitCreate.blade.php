@@ -550,6 +550,7 @@
 
         $('*[id*=amount_]').each(function()
         {
+            console.log(this);
             var input1 = document.createElement('input');
             input1.type = 'hidden';
             input1.name = `observations[${count}][species_id]`;
@@ -565,14 +566,14 @@
             var input3 = document.createElement('input');
             input3.type = 'hidden';
             input3.name = `observations[${count}][observationtime]`;
-            input3.value =  $('#time_' + this.id.split('_')[1]).val();
+            input3.value =  $(this).parent().parent().find('*[id*=time_]').val();
             form[0].appendChild(input3);
 
             @if($isTransect)
                 var input3 = document.createElement('input');
                 input3.type = 'hidden';
                 input3.name = `observations[${count}][section]`;
-                input3.value =  $('#section_' + this.id.split('_')[1]).val();
+                input3.value =  $(this).parent().parent().find('*[id*=section_]').val();
                 form[0].appendChild(input3);
             @endif
 

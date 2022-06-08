@@ -323,11 +323,11 @@
         var vectorSourceMy = new ol.source.Vector({wrapX: false});
         @foreach($allUserObservations as $obs)
             @if ($obs->getLocationsAsGeoJson() != '')
-                // vectorSourceMy.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
-                //     {
-                //         dataProjection: 'EPSG:4326',
-                //         featureProjection: map.getView().getProjection()
-                //     }));
+                vectorSourceMy.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
+                    {
+                        dataProjection: 'EPSG:4326',
+                        featureProjection: map.getView().getProjection()
+                    }));
             @endif
         @endforeach
 

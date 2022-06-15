@@ -74,15 +74,16 @@ const showLoginScreen = () =>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                            <label class=""><h5>Email address*</h5></label>
-                            <input class="small-input" type="text" id="login_emailField" name="login_emailField" placeholder="">
-                            <label class=""><h5>Password*</h5></label>
-                            <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
-                        
-                            <button class="btn" id="login_loginButton">Login</button>
-                            <button class="btn" id="login_installButton" hidden>Install</button>
-                            <h6><a href="#">Lost your password?</a></h6>
-                            <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
+                        <div id="error-div" class="alert alert-danger" style="display:none">Authentication failed</div>
+                        <label class=""><h5>Email address*</h5></label>
+                        <input class="small-input" type="text" id="login_emailField" name="login_emailField" placeholder="">
+                        <label class=""><h5>Password*</h5></label>
+                        <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
+                    
+                        <button class="btn" id="login_loginButton">Login</button>
+                        <button class="btn" id="login_installButton" hidden>Install</button>
+                        <h6><a href="#">Lost your password?</a></h6>
+                        <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,16 @@ const showLoginScreen = () =>
         <!-- end section -->`;
 
     // Attach the events
-    document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };
+    document.getElementById("login_loginButton").onclick = function () {
+        var username = document.getElementById('login_emailField').value;
+        var password = document.getElementById('login_passField').value;
+        retstr = attemptLogin(username, password); 
+        if (retstr=='authentication failed')
+        {
+            var errorDiv = document.getElementById('error-div');
+            errorDiv.style.display = errorDiv.style.display == "none" ? "block" : "none";
+        }
+    };
 
     let deferredPrompt; // Allows to show the install prompt
 

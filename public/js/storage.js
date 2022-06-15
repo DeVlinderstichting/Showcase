@@ -137,7 +137,15 @@ function loadUserSettings(sendBackHome = false)
         settingsRequest = store.get('settings');
         settingsRequest.onsuccess = function(evnt)
         {
-            userSettings = JSON.parse(settingsRequest.result.data);
+            if((settingsRequest.result.data.length) > 0 && (settingsRequest.result.data !='authentication failed'))
+            {
+                userSettings = JSON.parse(settingsRequest.result.data);
+            }
+            else
+            {
+                return 'authentication failed';
+            }
+            
             if (sendBackHome == true)
             {
                 var len = userSettings.userSettings['accessToken'].length;

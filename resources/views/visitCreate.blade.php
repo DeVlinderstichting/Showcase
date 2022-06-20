@@ -193,6 +193,11 @@
                                 @endforeach
                             </select> 
                             </div>
+
+                            <label for="flower_amount" class="col-md-3 col-form-label uservisitcreate-form-label">Amount of flowerheads</label>
+                            <div class="col">
+                                <input type="number" class="form-control uservisitcreate-form-input @if($errors->has('flower_amount')) is-invalid @endif" id="flower_amount" name="flower_amount" value="{{old('flower_amount')}}">
+                            </div>
                         @endif
                     @endif
                     <div class="col">

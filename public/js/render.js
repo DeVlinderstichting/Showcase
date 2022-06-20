@@ -743,6 +743,16 @@ const showFitPreObservationScreen = () =>
             </select>
         </div>
 
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> ${translations['fitPreNumberLabel']}</h3>
+
+        <div class="input-group">
+            <div class="input-group-btn w-100" style="display: flex;">
+                <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=0 style="width:100%;">
+                <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();"><i class="fas fa-plus"></i></button>
+            </div>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
                 <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
@@ -770,6 +780,12 @@ const showFitPreObservationScreen = () =>
         visit.flower_id = document.getElementById("prefit_selectSpecies").value;
     });
     $("#prefit_selectSpecies").change();
+
+    $("#prefit_inputAmount").change(function () 
+    {
+        visit.flower_count = document.getElementById("prefit_inputAmount").value;
+    });
+    $("#prefit_inputAmount").change();
 
     document.getElementById("prefit_buttonSave").onclick = function () { resetTimer(); showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
@@ -1676,7 +1692,7 @@ const showDataScreen = () =>
             <div class="row justify-content-center"> 
                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                     <div class="box-background">
-                        <table id="obsTable">
+                        <table id="obsTable" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>${translations['dataTableDate']}</th>
@@ -1684,6 +1700,7 @@ const showDataScreen = () =>
                                     <th>${translations['dataTableCount']}</th>
                                     <th>${translations['dataTableDetails']}</th>
                                 </tr>
+
                             </thead>
                         </table>
                     </div>

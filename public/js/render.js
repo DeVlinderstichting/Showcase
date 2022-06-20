@@ -548,6 +548,11 @@ const show15mPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="15mpost_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
             <h3 id="15mpost_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
         </div>
@@ -558,11 +563,8 @@ const show15mPostObservationScreen = () =>
         </div>
 
     </div>
-
-
-    
-
     `
+
     // Attach the modals
     // Info
     mb.innerHTML += renderModal(translations['15mPostInfoModalTitle'],translations['15mPostInfoModalContents']);
@@ -647,8 +649,47 @@ const show15mPostObservationScreen = () =>
         </ul>
     </div>
     `;
-
-    $('#15mpost_weatherContainer').html(weatherHtml);
+    
+       // Attach the contents of the land container
+       landHhtml = 
+       `
+       <div style="
+       background: #FFFFFF 0% 0% no-repeat padding-box;
+       background-position-x: 0%;
+       background-position-y: 0%;
+       box-shadow: 4px 3px 4px #00000029;
+       border-radius: 10px;
+       opacity: 0.8;
+       background-position: bottom right !important;
+       min-height: 46px;
+       ">
+           <ul style="list-style-type:none; padding: 1px;">
+               <li class="m-3">
+                   ${translations['landTypeLabel']}
+                   <span style="float: right; height: 20px;">
+                       <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                           <option value=1>1</option>
+                           <option value=2>2</option>
+                           <option value=3>3</option>
+                       </select>
+                   </span>
+               </li>
+               <li class="m-3">
+                   ${translations['landManagementLabel']}
+                   <span style="float: right; height: 20px;">
+                       <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                           <option value=1>1</option>
+                           <option value=2>2</option>
+                           <option value=3>3</option>
+                       </select>
+                   </span>
+               </li>
+           </ul>
+       </div>
+       `;
+   
+       $('#15mpost_weatherContainer').html(weatherHtml);
+       $('#15mpost_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#15mpost_inputTemperature`).change( function () 
@@ -989,6 +1030,11 @@ const showFitPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
+            <h3 id="fit_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="fit_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
             <h3 id="fit_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
         </div>
@@ -1084,7 +1130,46 @@ const showFitPostObservationScreen = () =>
         </ul>
     </div>
     `;
+    
+    landHhtml = 
+    `
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['landTypeLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['landManagementLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
+    `;
+
     $('#fit_weatherContainer').html(weatherHtml);
+    $('#fit_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#fit_inputTemperature`).change( function () 
@@ -1431,6 +1516,11 @@ const showTransectPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
+            <h3 id="transect_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="transect_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
             <h3 id="transect_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
         </div>
@@ -1526,7 +1616,46 @@ const showTransectPostObservationScreen = () =>
     </div>
     `;
 
+    // Attach the contents of the land container
+    landHhtml = 
+    `
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['landTypeLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['landManagementLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
+    `;
+
     $('#transect_weatherContainer').html(weatherHtml);
+    $('#transect_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#transect_inputTemperature`).change( function () 

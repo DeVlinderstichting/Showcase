@@ -37,7 +37,11 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'windSelectorPlaceholder', 'en'=>'Select wind conditions...']);
         \App\Models\Language::create(['key' => 'cloudsLabel', 'en'=>'Clouds']);
         \App\Models\Language::create(['key' => 'cloudSelectorPlaceholder', 'en'=>'Select cloud conditions...']);
-
+        \App\Models\Language::create(['key' => 'LandLabel', 'en'=>'Land characteristics']);
+        \App\Models\Language::create(['key' => 'landTypeLabel', 'en'=>'Land type']);
+        \App\Models\Language::create(['key' => 'landManagementLabel', 'en'=>'Land management']);
+        
+        
         // Nav Bar
         \App\Models\Language::create(['key' => 'navStatistics', 'en'=>'STATISTICS']);
         \App\Models\Language::create(['key' => 'navSettings', 'en'=>'SETTINGS']);

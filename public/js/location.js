@@ -18,7 +18,6 @@ function measure(lat1, lon1, lat2, lon2)
 function trackingLocationUpdate(pos)
 {
     var testdiv = document.getElementById('locationtest');
-    testdiv.innerHTML = 'current accuracy = ' + pos.coords.accuracy;
     if (pos.coords.accuracy < 10)
     {
 
@@ -45,10 +44,10 @@ function trackingLocationUpdate(pos)
             var line = new Date().toISOString() + ", " + lat + ", " + lon;
             trackedLocations.push(line);
             locationTrack.push([lon, lat]);
-            // if (testdiv !== null)
-            // {
-            //     testdiv.innerHTML += line + '<br>';
-            // }
+            if (testdiv !== null)
+            {
+                testdiv.innerHTML += line + '<br>';
+            }
         }
 
     }

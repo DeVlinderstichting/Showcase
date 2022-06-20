@@ -21,8 +21,8 @@ function trackingLocationUpdate(pos)
     if (pos.coords.accuracy < 10)
     {
 
-        let lat = position.coords.latitude;
-        let lon = position.coords.longitude;
+        let lat = pos.coords.latitude;
+        let lon = pos.coords.longitude;
 
         var addLoc = false;
         if (locationTrack.length  == 0)

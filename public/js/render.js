@@ -667,7 +667,7 @@ const show15mPostObservationScreen = () =>
                <li class="m-3">
                    ${translations['landTypeLabel']}
                    <span style="float: right; height: 20px;">
-                       <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                       <select name="15mpost_selectLandType" id="15mpost_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
                            <option value=1>1</option>
                            <option value=2>2</option>
                            <option value=3>3</option>
@@ -677,7 +677,7 @@ const show15mPostObservationScreen = () =>
                <li class="m-3">
                    ${translations['landManagementLabel']}
                    <span style="float: right; height: 20px;">
-                       <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                       <select name="15mpost_selectLandManagement" id="15mpost_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
                            <option value=1>1</option>
                            <option value=2>2</option>
                            <option value=3>3</option>
@@ -1147,7 +1147,7 @@ const showFitPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['landTypeLabel']}
                 <span style="float: right; height: 20px;">
-                    <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                    <select name="fit_selectLandType" id="fit_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
                         <option value=1>1</option>
                         <option value=2>2</option>
                         <option value=3>3</option>
@@ -1157,7 +1157,7 @@ const showFitPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['landManagementLabel']}
                 <span style="float: right; height: 20px;">
-                    <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                    <select name="fit_selectLandManagement" id="fit_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
                         <option value=1>1</option>
                         <option value=2>2</option>
                         <option value=3>3</option>

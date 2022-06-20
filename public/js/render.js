@@ -255,9 +255,9 @@ const showSpecialObservationScreen = () =>
 
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
-                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
                 <input class="small-input" id="special_inputAmount" name="special_inputAmount" value=0 style="width:100%;">
-                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();"><i class="fas fa-plus"></i></button>
+                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
             </div>
         </div>
 
@@ -427,7 +427,7 @@ const show15mObservationScreen = () =>
             <li class="mt-3 mb-3"><i>${getSpeciesName(speciesInfo['id'])}</i>
                 <span style="float:right; height:20px;">
                     <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
-                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}"><i class="fas fa-plus"></i></button>
+                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}">+</button>
                     <button class="btn-counter" id="15m_editAmount_${speciesInfo['id']}"><i class="fas fa-pen"></i></button>
                 </span>
             </li>
@@ -548,7 +548,7 @@ const show15mPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <h3 id="15mpost_notesText"><i class="fas fa-pen"> ${translations['notesLabel']}</h3>
+            <h3 id="15mpost_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
         </div>
 
@@ -609,9 +609,9 @@ const show15mPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
                     <input id="15mpost_inputTemperature" class="form-control input-number" name="15mpost_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">
@@ -747,9 +747,9 @@ const showFitPreObservationScreen = () =>
 
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
-                <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();">-</button>
                 <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=0 style="width:100%;">
-                <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();"><i class="fas fa-plus"></i></button>
+                <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();">+</button>
             </div>
         </div>
 
@@ -900,9 +900,9 @@ const showFitObservationScreen = () =>
         $('#fit_listSpecies').append(`
             <li class="m-3">${getSpeciesName(speciesInfo['id'])}
                 <span style="float: right;  height: 20px;">
-                    <button id="fit_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-minus"></i></button>
+                    <button id="fit_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
                     <input id="fit_inputAmount_${speciesInfo['id']}" class="form-control input-number" name="fit_inputAmount_${speciesInfo['id']}" value=${number} style="display: inline-block; width: 100px;">
-                    <button id="fit_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-plus"></i></button>
+                    <button id="fit_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
                 </span>
             </li>
         `)
@@ -989,7 +989,7 @@ const showFitPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <h3 id="fit_notesText">${translations['notesLabel']}</h3>
+            <h3 id="fit_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
         </div>
 
@@ -1046,9 +1046,9 @@ const showFitPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="fit_minTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="fit_minTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
                     <input id="fit_inputTemperature" class="form-control input-number" name="fit_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="fit_plusTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="fit_plusTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">
@@ -1238,14 +1238,11 @@ const showTransectObservationScreen = () =>
             </div>  
         </div>
 
-        <div class="row justify-content-center pb-3">
-            <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
-
-            <span style="height: 20px; width: auto">
+        <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
+        <div class="input-group-btn w-100" style="display: flex;">
                 <button class="btn-counter" id="transect_prevTransButton" disabled> < </button>
-                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="form-control" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
+                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="small-input" style="width:100%;" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
                 <button class="btn-counter" id="transect_nextTransButton"> > </button>
-            </span>
         </div>
 
         <div class="row justify-content-center mb-3"> 
@@ -1490,9 +1487,9 @@ const showTransectPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
                     <input id="transect_inputTemperature" class="form-control input-number" name="transect_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">

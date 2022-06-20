@@ -469,7 +469,7 @@ input.btn-line-small:focus { border-width: 2px; }
     width: auto; 
     font-family: 'Oswald', sans-serif; 
     font-weight: 500;
-    font-size:10px; 
+    font-size:25px; 
     padding-top: 4px;
     padding-bottom: 4px;
     padding-right: 8px;
@@ -481,6 +481,7 @@ input.btn-line-small:focus { border-width: 2px; }
     margin-right: 5px;
     margin-bottom: 13px;
     align-self: center;
+    height: 35px;
 }
 
 .btn-counter:hover { 

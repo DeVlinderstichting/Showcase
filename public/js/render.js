@@ -379,7 +379,7 @@ const show15mObservationScreen = () =>
             <button class="btn" id="15m_buttonSave">${translations['saveButton']}</button>
             <button class="btn-line" id="15m_buttonCancel">${translations['cancelButton']}</button>
         </div>
-
+        <div id='locationtest'></div>
     </div>
 
 

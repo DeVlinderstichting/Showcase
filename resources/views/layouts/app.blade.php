@@ -27,6 +27,10 @@
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
+    <!-- flags -->
+    <link href="/flags/css/flag-icons.min.css" rel="stylesheet" />
+
+
     <script>
         $.ajaxSetup({
             headers: {
@@ -59,8 +63,19 @@
                         class="nav-link {{ Request::is('showIdHelp') ? 'active' : '' }}">Identification</a></li>
                 <li class="nav-item"><a href="/news"
                         class="nav-link {{ Request::is('news') ? 'active' : '' }}">News</a></li>
-                <li class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-user"></i></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span class="fi fi-gb"></span>
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#"><span class="fi fi-gb mx-2"></span>English</a></li>
+                        <li><a class="dropdown-item" href="#"><span class="fi fi-nl mx-2"></span>Nederlands</a></li>
+                        <li><a class="dropdown-item" href="#"><span class="fi fi-es mx-2"></span>Español</a></li>
+                        <li><a class="dropdown-item" href="#"><span class="fi fi-de mx-2"></span>Deutsch</a></li>
+                    </ul>
                 </li>
+                <li class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-user"></i></a>
+                </li>          
             </ul>
         </header>
     </div>

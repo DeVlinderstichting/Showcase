@@ -74,15 +74,16 @@ const showLoginScreen = () =>
                 </div>
                 <div class="row justify-content-center">
                     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                            <label class=""><h5>Email address*</h5></label>
-                            <input class="small-input" type="text" id="login_emailField" name="login_emailField" placeholder="">
-                            <label class=""><h5>Password*</h5></label>
-                            <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
-                        
-                            <button class="btn" id="login_loginButton">Login</button>
-                            <button class="btn" id="login_installButton" hidden>Install</button>
-                            <h6><a href="#">Lost your password?</a></h6>
-                            <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
+                        <div id="error-div" class="alert alert-danger" style="display:none">Authentication failed</div>
+                        <label class=""><h5>Email address*</h5></label>
+                        <input class="small-input" type="text" id="login_emailField" name="login_emailField" placeholder="">
+                        <label class=""><h5>Password*</h5></label>
+                        <input class="small-input" type="password" id="login_passField" name="login_passField" placeholder="">
+                    
+                        <button class="btn" id="login_loginButton">Login</button>
+                        <button class="btn" id="login_installButton" hidden>Install</button>
+                        <h6><a href="#">Lost your password?</a></h6>
+                        <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
                     </div>
                 </div>
             </div>
@@ -90,7 +91,16 @@ const showLoginScreen = () =>
         <!-- end section -->`;
 
     // Attach the events
-    document.getElementById("login_loginButton").onclick = function () {attemptLogin(); };
+    document.getElementById("login_loginButton").onclick = function () {
+        var username = document.getElementById('login_emailField').value;
+        var password = document.getElementById('login_passField').value;
+        retstr = attemptLogin(username, password); 
+        if (retstr=='authentication failed')
+        {
+            var errorDiv = document.getElementById('error-div');
+            errorDiv.style.display = errorDiv.style.display == "none" ? "block" : "none";
+        }
+    };
 
     let deferredPrompt; // Allows to show the install prompt
 
@@ -245,9 +255,9 @@ const showSpecialObservationScreen = () =>
 
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
-                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();"><i class="fas fa-minus"></i></button>
+                <button id="special_minAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value--; $('#special_inputAmount').change();">-</button>
                 <input class="small-input" id="special_inputAmount" name="special_inputAmount" value=0 style="width:100%;">
-                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();"><i class="fas fa-plus"></i></button>
+                <button id="special_plusAmount" class="btn-counter" onclick="$('#special_inputAmount').get(0).value++; $('#special_inputAmount').change();">+</button>
             </div>
         </div>
 
@@ -369,7 +379,6 @@ const show15mObservationScreen = () =>
             <button class="btn" id="15m_buttonSave">${translations['saveButton']}</button>
             <button class="btn-line" id="15m_buttonCancel">${translations['cancelButton']}</button>
         </div>
-
     </div>
 
 
@@ -417,7 +426,7 @@ const show15mObservationScreen = () =>
             <li class="mt-3 mb-3"><i>${getSpeciesName(speciesInfo['id'])}</i>
                 <span style="float:right; height:20px;">
                     <span id="15m_amountText_${speciesInfo['id']}">${visit['observations'].filter(obj => {return obj.species_id == speciesId}).length}</span>
-                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}"><i class="fas fa-plus"></i></button>
+                    <button class="btn-counter" id="15m_plusAmount_${speciesInfo['id']}">+</button>
                     <button class="btn-counter" id="15m_editAmount_${speciesInfo['id']}"><i class="fas fa-pen"></i></button>
                 </span>
             </li>
@@ -538,7 +547,12 @@ const show15mPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <h3 id="15mpost_notesText"><i class="fas fa-pen"> ${translations['notesLabel']}</h3>
+            <h3 id="15mpost_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="15mpost_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="15mpost_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="15mpost_textareaNotes" name="15mpost_textareaNotes" rows="4" cols="50"></textarea>
         </div>
 
@@ -548,11 +562,8 @@ const show15mPostObservationScreen = () =>
         </div>
 
     </div>
-
-
-    
-
     `
+
     // Attach the modals
     // Info
     mb.innerHTML += renderModal(translations['15mPostInfoModalTitle'],translations['15mPostInfoModalContents']);
@@ -599,9 +610,9 @@ const show15mPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="15mpost_minTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value--; $('#15mpost_inputTemperature').change();">-</button>
                     <input id="15mpost_inputTemperature" class="form-control input-number" name="15mpost_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="15mpost_plusTemperature" class="btn-counter" onclick="$('#15mpost_inputTemperature').get(0).value++; $('#15mpost_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">
@@ -637,8 +648,47 @@ const show15mPostObservationScreen = () =>
         </ul>
     </div>
     `;
-
-    $('#15mpost_weatherContainer').html(weatherHtml);
+    
+       // Attach the contents of the land container
+       landHhtml = 
+       `
+       <div style="
+       background: #FFFFFF 0% 0% no-repeat padding-box;
+       background-position-x: 0%;
+       background-position-y: 0%;
+       box-shadow: 4px 3px 4px #00000029;
+       border-radius: 10px;
+       opacity: 0.8;
+       background-position: bottom right !important;
+       min-height: 46px;
+       ">
+           <ul style="list-style-type:none; padding: 1px;">
+               <li class="m-3">
+                   ${translations['landTypeLabel']}
+                   <span style="float: right; height: 20px;">
+                       <select name="15mpost_selectLandType" id="15mpost_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                           <option value=1>1</option>
+                           <option value=2>2</option>
+                           <option value=3>3</option>
+                       </select>
+                   </span>
+               </li>
+               <li class="m-3">
+                   ${translations['landManagementLabel']}
+                   <span style="float: right; height: 20px;">
+                       <select name="15mpost_selectLandManagement" id="15mpost_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                           <option value=1>1</option>
+                           <option value=2>2</option>
+                           <option value=3>3</option>
+                       </select>
+                   </span>
+               </li>
+           </ul>
+       </div>
+       `;
+   
+       $('#15mpost_weatherContainer').html(weatherHtml);
+       $('#15mpost_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#15mpost_inputTemperature`).change( function () 
@@ -733,6 +783,16 @@ const showFitPreObservationScreen = () =>
             </select>
         </div>
 
+        <h3 class="pt-2"><i class="fas fa-list-ol"></i> ${translations['fitPreNumberLabel']}</h3>
+
+        <div class="input-group">
+            <div class="input-group-btn w-100" style="display: flex;">
+                <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();">-</button>
+                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=0 style="width:100%;">
+                <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();">+</button>
+            </div>
+        </div>
+
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
                 <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
@@ -760,6 +820,12 @@ const showFitPreObservationScreen = () =>
         visit.flower_id = document.getElementById("prefit_selectSpecies").value;
     });
     $("#prefit_selectSpecies").change();
+
+    $("#prefit_inputAmount").change(function () 
+    {
+        visit.flower_count = document.getElementById("prefit_inputAmount").value;
+    });
+    $("#prefit_inputAmount").change();
 
     document.getElementById("prefit_buttonSave").onclick = function () { resetTimer(); showFitObservationScreen(); };
     document.getElementById("prefit_buttonCancel").onclick = function () { showHomeScreen(); };
@@ -874,9 +940,9 @@ const showFitObservationScreen = () =>
         $('#fit_listSpecies').append(`
             <li class="m-3">${getSpeciesName(speciesInfo['id'])}
                 <span style="float: right;  height: 20px;">
-                    <button id="fit_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-minus"></i></button>
+                    <button id="fit_minAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value--; $('#fit_inputAmount_${speciesInfo['id']}').change();">-</button>
                     <input id="fit_inputAmount_${speciesInfo['id']}" class="form-control input-number" name="fit_inputAmount_${speciesInfo['id']}" value=${number} style="display: inline-block; width: 100px;">
-                    <button id="fit_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();"><i class="fas fa-plus"></i></button>
+                    <button id="fit_plusAmount_${speciesInfo['id']}" class="btn-counter" onclick="$('#fit_inputAmount_${speciesInfo['id']}').get(0).value++; $('#fit_inputAmount_${speciesInfo['id']}').change();">+</button>
                 </span>
             </li>
         `)
@@ -963,7 +1029,12 @@ const showFitPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
-            <h3 id="fit_notesText">${translations['notesLabel']}</h3>
+            <h3 id="fit_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="fit_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
+            <h3 id="fit_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="fit_textareaNotes" name="fit_textareaNotes" rows="4" cols="50"></textarea>
         </div>
 
@@ -1020,9 +1091,9 @@ const showFitPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="fit_minTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="fit_minTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value--; $('#fit_inputTemperature').change();">-</button>
                     <input id="fit_inputTemperature" class="form-control input-number" name="fit_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="fit_plusTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="fit_plusTemperature" class="btn-counter" onclick="$('#fit_inputTemperature').get(0).value++; $('#fit_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">
@@ -1058,7 +1129,46 @@ const showFitPostObservationScreen = () =>
         </ul>
     </div>
     `;
+    
+    landHhtml = 
+    `
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['landTypeLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="fit_selectLandType" id="fit_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['landManagementLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="fit_selectLandManagement" id="fit_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
+    `;
+
     $('#fit_weatherContainer').html(weatherHtml);
+    $('#fit_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#fit_inputTemperature`).change( function () 
@@ -1212,14 +1322,11 @@ const showTransectObservationScreen = () =>
             </div>  
         </div>
 
-        <div class="row justify-content-center pb-3">
-            <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
-
-            <span style="height: 20px; width: auto">
+        <h3 style="display: flex;"><i class="fas fa-map-marked" style="align-self: center; margin-right: 2px;"></i> ${translations['transectSectionSelector']}</h3>
+        <div class="input-group-btn w-100" style="display: flex;">
                 <button class="btn-counter" id="transect_prevTransButton" disabled> < </button>
-                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="form-control" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
+                <input id="transect_transLabel"  data_id="${transectSections[0].id}" class="small-input" style="width:100%;" value="${transectSections[0].name}" style="display: inline-block; width: 100px;">
                 <button class="btn-counter" id="transect_nextTransButton"> > </button>
-            </span>
         </div>
 
         <div class="row justify-content-center mb-3"> 
@@ -1408,6 +1515,11 @@ const showTransectPostObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center mb-3">
+            <h3 id="transect_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
+            <div id="transect_landContainer"></div>
+        </div>
+
+        <div class="row justify-content-center mb-3">
             <h3 id="transect_notesText"><i class="fas fa-pen"></i> ${translations['notesLabel']}</h3>
             <textarea style="width: calc(100% - 30px);" id="transect_textareaNotes" name="transect_textareaNotes" rows="4" cols="50"></textarea>
         </div>
@@ -1464,9 +1576,9 @@ const showTransectPostObservationScreen = () =>
             <li class="m-3">
                 ${translations['temperatureLabel']}
                 <span style="float: right;  height: 20px;">
-                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();"><i class="fas fa-minus"></i></button>
+                    <button id="transect_minTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value--; $('#transect_inputTemperature').change();">-</button>
                     <input id="transect_inputTemperature" class="form-control input-number" name="transect_inputTemperature" value=15 style="display: inline-block; width: 100px;">
-                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();"><i class="fas fa-plus"></i></button>
+                    <button id="transect_plusTemperature" class="btn-counter" onclick="$('#transect_inputTemperature').get(0).value++; $('#transect_inputTemperature').change();">+</button>
                 </span>
             </li>
             <li class="m-3">
@@ -1503,7 +1615,46 @@ const showTransectPostObservationScreen = () =>
     </div>
     `;
 
+    // Attach the contents of the land container
+    landHhtml = 
+    `
+    <div style="
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    box-shadow: 4px 3px 4px #00000029;
+    border-radius: 10px;
+    opacity: 0.8;
+    background-position: bottom right !important;
+    min-height: 46px;
+    ">
+        <ul style="list-style-type:none; padding: 1px;">
+            <li class="m-3">
+                ${translations['landTypeLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+            <li class="m-3">
+                ${translations['landManagementLabel']}
+                <span style="float: right; height: 20px;">
+                    <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
+                        <option value=1>1</option>
+                        <option value=2>2</option>
+                        <option value=3>3</option>
+                    </select>
+                </span>
+            </li>
+        </ul>
+    </div>
+    `;
+
     $('#transect_weatherContainer').html(weatherHtml);
+    $('#transect_landContainer').html(landHhtml);
 
     // Make sure we get proper input on change of the number input
     $(`#transect_inputTemperature`).change( function () 
@@ -1666,7 +1817,7 @@ const showDataScreen = () =>
             <div class="row justify-content-center"> 
                 <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                     <div class="box-background">
-                        <table id="obsTable">
+                        <table id="obsTable" class="display" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>${translations['dataTableDate']}</th>
@@ -1674,6 +1825,7 @@ const showDataScreen = () =>
                                     <th>${translations['dataTableCount']}</th>
                                     <th>${translations['dataTableDetails']}</th>
                                 </tr>
+
                             </thead>
                         </table>
                     </div>

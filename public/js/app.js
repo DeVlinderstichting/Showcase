@@ -18,12 +18,13 @@ const butterflies = [
   { name: "bf6", image: "images/bf6.jpg" },
 ]
 
-function attemptLogin()
+function attemptLogin(username, password)
 {
-    username= "test@vlinderstichting.nl";
-    password = "123test";
-    console.log("requesting user package");
-    requestUserPackage(username, password, sendBackHome=true);
+    var retstr = requestUserPackage(username, password, sendBackHome=true);
+    if (retstr=='authentication failed')
+    {
+        return 'authentication failed';
+    }
 }
 
 const showButterflies = () => 

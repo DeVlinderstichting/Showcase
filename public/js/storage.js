@@ -49,7 +49,7 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
 {
     if (username == "")
     {
-        return "invalid username";
+        return "authentication failed";
     }
 
     var accessToken = "";
@@ -59,9 +59,10 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         accessToken = settings.userSettings['accesToken']; //this will fail if the user has no settings stored. However, this does not matter as the user has no accesstoken stored and provided an empty password, so the ajax is no longer required. 
     }
 
-    $.ajax({
+    var data = $.ajax({
         type: 'POST',
         url: '/requestUserPackage',
+        async: false,
         data: 
         {
             'username': username,
@@ -70,9 +71,12 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
+
             storeUserPackage(data, sendBackHome);
         }
     });
+    return data.responseText;
+
 }
 
 function storeUserPackage(data, sendBackHome = false)
@@ -133,7 +137,15 @@ function loadUserSettings(sendBackHome = false)
         settingsRequest = store.get('settings');
         settingsRequest.onsuccess = function(evnt)
         {
-            userSettings = JSON.parse(settingsRequest.result.data);
+            if((settingsRequest.result.data.length) > 0 && (settingsRequest.result.data !='authentication failed'))
+            {
+                userSettings = JSON.parse(settingsRequest.result.data);
+            }
+            else
+            {
+                return 'authentication failed';
+            }
+            
             if (sendBackHome == true)
             {
                 var len = userSettings.userSettings['accessToken'].length;

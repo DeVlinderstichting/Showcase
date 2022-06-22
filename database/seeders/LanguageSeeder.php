@@ -37,7 +37,11 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'windSelectorPlaceholder', 'en'=>'Select wind conditions...']);
         \App\Models\Language::create(['key' => 'cloudsLabel', 'en'=>'Clouds']);
         \App\Models\Language::create(['key' => 'cloudSelectorPlaceholder', 'en'=>'Select cloud conditions...']);
-
+        \App\Models\Language::create(['key' => 'LandLabel', 'en'=>'Land characteristics']);
+        \App\Models\Language::create(['key' => 'landTypeLabel', 'en'=>'Land type']);
+        \App\Models\Language::create(['key' => 'landManagementLabel', 'en'=>'Land management']);
+        
+        
         // Nav Bar
         \App\Models\Language::create(['key' => 'navStatistics', 'en'=>'STATISTICS']);
         \App\Models\Language::create(['key' => 'navSettings', 'en'=>'SETTINGS']);
@@ -87,6 +91,8 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about flowerpatch count']);
         \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'fitPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
+        \App\Models\Language::create(['key' => 'preFitNumberLabel', 'en'=>'Amount of flowerheads']);
+        
         
         // Transect screen
         \App\Models\Language::create(['key' => 'transectTitle', 'en'=>'WALK TRANSECT']);

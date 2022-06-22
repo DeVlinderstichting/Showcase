@@ -194,6 +194,11 @@
                                 @endforeach
                             </select> 
                             </div>
+
+                            <label for="flower_amount" class="col-md-3 col-form-label uservisitcreate-form-label">Amount of flowerheads</label>
+                            <div class="col">
+                                <input type="number" class="form-control uservisitcreate-form-input @if($errors->has('flower_amount')) is-invalid @endif" id="flower_amount" name="flower_amount" value="{{old('flower_amount')}}">
+                            </div>
                         @endif
                     @endif
                     <div class="col">
@@ -236,6 +241,28 @@
                             @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif
                         </div>
                     @endif
+                    @if(!$isSingle)
+                        <label for="landtype_id" class="col-md-3 col-form-label uservisitcreate-form-label">Select land type</label>
+                        <div class="col">
+                            <select id="landtype_id" name="landtype_id" class="form-select uservisitcreate-form-input" onChange="updateTransectSectionList()">
+                                <option value=-1>Not important...</option>
+                                @foreach($landtypes as $landtype)
+                                    <option value="{{$landtype->id}}">{{$landtype->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <label for="landmanagement_id" class="col-md-3 col-form-label uservisitcreate-form-label">Select land management</label>
+                        <div class="col">
+                            <select id="landmanagement_id" name="landmanagement_id" class="form-select uservisitcreate-form-input" onChange="updateTransectSectionList()">
+                                <option value=-1>Not important...</option>
+                                @foreach($landmanagements as $landmanagement)
+                                    <option value="{{$landmanagement->id}}">{{$landmanagement->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
+
+
                     <h2 class="mt-3">Observations</h2>
 
                     <div class="table-responsive">

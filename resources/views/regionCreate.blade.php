@@ -241,6 +241,59 @@ Admin home
             </div>
             <div class="card mb-2">
                 <h5 class="card-header">
+                    Select management options
+                </h5>
+                <div class="card-body">
+                    <table class="table table-sm table-striped table-hover vertical-align">
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Enabled</th>
+                        </thead>
+                        <tbody>
+                            @foreach(\App\Models\ManagementType::all() as $mt)
+                                <?php 
+                                    $isChecked = "";
+                                    if ($region->managementtypes()->where('managementtype_id', $mt->id)->first() != null)
+                                    {
+                                        $isChecked = "checked";
+                                    }
+                                ?>
+                                <tr><td>{{$mt->name}}</td><td>{{$mt->description}}</td><td><input type="checkbox" {{$isChecked}} name="mt_{{$mt->id}}" id="mt_{{$mt->id}}"></td></tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card mb-2">
+                <h5 class="card-header">
+                    Select landscape options
+                </h5>
+                <div class="card-body">
+                    <table class="table table-sm table-striped table-hover vertical-align">
+                        <thead>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Enabled</th>
+                        </thead>
+                        <tbody>
+                            @foreach(\App\Models\LanduseType::all() as $lt)
+                                <?php 
+                                    $isChecked = "";
+                                    if ($region->landusetypes()->where('landusetype_id', $lt->id)->first() != null)
+                                    {
+                                        $isChecked = "checked";
+                                    }
+                                ?>
+                                <tr><td>{{$lt->name}}</td><td>{{$lt->description}}</td><td><input type="checkbox" {{$isChecked}} name="lt_{{$lt->id}}" id="lt_{{$lt->id}}"></td></tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <h5 class="card-header">
                     Save edits
                 </h5>
             <div class="card-body">

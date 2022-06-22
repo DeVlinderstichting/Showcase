@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
             SpeciesSeeder::class,
             CountingMethodsSeeder::class,
             RecordingLevelsSeeder::class,
+            LanduseTypesSeeder::class,
+            ManagementTypesSeeder::class,
             LanguageSeeder::class,
             TestDataSeeder::class,
         ]);

@@ -135,5 +135,15 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'messagesTitle', 'en'=>'Messages']);
         \App\Models\Language::create(['key' => 'messagesUnread', 'en'=>'Unread']);
 
+
+        foreach(\App\Models\ManagementType::all() as $mt)
+        {
+            \App\Models\Language::create(['key' => $mt->name, 'en'=>$mt->description]);
+        }
+        foreach(\App\Models\LanduseType::all() as $lt)
+        {
+            \App\Models\Language::create(['key' => $lt->name, 'en'=>$lt->description]);
+        }
+
     }
 }

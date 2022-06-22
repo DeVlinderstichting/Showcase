@@ -45,6 +45,7 @@ class CreateVisitsTable extends Migration
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->index('region_id');
             
+            $table->integer('flowercount')->nullable();
             $table->unsignedBigInteger('flower_id')->nullable();
             $table->foreign('flower_id')->references('id')->on('species')->onDelete('cascade');
             $table->index('flower_id');
@@ -52,6 +53,11 @@ class CreateVisitsTable extends Migration
             $table->unsignedBigInteger('method_id')->nullable();
             $table->foreign('method_id')->references('id')->on('methods')->onDelete('cascade');
             $table->index('method_id');
+
+            $table->unsignedBigInteger('landusetype_id')->nullable();
+            $table->foreign('landusetype_id')->references('id')->on('landusetypes')->onDelete('cascade');
+            $table->unsignedBigInteger('managementtype_id')->nullable();
+            $table->foreign('managementtype_id')->references('id')->on('managementtypes')->onDelete('cascade');
         });
 
         DB::statement("ALTER TABLE visits ADD CONSTRAINT check_location CHECK (status = 1 OR (status = 2 AND location is not null));");

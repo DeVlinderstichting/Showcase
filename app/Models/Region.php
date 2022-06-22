@@ -25,6 +25,14 @@ class Region extends Model
     {
         return $this->belongsToMany('App\Models\Species', 'regions_species', 'region_id', 'species_id');
     }
+    public function landusetypes()
+    {
+        return $this->belongsToMany('\App\Models\LanduseType', 'landusetypes_regions', 'region_id', 'landusetype_id');
+    }
+    public function managementtypes()
+    {
+        return $this->belongsToMany('\App\Models\ManagementType', 'managementtypes_regions', 'region_id', 'managementtype_id');
+    }
 
     public function getLocationsAsGeoJson()
     {

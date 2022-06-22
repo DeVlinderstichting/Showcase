@@ -95,12 +95,34 @@ class AdminController extends Controller
                 }
             }
         }
+        foreach(\App\Models\ManagementType::all() as $mt)
+        {
+            if (request()->exists('mt_' . $mt->id))
+            {
+                $region->managementtypes()->attach($mt);
+            }
+            else 
+            {
+                $region->managementtypes()->detach($mt);
+            }
+        }
+        foreach(\App\Models\LanduseType::all() as $lt)
+        {
+            if (request()->exists('lt_' . $lt->id))
+            {
+                $region->landusetypes()->attach($lt);
+            }
+            else 
+            {
+                $region->landusetypes()->detach($lt);
+            }
+        }
+
         $removeMe = \App\Models\RegionsSpecies::whereNotIn('species_id', $foundIds)->where('region_id', $region->id)->get();
         foreach($removeMe as $tbr)
         {
             $tbr->delete();
         }
-
         return view ('adminHome');
     }
     public function regionIndex()

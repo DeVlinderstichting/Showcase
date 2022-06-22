@@ -43,7 +43,8 @@
     </div>
 
     @if($isTransect)
-        <?php $transects = $user->transects()->get(); ?>
+        <?php $transects = $user->transects()->get(); 
+        if (count($transects) == 0) { die ("no transects found");} ?>
         <script>
             var currentTransectId = {{ $transects->first()->id }};
 

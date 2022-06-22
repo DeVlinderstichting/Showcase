@@ -2,6 +2,28 @@ var positionTracker;
 var trackedLocations = [];
 var locationTrack = [];
 
+function locationAvailable(pos)
+{
+    var coor = pos.coords;
+    currentLocation = new Date().toISOString() + ", " + coor.latitude + ", " + coor.longitude;
+}
+function locationError(err)
+{
+    console.log('geolocation error');
+}
+
+function readLocation()
+{
+    if ("geolocation" in navigator) 
+    {
+        navigator.geolocation.getCurrentPosition(locationAvailable, locationError);
+    }
+    else
+    {
+        console.log('geolocation not available');
+    }
+}
+
 function measure(lat1, lon1, lat2, lon2)
 {  // generally used geo measurement function
     var R = 6378.137; // Radius of earth in KM

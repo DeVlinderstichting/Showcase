@@ -68,18 +68,21 @@ class VisitController extends Controller
                 $speciesList = $speciesList->merge($selSpecies);
             }
             // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
-
         }
+        $regIds = $user->regions()->pluck('region_id');
         $plantSp = [];
         if ($visitType == 4)
         {
-            $regIds = $user->regions()->pluck('region_id');
             $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
             $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
             $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
         }
-        $title = 'Create a visit';
-        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp]);
+        $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
+        $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get();
+        $managementIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id');
+        $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get();
+        $title = 'create';
+        return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp, 'landuseTypes' => $landuseTypes, 'managementTypes' => $managementTypes]);
     }
 
     public function visitEdit(Visit $visit)
@@ -106,17 +109,22 @@ class VisitController extends Controller
                 // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
 
             }
+            $regIds = $user->regions()->pluck('region_id');
             $plantSp = [];
             if ($visit->flower_id != null) //it is a fit count)
             {
-                $regIds = $user->regions()->pluck('region_id');
                 $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
                 $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
                 $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
             }
+            $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
+            $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get();
+            $managementIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id');
+            $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get();
+
             $countingMethodId = $visit->countingmethod_id;
-            $title = 'Edit visit';
-            return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp]);
+            $title = 'edit';
+            return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $countingMethodId, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp, 'landuseTypes' => $landuseTypes, 'managementTypes' => $managementTypes]);
         }
     }
 
@@ -146,6 +154,8 @@ class VisitController extends Controller
         $rules['notes'] = ['nullable', 'alpha_num_jsonarray'];
         $rules['region_id'] = ['nullable', 'exists:regions,id'];
         $rules['speciesgrouprecordinglevel'] = ['nullable', 'array'];
+        $rules['landusetype_id'] = ['nullable', 'exists:landusetypes,id'];
+        $rules['managementtype_id'] = ['nullable', 'exists:managementtypes,id'];
 
         if ($countType == 2 || $countType == 3)
         {
@@ -164,6 +174,7 @@ class VisitController extends Controller
         if ($countType == 4) // fit count, plant type is required 
         {
             $rules['flower_id'] = ['required', 'exists:species,id'];
+            $rules['flowercount'] = ['required', 'integer', 'between:0,10000'];
         }
 
         $valDat = request()->validate($rules);
@@ -189,6 +200,9 @@ class VisitController extends Controller
         if (array_key_exists('cloud', $valDat)) $visit->cloud = $valDat['cloud'];
         if (array_key_exists('transect_id', $valDat)) $visit->transect_id = $valDat['transect_id'];
         if (array_key_exists('region_id', $valDat)) $visit->region_id = $valDat['region_id'];
+        if (array_key_exists('landusetype_id', $valDat)) $visit->landusetype_id = $valDat['landusetype_id'];
+        if (array_key_exists('managementtype_id', $valDat)) $visit->managementtype_id = $valDat['managementtype_id'];
+        if (array_key_exists('flowercount', $valDat)) $visit->flowercount = $valDat['flowercount'];
         if (array_key_exists('flower_id', $valDat)) $visit->flower_id = $valDat['flower_id'];
 
         //  $visit->method_id = $this->getRecordingMethod($valDat['method'])->id;

@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="container mb-3">
-    <h1 class="p-4">News</h1>
+    <h1 class="p-4">{{\App\Models\Language::getItem('newsPageHeader')}}</h1>
     <h2 class="px-4">{{ $newsItem->title }}</h2>
 </div>
 <div class="container mb-3" id="special">
@@ -14,7 +14,7 @@
         <div class="col-md-2 p-4">
             <p>{{ $newsItem->created_at->format('Y-m-d') }}</p>
             @if( $newsItem->moreinfo )
-                <a href="{{ $newsItem->moreinfo }}" target="_blank">More info...</a>
+                <a href="{{ $newsItem->moreinfo }}" target="_blank">{{\App\Models\Language::getItem('newsPageHeader')}}</a>
             @endif
         </div>
         <div class="col-md-10 d-flex flex-column p-4">

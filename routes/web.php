@@ -22,7 +22,7 @@ Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPu
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');
 Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@showProjectInfo');
 Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
-Route::get('/news', '\App\Http\Controllers\GeneralPagesController@showNews');
+Route::get('/news', '\App\Http\Controllers\GeneralPagesController@showNews')->name('news');
 Route::get('/news/{newsItem}', '\App\Http\Controllers\GeneralPagesController@showNewsItem');
 Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logOff');
 

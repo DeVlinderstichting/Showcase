@@ -114,6 +114,25 @@ class User extends Authenticatable
         $messages = [];
         $transects = [];
         $lang = [];
+        $managementTypes = [];
+        $landuseTypes = [];
+
+        foreach(\App\Models\ManagementType::all() as $mt)
+        {
+            $managementType = [];
+            $managementType['id'] = $mt->id;
+            $managementType['name'] = $mt->name;
+            $managementType['description'] = $mt->description;
+            $managementTypes[] = $managementType;
+        }
+        foreach(\App\Models\LanduseType::all() as $lt)
+        {
+            $landuseType = [];
+            $landuseType['id'] = $lt->id;
+            $landuseType['name'] = $lt->name;
+            $landuseType['description'] = $lt->description;
+            $landuseTypes[] = $landuseType;
+        }
 
         $userSettings['user_id'] = $this->id;
         $userSettings['preferedLanguage'] = $this->prefered_language;
@@ -261,6 +280,8 @@ class User extends Authenticatable
         $retArr['messages'] = $messages;
         $retArr['transects'] = $transects;
         $retArr['translations'] = $lang;
+        $retArr['managementTypes'] = $managementTypes;
+        $retArr['landuseTypes'] = $landuseTypes;
         return json_encode($retArr);
     }
 }

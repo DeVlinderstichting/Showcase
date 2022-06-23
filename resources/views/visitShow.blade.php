@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Visits
+    {{\App\Models\Language::getItem('visitShowTitle')}}
 @endsection
 
 @section('sidebar')
@@ -39,128 +39,128 @@
         }
     ?>
     <div class="container mb-3">
-        <h1 class="p-4">Visit details <a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/{{ $visit->id }}/edit">Edit visit</a></h1>
+        <h1 class="p-4">{{\App\Models\Language::getItem('visitShowHeader')}}<a class="btn btn-primary mr-3 ml-3 btn-sm float-end" role="button" href="/visit/{{ $visit->id }}/edit">{{\App\Models\Language::getItem('visitShowEditButton')}}</a></h1>
     </div>
 
     <div class="container mb-3">
         <div class="card">
             <div class="card-body">
                 <div class="table-responsive">
-                    <h2>General information</h2>
+                    <h2>{{\App\Models\Language::getItem('visitShowGeneralInfoHeader')}}</h2>
                     <table class="table table-sm table-borderless">
                         <tbody id="dataTable">
                             @if ($isSingle)
                                 <tr>
-                                    <td>Date</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowDate')}}</td>
                                     <td>{{$visit->startdate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Notes</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
                                     <td>{{$visit->notes}}</td>
                                 </tr>
                             @endif
                             @if($isTimed)
                                 <tr>
-                                    <td>Startdate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
                                     <td>{{$visit->startdate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Enddate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
                                     <td>{{$visit->enddate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Number of observations</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
                                     <td>{{$visit->observations()->count()}}
                                 </tr>
                                 <tr>
-                                    <td>Cloud coverage</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowCloudCover')}}</td>
                                     <td>{{$visit->cloud}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Temperature</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowTemperature')}}</td>
                                     <td>{{$visit->temperature}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Wind</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowWind')}}</td>
                                     <td>{{$visit->wind}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Notes</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
                                     <td>{{$visit->notes}}</td>
                                 </tr>
                             @endif
                             @if($isTransect)
                                 <tr>
-                                    <td>Startdate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
                                     <td>{{$visit->startdate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Enddate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
                                     <td>{{$visit->enddate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Duration</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowDuration')}}</td>
                                     <td>{{$visit->getDuration()}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Cloud coverage</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowCloudCover')}}</td>
                                     <td>{{$visit->cloud}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Temperature</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowTemperature')}}</td>
                                     <td>{{$visit->temperature}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Wind</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowWind')}}</td>
                                     <td>{{$visit->wind}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Number of observations</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
                                     <td>{{$visit->observations()->count()}}
                                 </tr>
                                 <tr>
-                                    <td>Notes</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
                                     <td>{{$visit->notes}}</td>
                                 </tr>
                             @endif
                             @if($isFit)
                                 <tr>
-                                    <td>Startdate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
                                     <td>{{$visit->startdate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Enddate</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
                                     <td>{{$visit->enddate}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Duration</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowDuration')}}</td>
                                     <td>{{$visit->getDuration()}}</td>
                                 </tr>
                                 <tr>
-                                    <td>Number of observations</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
                                     <td>{{$visit->observations()->count()}}
                                 </tr>
                                 <tr>
-                                    <td>Observed flower</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowObservedFlower')}}</td>
                                     <td>{{\App\Models\Species::find($visit->flower_id)->getName($user)}}
                                 </tr>
                                 <tr>
-                                    <td>Notes</td>
+                                    <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
                                     <td>{{$visit->notes}}</td>
                                 </tr>
                             @endif
                         </tbody>
                     </table>
                 </div>
-                <h2>Observations</h2>
+                <h2>{{\App\Models\Language::getItem('visitShowObservationsHeader')}}</h2>
 
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align">
                         <thead>
-                            <th>Species</th>
-                            <th>Number</th>
+                            <th>{{\App\Models\Language::getItem('visitShowTableHeaderSpecies')}}</th>
+                            <th>{{\App\Models\Language::getItem('visitShowTableHeaderNumber')}}</th>
                             @if($isTransect)
-                                <th>Section</th>
+                                <th>{{\App\Models\Language::getItem('visitShowTableHeaderSection')}}</th>
                             @endif
                         </thead>
                         <tbody id="dataTable">
@@ -173,7 +173,7 @@
                                     @endif
                                 </tr>
                             @empty
-                                <tr><td colspan="100%">No observations</td></tr>
+                                <tr><td colspan="100%">{{\App\Models\Language::getItem('visitShowTableContentNoObservations')}}</td></tr>
                             @endforelse
                         </tbody>
                     </table>

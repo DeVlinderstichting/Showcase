@@ -9,7 +9,8 @@ class GeneralPagesController extends Controller
 {
     public function welcome()
     {
-        return view ('landingpage');
+        return redirect()->route('news');
+        //return view ('landingpage');
     }
 
     public function showIdHelp()

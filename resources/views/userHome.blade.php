@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    My Profile
+    {{\App\Models\Language::getItem('userHomeTitle')}}
 @endsection
 
 @section('sidebar')
@@ -22,24 +22,24 @@
     </style>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-title-header">My Profile <a href="/settings" class="btn btn-outline-primary float-end">Settings</a></h2>
-        <h2 class="px-4 news-title-sub userhome-title-sub">Subtitle</h2>
+        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeHeader')}}<a href="/settings" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeSettings')}}</a></h2>
+        <h2 class="px-4 news-title-sub userhome-title-sub">{{\App\Models\Language::getItem('userHomeSubTitle')}}</h2>
     </div>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-section-title">Statistics</h2>
+        <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeStatistics')}}</h2>
         <div class="row">
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $obsCount }} observations</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $obsCount }} {{\App\Models\Language::getItem('userHomeObsNum')}}</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spCount }} Species seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spCount }} {{\App\Models\Language::getItem('userHomeSpNum')}}</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spGroupCount }} Species groups seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spGroupCount }} {{\App\Models\Language::getItem('userHomeSpGroupNum')}}</div>
             </div>
             <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $nrOfInsects }} Total insects seen</div>
+                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $nrOfInsects }} {{\App\Models\Language::getItem('userHomeInsectsNum')}}</div>
             </div>
         </div>
         <div class="row my-4">
@@ -63,7 +63,7 @@
     <?php use Illuminate\Support\Str; ?>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-section-title">Messages</h2>
+        <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeMessages')}}</h2>
         <div class="list-group messages-list userhome-section-messages-list">
             @foreach ($userMessages as $um)
                 <?php $truncCont = Str::limit($um->content, 100, ' (...)'); ?>
@@ -82,10 +82,10 @@
     </div>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-section-title">Observations</h2>
+        <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeObservations')}}</h2>
         <div class="row">
             <div class="col-md-3 d-flex align-items-center justify-content-center">
-                <a href="/visit" class="btn btn-outline-primary m-4 userhome-section-button">See my observations</a>
+                <a href="/visit" class="btn btn-outline-primary m-4 userhome-section-button">{{\App\Models\Language::getItem('userHomeSeeObsButton')}}</a>
             </div>
             <div class="col-md-9 userhome-section-map">
                 <?php
@@ -103,7 +103,7 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="messageTitle">Modal title</h5>
+                    <h5 class="modal-title" id="messageTitle"></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="messageContent">
@@ -116,7 +116,7 @@
                 </div>
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary userhome-section-button" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary userhome-section-button" data-bs-dismiss="modal">{{\App\Models\Language::getItem('userHomeModalCloseButton')}}</button>
                 </div>
             </div>
         </div>
@@ -339,14 +339,14 @@
         var vectorSource = '';
         function toggleObs(elem) 
         {
-            if ($(elem).html() == 'My observations') 
+            if ($(elem).html() == '{{\App\Models\Language::getItem('userHomeMapMyObs')}}') 
             {
-                $(elem).html('All observations');
+                $(elem).html('{{\App\Models\Language::getItem('userHomeMapAllObs')}}');
                 vectorSource = vectorSourceAll;
             } 
             else 
             {
-                $(elem).html('My observations');
+                $(elem).html('{{\App\Models\Language::getItem('userHomeMapMyObs')}}');
                 vectorSource = vectorSourceMy;
             }
             

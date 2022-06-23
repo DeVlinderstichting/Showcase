@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    Visits
+    {{\App\Models\Language::getItem('visitIndexTitle')}}
 @endsection
 
 @section('sidebar')
@@ -12,17 +12,16 @@
     <div class="container mt-4">
         <div class="card mb-2 uservisitindex-card">
             <h5 class="card-header uservisitindex-card-header">
-                Single observation
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button" role="button" href="/visit/0/1/create">Add new single
-                    observation</a>
+                {{\App\Models\Language::getItem('visitIndexSingleObsHeader')}}
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button" role="button" href="/visit/0/1/create">{{\App\Models\Language::getItem('visitIndexAddNewSingleObs')}}</a>
             </h5>
             <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th class="uservisitindex-header">Date</th>
-                            <th class="uservisitindex-header">Species</th>
-                            <th class="uservisitindex-header">Number</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderDate')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderSpecies')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderNumber')}}</th>
                             <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
@@ -54,17 +53,16 @@
         </div>
         <div class="card mb-2 uservisitindex-card">
             <h5 class="card-header uservisitindex-card-header">
-                Transect
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/3/create">Add new
-                    visit</a>
+                {{\App\Models\Language::getItem('visitIndexTransectHeader')}}
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/3/create">{{\App\Models\Language::getItem('visitIndexAddNewTransect')}}</a>
             </h5>
             <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th class="uservisitindex-header">Name</th>
-                            <th class="uservisitindex-header">Date</th>
-                            <th class="uservisitindex-header">Duration</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderName')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderDate')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderDuration')}}</th>
                             <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
@@ -93,17 +91,16 @@
         </div>
         <div class="card mb-2 uservisitindex-card">
             <h5 class="card-header uservisitindex-card-header">
-                Flowerpatch observations
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/4/create">Add new fit
-                    count</a>
+                {{\App\Models\Language::getItem('visitIndexFitHeader')}}
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/4/create">{{\App\Models\Language::getItem('visitIndexAddNewFit')}}</a>
             </h5>
             <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th class="uservisitindex-header">Date</th>
-                            <th class="uservisitindex-header">Flower</th>
-                            <th class="uservisitindex-header">Number of Species</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderDate')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderFlower')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderSpNum')}}</th>
                             <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
@@ -129,17 +126,16 @@
         </div>
         <div class="card mb-2 uservisitindex-card">
             <h5 class="card-header uservisitindex-card-header">
-                Timed counts
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/2/create">Add new timed
-                    count</a>
+                {{\App\Models\Language::getItem('visitIndexTimedCountsHeader')}}
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/2/create">{{\App\Models\Language::getItem('visitIndexAddNewTimedCount')}}</a>
             </h5>
             <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">
                     <table class="table table-sm table-striped table-hover vertical-align uservisitindex-table">
                         <thead>
-                            <th class="uservisitindex-header">Startdate</th>
-                            <th class="uservisitindex-header">Enddate</th>
-                            <th class="uservisitindex-header">Number of observations</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderStartDate')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderEndDate')}}</th>
+                            <th class="uservisitindex-header">{{\App\Models\Language::getItem('visitIndexTableHeaderObsNum')}}</th>
                             <th class="uservisitindex-header"></th>
                         </thead>
                         <tbody id="dataTable">
@@ -166,10 +162,10 @@
         </div>
         <div class="card mb-2">
             <h5 class="card-header">
-                Data download
+                {{\App\Models\Language::getItem('visitIndexDataDownloadHeader')}}
             </h5>
             <div class="card-body">
-                <a class="btn btn-primary mr-3 ml-3 btn-sm" role="button" href="/user/dataDownload">Download data</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm" role="button" href="/user/dataDownload">{{\App\Models\Language::getItem('visitIndexDataDownloadButton')}}</a>
             </div>
         </div>
     </div>
@@ -179,15 +175,15 @@
         <div class="modal-dialog modal-dialog-scrollable">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="messageTitle">Delete visit</h5>
+                    <h5 class="modal-title" id="messageTitle">{{\App\Models\Language::getItem('visitIndexDeleteVisit')}}</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="messageContent">
-                    Are you sure you want to delete this visit?
+                    {{\App\Models\Language::getItem('visitIndexDeleteVisitConfirmMessage')}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" id="deleteLink" class="btn btn-danger" onclick="deleteVisit(this);">Delete</button>
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="deleteLink" class="btn btn-danger" onclick="deleteVisit(this);">{{\App\Models\Language::getItem('visitIndexDelete')}}</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{\App\Models\Language::getItem('visitIndexClose')}}</button>
                 </div>
             </div>
         </div>

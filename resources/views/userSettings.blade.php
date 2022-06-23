@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-User settings
+{{\App\Models\Language::getItem('userSettingsTitle')}} 
 @endsection
 
 @section('sidebar')
@@ -13,26 +13,26 @@ User settings
 
 @section('content')
     <div class="container mb-3">
-        <h1 class="p-4 usersettings-title-header">User settings</h1>
-        <h2 class="px-4 news-title-sub usersettings-title-sub">Subtitle</h2>
+        <h1 class="p-4 usersettings-title-header">{{\App\Models\Language::getItem('userSettingsHeader')}}</h1>
+        <h2 class="px-4 news-title-sub usersettings-title-sub">{{\App\Models\Language::getItem('userSettingsSubHeader')}}</h2>
     </div>
 
     <div class="container mb-3">
-        <h2 class="p-4 usersettings-section-title">General settings</h2>
+        <h2 class="p-4 usersettings-section-title">{{\App\Models\Language::getItem('userSettingsGeneralSettings')}}</h2>
         <div class="card usersettings-card">
             <div class="card-body usersettings-card-body">
                 <table class="table table-borderless usersettings-table">
                     <tbody>
                         <tr>
-                            <td>User</td>
+                            <td>{{\App\Models\Language::getItem('userSettingsUser')}}</td>
                             <th>{{$user->name}}</th>
                         </tr>
                         <tr>
-                            <td>Registered at</td>
+                            <td>{{\App\Models\Language::getItem('userSettingsRegisteredAt')}}</td>
                             <th>{{$user->created_at}}</th>
                         </tr>
                         <tr>
-                            <td>Use scientific names</td>
+                            <td>{{\App\Models\Language::getItem('userSettingsSciNames')}}</td>
                             <td>
                                 <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingSciName" class="form-check-input" onchange="changeUserSetting('sciName');" @if($user->sci_names) checked @endif type="checkbox" id="flexSwitchCheckDefault">
@@ -40,7 +40,7 @@ User settings
                             </td>
                         </tr>
                         <tr>
-                            <td>Show previously seen</td>
+                            <td>{{\App\Models\Language::getItem('userSettingsPrevSeen')}}</td>
                             <td>
                                 <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingPrevSeen" class="form-check-input" onchange="changeUserSetting('prevSeen');" @if($user->show_previous_observed_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
@@ -48,7 +48,7 @@ User settings
                             </td>
                         </tr>
                         <tr>
-                            <td>Show common species</td>
+                            <td>{{\App\Models\Language::getItem('userSettingsShowCommonSp')}}</td>
                             <td>
                                 <div class="form-check form-switch usersettings-switch">
                                 <input id= "userSettingShowCommon" class="form-check-input" onchange="changeUserSetting('showCommon');" @if($user->show_only_common_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
@@ -58,7 +58,7 @@ User settings
                     </tbody>
                 </table>
                 <div class="container-fluid text-center">
-                    <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">Logout</a>
+                    <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsLogout')}}</a>
                 </div>
             </div>
         </div>
@@ -115,20 +115,20 @@ User settings
     </script>
 
     <div class="container mb-3">
-        <h2 class="p-4 usersettings-section-title">Specific settings</h2>
+        <h2 class="p-4 usersettings-section-title">{{\App\Models\Language::getItem('userSettingsSpecificSettingsTitle')}}</h2>
         <div class="card usersettings-card">
             <div class="card-body usersettings-card-body">
                 <div class="col mb-3">
                     <h3 class="usersettings-title-sub"></h3>
                     <div>
                         <div class="row usersettings-count-item" style="margin-top: 8px;">   
-                            <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">No counts</span></p>
+                            <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
-                            <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count only speciesgroups</span></p>
+                            <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountOnlyGroups')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
-                            <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">Count all species</span></p>
+                            <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountAll')}}</span></p>
                         </div>
                     </div>
 

@@ -6,8 +6,8 @@
 
 @section('content')
 <div class="container mb-3">
-    <h1 class="p-4 news-title-header">News</h1>
-    <h2 class="px-4 news-title-sub">All showcase news</h2>
+    <h1 class="p-4 news-title-header">{{\App\Models\Language::getItem('generalPageNewsHeader')}}</h1>
+    <h2 class="px-4 news-title-sub">{{\App\Models\Language::getItem('generalPageNewsSubHeader')}}</h2>
 </div>
 @foreach($newsItems as $newsItem)
 <div class="container mb-3" id="special">
@@ -22,7 +22,7 @@
         <div class="col-md d-flex flex-column p-4">
             <h2 class="news-section-title">{{ $newsItem->title }}</h2>
             <p class="news-section-intro">{{ Str::words($newsItem->introduction,75, ' (...)' )}}</p>
-            <p class="news-section-more"><a href="/news/{{ $newsItem->id }}">Read more...</a></p>
+            <p class="news-section-more"><a href="/news/{{ $newsItem->id }}">{{\App\Models\Language::getItem('generalPageNewsReadMore')}}</a></p>
         </div>
     </div>
 </div>

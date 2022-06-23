@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-Species Identification
+{{\App\Models\Language::getItem('generalPagesIdHelpTitle')}} 
 @endsection
 
 @section('content')
 <div class="container mb-3">
-    <h1 class="p-4 identification-title-header">Species Identification</h1>
-    <p class="px-4 identification-title-sub">Species identification is fundamental when recording biodiversity data. There are many species identification guides, websites and apps available. We have listed them per country. Butterflies can be easily recorded at species level. Therefore, the focus is on this species group. For other groups of flower visitors, more specialist information is required. </p>
+    <h1 class="p-4 identification-title-header">{{\App\Models\Language::getItem('generalPagesIdHelpHeader')}} </h1>
+    <p class="px-4 identification-title-sub">{{\App\Models\Language::getItem('generalPagesIdHelpSubHeader')}}</p>
 </div>
 <div class="container text-center mt-3 mb-3">
     <a href="#nl" class="btn btn-primary identification-section-button">Netherlands</a>

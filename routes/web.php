@@ -59,9 +59,9 @@ Route::get('/newsItem', '\App\Http\Controllers\AdminController@newsItemIndex')->
 Route::get('/newsItem/create/{messageId}', '\App\Http\Controllers\AdminController@createNewsItem');
 Route::post('/newsItem/create/{messageId}', '\App\Http\Controllers\AdminController@storeNewsItem');
 
-Route::get('translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
-Route::get('translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');
-Route::get('translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
+Route::get('/translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
+Route::get('/translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');
+Route::get('/translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
 
 Route::get('/test', function () 
 {
@@ -76,5 +76,5 @@ Route::get('logoff', function()
 Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
 
 
-Route::get('/*', 'App\Http\Controllers\GeneralPagesController@welcome');
-Route::get('/', 'App\Http\Controllers\GeneralPagesController@welcome');
+Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');
+Route::get('/', '\App\Http\Controllers\GeneralPagesController@showNews');

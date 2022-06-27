@@ -20,9 +20,9 @@ Translations
             <div class="card-body">
                 Translations: <br>
                 <table> 
-                    <tr><th>Key</th><th>En</th><th>{{$language}}</th></tr>
+                    <tr><th style="width: 20%">Key</th><th style="width: 40%">En</th><th style="width: 40%">{{$language}}</th></tr>
                         @foreach(\App\Models\Language::all() as $lan)
-                            <tr><td>{{$lan->key}}</td><td>{{$lan->en}}</td><td><input type="text" id="tr_{{$lan->id}}_{{$language}}" class="form-control" onkeyup="uploadTranslation({{$lan->id}}, '{{$language}}');" value="{{$lan->$language}}"></td></tr>
+                            <tr><td>{{$lan->key}}</td><td>{{$lan->en}}</td><td><textarea type="text" id="tr_{{$lan->id}}_{{$language}}" class="form-control" onkeyup="uploadTranslation({{$lan->id}}, '{{$language}}');">{{$lan->$language}}</textarea></td></tr>
                         @endforeach
                 </table>
             </div>

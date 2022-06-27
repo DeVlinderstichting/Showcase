@@ -109,7 +109,16 @@ function timer()
 {
     var d = new Date();
     stopWatchTimeLeft = stopwatchFutureTime - d;
-    document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    if (trackedLocations.length == 0)
+    {
+        var d = new Date();
+        stopWatchTimeLeft = stopwatchFutureTime - d;
+        document.getElementById("stopwatch").innerHTML = "No exact location available";
+    }
+    else
+    {
+        document.getElementById("stopwatch").innerHTML = msToTime(stopWatchTimeLeft);
+    }
     if (stopWatchTimeLeft < 0)
     {
         stopTimer();

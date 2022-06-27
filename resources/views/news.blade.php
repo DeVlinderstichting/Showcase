@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    News
+    {{\App\Models\Language::getItem('generalPageNewsTitle')}} 
 @endsection
 
 @section('content')

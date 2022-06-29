@@ -117,6 +117,29 @@ class User extends Authenticatable
         $managementTypes = [];
         $landuseTypes = [];
 
+
+        $managementTypeIds = \App\Models\ManagementType::all()->pluck('id');
+        $landUseTypeIds = \App\Models\LanduseType::all()->pluck('id');
+        foreach($managementTypeIds as $mtid) 
+        {
+            $mt = \App\Models\ManagementType::find($mtid);
+            $managementType = [];
+            $managementType['id'] = $mt->id;
+            $managementType['name'] = $mt->name;
+            $managementType['description'] = $mt->description;
+            $managementTypes[] = $managementType;
+        }
+        foreach($landUseTypeIds as $lutid)
+        {
+            $lt = \App\Models\LanduseType::find($lutid);
+            $landuseType = [];
+            $landuseType['id'] = $lt->id;
+            $landuseType['name'] = $lt->name;
+            $landuseType['description'] = $lt->description;
+            $landuseTypes[] = $landuseType;
+        }
+
+
         $userSettings['user_id'] = $this->id;
         $userSettings['preferedLanguage'] = $this->prefered_language;
         $userSettings['accessToken'] = $this->accesstoken;
@@ -167,27 +190,27 @@ class User extends Authenticatable
         }
 
         $regIds = $this->regions()->pluck('id');
-        $managementTypeIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id')->unique();
-        $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id')->unique();
-        foreach($managementTypeIds as $mtid) 
+        $managementRegions = [];
+        $landuseTypeRegions = [];
+        foreach($regIds as $regId)
         {
-            $mt = \App\Models\ManagementType::find($mtid);
-            $managementType = [];
-            $managementType['id'] = $mt->id;
-            $managementType['name'] = $mt->name;
-            $managementType['description'] = $mt->description;
-            $managementTypes[] = $managementType;
+            $managementTypeIds = \App\Models\ManagementType_Regions::where('region_id', $regId)->pluck('managementtype_id')->unique();
+            $mtidArr = [];
+            foreach($managementTypeIds as $mtid) 
+            {
+                $mtidArr[] = $mtid;
+            }
+            $managementRegions[$regId] = $mtidArr;
+
+            $landuseTypeIds = \App\Models\LanduseType_Regions::where('region_id', $regId)->pluck('landusetype_id')->unique();
+            $ltidArr = [];
+            foreach($landUseTypeIds as $ltid) 
+            {
+                $ltidArr[] = $ltid;
+            }
+            $landuseTypeRegions[$regId] = $ltidArr;
         }
-        foreach($landUseTypeIds as $lutid)
-        {
-            $lt = \App\Models\LanduseType::find($lutid);
-            $landuseType = [];
-            $landuseType['id'] = $lt->id;
-            $landuseType['name'] = $lt->name;
-            $landuseType['description'] = $lt->description;
-            $landuseTypes[] = $landuseType;
-        }
-        
+
 
         $retArr['regions'] = $regions;
 
@@ -289,6 +312,9 @@ class User extends Authenticatable
         $retArr['translations'] = $lang;
         $retArr['managementTypes'] = $managementTypes;
         $retArr['landuseTypes'] = $landuseTypes;
+        $retArr['managementRegions'] = $managementRegions;
+        $retArr['landuseTypeRegions'] = $landuseTypeRegions;
+
         return json_encode($retArr);
     }
 }

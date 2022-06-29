@@ -725,6 +725,8 @@ const show15mPostObservationScreen = () =>
         var cloud = document.getElementById('15mpost_selectClouds').value;
         var temp = document.getElementById('15mpost_inputTemperature').value;
         var notes = document.getElementById('15mpost_textareaNotes').value;
+        var landtype = document.getElementById('15mpost_selectLandType').value;
+        var management = document.getElementById('15mpost_selectLandManagement').value;
 
         var settings = getUserSettings();
         var speciesGroups = settings.speciesGroups;
@@ -757,6 +759,8 @@ const show15mPostObservationScreen = () =>
         visit.wind = wind;
         visit.temperature = temp;
         visit.cloud = cloud;
+        visit.landtype = landtype;
+        visit.management = management;
         storeTimedCount();
     }; 
     document.getElementById("15mpost_buttonCancel").onclick = function () { show15mObservationScreen() };
@@ -1214,6 +1218,8 @@ const showFitPostObservationScreen = () =>
         var cloud = document.getElementById('fit_selectClouds').value;
         var temp = document.getElementById('fit_inputTemperature').value;
         var notes = document.getElementById('fit_textareaNotes').value;
+        var landtype = document.getElementById('fit_selectLandType').value;
+        var management = document.getElementById('fit_selectLandManagement').value;
 
         var settings = getUserSettings();
         var speciesGroups = settings.speciesGroups;
@@ -1248,6 +1254,8 @@ const showFitPostObservationScreen = () =>
         visit.wind = wind;
         visit.temperature = temp;
         visit.cloud = cloud;
+        visit.landtype = landtype;
+        visit.management = management;
 
         storeFitCount();
     }; 
@@ -1710,6 +1718,8 @@ const showTransectPostObservationScreen = () =>
         var cloud = document.getElementById('transect_selectClouds').value;
         var temp = document.getElementById('transect_inputTemperature').value;
         var notes = document.getElementById('transect_textareaNotes').value;
+        var landtype = document.getElementById('transect_selectLandType').value;
+        var management = document.getElementById('transect_selectLandManagement').value;
 
         var settings = getUserSettings();
         var speciesGroups = settings.speciesGroups;
@@ -1744,6 +1754,8 @@ const showTransectPostObservationScreen = () =>
         visit.wind = wind;
         visit.temperature = temp;
         visit.cloud = cloud;
+        visit.landtype = landtype;
+        visit.management = management;
 
         storeTransectCount();
     }; 

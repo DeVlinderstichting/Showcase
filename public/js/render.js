@@ -772,9 +772,9 @@ const showFitPreObservationScreen = () =>
                 <h2 id="prefit_title">${translations['fitPreTitle']}</h2>
                 <p id="prefit_subtitle">${translations['fitPreDescr']}</p>
                 <button class="btn-line-small" id="prefit_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id">${translations['infoButton']}</button>
-            </div>     
+            </div>
             <div class="separator">     
-            </div>  
+            </div>
         </div>
 
         <div class="row justify-content-center pb-3">
@@ -2093,14 +2093,20 @@ const showSettingsScreen = () =>
     }
 
     // We can attach butterfly
-    var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
-        $('#settings_selectButtonButterflies'+recButterfly).prop('checked', true);
+//    var recButterfly = settings.userSettings.speciesGroupsUsers.butterflies.recordinglevel_id;
+//        $('#settings_selectButtonButterflies'+recButterfly).prop('checked', true);
     // We can attach bees
-    var recBees = settings.userSettings.speciesGroupsUsers.bees.recordinglevel_id;
-        $('#settings_selectButtonBees'+recBees).prop('checked', true);
+//    var recBees = settings.userSettings.speciesGroupsUsers.bees.recordinglevel_id;
+//        $('#settings_selectButtonBees'+recBees).prop('checked', true);
     // We can attach birds
-    var recBirds = settings.userSettings.speciesGroupsUsers.birds.recordinglevel_id;
-        $('#settings_selectButtonBirds'+recBirds).prop('checked', true);
+//    var recBirds = settings.userSettings.speciesGroupsUsers.birds.recordinglevel_id;
+//        $('#settings_selectButtonBirds'+recBirds).prop('checked', true);
+
+    for (var i = 0; i < settings.userSettings.speciesGroupsUsers.length; i++)
+    {
+        $('#settings_selectButtonButterflies'+recButterfly).prop('checked', true);
+    }
+
 
     // Attach the events
     $('#settings_useScientificNamesCheck').click( function () 

@@ -189,7 +189,7 @@ class User extends Authenticatable
             }
         }
 
-        $regIds = $this->regions()->pluck('id');
+        $regIds = $theRegions->pluck('id');
         $managementRegions = [];
         $landuseTypeRegions = [];
         foreach($regIds as $regId)

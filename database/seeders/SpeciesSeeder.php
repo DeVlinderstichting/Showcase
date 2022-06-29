@@ -49,8 +49,8 @@ class SpeciesSeeder extends Seeder
         $mothSpeciesGroup->defaultspecies_id = $defMoth->id;
         $mothSpeciesGroup->save();
 
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $defBee = \App\Models\Species::create([
+   //     $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bees', 'description' => 'bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+     /*   $defBee = \App\Models\Species::create([
             'genus' => 'apoidea',
             'taxon' => '',
             'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/apoidea',
@@ -64,7 +64,18 @@ class SpeciesSeeder extends Seeder
             'enname' => 'bees' 
         ]);
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
-        $beesSpeciesGroup->save();
+        $beesSpeciesGroup->save(); */
+
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bumblebees', 'description' => 'Bumblebees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'solitarybees', 'description' => 'Solitary bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'honeybees', 'description' => 'Honey bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'hoverflies', 'description' => 'Hoverflies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'flies', 'description' => 'Flies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'beetles', 'description' => 'Beetles', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bugs', 'description' => 'Bugs', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'wasps', 'description' => 'Wasps', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+
+
 
         $plantSpGroup = \App\Models\Speciesgroup::create(['name' => 'plants', 'description' => 'plants', 'usercancount' => false]);
         $defPlant = \App\Models\Species::create([
@@ -83,7 +94,7 @@ class SpeciesSeeder extends Seeder
         $plantSpGroup->defaultspecies_id = $defPlant->id;
         $plantSpGroup->save();
 
-        $birdSpGroup = \App\Models\Speciesgroup::create(['name' => 'birds', 'description' => 'birds', 'usercancount' => false, 'imageLocation' => 'img/birds.png', 'visibible_for_users' => true]);
+   /*     $birdSpGroup = \App\Models\Speciesgroup::create(['name' => 'birds', 'description' => 'birds', 'usercancount' => false, 'imageLocation' => 'img/birds.png', 'visibible_for_users' => true]);
         $defBird = \App\Models\Species::create([
             'genus' => 'aves',
             'taxon' => '',
@@ -99,7 +110,7 @@ class SpeciesSeeder extends Seeder
         ]);
         $birdSpGroup->defaultspecies_id = $defBird->id;
         $birdSpGroup->save();
-
+*/
         //create the species for each group 
  /*       \App\Models\Species::create([
             'genus' => 'aglais',

@@ -242,7 +242,7 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'fitPostInfoModalContents', 'en'=>'Here is more information about flowerpatch count']);
         \App\Models\Language::create(['key' => 'fitPostTitle', 'en'=>'FLOWERPATCH COUNT']);
         \App\Models\Language::create(['key' => 'fitPostDescr', 'en'=>'Please answer some additional questions. <br>Enter your data!']);
-        \App\Models\Language::create(['key' => 'preFitNumberLabel', 'en'=>'Amount of flowerheads']);
+        \App\Models\Language::create(['key' => 'fitPreNumberLabel', 'en'=>'Amount of flowerheads']);
         
         
         // Transect screen

@@ -43,7 +43,8 @@
     </div>
 
     @if($isTransect)
-        <?php $transects = $user->transects()->get(); 
+        <?php 
+            $transects = $user->transects()->get(); 
             if (count($transects) == 0) 
             { 
                 $val = \App\Models\Language::getItem('visitCreateNoTransectsFound');
@@ -293,7 +294,9 @@
                                             }
                                         }
                                     ?>
-                                    <option value="{{$landmanagement->id}}" {{$selected}}>{{$landmanagement->description}}</option>
+                                    <option value="{{$landmanagement->id}}" {{$selected}}>
+                                        {{\App\Models\Language::getItem($landmanagement->name)}}
+                                    </option>
                                 @endforeach
                             </select>
                         </div>

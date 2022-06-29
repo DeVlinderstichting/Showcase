@@ -117,23 +117,6 @@ class User extends Authenticatable
         $managementTypes = [];
         $landuseTypes = [];
 
-        foreach(\App\Models\ManagementType::all() as $mt)
-        {
-            $managementType = [];
-            $managementType['id'] = $mt->id;
-            $managementType['name'] = $mt->name;
-            $managementType['description'] = $mt->description;
-            $managementTypes[] = $managementType;
-        }
-        foreach(\App\Models\LanduseType::all() as $lt)
-        {
-            $landuseType = [];
-            $landuseType['id'] = $lt->id;
-            $landuseType['name'] = $lt->name;
-            $landuseType['description'] = $lt->description;
-            $landuseTypes[] = $landuseType;
-        }
-
         $userSettings['user_id'] = $this->id;
         $userSettings['preferedLanguage'] = $this->prefered_language;
         $userSettings['accessToken'] = $this->accesstoken;
@@ -182,6 +165,30 @@ class User extends Authenticatable
                 }
             }
         }
+
+        $regIds = $this->regions()->pluck('id');
+        $managementTypeIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id')->unique();
+        $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id')->unique();
+        foreach($managementTypeIds as $mtid) 
+        {
+            $mt = \App\Models\ManagementType::find($mtid);
+            $managementType = [];
+            $managementType['id'] = $mt->id;
+            $managementType['name'] = $mt->name;
+            $managementType['description'] = $mt->description;
+            $managementTypes[] = $managementType;
+        }
+        foreach($landUseTypeIds as $lutid)
+        {
+            $lt = \App\Models\LanduseType::find($lutid);
+            $landuseType = [];
+            $landuseType['id'] = $lt->id;
+            $landuseType['name'] = $lt->name;
+            $landuseType['description'] = $lt->description;
+            $landuseTypes[] = $landuseType;
+        }
+        
+
         $retArr['regions'] = $regions;
 
         $theSpecies = \App\Models\Species::find($allSpids);

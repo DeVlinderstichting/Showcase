@@ -26,11 +26,11 @@ class TestDataSeeder extends Seeder
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 
-        $spGroup = \App\Models\SpeciesGroup::where('name', 'bees')->first();
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'solitarybees')->first();
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 
-        $spGroup = \App\Models\SpeciesGroup::where('name', 'birds')->first();
+        $spGroup = \App\Models\SpeciesGroup::where('name', 'honeybees')->first();
         $recordingLevel = \App\Models\RecordingLevel::first();
         $speciesGroupsUsers = \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroup->id, 'recordinglevel_id' => $recordingLevel->id]);
 
@@ -70,7 +70,7 @@ class TestDataSeeder extends Seeder
         $timedCom = \App\Models\CountingMethod::where('name', 'timed')->first();
         $speciesGroupRecordingLevels = [];
         $speciesGroupRecordingLevel1 = \App\Models\MethodSpeciesgroupRecordinglevel::create(['recordinglevel_id' => \App\Models\RecordingLevel::where('name', 'species')->first()->id, 'speciesgroup_id' => \App\Models\Speciesgroup::where('name', 'butterflies')->first()->id]);
-        $speciesGroupRecordingLevel2 = \App\Models\MethodSpeciesgroupRecordinglevel::create(['recordinglevel_id' => \App\Models\RecordingLevel::where('name', 'group')->first()->id, 'speciesgroup_id' => \App\Models\Speciesgroup::where('name', 'bees')->first()->id]);
+        $speciesGroupRecordingLevel2 = \App\Models\MethodSpeciesgroupRecordinglevel::create(['recordinglevel_id' => \App\Models\RecordingLevel::where('name', 'group')->first()->id, 'speciesgroup_id' => \App\Models\Speciesgroup::where('name', 'honeybees')->first()->id]);
         $speciesGroupRecordingLevels[] = $speciesGroupRecordingLevel1;
         $speciesGroupRecordingLevels[] = $speciesGroupRecordingLevel2;
 

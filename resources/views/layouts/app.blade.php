@@ -63,7 +63,7 @@
                         class="nav-link {{ Request::is('showIdHelp') ? 'active' : '' }}">Identification</a></li>
                 <li class="nav-item"><a href="/news"
                         class="nav-link {{ Request::is('news') ? 'active' : '' }}">News</a></li>
-                <li class="nav-item dropdown">
+         <?php /*       <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="fi fi-gb"></span>
                     </a>
@@ -73,7 +73,7 @@
                         <li><a class="dropdown-item" href="#"><span class="fi fi-es mx-2"></span>Español</a></li>
                         <li><a class="dropdown-item" href="#"><span class="fi fi-de mx-2"></span>Deutsch</a></li>
                     </ul>
-                </li>
+                </li> */ ?>
                 <li class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-user"></i></a>
                 </li>          
             </ul>

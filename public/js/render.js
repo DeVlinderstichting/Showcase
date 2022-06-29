@@ -1930,6 +1930,35 @@ const showSettingsScreen = () =>
     renderNav();
     $("#backgroundDiv").css("background-image", "url('img/background_1920x1080_screen-statistics.png')");
 
+    var happyButtonString = "";
+    for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
+    {
+
+        var sgu = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
+      //  var buttonName = "settings_selectButton_" + sgu.speciesgroup_id + "_" + sgu.recordinglevel_id;
+
+        happyButtonString += `<div class="row" style="margin-top: 8px;">
+                        <img src="img/`+sgu.name+`.png" alt="" class="img-count-settings">
+                            <div class="flex-radio-buttons">`;
+                            if (sgu.id == 1)
+                            {
+                                happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + "_1" +`" name="`+sgu.name+`-check">
+                                    <span class="checkmark"></span>
+                                </label>`;
+                            } 
+                            happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+ sgu.id +`_2`+`" name="`+sgu.name+`-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity:0.5; font-size: 18px;"></i>
+                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + `_3" checked="checked" name="`+sgu.name+`-check">
+                                    <span class="checkmark"></span>
+                                </label>
+                            </div>
+                        </div>`;
+    }
+
     var mb = document.getElementById('mainBody');
     mb.innerHTML = `
     <div class="container">
@@ -2000,76 +2029,7 @@ const showSettingsScreen = () =>
 
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <div class="row" style="margin-top: 8px;">
-                        <img src="img/butterflies.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">   
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonButterflies3" checked="checked" name="butterflies-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonButterflies2" name="butterflies-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonButterflies1" name="butterflies-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div> 
-                        </div>
-                        <div class="row" style="margin-top: 8px;">
-                            <img src="img/birds.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">   
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonBirds3" checked="checked" name="birds-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonBirds2" name="birds-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
-                                    <input type="radio" id="settings_selectButtonBirds1" name="birds-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div> 
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="row" style="margin-top: 8px;">
-                            <img src="img/bees.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">   
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonBees3" checked="checked" name="bees-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonBees2" name="bees-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonBees1" name="bees-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                            </div> 
-                        </div>
-                        <!-- <div class="row" style="margin-top: 8px;">
-                            <img src="img/flowers.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">   
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonFlowers3" checked="checked" name="flowers-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonFlowers2" name="flowers-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
-                                  <input type="radio" id="settings_selectButtonFlowers1" name="flowers-check">
-                                  <span class="checkmark"></span>
-                                </label>
-                            </div> 
-                        </div> --> 
+                        `+happyButtonString+`
                     </div>
                 </div>
             </div>
@@ -2102,9 +2062,26 @@ const showSettingsScreen = () =>
 //    var recBirds = settings.userSettings.speciesGroupsUsers.birds.recordinglevel_id;
 //        $('#settings_selectButtonBirds'+recBirds).prop('checked', true);
 
-    for (var i = 0; i < settings.userSettings.speciesGroupsUsers.length; i++)
+
+    for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
     {
-        $('#settings_selectButtonButterflies'+recButterfly).prop('checked', true);
+        var sg = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
+        var sgu = settings.userSettings.speciesGroupsUsers[sg.name];
+        console.log(sg.name);
+        var recId = 3;
+        if (sgu != null)
+        {
+            recId = sgu.recordinglevel_id;
+        }
+        var elem = document.getElementById('settings_selectButton_'+sg.id + "_" + recId);
+        if (elem==null)
+        {
+           // console.log("error with: " + 'settings_selectButton_'+sg.id + "_" + recId);
+        }
+        else 
+        {
+            elem.checked = true;
+        }
     }
 
 
@@ -2133,60 +2110,39 @@ const showSettingsScreen = () =>
         logout();
     })
 
-    // We can attach butterfly group
-    $('[id*=selectButtonButterflies]').click(function () 
-    {
-        $('[id*=selectButtonButterflies]').prop('checked', false);
-        $(this).prop('checked', true);
-        currentSettings = getUserSettings().userSettings;
-        recordingLevelTranslator = {
+    recordingLevelTranslator = {
             1: "species",
             2: "group",
             3: "none"
         };
-        recordingLevelID = parseInt($(this).attr('id').slice(-1));
-        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_id = recordingLevelID;
-        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
-        currentSettings.speciesGroupsUsers.butterflies.recordinglevel_name = recordingLevel;
-        storeSettingsData('userSettings', currentSettings);
-    });
 
-    // We can attach bees group
-    $('[id*=settings_selectButtonBees]').click(function () 
+     function setStuff(name, id) 
+        {
+            currentSettings = getUserSettings().userSettings;
+            currentSettings.speciesGroupsUsers[name].recordinglevel_id = id; 
+            currentSettings.speciesGroupsUsers[name].recordinglevel_name = recordingLevelTranslator[id];
+            storeSettingsData('userSettings', currentSettings);
+        }
+
+    for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
     {
-        $('[id*=settings_selectButtonBees]').prop('checked', false);
-        $(this).prop('checked', true);
-        currentSettings = getUserSettings().userSettings;
-        recordingLevelTranslator = {
-            1: "species",
-            2: "group",
-            3: "none"
-        };
-        recordingLevelID = parseInt($(this).attr('id').slice(-1));
-        currentSettings.speciesGroupsUsers.bees.recordinglevel_id = recordingLevelID;
-        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
-        currentSettings.speciesGroupsUsers.bees.recordinglevel_name = recordingLevel;
-        storeSettingsData('userSettings', currentSettings);
-    });
-
-    // We can attach birds group
-    $('[id*=settings_selectButtonBirds]').click(function () 
-    {
-        $('[id*=settings_selectButtonBirds]').prop('checked', false);
-        $(this).prop('checked', true);
-        currentSettings = getUserSettings().userSettings;
-        recordingLevelTranslator = {
-            1: "species",
-            2: "group",
-            3: "none"
-        };
-        recordingLevelID = parseInt($(this).attr('id').slice(-1));
-        currentSettings.speciesGroupsUsers.birds.recordinglevel_id = recordingLevelID;
-        recordingLevel = recordingLevelTranslator[parseInt($(this).attr('id').slice(-1))];
-        currentSettings.speciesGroupsUsers.birds.recordinglevel_name = recordingLevel;
-        storeSettingsData('userSettings', currentSettings);
-    });
-
+        var sg = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
+        var elem = document.getElementById("settings_selectButton_" + sg.id + "_" + 1);
+        if (elem != null)
+        {
+            elem.onclick = function() {setStuff(this.dataset.sg, 1)};
+        }
+        var elem = document.getElementById("settings_selectButton_" + sg.id + "_" + 2);
+        if (elem != null)
+        {
+            elem.onclick = function() {setStuff(this.dataset.sg, 2)};
+        }
+        var elem = document.getElementById("settings_selectButton_" + sg.id + "_" + 3);
+        if (elem != null)
+        {
+            elem.onclick = function() {setStuff(this.dataset.sg, 3)};
+        }        
+    }
 }
 
 function showMessage(message)

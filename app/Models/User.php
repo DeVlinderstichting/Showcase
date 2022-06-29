@@ -152,6 +152,8 @@ class User extends Authenticatable
 
         $speciesGroupsUsers = [];
         $spGroupsUsers = $this->speciesgroupsRecordingLevels()->get();
+        $allIds = \App\Models\Speciesgroup::all()->pluck('id')->toArray();
+
         foreach($spGroupsUsers as $spgu)
         {
             $spguItem = [];
@@ -160,7 +162,22 @@ class User extends Authenticatable
             $spguItem['recordinglevel_id'] = $spgu->recordinglevel_id;
             $spguItem['recordinglevel_name'] = $spgu->recordinglevel->name;
             $speciesGroupsUsers[$spgu->speciesgroup->name] = $spguItem;
+
+            $allIds = array_diff($allIds, [$spgu->speciesgroup_id]); 
         }
+        $notCountedRecordingLevel = \App\Models\RecordingLevel::where('name', 'none')->first();
+        foreach($allIds as $theId)
+        {
+            $spgu = \App\Models\Speciesgroup::find($theId);
+
+            $spguItem = [];
+            $spguItem['speciesgroup_id'] = $spgu->id;
+            $spguItem['speciesgroup_name'] = $spgu->name;
+            $spguItem['recordinglevel_id'] = $notCountedRecordingLevel->id;
+            $spguItem['recordinglevel_name'] = $notCountedRecordingLevel->name;
+            $speciesGroupsUsers[$spgu->name] = $spguItem;
+        }
+
         $userSettings['speciesGroupsUsers'] = $speciesGroupsUsers;
 
         $theCountingMethods = $this->countingMethods()->get();

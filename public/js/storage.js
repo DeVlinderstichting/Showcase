@@ -209,6 +209,8 @@ function buildEmptyVisit()
     theVisit['wind'] = '';
     theVisit['temperature'] = '';
     theVisit['cloud'] = '';
+    theVisit['landtype'] = '';
+    theVisit['management'] = '';
     theVisit['transect_id'] = '';
     theVisit['flower_id'] = '';
     theVisit['observations'] = [];

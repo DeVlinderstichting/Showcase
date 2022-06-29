@@ -118,7 +118,7 @@ class User extends Authenticatable
         $landuseTypes = [];
 
 
-        $managementTypeIds = \App\Models\ManagementType::all()->pluck('id');
+        /*$managementTypeIds = \App\Models\ManagementType::all()->pluck('id');
         $landUseTypeIds = \App\Models\LanduseType::all()->pluck('id');
         foreach($managementTypeIds as $mtid) 
         {
@@ -137,7 +137,7 @@ class User extends Authenticatable
             $landuseType['name'] = $lt->name;
             $landuseType['description'] = $lt->description;
             $landuseTypes[] = $landuseType;
-        }
+        }*/
 
 
         $userSettings['user_id'] = $this->id;

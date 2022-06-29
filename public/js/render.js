@@ -648,7 +648,8 @@ const show15mPostObservationScreen = () =>
         </ul>
     </div>
     `;
-    
+    $('#15mpost_weatherContainer').html(weatherHtml);
+
        // Attach the contents of the land container
        landHhtml = 
        `
@@ -667,9 +668,6 @@ const show15mPostObservationScreen = () =>
                    ${translations['landTypeLabel']}
                    <span style="float: right; height: 20px;">
                        <select name="15mpost_selectLandType" id="15mpost_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                           <option value=1>1</option>
-                           <option value=2>2</option>
-                           <option value=3>3</option>
                        </select>
                    </span>
                </li>
@@ -677,9 +675,6 @@ const show15mPostObservationScreen = () =>
                    ${translations['landManagementLabel']}
                    <span style="float: right; height: 20px;">
                        <select name="15mpost_selectLandManagement" id="15mpost_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                           <option value=1>1</option>
-                           <option value=2>2</option>
-                           <option value=3>3</option>
                        </select>
                    </span>
                </li>
@@ -687,8 +682,23 @@ const show15mPostObservationScreen = () =>
        </div>
        `;
    
-       $('#15mpost_weatherContainer').html(weatherHtml);
        $('#15mpost_landContainer').html(landHhtml);
+
+       var landuses = settings.landuseTypes
+       let optionList1 = document.getElementById('15mpost_selectLandType').options;
+       landuses.forEach(option =>
+        optionList1.add(
+          new Option(option.description, option.id)
+        )
+      );
+
+      var managements = settings.managementTypes
+      let optionList2 = document.getElementById('15mpost_selectLandManagement').options;
+      managements.forEach(option =>
+        optionList2.add(
+         new Option(option.description, option.id)
+       )
+     );
 
     // Make sure we get proper input on change of the number input
     $(`#15mpost_inputTemperature`).change( function () 
@@ -1147,9 +1157,6 @@ const showFitPostObservationScreen = () =>
                 ${translations['landTypeLabel']}
                 <span style="float: right; height: 20px;">
                     <select name="fit_selectLandType" id="fit_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
                     </select>
                 </span>
             </li>
@@ -1157,9 +1164,6 @@ const showFitPostObservationScreen = () =>
                 ${translations['landManagementLabel']}
                 <span style="float: right; height: 20px;">
                     <select name="fit_selectLandManagement" id="fit_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
                     </select>
                 </span>
             </li>
@@ -1170,6 +1174,21 @@ const showFitPostObservationScreen = () =>
     $('#fit_weatherContainer').html(weatherHtml);
     $('#fit_landContainer').html(landHhtml);
 
+    var landuses = settings.landuseTypes
+    let optionList1 = document.getElementById('fit_selectLandType').options;
+    landuses.forEach(option =>
+        optionList1.add(
+        new Option(option.description, option.id)
+        )
+    );
+
+    var managements = settings.managementTypes
+    let optionList2 = document.getElementById('fit_selectLandManagement').options;
+    managements.forEach(option =>
+        optionList2.add(
+        new Option(option.description, option.id)
+        )
+    );
     // Make sure we get proper input on change of the number input
     $(`#fit_inputTemperature`).change( function () 
     {
@@ -1633,9 +1652,6 @@ const showTransectPostObservationScreen = () =>
                 ${translations['landTypeLabel']}
                 <span style="float: right; height: 20px;">
                     <select name="transect_selectLandType" id="transect_selectLandType" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
                     </select>
                 </span>
             </li>
@@ -1643,9 +1659,6 @@ const showTransectPostObservationScreen = () =>
                 ${translations['landManagementLabel']}
                 <span style="float: right; height: 20px;">
                     <select name="transect_selectLandManagement" id="transect_selectLandManagement" class="form-control input-number" tabindex="1" style="display: inline-block; width: 168px; margin-left: 5px; margin-right: 5px;">
-                        <option value=1>1</option>
-                        <option value=2>2</option>
-                        <option value=3>3</option>
                     </select>
                 </span>
             </li>
@@ -1655,6 +1668,22 @@ const showTransectPostObservationScreen = () =>
 
     $('#transect_weatherContainer').html(weatherHtml);
     $('#transect_landContainer').html(landHhtml);
+
+    var landuses = settings.landuseTypes
+    let optionList1 = document.getElementById('transect_selectLandType').options;
+    landuses.forEach(option =>
+        optionList1.add(
+        new Option(option.description, option.id)
+        )
+    );
+
+    var managements = settings.managementTypes
+    let optionList2 = document.getElementById('transect_selectLandManagement').options;
+    managements.forEach(option =>
+        optionList2.add(
+        new Option(option.description, option.id)
+        )
+    );
 
     // Make sure we get proper input on change of the number input
     $(`#transect_inputTemperature`).change( function () 

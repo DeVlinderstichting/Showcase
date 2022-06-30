@@ -20,7 +20,8 @@ class DatabaseSeeder extends Seeder
             LanduseTypesSeeder::class,
             ManagementTypesSeeder::class,
             LanguageSeeder::class,
-            TestDataSeeder::class,
+            AdminAccountSeeder::class,
+        //    TestDataSeeder::class,
         ]);
     }
 }

@@ -115,7 +115,6 @@ function storeSettingsInDatabase()
 
         dat = {'name': 'settings', 'data': JSON.stringify(userSettings)};
         putRequest = store.put(dat);
-        console.log("setting stored");
     };
 }
 
@@ -290,13 +289,10 @@ function storeVisit(visit)
             var cursor = e.target.result; 
             if (cursor)
             { // key already exist
-                console.log("update");
                 cursor.update(dat);
             }
             else 
             { // key not exist
-                console.log("storing");
-
                 tx = db.transaction(DB_STORE_NAME_VISITS, "readwrite");
                 store = tx.objectStore(DB_STORE_NAME_VISITS);
                 putRequest = store.add(dat);

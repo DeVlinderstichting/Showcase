@@ -588,7 +588,6 @@
         var enddatetime = document.createElement('input');
         enddatetime.type = 'hidden';
         enddatetime.name = 'enddate';
-        console.log(enddatetime);
         @if(!$isSingle)
             var endTime = $('#endtime').val();
             enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
@@ -618,7 +617,6 @@
 
         $('*[id*=amount_]').each(function()
         {
-            console.log(this);
             var input1 = document.createElement('input');
             input1.type = 'hidden';
             input1.name = `observations[${count}][species_id]`;

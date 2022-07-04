@@ -313,6 +313,8 @@ group by year, month */
             if ($this->needsToBeStored($vDat['temperature'])) {$visit->temperature = $vDat['temperature'];}
             if ($this->needsToBeStored($vDat['cloud'])) {$visit->cloud = $vDat['cloud'];}
             if ($this->needsToBeStored($vDat['transect_id'])) {$visit->transect_id = $vDat['transect_id'];}
+            if ($this->needsToBeStored($vDat['landtype'])) {$visit->landusetype_id = $vDat['landtype'];}
+            if ($this->needsToBeStored($vDat['management'])) {$visit->managementtype_id = $vDat['management'];}
             if (array_key_exists('region_id', $vDat))
             {
                 if ($this->needsToBeStored($vDat['region_id'])) {$visit->region_id = $vDat['region_id'];}

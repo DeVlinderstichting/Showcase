@@ -203,7 +203,6 @@
         function deleteVisit(elem)
         {
             var deleteLink = elem.getAttribute('data_link');
-            console.log(deleteLink);
             $.ajax( deleteLink, {
                 type : 'DELETE',
                 async: false,

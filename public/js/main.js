@@ -2039,7 +2039,6 @@
                 url: actionURL,
                 data: formObj.serialize(),
                 success: function ( result ) {
-                    console.log( result );
                     _this.removeClass( 'loading' );
                     if( redirectVal != '' && redirectVal != undefined ) {
                         window.location.href = redirectVal;

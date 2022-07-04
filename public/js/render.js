@@ -821,7 +821,7 @@ const showFitPreObservationScreen = () =>
     
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(species, function(key, value) {
-        if (value['speciesgroupId'] == 4 && value['taxon'] != '') // Note that the ID might change in the future
+        if (value['speciesgroupId'] == 11 && value['taxon'] != '') // Note that the ID might change in the future
         {
             $('#prefit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
@@ -2108,7 +2108,6 @@ const showSettingsScreen = () =>
     {
         var sg = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
         var sgu = settings.userSettings.speciesGroupsUsers[sg.name];
-        console.log(sg.name);
         var recId = 3;
         if (sgu != null)
         {

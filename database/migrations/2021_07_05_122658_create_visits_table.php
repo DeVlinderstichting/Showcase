@@ -82,7 +82,7 @@ class CreateVisitsTable extends Migration
             OR (status = 2 AND countingmethod_id = 3 AND cloud is not null) 
             OR (status = 2 AND countingmethod_id = 4 AND cloud is null));");
         DB::statement("ALTER TABLE visits ADD CONSTRAINT check_transect_id CHECK ((countingmethod_id = 3 AND transect_id is not null) OR (countingmethod_id != 3 AND transect_id is null));");
-        DB::statement("ALTER TABLE visits ADD CONSTRAINT check_flower_id CHECK ((countingmethod_id = 4 AND flower_id is not null) OR (countingmethod_id != 4 AND flower_id is null));");
+        DB::statement("ALTER TABLE visits ADD CONSTRAINT check_flower_id CHECK ((countingmethod_id = 4 AND flower_id is not null) OR (countingmethod_id != 4 AND flower_id is null) OR (countingmethod_id != 4 AND flower_id is null AND status = 1));");
         DB::statement("ALTER TABLE visits ADD CONSTRAINT check_method_id CHECK (status = 1 
             OR (status = 2 AND method_id is not null));");       
     }

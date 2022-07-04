@@ -966,7 +966,6 @@ const showFitObservationScreen = () =>
         if(oldObservations.includes(id))
         {
             addObservationToVisit(speciesId, number, trackedLocations[trackedLocations.length - 1], 'put');
-
         }
         else
         {

@@ -67,14 +67,139 @@ class SpeciesSeeder extends Seeder
         $beesSpeciesGroup->save(); */
 
         $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bumblebees', 'description' => 'Bumblebees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'solitarybees', 'description' => 'Solitary bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'honeybees', 'description' => 'Honey bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'hoverflies', 'description' => 'Hoverflies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'flies', 'description' => 'Flies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'beetles', 'description' => 'Beetles', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bugs', 'description' => 'Bugs', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'wasps', 'description' => 'Wasps', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defBee = \App\Models\Species::create([
+            'genus' => 'bumblebees',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/apidae',
+            'speciesgroup_id' => $beesSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'bees',
+       //     'imagelocation' => '',
+            'nlname' => 'bijen',
+            'enname' => 'bees' 
+        ]);
+        $beesSpeciesGroup->defaultspecies_id = $defBee->id;
+        $beesSpeciesGroup->save();
 
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'solitarybees', 'description' => 'Solitary bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defBee = \App\Models\Species::create([
+            'genus' => 'solitarybees',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/apidaesolo',
+            'speciesgroup_id' => $beesSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'solitary bees',
+       //     'imagelocation' => '',
+            'nlname' => 'solitaire bijen',
+            'enname' => 'solitary bees' 
+        ]);
+        $beesSpeciesGroup->defaultspecies_id = $defBee->id;
+        $beesSpeciesGroup->save();
+
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'honeybees', 'description' => 'Honey bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defBee = \App\Models\Species::create([
+            'genus' => 'honeybees',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/apidaehoney',
+            'speciesgroup_id' => $beesSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'honey bees',
+       //     'imagelocation' => '',
+            'nlname' => 'honing bijen',
+            'enname' => 'honey bees' 
+        ]);
+        $beesSpeciesGroup->defaultspecies_id = $defBee->id;
+        $beesSpeciesGroup->save();
+
+        $hvSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'hoverflies', 'description' => 'Hoverflies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defHv = \App\Models\Species::create([
+            'genus' => 'syrphidae',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/syrphidae',
+            'speciesgroup_id' => $hvSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'hoverflies',
+       //     'imagelocation' => '',
+            'nlname' => 'zweefvliegen',
+            'enname' => 'hoverflies' 
+        ]);
+        $hvSpeciesGroup->defaultspecies_id = $defHv->id;
+        $hvSpeciesGroup->save();
+
+        $flySpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'flies', 'description' => 'Flies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defFly = \App\Models\Species::create([
+            'genus' => 'diptera',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/diptera',
+            'speciesgroup_id' => $flySpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'flies',
+       //     'imagelocation' => '',
+            'nlname' => 'vliegen',
+            'enname' => 'flies' 
+        ]);
+        $flySpeciesGroup->defaultspecies_id = $defFly->id;
+        $flySpeciesGroup->save();
+
+        $beetleSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'beetles', 'description' => 'Beetles', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defBeetle = \App\Models\Species::create([
+            'genus' => 'coleoptera',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/coleoptera',
+            'speciesgroup_id' => $beetleSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'beetles',
+       //     'imagelocation' => '',
+            'nlname' => 'kevers',
+            'enname' => 'beetles' 
+        ]);
+        $beetleSpeciesGroup->defaultspecies_id = $defBeetle->id;
+        $beetleSpeciesGroup->save();
+
+        $bugSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bugs', 'description' => 'Bugs', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defBug = \App\Models\Species::create([
+            'genus' => 'insecta',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/insecta',
+            'speciesgroup_id' => $bugSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'bug',
+       //     'imagelocation' => '',
+            'nlname' => 'insect',
+            'enname' => 'bug' 
+        ]);
+        $bugSpeciesGroup->defaultspecies_id = $defBug->id;
+        $bugSpeciesGroup->save();
+        $waspsSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'wasps', 'description' => 'Wasps', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $defWasp = \App\Models\Species::create([
+            'genus' => 'wasps',
+            'taxon' => '',
+            'ndffuri' => 'http://ndff-ecogrid.nl/categories/specieslist/wasps',
+            'speciesgroup_id' => $waspsSpeciesGroup->id,
+            'taxrank' => 'speciesgroup',
+            'diurnal' => false,
+        //    'parent_id' => '',
+            'description' => 'wasp',
+       //     'imagelocation' => '',
+            'nlname' => 'wesp',
+            'enname' => 'wasp' 
+        ]);
+        $waspsSpeciesGroup->defaultspecies_id = $defWasp->id;
+        $waspsSpeciesGroup->save();
 
 
         $plantSpGroup = \App\Models\Speciesgroup::create(['name' => 'plants', 'description' => 'plants', 'usercancount' => false]);

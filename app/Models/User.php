@@ -255,6 +255,18 @@ class User extends Authenticatable
             $singleSpeciesGroup['userCanCount'] = $sg->usercancount;
             $singleSpeciesGroup['defaultSpeciesId'] = $sg->defaultspecies_id;
             $speciesGroups[$sg->id] = $singleSpeciesGroup;
+
+            $defSp = \App\Models\Species::find($sg->defaultspecies_id);
+            $singleSp = [];
+            $singleSp['id'] = $defSp->id;
+            $singleSp['taxon'] = $defSp->taxon;
+            $singleSp['genus'] = ucwords($defSp->genus);
+            $singleSp['speciesgroupId'] = $defSp->speciesgroup_id;
+            $singleSp['description'] = $defSp->description;
+            $singleSp['imageLocation'] = $defSp->imagelocation;
+            $singleSp['extrainfoLocation'] = $defSp->extrainfolocation;
+            $singleSp['localName'] = $defSp->$localNameName;
+            $species[$defSp->id] = $singleSp;
         }
 
         $userMessages = $this->usersMessages()->where('senddate', '>', Carbon::now()->subMonths(2))->whereNull('receivedate')->get();

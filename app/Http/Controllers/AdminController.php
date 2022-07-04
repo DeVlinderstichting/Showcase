@@ -226,9 +226,14 @@ class AdminController extends Controller
 
         if ($userId == -1)
         {
-            $user = \App\Models\User::create(['email' => $valDat['email'], 'password' => $valDat['password'], 'name' => $valDat['name'], 'prefered_language' => $valDat['prefered_language'], 'accesstoken' => '']);
+            $user = \App\Models\User::create(['email' => $valDat['email'], 'password' => Hash::make($valDat['password']), 'name' => $valDat['name'], 'prefered_language' => $valDat['prefered_language'], 'accesstoken' => '']);
             $user->setRandomAccessToken();
             $user->save();
+
+            //we jsut created a new user, by default add the butterfly as species preference 
+            $spGroupId = \App\Models\SpeciesGroup::where('name', 'butterflies')->first()->id;
+            $recLvlId = \App\Models\RecordingLevel::where('name', 'species')->first()->id;
+            \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroupId, 'recordinglevel_id' => $recLvlId]);
         }
         else 
         {

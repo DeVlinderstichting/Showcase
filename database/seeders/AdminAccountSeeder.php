@@ -28,6 +28,7 @@ class AdminAccountSeeder extends Seeder
 
         $user2 = \App\Models\User::create(['name'=> 'admin','email'=> 'bas.oteman@vlinderstichting.nl', 'password'=> Hash::make('showcase41#'), 'accesstoken' => '123token']);
         $user2->setRandomAccessToken();
+        $user2->isadmin = true; 
         $user2->save();
 
         $user = \App\Models\User::create([
@@ -44,6 +45,42 @@ class AdminAccountSeeder extends Seeder
         $user2 = \App\Models\User::create(['name'=> 'showcase','email'=> 'info@vlinderstichting.nl', 'password'=> Hash::make('showcase#admin54Xeu'), 'accesstoken' => '123token']);
         $user2->setRandomAccessToken();
         $user2->save();
+
+
+        $user = \App\Models\User::create([
+            'email' => "Erik.Ockinger@slu.se", 
+            'password' => Hash::make('DUj4zRmaM9'), 
+            'name' => "Erik.Ockinger@slu.se", 
+            'prefered_language' => "se", 
+            'accesstoken' => Str::random(80)
+        ]);
+        $user->isadmin = true; //is admin is not in fillable 
+        $user->setRandomAccessToken();
+        $user->save();
+
+
+        $user = \App\Models\User::create([
+            'email' => "a.l.mauchline@reading.ac.uk", 
+            'password' => Hash::make('oykgklEX2h'), 
+            'name' => "a.l.mauchline@reading.ac.uk", 
+            'prefered_language' => "en", 
+            'accesstoken' => Str::random(80)
+        ]);
+        $user->isadmin = true;  
+        $user->setRandomAccessToken();
+        $user->save();
+
+
+        $user = \App\Models\User::create([
+            'email' => "a.s.hood@reading.ac.uk", 
+            'password' => Hash::make('kjdLwZpnqm'), 
+            'name' => "a.s.hood@reading.ac.uk", 
+            'prefered_language' => "en", 
+            'accesstoken' => Str::random(80)
+        ]);
+        $user->isadmin = true;  
+        $user->setRandomAccessToken();
+        $user->save();
 
     }
 }

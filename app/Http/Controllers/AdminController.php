@@ -472,6 +472,40 @@ class AdminController extends Controller
         $theKey->$theFieldname = $valDat['value'];
         $theKey->save();
     }
+    public function speciesTranslationEdit($language = "")
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        $lanArr = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
+        if (!(in_array($language, $lanArr)))
+        {
+            return "invalid language selected";
+        }
+
+        return view('speciesTranslationEdit', ['language' => $language]);
+    }
+    public function speciesTranslationPutAjax()
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        $valDat = request()->validate([
+            'spId' => ['required', 'exists:species,id'],
+            'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])],
+            'value' => ['required']
+        ]);
+        $theFieldname = $valDat['language'] . "name";
+        $theSp = \App\Models\Species::where('id', $valDat['spId'])->first();
+        $theSp->$theFieldname = $valDat['value'];
+        $theSp->save();
+    }
+
+
+
+
     public function handleRApiRequest()
     {
         $valDat = request()->validate(

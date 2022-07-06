@@ -18,7 +18,7 @@ class CreateSpeciesTable extends Migration
             $table->id();
             $table->timestamps();
             $table->text('genus');
-            $table->text('taxon');
+            $table->text('taxon')->nullable();
             $table->text('ndffuri')->nullable();
             $table->unique(['genus', 'taxon']);
             $table->unsignedBigInteger('speciesgroup_id')->nullable();

@@ -277,39 +277,44 @@ class SpeciesSeeder extends Seeder
             'enname' => 'small tortoiseshell' 
         ]);
 */
-        \App\Models\Species::create([
-            'genus' => 'Vinca',
-            'taxon' => 'minor',
-            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/vincaminor',
-            'speciesgroup_id' => $plantSpGroup->id,
-            'taxrank' => 'species',
-            'diurnal' => false,
-            'description' => 'a small plant with green leafs',
-            'nlname' => 'Vinca',
-            'enname' => 'Vinca' 
-        ]);
-        \App\Models\Species::create([
-            'genus' => 'Taraxacum ',
-            'taxon' => 'officinalis',
-            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/taraxacumofficinalis',
-            'speciesgroup_id' => $plantSpGroup->id,
-            'taxrank' => 'species',
-            'diurnal' => false,
-            'description' => 'a small plant with green leafs',
-            'nlname' => 'Paardenbloem',
-            'enname' => 'Horseflour' 
-        ]);
-        \App\Models\Species::create([
-            'genus' => 'Daucus ',
-            'taxon' => 'carota',
-            'ndffuri' => 'http://ndff-ecogrid.nl/taxonomy/taxa/daucuscarota',
-            'speciesgroup_id' => $plantSpGroup->id,
-            'taxrank' => 'species',
-            'diurnal' => false,
-            'description' => 'a small plant with green leafs',
-            'nlname' => 'Wilde peen',
-            'enname' => 'Wild root' 
-        ]);
+        \App\Models\Species::create(['genus' => 'Not specified', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Not specified', 'nlname' => 'Not specified']);
+        \App\Models\Species::create(['genus' => 'Acacia', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Acacia', 'nlname' => 'Acacia']);
+        \App\Models\Species::create(['genus' => 'Almond', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Almond', 'nlname' => 'Almond']);
+        \App\Models\Species::create(['genus' => 'Apple', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Apple', 'nlname' => 'Apple']);
+        \App\Models\Species::create(['genus' => 'Armeria', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Armeria', 'nlname' => 'Armeria']);
+        \App\Models\Species::create(['genus' => 'Blackthorn', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Blackthorn', 'nlname' => 'Blackthorn']);
+        \App\Models\Species::create(['genus' => 'Borage familty', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Borage familty', 'nlname' => 'Borage familty']);
+        \App\Models\Species::create(['genus' => 'Bramble', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Bramble', 'nlname' => 'Bramble']);
+        \App\Models\Species::create(['genus' => 'Butterfly bush', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Butterfly bush', 'nlname' => 'Butterfly bush']);
+        \App\Models\Species::create(['genus' => 'Cabbage familiy', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Cabbage familiy', 'nlname' => 'Cabbage familiy']);
+        \App\Models\Species::create(['genus' => 'Caper bush', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Caper bush', 'nlname' => 'Caper bush']);
+        \App\Models\Species::create(['genus' => 'Cistus', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Cistus', 'nlname' => 'Cistus']);
+        \App\Models\Species::create(['genus' => 'Clover', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Clover', 'nlname' => 'Clover']);
+        \App\Models\Species::create(['genus' => 'Fan palm', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Fan palm', 'nlname' => 'Fan palm']);
+        \App\Models\Species::create(['genus' => 'Hawthorn', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Hawthorn', 'nlname' => 'Hawthorn']);
+        \App\Models\Species::create(['genus' => 'Heather', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Heather', 'nlname' => 'Heather']);
+        \App\Models\Species::create(['genus' => 'Hemp-agrimony', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Hemp-agrimony', 'nlname' => 'Hemp-agrimony']);
+        \App\Models\Species::create(['genus' => 'Ivy', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Ivy', 'nlname' => 'Ivy']);
+        \App\Models\Species::create(['genus' => 'Jujube', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Jujube', 'nlname' => 'Jujube']);
+        \App\Models\Species::create(['genus' => 'Knapweed', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Knapweed', 'nlname' => 'Knapweed']);
+        \App\Models\Species::create(['genus' => 'Lavender', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Lavender', 'nlname' => 'Lavender']);
+        \App\Models\Species::create(['genus' => 'Lillies', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Lillies', 'nlname' => 'Lillies']);
+        \App\Models\Species::create(['genus' => 'Lupin', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Lupin', 'nlname' => 'Lupin']);
+        \App\Models\Species::create(['genus' => 'Mint family', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Mint family', 'nlname' => 'Mint family']);
+        \App\Models\Species::create(['genus' => 'Mixed wildflowers', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Mixed wildflowers', 'nlname' => 'Mixed wildflowers']);
+        \App\Models\Species::create(['genus' => 'Myrtle', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Myrtle', 'nlname' => 'Myrtle']);
+        \App\Models\Species::create(['genus' => 'Other Asteraceae', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Other Asteraceae', 'nlname' => 'Other Asteraceae']);
+        \App\Models\Species::create(['genus' => 'Other Legumes', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Other Legumes', 'nlname' => 'Other Legumes']);
+        \App\Models\Species::create(['genus' => 'Pear', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Pear', 'nlname' => 'Pear']);
+        \App\Models\Species::create(['genus' => 'Quince', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Quince', 'nlname' => 'Quince']);
+        \App\Models\Species::create(['genus' => 'Rapeseed', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Rapeseed', 'nlname' => 'Rapeseed']);
+        \App\Models\Species::create(['genus' => 'Scabious', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Scabious', 'nlname' => 'Scabious']);
+        \App\Models\Species::create(['genus' => 'Statice', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Statice', 'nlname' => 'Statice']);
+        \App\Models\Species::create(['genus' => 'Strawberry tree', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Strawberry tree', 'nlname' => 'Strawberry tree']);
+        \App\Models\Species::create(['genus' => 'Sunflower', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Sunflower', 'nlname' => 'Sunflower']);
+        \App\Models\Species::create(['genus' => 'Thistles', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Thistles', 'nlname' => 'Thistles']);
+        \App\Models\Species::create(['genus' => 'Umbellifers', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Umbellifers', 'nlname' => 'Umbellifers']);
+        \App\Models\Species::create(['genus' => 'Yellow Asteraceae', 'speciesgroup_id' => $plantSpGroup->id, 'taxrank' => 'species', 'diurnal' => false,'description' =>'Yellow Asteraceae', 'nlname' => 'Yellow Asteraceae']);
 
         
 

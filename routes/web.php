@@ -61,7 +61,9 @@ Route::post('/newsItem/create/{messageId}', '\App\Http\Controllers\AdminControll
 
 Route::get('/translationIndex', '\App\Http\Controllers\AdminController@translationIndex');
 Route::get('/translationEdit/{language}', '\App\Http\Controllers\AdminController@translationEdit');
+Route::get('/speciesTranslationEdit/{language}', '\App\Http\Controllers\AdminController@speciesTranslationEdit');
 Route::get('/translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
+Route::get('/speciesTranslationPutAjax', '\App\Http\Controllers\AdminController@speciesTranslationPutAjax');
 
 Route::get('/test', function () 
 {

@@ -211,6 +211,8 @@ const showHomeScreen = () =>
         document.getElementById("home_transectButton").onclick = function () { initAnyCount(3); showTransectPreObservationScreen(); };
     }
     document.getElementById("home_fitButton").onclick = function () { initAnyCount(4); showFitPreObservationScreen(); };
+
+    synchWithServer();
 }
 
 const showSpecialObservationScreen = () =>

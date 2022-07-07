@@ -156,7 +156,7 @@ Admin home
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h5 class="modal-title" id="staticBackdropLabel">Sectie aanpassen</h5>
+                                <h5 class="modal-title" id="staticBackdropLabel">Edit section</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                   <span aria-hidden="true">&times;</span>
                                 </button>
@@ -165,8 +165,8 @@ Admin home
                                 
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Sluiten</button>
-                                <button type="button" onclick="storeManualEdit()" class="btn btn-primary" data-dismiss="modal">Opslaan</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" onclick="storeManualEdit()" class="btn btn-primary" data-dismiss="modal">Save</button>
                             </div>
                         </div>
                     </div>

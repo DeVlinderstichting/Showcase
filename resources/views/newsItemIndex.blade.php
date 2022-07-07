@@ -34,7 +34,7 @@
                             </tr>
                         @endforeach
                     </table>
-                <a href="/adminHome" class="btn btn-secondary m-1">Terug</a>
+                <a href="/adminHome" class="btn btn-secondary m-1">Back</a>
             </div>
         </div>
     </div>

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Language extends Model
 {
@@ -11,6 +12,15 @@ class Language extends Model
 
     public static function getItem($key, $languageName = 'en')
     {
+        $user = Auth::user();
+        if ($user != null)
+        {
+            if ($languageName == "en")
+            {
+                $languageName = $user->prefered_language;
+            }
+        }
+
         $item = \App\Models\Language::where('key', $key)->first();
         if ($item == null)
         {

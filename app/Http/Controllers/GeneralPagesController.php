@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Session;
 
 class GeneralPagesController extends Controller
 {
@@ -37,7 +38,11 @@ class GeneralPagesController extends Controller
     }
     public function logoff()
     {
+        Session::flush();
         Auth::logout();
+        
+       // dd(Auth::user());
         return redirect()->route('showLogin');
+
     }
 }

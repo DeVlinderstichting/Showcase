@@ -480,6 +480,7 @@ group by year, month */
     private function authenticateUser()
     {
         $user = Auth::user();
+
         if ($user == null)
         {
             return redirect()->route('showLogin');

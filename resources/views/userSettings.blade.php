@@ -57,6 +57,10 @@
                         </tr>                                        
                     </tbody>
                 </table>
+
+                <?php //dd($user); ?>
+
+
                 <div class="container-fluid text-center">
                     <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsLogout')}}</a>
                 </div>

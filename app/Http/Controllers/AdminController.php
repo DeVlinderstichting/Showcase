@@ -8,6 +8,7 @@ use Illuminate\Validation\Rule;
 use Auth;
 use Hash;
 use Illuminate\Support\Carbon;
+use \App\Models\User;
 
 class AdminController extends Controller
 {
@@ -289,6 +290,17 @@ class AdminController extends Controller
 
         return view ('adminHome');
     }
+
+    public function loginAsUser(User $user)
+    {
+        if (!($this->checkIsAdmin()))
+        {
+            return view('adminLogin');
+        }
+        Auth::loginUsingId($user->id);
+        return redirect("/home");
+    }
+
     public function createPushmessage($messageId = -1)
     {
         if (!($this->checkIsAdmin()))

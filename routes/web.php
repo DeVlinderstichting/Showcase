@@ -37,6 +37,7 @@ Route::get('/adminLogin', 'App\Http\Controllers\AdminController@adminWelcome');
 Route::post('/adminLogin', 'App\Http\Controllers\AdminController@adminLogin')->name('adminLogin');
 Route::get('/adminHome', 'App\Http\Controllers\AdminController@adminHome');
 Route::get('/admin/rapi', 'App\Http\Controllers\AdminController@handleRApiRequest');
+Route::get('/admin/loginAsUser/{user}', 'App\Http\Controllers\AdminController@loginAsUser');
 
 Route::get('/regionCreate', 'App\Http\Controllers\AdminController@regionCreate');
 Route::post('/regionCreate/{region}', '\App\Http\Controllers\AdminController@regionStore');

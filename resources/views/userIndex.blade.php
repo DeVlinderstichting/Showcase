@@ -13,7 +13,7 @@ Users
         <div class="card mb-2">
             <h5 class="card-header">
                 Search user
-                <a class="btn btn-primary btn-sm float-right" role="button" href="/user/create">Create new user</a>
+                <a class="btn btn-primary btn-sm float-right" role="button" href="/user/create/-1">Create new user</a>
             </h5>
             <div class="card-body">
                 <div class="form-group row">
@@ -75,7 +75,7 @@ Users
                             resTable.innerHTML += "<tr onclick='goToEditUser(" + data[i]['id'] + ")'>" + 
                             "<td>" + data[i]['name'] + "</td>" +
                             "<td>" + email + "</td>" +
-                            "<td> <a class='btn btn-primary btn-sm' role='button' href='/user/" + data[i]['id'] + "/loginAsUser'>Login as user</a></td>" + "</tr>";
+                            "<td> <a class='btn btn-primary btn-sm' role='button' href='/admin/loginAsUser/" + data[i]['id'] + "'>Login as user</a></td>" + "</tr>";
                         }
                     }
                 });

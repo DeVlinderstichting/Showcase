@@ -231,7 +231,7 @@ class AdminController extends Controller
             $user->save();
 
             //we jsut created a new user, by default add the butterfly as species preference 
-            $spGroupId = \App\Models\SpeciesGroup::where('name', 'butterflies')->first()->id;
+            $spGroupId = \App\Models\Speciesgroup::where('name', 'butterflies')->first()->id;
             $recLvlId = \App\Models\RecordingLevel::where('name', 'species')->first()->id;
             \App\Models\SpeciesgroupsUsers::create(['user_id' => $user->id, 'speciesgroup_id' => $spGroupId, 'recordinglevel_id' => $recLvlId]);
         }

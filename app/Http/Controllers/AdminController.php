@@ -297,7 +297,8 @@ class AdminController extends Controller
         {
             return view('adminLogin');
         }
-        Auth::loginUsingId($user->id);
+        //Auth::loginUsingId($user->id);
+        Auth::login($user);
         return redirect("/home");
     }
 

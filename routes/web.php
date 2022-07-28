@@ -24,7 +24,7 @@ Route::get('/showProjectInfo', '\App\Http\Controllers\GeneralPagesController@sho
 Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPagesController@showRecordingMethodExplanation');
 Route::get('/news', '\App\Http\Controllers\GeneralPagesController@showNews')->name('news');
 Route::get('/news/{newsItem}', '\App\Http\Controllers\GeneralPagesController@showNewsItem');
-Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logOff');
+Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logoff');
 
 Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');
 Route::get('/visit/{visit}', '\App\Http\Controllers\VisitController@visitShow');

@@ -10,35 +10,178 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;400&display=swap');
 
 /* GENERAL CLASSES */
-.general-body-class {}
-.general-navbar-class {}
-.general-navbar-title-class {}
+.general-body-class {
+        background-color: #d4efd2;
+    
+}
+.general-navbar-class {
+        background-color: #1f7263 !important;
+    background: url('../img/background_1920x1080_screen-statistics.png');
+}
+.general-navbar-title-class {
+    margin-bottom: 0px;
+    
+}
 .general-navbar-buttons-class {}
 .general-footer-copyright-class {}
 
-/* GENERAL CLASSES -> BOOTSTRAP */
-body {}
+.general-footer-class {
+     background-color: #1f7263 !important;
+}
+.container {
+    background-color: #f9f9f9;
+}
+.mb-4 {
+        margin-bottom: 0px !important;
+}
 
-h1 {}
-h2 {}
-h3 {}
-h4 {}
-h5 {
+.mb-3 {
+    margin-bottom: 1rem!important;
+    background-color: #d4efd2 !important;
+}
+
+.mb-3-colour {
+    background-color: #b4dfb1 !important;
+}
+
+.border-bottom {
+    border-bottom: 0px solid #dee2e6!important;
+}
+
+.border-top {
+    border-top: 0px solid #dee2e6!important;
+}
+
+.me-2 {
+        background-color: #1f7263 !important;
+}
+
+/* GENERAL CLASSES -> BOOTSTRAP */
+body {
+    font-size: 16px;
+    line-height: 24px;
+    color: #3d3d64;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-family: 'Mulish', sans-serif;
+}
+
+a {
+    color: #00ad7c;
+    text-decoration: underline;
+    font-weight: 800;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+h1 {
+    font-family: 'Oswald', sans-serif;
+    font-size:3.9rem; 
+    line-height:4.2rem; 
+    color:#4E9906;
+    font-weight: 400;
+    margin-bottom: 65px;
+}
+h2  { 
     font-family: 'Oswald', sans-serif;
     font-size:2.85rem; 
     line-height:3.4rem; 
     color:#6c6c97;
     font-weight: 400;
     margin-bottom: 25px;
-
 }
 
+h3  { 
+    font-family: 'Oswald', sans-serif;
+    font-size:18px; 
+    line-height:28px; 
+    color:#6c6c97;
+    font-weight: 400;
+    margin-bottom: 5px;
+}
+h4 { 
+    font-size: 18px;
+    line-height: 28px;
+    color: #3d3d64;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-family: 'Mulish', sans-serif; 
+}
+h5 { 
+    font-size: 15px; 
+    line-height: 30px; 
+    font-weight: 600; 
+    color: #4E9906; 
+    font-family: 'Mulish', sans-serif; 
+}
+
+h6 {
+    text-align: right; 
+    font-size: 15px; 
+    line-height: 18px;
+    color:#4E9906;
+    font-family: 'Mulish', sans-serif; 
+    font-weight: 600;
+}
+
+.text-muted {
+    color: #d4efd2 !important;
+}
+
+.fs-4 {
+    font-family: 'Oswald', sans-serif;
+    font-size:18px; 
+    text-transform: uppercase;
+    color: #F87A13;
+}
 .nav {}
-.nav-pills {}
-.nav-link {}
-.nav-item {}
+.nav-pills {
+  
+    background-color: #0a58ca00 !important;
+}
+.nav-link {
+    vertical-align: middle;
+    display:inline-block;  
+    margin-top: 0px;
+    background: #0a58ca00 0% 0% no-repeat padding-box !important;
+    border-radius: 50px; 
+    text-transform: uppercase; 
+    width: auto; 
+    font-family: 'Oswald', sans-serif; 
+    font-weight: 400;
+    font-size:14px; 
+    padding: 5px 16px;
+    color: #FFFFFF !important; 
+    letter-spacing: 0.5px;
+    border: none;
+    margin-left: 10px;
+}
+
+.nav-link:active {
+    border-color: #0a58ca00;
+    color: #F87A13 !important; 
+    cursor: pointer; 
+    background: #F87A13 0% 0% no-repeat padding-box !important;
+    border-radius: 50px !important; 
+    padding: 5px 16px;
+}
+
+.nav-link:hover {
+   color: #F87A13 !important;
+}
+
+.nav-item {
+     
+}
 
 .img-fluid {}
+
+
+.w-75 {
+    width: 20% !important;
+}
 
 .btn {
     vertical-align: middle;
@@ -65,7 +208,10 @@ h5 {
 }
 
 .list-group {}
-.list-group-item {}
+.list-group-item {
+        background-color: #ffffff54 !important;
+        border: 1px solid rgb(255 255 255 / 65%) !important;
+}
 
 .modal {}
 .modal-content {}
@@ -96,27 +242,52 @@ h5 {
 .landingpage-section-button {}
 
 /* ABOUT PAGE */
-.about-title-header {}
-.about-title-sub {}
-.about-section-image {}
+.about-title-header {
+    margin-bottom: 12px; 
+}
+.about-title-sub {
+    color: #1f7263 !important;
+    font-size: 36px !important;
+    line-height: 42px;
+    margin-bottom: 73px;
+    padding-bottom: 70px !important;
+
+}
+.about-section-image {
+    max-width: 100%;
+    height: fit-content;
+}
 .about-section-title {}
-.about-section-subtitle {}
+.about-section-subtitle {
+
+}
 .about-institution-scroller {}
 .about-institution-item {}
 .about-team-container {}
 .about-team-item {}
 
 /* MONITORING PAGE */
-.monitoring-title-header {}
-.monitoring-title-sub {}
+.monitoring-title-header {
+    }
+.monitoring-title-sub {
+        padding-bottom: 10px !important;
+
+}
 .monitoring-section-button {}
 .monitoring-section-image {}
 .monitoring-section-title {}
 .monitoring-section-subtitle {}
 
 /* IDENTIFICATION PAGE */
-.identification-title-header {}
-.identification-title-sub {}
+.identification-title-header {
+    margin-bottom: 12px; 
+}
+.identification-title-sub {
+    font-size: 20px;
+    line-height: 25px;
+    color: #1f7263;
+    padding-bottom: 40px !important;
+}
 .identification-section-button {}
 .identification-section-button-list {}
 .identification-section-title {}
@@ -124,8 +295,12 @@ h5 {
 .identification-list-group-item {}
 
 /* NEWS PAGE */
-.news-title-header {}
-.news-title-sub {}
+.news-title-header {
+    margin-bottom: 12px; 
+}
+.news-title-sub {
+    padding-bottom: 70px !important;
+}
 .news-section-image {}
 .news-section-title {}
 .news-section-intro {}

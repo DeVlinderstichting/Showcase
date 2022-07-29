@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container mb-3">
+<div class="container mb-3-colour">
     <h1 class="p-4 identification-title-header">{{\App\Models\Language::getItem('generalPagesIdHelpHeader')}} </h1>
     <p class="px-4 identification-title-sub">{{\App\Models\Language::getItem('generalPagesIdHelpSubHeader')}}</p>
 </div>

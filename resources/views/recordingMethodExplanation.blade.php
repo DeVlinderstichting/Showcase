@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="container mb-3">
+<div class="container mb-3-colour">
     <h1 class="p-4 monitoring-title-header">{{\App\Models\Language::getItem('monitoringGuideHeader')}}</h1>
     <h2 class="px-4 monitoring-title-sub"></h2>
 </div>
@@ -18,7 +18,7 @@
 <div class="container mb-3" id="special">
     <div class="row">
         <div class="col-md d-flex p-4">
-            <img src="images/bf6.jpg" class="img-fluid monitoring-section-image"> 
+            <img src="images/something_special.jpg" class="img-fluid monitoring-section-image"> 
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideISawSomethingSpecialTitle')}}</h2>
@@ -29,7 +29,7 @@
 <div class="container mb-3" id="15min">
     <div class="row switch-direction">
         <div class="col-md d-flex p-4">
-            <img src="images/bf6.jpg" class="img-fluid monitoring-section-image"> 
+            <img src="images/time-839884_1920.jpg" class="img-fluid monitoring-section-image"> 
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuide15mTitle')}}</h2>
@@ -40,7 +40,7 @@
 <div class="container mb-3" id="transect">
     <div class="row">
         <div class="col-md d-flex p-4">
-            <img src="images/bf6.jpg" class="img-fluid monitoring-section-image"> 
+            <img src="images/walk_transect.jpg" class="img-fluid monitoring-section-image"> 
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideTransectTitle')}}</h2>
@@ -51,7 +51,7 @@
 <div class="container mb-3" id="fit">
     <div class="row switch-direction">
         <div class="col-md d-flex p-4">
-            <img src="images/bf6.jpg" class="img-fluid monitoring-section-image"> 
+            <img src="images/flower_patch.jpg" class="img-fluid monitoring-section-image"> 
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideFitTitle')}}</h2>

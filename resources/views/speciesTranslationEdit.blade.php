@@ -41,6 +41,10 @@ Translations
                         },
                         success:function(data) 
                         {
+                        },
+                        fail:function(data)
+                        {
+                            alert("Unable to save, please check your connection!");
                         }
                     });
                 }

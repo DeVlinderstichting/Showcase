@@ -478,11 +478,17 @@ class AdminController extends Controller
         $valDat = request()->validate([
             'key' => ['required', 'exists:languages,id'],
             'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])],
-            'value' => ['required']
+            'value' => ['nullable']
         ]);
+        $value = "";
+        if (array_key_exists('value', $valDat))
+        {
+            $value = $valDat['value'];
+        }
+
         $theFieldname = $valDat['language'];
         $theKey = \App\Models\Language::where('id', $valDat['key'])->first();
-        $theKey->$theFieldname = $valDat['value'];
+        $theKey->$theFieldname = $value;
         $theKey->save();
     }
     public function speciesTranslationEdit($language = "")
@@ -510,9 +516,14 @@ class AdminController extends Controller
             'language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])],
             'value' => ['required']
         ]);
+        $value = "";
+        if (array_key_exists('value', $valDat))
+        {
+            $value = $valDat['value'];
+        }
         $theFieldname = $valDat['language'] . "name";
         $theSp = \App\Models\Species::where('id', $valDat['spId'])->first();
-        $theSp->$theFieldname = $valDat['value'];
+        $theSp->$theFieldname = $value;
         $theSp->save();
     }
 

@@ -1,6 +1,7 @@
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/css/ol.css" type="text/css">
 
-<script src="https://cdn.jsdelivr.net/gh/openlayers/openlayers.github.io@master/en/v6.4.3/build/ol.js">
+<link rel="stylesheet" href="/css/ol.css" type="text/css">
+<script src="/js/ol.js"></script>
+            
 </script>
 <?php 
     if (!(isset($showSectionNrs)))

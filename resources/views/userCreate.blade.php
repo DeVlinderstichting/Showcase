@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('meta')
+    @include('layouts.forceReload',[])
+@endsection
+
 @section('title')
     Create user
 @endsection

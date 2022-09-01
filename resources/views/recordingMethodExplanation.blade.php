@@ -22,7 +22,7 @@
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideISawSomethingSpecialTitle')}}</h2>
-            <h4 class="monitoring-section-subtitle">{{\App\Models\Language::getItem('monitoringGuideISawSomethingSpecialText')}}</h4>
+            <h4 class="monitoring-section-subtitle">{!!\App\Models\Language::getItem('monitoringGuideISawSomethingSpecialText')!!}</h4>
         </div>
     </div>
 </div>
@@ -33,7 +33,7 @@
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuide15mTitle')}}</h2>
-            <h4 class="monitoring-section-subtitle">{{\App\Models\Language::getItem('monitoringGuide15mText')}}</h4>
+            <h4 class="monitoring-section-subtitle">{!!\App\Models\Language::getItem('monitoringGuide15mText')!!}</h4>
         </div>
     </div>
 </div>
@@ -44,7 +44,7 @@
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideTransectTitle')}}</h2>
-            <h4 class="monitoring-section-subtitle">{{\App\Models\Language::getItem('monitoringGuideTransectText')}}</h4>
+            <h4 class="monitoring-section-subtitle">{!!\App\Models\Language::getItem('monitoringGuideTransectText')!!}</h4>
         </div>
     </div>
 </div>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-md d-flex flex-column p-4">
             <h2 class="monitoring-section-title">{{\App\Models\Language::getItem('monitoringGuideFitTitle')}}</h2>
-            <h4 class="monitoring-section-subtitle">{{\App\Models\Language::getItem('monitoringGuideFitText')}}</h4>
+            <h4 class="monitoring-section-subtitle">{!!\App\Models\Language::getItem('monitoringGuideFitText')!!}</h4>
         </div>
     </div>
 </div>

@@ -74,6 +74,10 @@ class AppServiceProvider extends ServiceProvider
         {
             return preg_match('/^[\pL\d\_\.\@\-]+$/u', $value);
         });
+        Validator::extend('alpha_num_underscore_minus_dot_at_space', function ($attribute, $value) 
+        {
+            return preg_match('/^[\pL\d\_\.\s\@\-]+$/u', $value);
+        });
         Validator::extend('alpha_num_underscore_minus_space', function ($attribute, $value) 
         {
             return preg_match('/^[\pL\d\_\+\s\-]+$/u', $value); 

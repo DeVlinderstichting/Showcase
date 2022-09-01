@@ -216,7 +216,7 @@ class AdminController extends Controller
 
         $rules = [
             'email' => ['required', 'partial_email','unique:users' . ($userId > 0 ? ',email,' . $userId : ''), 'max:100'],
-            'name' => ['required', 'alpha_num_underscore_minus_dot_at', 'unique:users' . ($userId > 0 ? ',name,' . $userId : ''), 'max:100'],
+            'name' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'unique:users' . ($userId > 0 ? ',name,' . $userId : ''), 'max:100'],
             'prefered_language' => ['required', Rule::in(['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'])],
         ];
         if ($userId == -1)

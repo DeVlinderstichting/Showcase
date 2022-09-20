@@ -17,7 +17,8 @@ Users
         <div class="card mb-2">
             <h5 class="card-header">
                 Search user
-                <a class="btn btn-primary btn-sm float-right" role="button" href="/user/create/-1">Create new user</a>
+                <br><a class="btn btn-primary btn-sm float-right" role="button" href="/user/create/-1">Create new user</a><br>
+                <a href="/adminHome" class="btn btn-secondary m-1">Back</a>
             </h5>
             <div class="card-body">
                 <div class="form-group row">

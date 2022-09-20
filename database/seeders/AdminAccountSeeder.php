@@ -26,6 +26,11 @@ class AdminAccountSeeder extends Seeder
         $user->setRandomAccessToken();
         $user->save();
 
+        $var = \app\models\User::where('id', $id);
+        $var = $var->where('otherColuim', '34');
+        $restult = $var->get();
+        $result->first();
+
         $user2 = \App\Models\User::create(['name'=> 'admin','email'=> 'bas.oteman@vlinderstichting.nl', 'password'=> Hash::make('showcase41#'), 'accesstoken' => '123token']);
         $user2->setRandomAccessToken();
         $user2->isadmin = true; 

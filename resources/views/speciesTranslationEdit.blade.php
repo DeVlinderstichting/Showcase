@@ -19,6 +19,7 @@ Translations
     <div class="container mt-4">
         <div class="card mb-2">
             <h5 class="card-header">
+                <a href="/adminHome" class="btn btn-secondary">Back</a><br>
                 Translations
             </h5>
             <div class="card-body">
@@ -54,5 +55,6 @@ Translations
                 }
             </script>
         </div>
+        <a href="/adminHome" class="btn btn-secondary">Back</a>
     </div>
 @endsection

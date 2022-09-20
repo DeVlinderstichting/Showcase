@@ -1975,13 +1975,11 @@ const showSettingsScreen = () =>
     var happyButtonString = "";
     for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
     {
-
         var sgu = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
       //  var buttonName = "settings_selectButton_" + sgu.speciesgroup_id + "_" + sgu.recordinglevel_id;
 
-        happyButtonString += `<div class="row" style="margin-top: 8px;">
-                        <img src="img/`+sgu.name+`.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">`;
+        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sgu.name+`</h3><br>
+                            <div class="flex-radio-buttons mt-3">`;
                             if (sgu.id == 1)
                             {
                                 happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>

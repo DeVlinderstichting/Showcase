@@ -104,7 +104,7 @@
                     <div class="form-group row">
                         <div class="col-sm-10">
                             <button type="submit" class="btn btn-primary">Save</button>
-                            <a href="/adminHome" class="btn btn-secondary m-1">Back</a>
+                            <a href="/adminHome" class="btn btn-secondary">Back</a>
                         </div>
                     </div>
                 </form>

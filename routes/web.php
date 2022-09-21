@@ -17,6 +17,7 @@ Route::get('/showLoginScreen', 'App\Http\Controllers\UserController@showLogin')-
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 Route::get('/settings', '\App\Http\Controllers\UserController@showSettings')->name('settings')->middleware('auth');
+Route::get('/userLoginWithToken', 'App\Http\Controllers\UserController@userLoginWithToken');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');

@@ -16,7 +16,12 @@ class Species extends Model
     }
     public function getName(User $user)
     {
-        return $this->enname; //update this to incorporate other languages based on user settings 
+        $varName = $user->prefered_language . 'name';
+        if ($this->$varName == "")
+        {
+            $varName = 'enname';
+        }
+        return $this->$varName;
     }
 
 }

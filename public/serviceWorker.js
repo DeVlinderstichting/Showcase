@@ -1,4 +1,4 @@
-const staticShowcase = "Showcase_20211027120000";
+const staticShowcase = "Showcase_20220921120000";
 
 //also load font awesome css!!
 const assets = [
@@ -145,6 +145,6 @@ self.addEventListener("fetch", fetchEvent =>
                   return response;
                 });
             });
-          })
-        );
-      });
+      })
+    );
+});

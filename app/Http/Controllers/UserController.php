@@ -38,6 +38,24 @@ class UserController extends Controller
             //    ->with('error','Email-Address And Password Are Wrong.');
         }
     }
+    public function userLoginWithToken(Request $request)
+    {
+        $valDat = request()->validate([
+            'username' => 'required',
+            'token' => 'required',
+            'redirect' => 'nullable'
+        ]);
+        $theUser = \App\Models\User::where('email', $valDat['username'])->where('accesstoken', $valDat['token'])->first();
+        if ($theUser != null)
+        {
+            Auth::loginUsingId($theUser->id);
+        }
+        if (array_key_exists('redirect', $valDat))
+        {
+            return redirect($valDat['redirect']);
+        }
+        return redirect('/home');
+    }
     public function showHome()
     {
         $this->authenticateUser();
@@ -194,7 +212,7 @@ group by year, month */
             //      return $dat.usersettings;
                //   return $dataPackage['usersettings.userSettings.preferedLanguage;
                     $res = $this->processUserDataPackage($user, $valDat['datapackage']);
-                    return $res;
+                 //   return $res;
                 }
                 return Auth::user()->buildUserPackage();
             }

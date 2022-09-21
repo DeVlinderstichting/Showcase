@@ -223,8 +223,11 @@ class AdminController extends Controller
         {
             $rules['password'] = ['required', 'max:100', 'min:5'];
         }
+        else 
+        {
+            $rules['password'] = ['nullable', 'max:100', 'min:5'];
+        }
         $valDat = request()->validate($rules);
-
         if ($userId == -1)
         {
             $user = \App\Models\User::create(['email' => $valDat['email'], 'password' => Hash::make($valDat['password']), 'name' => $valDat['name'], 'prefered_language' => $valDat['prefered_language'], 'accesstoken' => '']);
@@ -245,7 +248,7 @@ class AdminController extends Controller
 
             if (array_key_exists('password', $valDat))
             {
-                if (strlen($valDat['password'] == "*****"))
+                if ($valDat['password'] != "*****")
                 {
                     $user->password = Hash::make($valDat['password']);
                 }

@@ -15,8 +15,14 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/showLoginScreen', 'App\Http\Controllers\UserController@showLogin')->name('showLogin');
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
+Route::get('/register', 'App\Http\Controllers\UserController@showRegister')->name('showRegister');
+Route::post('/registerUser', 'App\Http\Controllers\UserController@registerUser')->name('registerUser');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 Route::get('/settings', '\App\Http\Controllers\UserController@showSettings')->name('settings')->middleware('auth');
+Route::get('/changePassword', '\App\Http\Controllers\UserController@changePassword')->name('changePassword')->middleware('auth');
+Route::post('/savePassword', '\App\Http\Controllers\UserController@savePassword')->name('savePassword')->middleware('auth');
+Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('forgotPassword');
+Route::post('/requestPassword', '\App\Http\Controllers\UserController@requestPassword')->name('requestPassword');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');

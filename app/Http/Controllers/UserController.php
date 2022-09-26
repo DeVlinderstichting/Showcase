@@ -8,6 +8,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Auth;
 use DB;
+use Hash;
 
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
 class UserController extends Controller
@@ -16,6 +17,17 @@ class UserController extends Controller
     {
         return view ('userLogin');
     }
+
+    public function showRegister()
+    {
+        return view ('userRegister');
+    }
+
+    public function showForgotPassword()
+    {
+        return view ('userForgotPassword');
+    }
+
     public function userLogin(Request $request)
     {
         $input = request()->all();
@@ -25,7 +37,7 @@ class UserController extends Controller
         ]);
       //  $fieldType = filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'username';
         $fieldType = 'email';
-        if(auth()->attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
+        if(Auth::attempt(array($fieldType => $input['username'], 'password' => $input['password'])))
         {
             $user = Auth::user();
             $user->last_login_date = Carbon::now()->toDateTimeString();
@@ -85,6 +97,58 @@ group by year, month */
         $user = Auth::user();
         return view('userSettings', ['user' => $user]);
     }
+
+    public function changePassword()
+    {
+        $this->authenticateUser();
+        $user = Auth::user();
+        return view('userPassword', ['user' => $user]);
+    }
+
+    public function savePassword()
+    {
+        $this->authenticateUser();
+        $user = Auth::user();
+        $valDat = request()->validate([
+            'oldPassword' => 'required',
+            'newPassword' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
+            'newPasswordCheck' => 'required'
+        ]);
+
+        // check old password
+        if(!Hash::check($valDat['oldPassword'], $user->password))
+        {
+            return redirect()->route('changePassword')->withErrors(["oldPassword" => "Old password is incorrect"]);
+        }
+
+        // validate new password
+        if($valDat['newPassword'] != $valDat['newPasswordCheck'])
+        {
+            return redirect()->route('changePassword')->withErrors(["newPasswordCheck" => "New passwords do not match"]);
+        }
+
+        $user->password = Hash::make($valDat['newPassword']);
+        $user->save();
+        return view('userSettings', ['user' => $user]);
+    }
+
+    public function requestPassword()
+    {
+        $valDat = request()->validate([
+            'email' => ['required', 'valid_email', 'exists:users,email', 'max:100'],
+            ]);
+        $user = \App\Models\User::where('email', $valDat['email'])->first();
+        dd("Not yet implemented.");
+        $password = substr(md5(microtime()), 0, 7);
+        //$user->password = Hash::make($password); Commented out for safety
+        $user.save();
+
+        // Email the password to the user
+        // TODO
+
+        return view('userLogin');
+    }
+
     public function setUserSettingsAjax()
     {
         $this->authenticateUser();
@@ -144,15 +208,6 @@ group by year, month */
             'accesstoken' => 'nullable',
             'datapackage' => 'nullable'
         ]);
-
-    //    $user = \App\Models\User::find(1);
-     //   $regions = $user->regions()->get();
-
-
-
-
-
-
 
         if ((array_key_exists('password', $valDat)) || (array_key_exists('accesstoken', $valDat)))
         {
@@ -248,6 +303,27 @@ group by year, month */
         }
         fclose($file);
         return;
+    }
+
+    public function registerUser()
+    {
+        $valDat = request()->validate([
+            'email' => ['required', 'valid_email', 'unique:users,email', 'max:100'],
+            'name' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'unique:users,name', 'max:100'],
+            'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
+        ]);
+        //dd($valDat);
+        $newUser = \App\Models\User::create([
+            'name' => $valDat['name'],
+            'email'=> $valDat['email'],
+            'password'=> Hash::make($valDat['password']),
+            'prefered_language'=> 'en',
+            'accesstoken'=> '']);
+        $newUser->setRandomAccessToken();
+        $newUser->save();
+        $newUser->getName(); 
+
+        return view ('userLogin');
     }
 
     private function processUserDataPackage(User $user, $dataPackage)

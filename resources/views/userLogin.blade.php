@@ -17,7 +17,7 @@ Login
                 {{$errors->first('username')}}
             </div>
         @endif
-        <form method="POST" action="{{ route('userLogin') }}">
+        <form method="POST" action=" {{route('userLogin') }}">
             @csrf
 
             <label for="username"
@@ -65,13 +65,17 @@ Login
                 <button type="submit" class="btn btn-primary">
                     Login
                 </button>
-
-                @if (Route::has('password.request'))
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                        Forgot Your Password
-                    </a>
-                @endif
             </div>
+            <a type="btn-link" href="/forgotPassword">
+                Forgot your password
+            </a>
+
+            <div>
+                <a type="btn btn-link" href="/register">
+                    Create an account
+                </a>
+            </div>
+
         </form>
     </div>
 </div>

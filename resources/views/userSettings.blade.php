@@ -63,6 +63,7 @@
 
                 <div class="container-fluid text-center">
                     <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsLogout')}}</a>
+                    <a href="/changePassword" class="btn btn-outline-primary usersettings-section-button">CHANGE PASSWORD</a>
                 </div>
             </div>
         </div>

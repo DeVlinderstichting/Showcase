@@ -133,6 +133,7 @@ return [
     |
     */
 
+    'valid_email' => 'The :attribute must be a valid email address.',
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

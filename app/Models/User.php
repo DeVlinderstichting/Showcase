@@ -114,6 +114,7 @@ class User extends Authenticatable
         $messages = [];
         $transects = [];
         $lang = [];
+        $langAvailable = [];
         $managementTypes = [];
         $landuseTypes = [];
 
@@ -242,7 +243,12 @@ class User extends Authenticatable
             $singleSp['description'] = $sp->description;
             $singleSp['imageLocation'] = $sp->imagelocation;
             $singleSp['extrainfoLocation'] = $sp->extrainfolocation;
-            $singleSp['localName'] = $sp->$localNameName;
+            $locNam = $sp->$localNameName;
+            if ($locNam == "")
+            {
+                $locNam = $sp->enname;
+            }
+            $singleSp['localName'] = $locNam;
             $species[$sp->id] = $singleSp;
         }
         $theSpeciesGroups = \App\Models\Speciesgroup::all();
@@ -320,10 +326,11 @@ class User extends Authenticatable
             $lang[$theKey->key] = $arrLine;
         }
         */
+        $langAvailable = ['nl','en','fr','es','pt','it','de','dk','no','se','fi','ee','lv','lt','pl','cz','sk','hu','au','ch','si','hr','ba','rs','me','al','gr','bg','ro'];
         $theLanguage = $this->prefered_language;
         foreach($allKeys as $theKey)
         {
-            $theValue = $theKey->theLanguage;
+            $theValue = $theKey->$theLanguage;
             if (($theValue == null) || ($theValue == ""))
             {
                 $theValue = $theKey->en;
@@ -338,6 +345,7 @@ class User extends Authenticatable
         $retArr['messages'] = $messages;
         $retArr['transects'] = $transects;
         $retArr['translations'] = $lang;
+        $retArr['availableTranslations'] = $langAvailable;
         $retArr['managementTypes'] = $managementTypes;
         $retArr['landuseTypes'] = $landuseTypes;
      

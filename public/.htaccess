@@ -18,4 +18,8 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    ExpiresActive On
+    ExpiresDefault A1
+    Header append Cache-Control must-revalidate
 </IfModule>

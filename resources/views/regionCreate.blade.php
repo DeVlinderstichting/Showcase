@@ -302,6 +302,7 @@ Admin home
                 </h5>
             <div class="card-body">
                 <button type="submit" class="btn btn-primary m-1">Store</button>
+                <a href="/adminHome" class="btn btn-secondary m-1">Back</a>
             </div>
         </div> 
     </form>

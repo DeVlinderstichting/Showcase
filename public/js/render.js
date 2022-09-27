@@ -170,7 +170,7 @@ const showHomeScreen = () =>
             <div class="col-12 col-xl-5 col-lg-10 col-md-10">
                 <div class="box-background text-center" style="background-image:url('img/15-count-bg.svg');">
                     <h2>${translations['home15mTitle']}</h2>
-                    <p style="height: 2rem;">${translations['home15mDescr']}</p>
+                    <p style="height:2rem;">${translations['home15mDescr']}</p>
                     <a href="#" id="home_15Button" class="btn">${translations['startButton']}</a>
                 </div>
             </div>    
@@ -345,7 +345,7 @@ const show15mObservationScreen = () =>
 
         <div class="row justify-content-center mb-3">
             <h3><i class="fas fa-stopwatch"></i> <span id="15m_stopwatchText">${translations['stopwatchLabel']}</span></h3>
-            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+            <p><span id="stopwatch" style="font-size:200%;">15:00</span> <i class="fas fa-play" style="font-size:200%;" id="startTimer"></i> <i class="fas fa-pause" style="font-size:200%;" id="pauseTimer"></i> <i class="fas fa-undo" style="font-size:200%;" id="resetTimer"></i></p>
         </div>   
         <div class="row justify-content-center mb-3"> 
             <h3><i class="fas fa-bug"></i> <span id="15m_speciesText">${translations['searchSpeciesLabel']}</span></h3>
@@ -1937,7 +1937,7 @@ const showDataScreen = () =>
               }
             }
         });
-
+        
         $(document).ready( function () {
             $('#obsTable').DataTable(
                 {
@@ -1948,13 +1948,15 @@ const showDataScreen = () =>
                             targets: 3,
                             render: function (data, type, row, meta)
                             {
+                                settings = getUserSettings();
                                 datastring = `'This will redirect to website with details on ${data}'`;
+                                data = '<a href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=/visit">edit</a>';
+                                //data = '<a href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=https://showcase.vlinderstichting.nl/visit">edit</a>';
                                 data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
                                 return data;
                             }
                         }
                     ]
-    
                 }
             );
         } );
@@ -1975,30 +1977,40 @@ const showSettingsScreen = () =>
     var happyButtonString = "";
     for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
     {
-
         var sgu = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
       //  var buttonName = "settings_selectButton_" + sgu.speciesgroup_id + "_" + sgu.recordinglevel_id;
 
-        happyButtonString += `<div class="row" style="margin-top: 8px;">
-                        <img src="img/`+sgu.name+`.png" alt="" class="img-count-settings">
-                            <div class="flex-radio-buttons">`;
-                            if (sgu.id == 1)
-                            {
-                                happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
-                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + "_1" +`" name="`+sgu.name+`-check">
-                                    <span class="checkmark"></span>
-                                </label>`;
-                            } 
-                            happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
-                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+ sgu.id +`_2`+`" name="`+sgu.name+`-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                                <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity:0.5; font-size: 18px;"></i>
-                                    <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + `_3" checked="checked" name="`+sgu.name+`-check">
-                                    <span class="checkmark"></span>
-                                </label>
-                            </div>
-                        </div>`;
+        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sgu.name+`</h3><br>
+                <div class="flex-radio-buttons mt-3">`;
+                if (sgu.id == 1)
+                {
+                    happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
+                        <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + "_1" +`" name="`+sgu.name+`-check">
+                        <span class="checkmark"></span>
+                    </label>`;
+                } 
+                happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i>
+                        <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+ sgu.id +`_2`+`" name="`+sgu.name+`-check">
+                        <span class="checkmark"></span>
+                    </label>
+                    <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity:0.5; font-size: 18px;"></i>
+                        <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + `_3" checked="checked" name="`+sgu.name+`-check">
+                        <span class="checkmark"></span>
+                    </label>
+                </div>
+            </div>`;
+    }
+
+    var happyLangString = "";
+    for(var i = 0; i < Object.keys(settings.availableTranslations).length;i++)
+    {
+        var lan = settings.availableTranslations[i];
+        var selected = "";
+        if (settings.availableTranslations[i] == settings.userSettings.preferedLanguage)
+        {
+            selected = " selected ";
+        }
+        happyLangString += '<option value="' + lan + '"'+selected+'>'+lan+'</option>';
     }
 
     var mb = document.getElementById('mainBody');
@@ -2048,9 +2060,18 @@ const showSettingsScreen = () =>
                         </span>
                         </p>   
                     </div>
+                    <div class="row" style="margin-top: 8px;">
+                        <p>Language <span class="user-name">   
+                            <select name="setting_selectPreferedLanguage" id="setting_selectPreferedLanguage">
+                            `+happyLangString+`
+                            </select>
+                        </span>
+                        </p>   
+                    </div>
                     <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
-                            <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button>
+                            <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button><br><br>
+                            <a href="/userLoginWithToken?username=`+settings.userSettings.email+`&token=`+settings.userSettings.accessToken+`&redirect=/settings">More settings (online)</a>
                         </div>
                     </div>
                 </div>
@@ -2138,12 +2159,22 @@ const showSettingsScreen = () =>
         currentSettings = getUserSettings().userSettings;
         currentSettings.showOnlyCommonSpecies = $(this).is(':checked');
         storeSettingsData('userSettings', currentSettings);
+
     });
     $('#settings_showPreviouslySeenCheck').click( function () 
     {
         currentSettings = getUserSettings().userSettings;
         currentSettings.showPreviouslyObservedSpecies = $(this).is(':checked');
         storeSettingsData('userSettings', currentSettings);
+    });
+    $('#setting_selectPreferedLanguage').change( function () 
+    {
+        var elem = document.getElementById('setting_selectPreferedLanguage');
+        var selectedValue = elem.value;
+        settings = getUserSettings();
+        userSettings.userSettings.preferedLanguage = selectedValue;
+        storeSettingsInDatabase();
+        synchWithServer();
     });
 
     $('#settings_logoutButton').click( function () 

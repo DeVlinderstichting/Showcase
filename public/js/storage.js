@@ -24,7 +24,6 @@ function removeDatabase()
 function setupDatabase()
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);
-    
     req.onerror = function (evnt) 
     {
         console.log("db set up error");
@@ -33,6 +32,7 @@ function setupDatabase()
 
     req.onupgradeneeded = function (evnt) 
     {
+        console.log("starting with creating new database");
         db = req.result;
         var settingsStore = db.createObjectStore(DB_STORE_NAME_SETTINGS, { keyPath: 'name'});
         var visitsStore = db.createObjectStore(DB_STORE_NAME_VISITS, { keyPath: 'startdate'});
@@ -71,7 +71,6 @@ function requestUserPackage(username = "", password = "", sendBackHome = false)
         },
         success: function(data) 
         {
-
             storeUserPackage(data, sendBackHome);
         }
     });
@@ -164,12 +163,11 @@ function loadUserSettings(sendBackHome = false)
 function storeSettingsData(key, data)
 {
     var req = indexedDB.open(DB_NAME, DB_VERSION);
-    
     req.onerror = function (evnt) 
     {
         console.error("openDb:", evnt.target.errorCode);
     };
-
+console.log("changing:" + key + ", to: " + data);
     req.onsuccess = function (evnt) 
     {
         db = req.result;

@@ -22,6 +22,7 @@ Translations
                 Translations
             </h5>
             <div class="card-body">
+                <a href="/adminHome" class="btn btn-secondary">Back</a><br>
                 Translations: <br>
                 <table> 
                     <tr><th style="width: 20%">Key</th><th style="width: 40%">En</th><th style="width: 40%">{{$language}}</th></tr>
@@ -54,5 +55,6 @@ Translations
                 }
             </script>
         </div>
+        <a href="/adminHome" class="btn btn-secondary">Back</a>
     </div>
 @endsection

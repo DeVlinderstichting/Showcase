@@ -19,6 +19,8 @@ Route::get('/register', 'App\Http\Controllers\UserController@showRegister')->nam
 Route::post('/registerUser', 'App\Http\Controllers\UserController@registerUser')->name('registerUser');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 Route::get('/settings', '\App\Http\Controllers\UserController@showSettings')->name('settings')->middleware('auth');
+Route::get('/userLoginWithToken', 'App\Http\Controllers\UserController@userLoginWithToken');
+
 Route::get('/changePassword', '\App\Http\Controllers\UserController@changePassword')->name('changePassword')->middleware('auth');
 Route::post('/savePassword', '\App\Http\Controllers\UserController@savePassword')->name('savePassword')->middleware('auth');
 Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('forgotPassword');

@@ -149,7 +149,8 @@ group by year, month */
 
         $user->password = Hash::make($valDat['newPassword']);
         $user->save();
-        return view('userSettings', ['user' => $user]);
+        return back()->with('status', 'Your new password has been saved!');
+        //return view('userSettings', ['user' => $user])->with('status', 'Your new password has been saved!');
     }
 
     public function emailPassword(Request $request)

@@ -18,6 +18,11 @@
             <h5 class="card-header">
                 Request a new password
             </h5>
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
 
             <div class="card-body">
                 <form action="/forgotPassword" method="post">

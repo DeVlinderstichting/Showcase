@@ -28,7 +28,7 @@ Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPa
 Route::post('/forgotPassword', '\App\Http\Controllers\UserController@emailPassword')->name('password.email');
 
 Route::get('/resetPassword/{token}', '\App\Http\Controllers\UserController@resetPassword')->name('password.reset');
-Route::post('resetPassword', '\App\Http\Controllers\UserController@resetPasswordSave');
+Route::post('/resetPassword', '\App\Http\Controllers\UserController@resetPasswordSave');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');

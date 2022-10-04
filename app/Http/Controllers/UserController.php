@@ -154,11 +154,6 @@ group by year, month */
 
     public function emailPassword(Request $request)
     {
-
-        // return $status == Password:RESET_LINK_SENT
-        //     ? back()->with('status', __($status))
-        //     : back()->withInput($request->only('email'))
-        //         ->withErrors(['email' => __($status)]);
         $request->validate([
             'email' => ['required', 'valid_email', 'exists:users,email', 'max:100']
         ]);
@@ -180,12 +175,17 @@ group by year, month */
 
     public function resetPasswordSave(Request $request)
     {
-        $request->validate([
+        $valDat = $request->validate([
             'token' => 'required',
             'email' => ['required', 'valid_email', 'exists:users,email'],
             'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
             'password_confirmation' => 'required'
         ]);
+
+        if($valDat['password'] != $valDat['password_confirmation']) // validate new password
+        {
+            return redirect()->route('password.reset', ['token'=>$valDat['token'],'email'=>$valDat['email']])->withErrors(["password" => "New passwords do not match"]);
+        }
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -194,8 +194,6 @@ group by year, month */
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
-
-                // Event left out
             }
         );
 

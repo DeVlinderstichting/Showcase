@@ -12,9 +12,9 @@ Login
 <div class="container-fluid background-container d-flex">
     <div class="central-container">
         <h1>Welcome</h1>
-        @if($errors->has('username'))
+        @if($errors->has('password'))
             <div class="alert alert-danger" role="alert">
-                {{$errors->first('username')}}
+                {{$errors->first('password')}}
             </div>
         @endif
         <form method="POST" action=" {{route('userLogin') }}">

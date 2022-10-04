@@ -20,7 +20,7 @@
             </h5>
 
             <div class="card-body">
-                <form action="/requestPassword" method="post">
+                <form action="/forgotPassword" method="post">
                     @csrf
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email address</label>

@@ -23,8 +23,12 @@ Route::get('/userLoginWithToken', 'App\Http\Controllers\UserController@userLogin
 
 Route::get('/changePassword', '\App\Http\Controllers\UserController@changePassword')->name('changePassword')->middleware('auth');
 Route::post('/savePassword', '\App\Http\Controllers\UserController@savePassword')->name('savePassword')->middleware('auth');
-Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('forgotPassword');
-Route::post('/requestPassword', '\App\Http\Controllers\UserController@requestPassword')->name('requestPassword');
+
+Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('pasword.request');
+Route::post('/forgotPassword', '\App\Http\Controllers\UserController@emailPassword')->name('password.email');
+
+Route::get('/resetPassword/{token}', '\App\Http\Controllers\UserController@resetPassword')->name('password.reset');
+Route::post('resetPassword', '\App\Http\Controllers\UserController@resetPasswordSave');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');
 Route::get('/showIdHelp', '\App\Http\Controllers\GeneralPagesController@showIdHelp');

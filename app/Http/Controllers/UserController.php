@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use \App\Models\User;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Password;
 use Auth;
 use DB;
 use Hash;
+use Str;
 
 //this controller is in charge of creating a package with all the user information, required to set up the app (the first time). This package should contain the species/settings/eba's etc 
 class UserController extends Controller
@@ -150,21 +152,58 @@ group by year, month */
         return view('userSettings', ['user' => $user]);
     }
 
-    public function requestPassword()
+    public function emailPassword(Request $request)
     {
-        $valDat = request()->validate([
-            'email' => ['required', 'valid_email', 'exists:users,email', 'max:100'],
-            ]);
-        $user = \App\Models\User::where('email', $valDat['email'])->first();
-        dd("Not yet implemented.");
-        $password = substr(md5(microtime()), 0, 7);
-        //$user->password = Hash::make($password); Commented out for safety
-        $user.save();
 
-        // Email the password to the user
-        // TODO
+        // return $status == Password:RESET_LINK_SENT
+        //     ? back()->with('status', __($status))
+        //     : back()->withInput($request->only('email'))
+        //         ->withErrors(['email' => __($status)]);
+        $request->validate([
+            'email' => ['required', 'valid_email', 'exists:users,email', 'max:100']
+        ]);
 
-        return view('userLogin');
+        $status = Password::sendResetLink(
+            $request->only('email')
+        );
+
+        return $status == Password::RESET_LINK_SENT
+                    ? back()->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                        ->withErrors(['email' => __($status)]);
+    }
+
+    public function resetPassword(Request $request, $token)
+    {
+        return view('resetPassword', ['request' => $request]);
+    }
+
+    public function resetPasswordSave(Request $request)
+    {
+        $request->validate([
+            'token' => 'required',
+            'email' => ['required', 'valid_email', 'exists:users,email'],
+            'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
+            'password_confirmation' => 'required'
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function ($user) use ($request) {
+                $user->forceFill([
+                    'password' => Hash::make($request->password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                // Event left out
+            }
+        );
+
+        return $status == Password::PASSWORD_RESET
+                    ? redirect()->route('showLogin')->with('status', __($status))
+                    : back()->withInput($request->only('email'))
+                            ->withErrors(['email' => __($status)]);
+
     }
 
     public function setUserSettingsAjax()

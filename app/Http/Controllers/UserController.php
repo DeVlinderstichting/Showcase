@@ -377,7 +377,6 @@ group by year, month */
             'accesstoken'=> '']);
         $newUser->setRandomAccessToken();
         $newUser->save();
-        $newUser->getName(); 
 
         return view ('userLogin');
     }

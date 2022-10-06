@@ -32,7 +32,7 @@ class SpeciesSeeder extends Seeder
         $bfSpGroup->defaultspecies_id = $defBf->id;
         $bfSpGroup->save();
 
-        $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true, 'imageLocation' => 'img/butterflies.png']);
+        $mothSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'moths', 'description' => 'moths', 'usercancount' => true, 'imageLocation' => 'img/moths.png']);
         $defMoth = \App\Models\Species::create([
             'genus' => 'heterocera',
             'taxon' => '',
@@ -66,7 +66,7 @@ class SpeciesSeeder extends Seeder
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
         $beesSpeciesGroup->save(); */
 
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bumblebees', 'description' => 'Bumblebees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bumblebees', 'description' => 'Bumblebees', 'usercancount' => true, 'imageLocation' => 'img/bumblebees.png', 'visibible_for_users' => true]);
         $defBee = \App\Models\Species::create([
             'genus' => 'bumblebees',
             'taxon' => '',
@@ -83,7 +83,7 @@ class SpeciesSeeder extends Seeder
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
         $beesSpeciesGroup->save();
 
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'solitarybees', 'description' => 'Solitary bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'solitarybees', 'description' => 'Solitary bees', 'usercancount' => true, 'imageLocation' => 'img/solitarybees.png', 'visibible_for_users' => true]);
         $defBee = \App\Models\Species::create([
             'genus' => 'solitarybees',
             'taxon' => '',
@@ -100,7 +100,7 @@ class SpeciesSeeder extends Seeder
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
         $beesSpeciesGroup->save();
 
-        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'honeybees', 'description' => 'Honey bees', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beesSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'honeybees', 'description' => 'Honey bees', 'usercancount' => true, 'imageLocation' => 'img/honeybees.png', 'visibible_for_users' => true]);
         $defBee = \App\Models\Species::create([
             'genus' => 'honeybees',
             'taxon' => '',
@@ -117,7 +117,7 @@ class SpeciesSeeder extends Seeder
         $beesSpeciesGroup->defaultspecies_id = $defBee->id;
         $beesSpeciesGroup->save();
 
-        $hvSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'hoverflies', 'description' => 'Hoverflies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $hvSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'hoverflies', 'description' => 'Hoverflies', 'usercancount' => true, 'imageLocation' => 'img/hoverflies.png', 'visibible_for_users' => true]);
         $defHv = \App\Models\Species::create([
             'genus' => 'syrphidae',
             'taxon' => '',
@@ -134,7 +134,7 @@ class SpeciesSeeder extends Seeder
         $hvSpeciesGroup->defaultspecies_id = $defHv->id;
         $hvSpeciesGroup->save();
 
-        $flySpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'flies', 'description' => 'Flies', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $flySpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'flies', 'description' => 'Flies', 'usercancount' => true, 'imageLocation' => 'img/flies.png', 'visibible_for_users' => true]);
         $defFly = \App\Models\Species::create([
             'genus' => 'diptera',
             'taxon' => '',
@@ -151,7 +151,7 @@ class SpeciesSeeder extends Seeder
         $flySpeciesGroup->defaultspecies_id = $defFly->id;
         $flySpeciesGroup->save();
 
-        $beetleSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'beetles', 'description' => 'Beetles', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $beetleSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'beetles', 'description' => 'Beetles', 'usercancount' => true, 'imageLocation' => 'img/beetles.png', 'visibible_for_users' => true]);
         $defBeetle = \App\Models\Species::create([
             'genus' => 'coleoptera',
             'taxon' => '',
@@ -168,7 +168,7 @@ class SpeciesSeeder extends Seeder
         $beetleSpeciesGroup->defaultspecies_id = $defBeetle->id;
         $beetleSpeciesGroup->save();
 
-        $bugSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bugs', 'description' => 'Bugs', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $bugSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'bugs', 'description' => 'Bugs', 'usercancount' => true, 'imageLocation' => 'img/bugs.png', 'visibible_for_users' => true]);
         $defBug = \App\Models\Species::create([
             'genus' => 'insecta',
             'taxon' => '',
@@ -184,7 +184,7 @@ class SpeciesSeeder extends Seeder
         ]);
         $bugSpeciesGroup->defaultspecies_id = $defBug->id;
         $bugSpeciesGroup->save();
-        $waspsSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'wasps', 'description' => 'Wasps', 'usercancount' => true, 'imageLocation' => 'img/bees.png', 'visibible_for_users' => true]);
+        $waspsSpeciesGroup = \App\Models\Speciesgroup::create(['name' => 'wasps', 'description' => 'Wasps', 'usercancount' => true, 'imageLocation' => 'img/wasps.png', 'visibible_for_users' => true]);
         $defWasp = \App\Models\Species::create([
             'genus' => 'wasps',
             'taxon' => '',

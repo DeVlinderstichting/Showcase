@@ -127,7 +127,7 @@
                     <h3 class="usersettings-title-sub"></h3>
                     <div>
                         <div class="row usersettings-count-item" style="margin-top: 8px;">   
-                            <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
+                            <p><i class="fas fa-bug" style="color: #f5e590; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
                             <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountOnlyGroups')}}</span></p>
@@ -146,7 +146,16 @@
                                 <div class="flex-radio-buttons usersettings-count-item-selector">
                                     @foreach(\App\Models\RecordingLevel::all() as $rl)
                                         @if ((($rl->name=='species') && ($sg->name == 'butterflies')) || ($rl->name!='species'))
-                                            <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                            @php
+                                            if ($rl->name=='species') {
+                                               $color = "#fda230";
+                                            }elseif ($rl->name=='group') {
+                                               $color = "#ffe421";
+                                            }else{
+                                               $color = "#f5e590";
+                                            }
+                                            @endphp
+                                            <label class="container-radio-buttons"><i class="fas fa-bug" style="color: {{$color}}; font-size: 18px;"></i>
                                                 <input class="usersettings-count-item-selector-input" type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
                                                 <?php 
                                                     $checked = "";

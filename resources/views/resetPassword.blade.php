@@ -18,6 +18,11 @@
             <h5 class="card-header">
                 Reset password
             </h5>
+             @if($errors->has('username'))
+            <div class="alert alert-danger" role="alert">
+                {{$errors->first('username')}}
+            </div>
+            @endif
 
             <div class="card-body">
                 <form action="/resetPassword" method="post">
@@ -28,13 +33,13 @@
                     <div class="form-group row">
                         <label for="email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" id="email" name="email" value="{{ old('email', $request->email) }}" autofocus>
+                            <input type="email" id="email" name="email" value="{{ old('email', $request->email) }}" readonly>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="password" class="col-sm-2 col-form-label">New password</label>
                         <div class="col-sm-10">
-                           <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password">
+                           <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" autofocus>
                             @if($errors->has('password'))
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{$errors->first('password')}}</strong>

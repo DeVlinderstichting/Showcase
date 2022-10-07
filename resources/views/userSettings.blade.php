@@ -54,7 +54,21 @@
                                 <input id= "userSettingShowCommon" class="form-check-input" onchange="changeUserSetting('showCommon');" @if($user->show_only_common_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
-                        </tr>                                        
+                        </tr>
+                        <tr>
+                            <td>{{\App\Models\Language::getItem('userSettingsPreferedLanguage')}}</td>
+                            <td>
+                                <select id="prefered_language" onchange="changeUserSetting('preferedLanguage');">
+
+                                <?php $theLanguages = ['al','au','ba','bg','ch','cz','de','dk','ee','en','es','fi','fr','gr','hr','hu','it','lt','lv','me','nl','no','pl','pt','ro','rs','se','si','sk']; ?>
+
+                                @foreach ($theLanguages as $lan)
+                                    <option @if($user->prefered_language == $lan) selected @endif value="{{$lan}}">{{$lan}}</option>
+                                @endforeach
+
+                                </select>
+                            </td>
+                        </tr>                            
                     </tbody>
                 </table>
 
@@ -63,7 +77,7 @@
 
                 <div class="container-fluid text-center">
                     <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsLogout')}}</a>
-                    <a href="/changePassword" class="btn btn-outline-primary usersettings-section-button">CHANGE PASSWORD</a>
+                    <a href="/changePassword" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsChangePassword')}}</a>
                 </div>
             </div>
         </div>
@@ -73,6 +87,7 @@
         function changeUserSetting(settingName)
         {
             settingValue = "";
+            language = "en";
             var doPost = false;
             if (settingName == 'sciName')
             {
@@ -92,6 +107,12 @@
                 settingValue = elem.checked;
                 doPost = true;
             }
+            if (settingName == 'preferedLanguage')
+            {
+                var elem = document.getElementById('prefered_language');
+                language = elem.value;
+                doPost = true;
+            }
             if (settingValue)
             {
                 settingValue = 1;
@@ -109,7 +130,8 @@
                     data: 
                     {
                         "settingsname": settingName, 
-                        "settingsvalue": settingValue
+                        "settingsvalue": settingValue,
+                        "language": language
                     },
                     success:function(data) 
                     {                        
@@ -127,7 +149,7 @@
                     <h3 class="usersettings-title-sub"></h3>
                     <div>
                         <div class="row usersettings-count-item" style="margin-top: 8px;">   
-                            <p><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
+                            <p><i class="fas fa-bug" style="color: #f5e590; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
                             <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountOnlyGroups')}}</span></p>
@@ -146,7 +168,16 @@
                                 <div class="flex-radio-buttons usersettings-count-item-selector">
                                     @foreach(\App\Models\RecordingLevel::all() as $rl)
                                         @if ((($rl->name=='species') && ($sg->name == 'butterflies')) || ($rl->name!='species'))
-                                            <label class="container-radio-buttons"><i class="fas fa-bug" style="color: #f5e590; opacity: 0.5; font-size: 18px;"></i>
+                                            @php
+                                            if ($rl->name=='species') {
+                                               $color = "#fda230";
+                                            }elseif ($rl->name=='group') {
+                                               $color = "#ffe421";
+                                            }else{
+                                               $color = "#f5e590";
+                                            }
+                                            @endphp
+                                            <label class="container-radio-buttons"><i class="fas fa-bug" style="color: {{$color}}; font-size: 18px;"></i>
                                                 <input class="usersettings-count-item-selector-input" type="radio" onchange="setRecordingLevel({{$rl->id}}, {{$sg->id}});" id="settings_select_{{$sg->id}}_{{$rl->id}}" 
                                                 <?php 
                                                     $checked = "";

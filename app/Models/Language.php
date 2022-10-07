@@ -10,6 +10,16 @@ class Language extends Model
 {
     use HasFactory;
 
+    /**
+    * Get the translation of an item in a certain language
+    * 
+    * This language is the logged-in user's preference or languageName, if it
+    * does not equal 'en'. If no translation is found, then 'en' is used.
+    * 
+    * @param string $key 
+    * @param string $languageName
+    * @return string translation of the key
+    */
     public static function getItem($key, $languageName = 'en')
     {
         $user = Auth::user();

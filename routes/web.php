@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/showLoginScreen', 'App\Http\Controllers\UserController@showLogin')->name('showLogin');
+Route::get('/showLoginScreen', 'App\Http\Controllers\UserController@showLogin')->name('showLogin')->middleware('guest');
 Route::post('/userLogin', 'App\Http\Controllers\UserController@userLogin')->name('userLogin');
-Route::get('/register', 'App\Http\Controllers\UserController@showRegister')->name('showRegister');
+Route::get('/register', 'App\Http\Controllers\UserController@showRegister')->name('showRegister')->middleware('guest');
 Route::post('/registerUser', 'App\Http\Controllers\UserController@registerUser')->name('registerUser');
 Route::get('/home', '\App\Http\Controllers\UserController@showHome')->name('home')->middleware('auth');
 Route::get('/settings', '\App\Http\Controllers\UserController@showSettings')->name('settings')->middleware('auth');
@@ -24,10 +24,10 @@ Route::get('/userLoginWithToken', 'App\Http\Controllers\UserController@userLogin
 Route::get('/changePassword', '\App\Http\Controllers\UserController@changePassword')->name('changePassword')->middleware('auth');
 Route::post('/savePassword', '\App\Http\Controllers\UserController@savePassword')->name('savePassword')->middleware('auth');
 
-Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('pasword.request');
+Route::get('/forgotPassword', '\App\Http\Controllers\UserController@showForgotPassword')->name('pasword.request')->middleware('guest');
 Route::post('/forgotPassword', '\App\Http\Controllers\UserController@emailPassword')->name('password.email');
 
-Route::get('/resetPassword/{token}', '\App\Http\Controllers\UserController@resetPassword')->name('password.reset');
+Route::get('/resetPassword/{token}', '\App\Http\Controllers\UserController@resetPassword')->name('password.reset')->middleware('guest');
 Route::post('/resetPassword', '\App\Http\Controllers\UserController@resetPasswordSave');
 
 Route::get('/showUserPushMessages', '\App\Http\Controllers\UserController@showPushMessages');

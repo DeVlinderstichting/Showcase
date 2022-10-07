@@ -149,16 +149,12 @@ group by year, month */
 
         $user->password = Hash::make($valDat['newPassword']);
         $user->save();
-        return view('userSettings', ['user' => $user]);
+        return back()->with('status', 'Your new password has been saved!');
+        //return view('userSettings', ['user' => $user])->with('status', 'Your new password has been saved!');
     }
 
     public function emailPassword(Request $request)
     {
-
-        // return $status == Password:RESET_LINK_SENT
-        //     ? back()->with('status', __($status))
-        //     : back()->withInput($request->only('email'))
-        //         ->withErrors(['email' => __($status)]);
         $request->validate([
             'email' => ['required', 'valid_email', 'exists:users,email', 'max:100']
         ]);
@@ -180,12 +176,17 @@ group by year, month */
 
     public function resetPasswordSave(Request $request)
     {
-        $request->validate([
+        $valDat = $request->validate([
             'token' => 'required',
             'email' => ['required', 'valid_email', 'exists:users,email'],
             'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
             'password_confirmation' => 'required'
         ]);
+
+        if($valDat['password'] != $valDat['password_confirmation']) // validate new password
+        {
+            return redirect()->route('password.reset', ['token'=>$valDat['token'],'email'=>$valDat['email']])->withErrors(["password" => "New passwords do not match"]);
+        }
 
         $status = Password::reset(
             $request->only('email', 'password', 'password_confirmation', 'token'),
@@ -194,8 +195,6 @@ group by year, month */
                     'password' => Hash::make($request->password),
                     'remember_token' => Str::random(60),
                 ])->save();
-
-                // Event left out
             }
         );
 
@@ -210,8 +209,10 @@ group by year, month */
     {
         $this->authenticateUser();
         $valDat = request()->validate([
-            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon']),
-            'settingsvalue' => ['required', 'integer', 'between:0,1']
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'preferedLanguage']),
+            'settingsvalue' => ['required', 'integer', 'between:0,1'],
+            'language' => ['required', 'string',
+                'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro']
         ]);
         $user = Auth::user();
         if ($valDat['settingsname'] == 'sciName')
@@ -225,6 +226,10 @@ group by year, month */
         if ($valDat['settingsname'] == 'showCommon')
         {
             $user->show_only_common_species = $valDat['settingsvalue'];
+        }
+        if ($valDat['settingsname'] == 'preferedLanguage')
+        {
+            $user->prefered_language = $valDat['language'];
         }
         $user->save();
     }
@@ -378,7 +383,6 @@ group by year, month */
             'accesstoken'=> '']);
         $newUser->setRandomAccessToken();
         $newUser->save();
-        $newUser->getName(); 
 
         return view ('userLogin');
     }

@@ -167,7 +167,7 @@
             @else
                 lastYearAll
             @endif
-            [{{ $asmd->month }}] = {{ $asmd->count }};
+            [{{ $asmd->month-1}}] = {{ $asmd->count }};
         @endforeach
         @foreach ($userSpMonthlyData as $usmd)
             @if ($usmd->year == date('Y'))
@@ -175,7 +175,7 @@
             @else
                 lastYearMine
             @endif
-            [{{ $usmd->month }}] = {{ $usmd->count }};
+            [{{ $usmd->month-1}}] = {{ $usmd->count }};
         @endforeach
 
         function getRandomColor() {

@@ -209,8 +209,10 @@ group by year, month */
     {
         $this->authenticateUser();
         $valDat = request()->validate([
-            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon']),
-            'settingsvalue' => ['required', 'integer', 'between:0,1']
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'preferedLanguage']),
+            'settingsvalue' => ['required', 'integer', 'between:0,1'],
+            'language' => ['required', 'string',
+                'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro']
         ]);
         $user = Auth::user();
         if ($valDat['settingsname'] == 'sciName')
@@ -224,6 +226,10 @@ group by year, month */
         if ($valDat['settingsname'] == 'showCommon')
         {
             $user->show_only_common_species = $valDat['settingsvalue'];
+        }
+        if ($valDat['settingsname'] == 'preferedLanguage')
+        {
+            $user->prefered_language = $valDat['language'];
         }
         $user->save();
     }

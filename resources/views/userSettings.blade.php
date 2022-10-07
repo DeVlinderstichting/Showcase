@@ -54,7 +54,21 @@
                                 <input id= "userSettingShowCommon" class="form-check-input" onchange="changeUserSetting('showCommon');" @if($user->show_only_common_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
-                        </tr>                                        
+                        </tr>
+                        <tr>
+                            <td>{{\App\Models\Language::getItem('userSettingsPreferedLanguage')}}</td>
+                            <td>
+                                <select id="prefered_language" onchange="changeUserSetting('preferedLanguage');">
+
+                                <?php $theLanguages = ['al','au','ba','bg','ch','cz','de','dk','ee','en','es','fi','fr','gr','hr','hu','it','lt','lv','me','nl','no','pl','pt','ro','rs','se','si','sk']; ?>
+
+                                @foreach ($theLanguages as $lan)
+                                    <option @if($user->prefered_language == $lan) selected @endif value="{{$lan}}">{{$lan}}</option>
+                                @endforeach
+
+                                </select>
+                            </td>
+                        </tr>                            
                     </tbody>
                 </table>
 
@@ -63,7 +77,7 @@
 
                 <div class="container-fluid text-center">
                     <a href="/logOff" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsLogout')}}</a>
-                    <a href="/changePassword" class="btn btn-outline-primary usersettings-section-button">CHANGE PASSWORD</a>
+                    <a href="/changePassword" class="btn btn-outline-primary usersettings-section-button">{{\App\Models\Language::getItem('userSettingsChangePassword')}}</a>
                 </div>
             </div>
         </div>
@@ -73,6 +87,7 @@
         function changeUserSetting(settingName)
         {
             settingValue = "";
+            language = "en";
             var doPost = false;
             if (settingName == 'sciName')
             {
@@ -92,6 +107,12 @@
                 settingValue = elem.checked;
                 doPost = true;
             }
+            if (settingName == 'preferedLanguage')
+            {
+                var elem = document.getElementById('prefered_language');
+                language = elem.value;
+                doPost = true;
+            }
             if (settingValue)
             {
                 settingValue = 1;
@@ -109,7 +130,8 @@
                     data: 
                     {
                         "settingsname": settingName, 
-                        "settingsvalue": settingValue
+                        "settingsvalue": settingValue,
+                        "language": language
                     },
                     success:function(data) 
                     {                        

@@ -10,6 +10,7 @@
     <p class="px-4 identification-title-sub">{{\App\Models\Language::getItem('generalPagesIdHelpSubHeader')}}</p>
 </div>
 <div class="container text-center mt-3 mb-3">
+    <a href="#eu" class="btn btn-primary identification-section-button">Europe</a>
     <a href="#nl" class="btn btn-primary identification-section-button">Netherlands</a>
     <a href="#gb" class="btn btn-primary identification-section-button">United Kingdom</a>
     <a href="#es" class="btn btn-primary identification-section-button">Spain</a>

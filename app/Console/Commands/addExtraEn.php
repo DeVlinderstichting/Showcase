@@ -68,5 +68,10 @@ class addExtraEn extends Command
         $l->key = "passwordOld";
         $l->en = "Old password";
         $l->save();
+
+        $l = new \App\Models\Language(); 
+        $l->key = "visitCreateSectionSameSpecies";
+        $l->en = "It is not possible to have the same species multiple times on the same section";
+        $l->save();    
     }
 }

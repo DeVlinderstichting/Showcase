@@ -147,7 +147,6 @@ class VisitController extends Controller
         $rules = [];
         $rules['startdate'] = ['required', 'date'];
         $rules['enddate'] = ['required', 'date'];
-        $rules['observations'] = ['nullable', 'array'];
         $rules['observations.*.number'] = ['required', 'integer', 'between:0,1001'];
         $rules['observations.*.species_id'] = ['required', 'exists:species,id'];
         $rules['recorders'] = ['nullable', 'integer'];
@@ -156,6 +155,15 @@ class VisitController extends Controller
         $rules['speciesgrouprecordinglevel'] = ['nullable', 'array'];
         $rules['landusetype_id'] = ['nullable', 'exists:landusetypes,id'];
         $rules['managementtype_id'] = ['nullable', 'exists:managementtypes,id'];
+
+        if ($countType == 1)  // single observations require observations
+        {
+            $rules['observations'] = ['nullable', 'array', 'required']; 
+        }
+        else
+        {
+            $rules['observations'] = ['nullable', 'array'];
+        }
 
         if ($countType == 2 || $countType == 3)
         {
@@ -283,58 +291,62 @@ class VisitController extends Controller
         }
         */
 
-        $observations = $valDat['observations'];
 
-        foreach($observations as $obsDat)
+        if (array_key_exists('observations', $valDat))
         {
-            $obsCarbonDate = Carbon::parse($obsDat['observationtime']);
-            $obsSearchDate = $obsCarbonDate->format('Y-m-d H:i:s');
-            $obsQ = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id']);
-            if ($obsDat['observationtime'] != '')
-            {
-                $obsQ = $obsQ->where('observationtime', '=', $obsSearchDate);
-            }
-            if (array_key_exists('section', $obsDat))
-            {
-                $obsQ = $obsQ->where('transect_section_id', $obsDat['section']);
-            }
-            $obs = $obsQ->first();
+            $observations = $valDat['observations'];
 
-            if ($obs == null)
+            foreach($observations as $obsDat)
             {
-                $obs = new \App\Models\Observation();
-            }
-
-            $obs->species_id = $obsDat['species_id'];
-            $obs->number = $obsDat['number'];
-            $obs->visit_id = $visit->id;
-            $obs->observationtime = $obsSearchDate;
-            if ($countType != 3) //not a transect so a geometry is required 
-            {
-                $obs->location = $valDat['geometry'];
-            }
-            else 
-            {
-                if (array_key_exists('section', $obsDat)) 
+                $obsCarbonDate = Carbon::parse($obsDat['observationtime']);
+                $obsSearchDate = $obsCarbonDate->format('Y-m-d H:i:s');
+                $obsQ = \App\Models\Observation::where('visit_id', $visit->id)->where('species_id', $obsDat['species_id']);
+                if ($obsDat['observationtime'] != '')
                 {
-                    $theTransectSection = \App\Models\TransectSections::find($obsDat['section']);
-                    $obs->location = $theTransectSection->location;
-                    $obs->transect_section_id = $obsDat['section'];
+                    $obsQ = $obsQ->where('observationtime', '=', $obsSearchDate);
                 }
+                if (array_key_exists('section', $obsDat))
+                {
+                    $obsQ = $obsQ->where('transect_section_id', $obsDat['section']);
+                }
+                $obs = $obsQ->first();
+
+                if ($obs == null)
+                {
+                    $obs = new \App\Models\Observation();
+                }
+
+                $obs->species_id = $obsDat['species_id'];
+                $obs->number = $obsDat['number'];
+                $obs->visit_id = $visit->id;
+                $obs->observationtime = $obsSearchDate;
+                if ($countType != 3) //not a transect so a geometry is required 
+                {
+                    $obs->location = $valDat['geometry'];
+                }
+                else 
+                {
+                    if (array_key_exists('section', $obsDat)) 
+                    {
+                        $theTransectSection = \App\Models\TransectSections::find($obsDat['section']);
+                        $obs->location = $theTransectSection->location;
+                        $obs->transect_section_id = $obsDat['section'];
+                    }
+                }
+
+              //  if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = 
+              // $obsDat['transect_section_id'];}
+
+                $obs->save();
+
+                //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
+                //\DB::raw("ST_GeomFromGeoJSON('$geom')"
+            //  $obs->location = "POINT(" . $obsDat['location'] . ")";
+            //    $locItems = explode(",", $obsDat['location']);
+             //   $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
+
+              //  DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
             }
-
-          //  if (array_key_exists('transect_section_id', $obsDat)) {$visit->transect_section_id = 
-          // $obsDat['transect_section_id'];}
-
-            $obs->save();
-
-            //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
-            //\DB::raw("ST_GeomFromGeoJSON('$geom')"
-        //  $obs->location = "POINT(" . $obsDat['location'] . ")";
-        //    $locItems = explode(",", $obsDat['location']);
-         //   $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
-
-          //  DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
         }
         return redirect("/visit");
     }

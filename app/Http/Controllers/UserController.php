@@ -540,10 +540,28 @@ group by year, month */
                 //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
                 //\DB::raw("ST_GeomFromGeoJSON('$geom')"
               //  $obs->location = "POINT(" . $obsDat['location'] . ")";
-                $locItems = explode(",", $obsDat['location']);
-                $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
 
-                DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
+                $skip = false;
+                if (array_key_exists('location', $obsDat))
+                {
+                    $locItems = explode(",", $obsDat['location']);
+                }
+                else 
+                {
+                    if (array_key_exists('location', $vDat['location']))
+                    {
+                        $locItems = explode(",", $vDat['location']);
+                    }
+                    else 
+                    {
+                        $skip = true;
+                    }
+                }
+                if (!$skip)
+                {
+                    $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
+                    DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
+                }
             }
 
          //   ST_GeomFromGeoJSON('{"type":"Point","coordinates":[-48.23456,20.12345]}')

@@ -879,7 +879,7 @@ const showFitObservationScreen = () =>
 
         <div class="row justify-content-center mb-3">
             <h3><i class="fas fa-stopwatch"></i> <span id="fit_stopwatchText">${translations['stopwatchLabel']}</span></h3>
-            <p><span id="stopwatch">15:00</span> <i class="fas fa-play" id="startTimer"></i> <i class="fas fa-pause" id="pauseTimer"></i> <i class="fas fa-undo" id="resetTimer"></i></p>
+            <p><span id="stopwatch">15:00</span> <i style="font-size:200%;" class="fas fa-play" id="startTimer"></i> <i style="font-size:200%;" class="fas fa-pause" id="pauseTimer"></i> <i style="font-size:200%;" class="fas fa-undo" id="resetTimer"></i></p>
         </div>  
 
 
@@ -1304,7 +1304,7 @@ const showTransectPreObservationScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['transectPreInfoModalTitle'], translations['transectPreInfoModalContents']);
     
-    for (var i = 0 ; i < transects.length; i++)
+    for (var i = 0 ; i < transects.length; i++) 
     {
         $('#pretransect_selectTransects').append(`<option value="` + transects[i].id + `">` + transects[i].name + `</option>`); 
     }

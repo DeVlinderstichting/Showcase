@@ -113,7 +113,7 @@ function timer()
     {
         var d = new Date();
         stopWatchTimeLeft = stopwatchFutureTime - d;
-        document.getElementById("stopwatch").innerHTML = "Wating for exact location, try moving a few steps.";
+        document.getElementById("stopwatch").innerHTML = "Wating for exact location, turn on your gps or try moving a few steps.";
     }
     else
     {

@@ -39,9 +39,12 @@ class GeneralPagesController extends Controller
     public function logoff()
     {
         Session::flush();
-        Auth::guard('user')->logout();
+        //Auth::guard('user')->logout();
         Auth::logout();
         
+     //   Request()->session()->invalidate();
+     //   Request()->session()->regenerateToken();
+
        // dd(Auth::user());
         return redirect()->route('showLogin');
 

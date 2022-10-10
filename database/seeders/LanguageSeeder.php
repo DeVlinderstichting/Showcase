@@ -118,9 +118,7 @@ class LanguageSeeder extends Seeder
         \App\Models\Language::create(['key' => 'userSettingsSciNames', 'en'=>'Use scientific names']);
         \App\Models\Language::create(['key' => 'userSettingsPrevSeen', 'en'=>'Show previously seen']);
         \App\Models\Language::create(['key' => 'userSettingsShowCommonSp', 'en'=>'Show common species']);
-        \App\Models\Language::create(['key' => 'userSettingsPreferedLanguage', 'en'=>'Prefered language']);
         \App\Models\Language::create(['key' => 'userSettingsLogout', 'en'=>'Logout']);
-        \App\Models\Language::create(['key' => 'userSettingsChangePassword', 'en'=>'Change password']);
         \App\Models\Language::create(['key' => 'userSettingsSpecificSettingsTitle', 'en'=>'Specific settings']);
         \App\Models\Language::create(['key' => 'userSettingsNoCounts', 'en'=>'No counts']);
         \App\Models\Language::create(['key' => 'userSettingsCountOnlyGroups', 'en'=>'Count only speciesgroups']);

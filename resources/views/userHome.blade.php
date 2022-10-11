@@ -110,9 +110,8 @@
                     ...
                 </div>
                 <div class="modal-body">
-
-                    <img src="..." id="messageImage1" class="img-fluid userhome-section-message-image">
-                    <img src="..." id="messageImage2" class="img-fluid userhome-section-message-image">
+                    <img src="" id="messageImage1" class="img-fluid userhome-section-message-image">
+                    <img src="" id="messageImage2" class="img-fluid userhome-section-message-image">
                 </div>
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
@@ -351,8 +350,10 @@
                 vectorSource = vectorSourceMy;
             }
             
-            var vector = $('#map').data('vector')
+            var vector = $('#map').data('vector');
             vector.setSource(vectorSource);
+            $('#map').data('vector') = vector;
+
 
          /*   map.getLayers().forEach(layer => {
                 // if (layer && layer.get('name') === 'Marker') {

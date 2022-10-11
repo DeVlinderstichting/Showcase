@@ -83,5 +83,10 @@ class addExtraEn extends Command
         $l->key = "visitCreateInvalidEnddate";
         $l->en = "End time is invalid.";
         $l->save();
+
+        $l = new \App\Models\Language(); 
+        $l->key = "userHomeNoMessages";
+        $l->en = "There are no messages.";
+        $l->save();
     }
 }

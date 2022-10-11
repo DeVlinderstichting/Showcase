@@ -352,7 +352,7 @@
             
             var vector = $('#map').data('vector');
             vector.setSource(vectorSource);
-            $('#map').data('vector') = vector;
+            $('#map').data('vector', vector);
 
 
          /*   map.getLayers().forEach(layer => {

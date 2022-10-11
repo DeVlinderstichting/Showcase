@@ -246,7 +246,7 @@
                             @else
                                 <input type="number" min = 0, max = 8  class="form-control uservisitcreate-form-input @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
                             @endif
-                            @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif
+                            <!-- @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif -->
                         </div>
                         <label for="wind" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateWindSpeed')}}</label>
                         <div class="col">
@@ -255,7 +255,7 @@
                             @else
                                 <input type="number" min = 0, max = 7 class="form-control uservisitcreate-form-input @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
                             @endif
-                            @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif
+                            <!-- @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif -->
                         </div>
                         <label for="temperature" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateTemp')}}</label>
                         <div class="col">
@@ -264,7 +264,7 @@
                             @else
                                 <input type="number" min = -20, max = 55 class="form-control uservisitcreate-form-input @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature')}}">
                             @endif
-                            @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif
+                            <!-- @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif -->
                         </div>
                     @endif
                     @if(!$isSingle)

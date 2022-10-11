@@ -462,6 +462,7 @@ group by year, month */
 
             $visit->save();
 
+            $visitLoc = [];
             if ($this->needsToBeStored($vDat['location']))
             {
                 if (strlen($vDat['location']) > 10)
@@ -483,6 +484,10 @@ group by year, month */
                             $trackLine .= ",";
                         }
                         $trackLine .= "[" . $locItems[$i+2] . "," . $locItems[$i+1] . "]";
+                        if (count($visitLoc) == 0)
+                        {
+                            $visitLoc = [$locItems[$i+2], $locItems[$i+1]];
+                        }
                         $i+=3;
                     }
                     $trackLine .= "]]}";
@@ -548,9 +553,9 @@ group by year, month */
                 }
                 else 
                 {
-                    if (array_key_exists('location', $vDat['location']))
+                    if (count($visitLoc) != 0)
                     {
-                        $locItems = explode(",", $vDat['location']);
+                        $locItems = $visitLoc;
                     }
                     else 
                     {

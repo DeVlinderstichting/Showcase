@@ -555,7 +555,7 @@ group by year, month */
                 {
                     if (count($visitLoc) != 0)
                     {
-                        $locItems = $visitLoc;
+                        $locItems = [0, $visitLoc[2], $visitLoc[1]];
                     }
                     else 
                     {

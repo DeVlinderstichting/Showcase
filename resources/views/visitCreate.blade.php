@@ -162,7 +162,7 @@
                     <label for="date" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateDate')}}</label>
                     <div class="col">
                         @if($visit)
-                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy', explode(' ', $visit->startdatedummy)[0])}}"}}>
+                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
                             <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy')}}"}}>
                         @endif
@@ -174,7 +174,7 @@
                     @if($isSingle){{\App\Models\Language::getItem('visitCreateTime')}} @else {{\App\Models\Language::getItem('visitCreateStarttime')}} @endif</label>
                     <div class="col">
                         @if($visit)
-                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->starttime)[1])}}">
+                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->startdate)[1])}}">
                         @else
                             <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
                         @endif

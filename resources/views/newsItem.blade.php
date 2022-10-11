@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-    News
+    {{ $newsItem->title }}
 @endsection
 
 @section('content')

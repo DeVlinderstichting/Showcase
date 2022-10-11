@@ -10,20 +10,30 @@
     <p class="px-4 identification-title-sub">{{\App\Models\Language::getItem('generalPagesIdHelpSubHeader')}}</p>
 </div>
 <div class="container text-center mt-3 mb-3">
+    <a href="#eu" class="btn btn-primary identification-section-button">Europe</a>
     <a href="#nl" class="btn btn-primary identification-section-button">Netherlands</a>
     <a href="#gb" class="btn btn-primary identification-section-button">United Kingdom</a>
     <a href="#es" class="btn btn-primary identification-section-button">Spain</a>
     <a href="#se" class="btn btn-primary identification-section-button">Sweden</a>
+</div>
+<div class="container mb-3" id="eu">
+    <div class="row">
+        <div class="col-md d-flex flex-column p-4">
+            <h2 class="identification-section-title">Europe</h2>
+            <ul class="list-group identification-list-group">
+                <li class="list-group-item identification-list-group-item">
+                    Butterflies of Central Europe & Britain by Peter Gergely <br>This Field Guide contains information to identify <b>269 butterfly species</b> occurring in Britain, Western and Central Europe. With detailed pictures of identification characteristics and precise pointing marks, this Guide will help you to identify difficult and similar species. <br><br>Author Peter Gergely. A hardcopy can be bought at the <a href="https://www.vlinderstichting.nl">Dutch Butterfly Conservation</a>. 
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="\resources\GergelyButterflyGuide.pdf">link</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
 <div class="container mb-3" id="nl">
     <div class="row">
         <div class="col-md d-flex flex-column p-4">
             <h2 class="identification-section-title">Netherlands</h2>
             <ul class="list-group identification-list-group">
-                <li class="list-group-item identification-list-group-item">
-                    Butterflies of Central Europe & Britain by Peter Gergely <br>This Field Guide contains information to identify <b>269 butterfly species</b> occurring in Britain, Western and Central Europe. With detailed pictures of identification characteristics and precise pointing marks, this Guide will help you to identify difficult and similar species. <br><br>Author Peter Gergely. A hardcopy can be bought at the <a href="https://www.vlinderstichting.nl">Dutch Butterfly Conservation</a>. 
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="\resources\GergelyButterflyGuide.pdf">link</a>
-                </li>
                 <li class="list-group-item identification-list-group-item">
                     Vlinder herkenningskaart
                     <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vlinderstichting.nl/vlinders/vlinders-herkennen/herkenningskaart/ ">link</a>

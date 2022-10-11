@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    Reset password
+    Reset password 
 @endsection
 
 @section('sidebar')
@@ -31,7 +31,7 @@
                     <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
                     <div class="form-group row">
-                        <label for="email" class="col-sm-2 col-form-label">Email</label>
+                        <label for="email" class="col-sm-2 col-form-label">Email address</label>
                         <div class="col-sm-10">
                             <input type="email" id="email" name="email" value="{{ old('email', $request->email) }}" readonly>
                         </div>

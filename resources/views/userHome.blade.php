@@ -114,9 +114,8 @@
                     ...
                 </div>
                 <div class="modal-body">
-
-                    <img src="..." id="messageImage1" class="img-fluid userhome-section-message-image">
-                    <img src="..." id="messageImage2" class="img-fluid userhome-section-message-image">
+                    <img src="" id="messageImage1" class="img-fluid userhome-section-message-image">
+                    <img src="" id="messageImage2" class="img-fluid userhome-section-message-image">
                 </div>
                 <span class="text-end text-small p-3" id="messageAt"></span>
                 <div class="modal-footer">
@@ -182,7 +181,8 @@
             [{{ $usmd->month-1}}] = {{ $usmd->count }};
         @endforeach
 
-        function getRandomColor() {
+        function getRandomColor() 
+        {
             var letters = '0123456789ABCDEF';
             var color = '#';
             for (var i = 0; i < 6; i++) {
@@ -315,7 +315,7 @@
 
         var vectorSourceAll = new ol.source.Vector({wrapX: false});
         @foreach($allObservations as $obs)
-            @if ($obs->getLocationsAsGeoJson() != '')
+            @if (($obs->getLocationsAsGeoJson() != '') && (!str_contains($obs->getLocationsAsGeoJson(), '"geometry": {"type": null}')))
                 vectorSourceAll.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
                     {
                         dataProjection: 'EPSG:4326',
@@ -326,7 +326,7 @@
 
         var vectorSourceMy = new ol.source.Vector({wrapX: false});
         @foreach($allUserObservations as $obs)
-            @if ($obs->getLocationsAsGeoJson() != '')
+            @if (($obs->getLocationsAsGeoJson() != '') && (!str_contains($obs->getLocationsAsGeoJson(), '"geometry": {"type": null}')))
                 vectorSourceMy.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
                     {
                         dataProjection: 'EPSG:4326',
@@ -354,8 +354,10 @@
                 vectorSource = vectorSourceMy;
             }
             
-            var vector = $('#map').data('vector')
+            var vector = $('#map').data('vector');
             vector.setSource(vectorSource);
+            $('#map').data('vector', vector);
+
 
          /*   map.getLayers().forEach(layer => {
                 // if (layer && layer.get('name') === 'Marker') {

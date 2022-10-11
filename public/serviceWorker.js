@@ -1,4 +1,4 @@
-const staticShowcase = "Showcase_20220921120000";
+const staticShowcase = "Showcase_20221011120000";
 
 //also load font awesome css!!
 const assets = [

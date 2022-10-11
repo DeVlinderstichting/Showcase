@@ -96,7 +96,15 @@
                 @if($errors->any())
                     <div class="alert alert-danger" role="alert">
                         @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
+                            @if(str_contains($error, 'startdate'))
+                                <li>{{ \App\Models\Language::getItem('visitCreateInvalidStartdate') }}</li>
+                            @elseif(str_contains($error, 'enddate'))
+                                @if (!$isSingle)
+                                    <li>{{ \App\Models\Language::getItem('visitCreateInvalidEnddate') }}</li>
+                            @endif
+                            @else
+                                <li>{{ $error }}</li>
+                            @endif
                         @endforeach
                     </div>
                 @endif

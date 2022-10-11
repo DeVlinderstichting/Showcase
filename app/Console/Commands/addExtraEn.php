@@ -72,6 +72,16 @@ class addExtraEn extends Command
         $l = new \App\Models\Language(); 
         $l->key = "visitCreateSectionSameSpecies";
         $l->en = "It is not possible to have the same species multiple times on the same section";
+        $l->save();
+
+        $l = new \App\Models\Language(); 
+        $l->key = "visitCreateInvalidStartdate";
+        $l->en = "Start date or time is invalid.";
         $l->save();    
+    
+        $l = new \App\Models\Language(); 
+        $l->key = "visitCreateInvalidEnddate";
+        $l->en = "End time is invalid.";
+        $l->save();
     }
 }

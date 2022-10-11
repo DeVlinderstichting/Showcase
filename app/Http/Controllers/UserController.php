@@ -564,7 +564,7 @@ group by year, month */
                 }
                 if (!$skip)
                 {
-                    $insertLine = '{"type":"Point","coordinates":[' . $locItems[1] . "," . $locItems[2] . "]}";
+                    $insertLine = '{"type":"Point","coordinates":[' . $locItems[2] . "," . $locItems[1] . "]}";
                     DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
                 }
             }

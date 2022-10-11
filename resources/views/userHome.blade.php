@@ -178,7 +178,8 @@
             [{{ $usmd->month-1}}] = {{ $usmd->count }};
         @endforeach
 
-        function getRandomColor() {
+        function getRandomColor() 
+        {
             var letters = '0123456789ABCDEF';
             var color = '#';
             for (var i = 0; i < 6; i++) {
@@ -311,7 +312,7 @@
 
         var vectorSourceAll = new ol.source.Vector({wrapX: false});
         @foreach($allObservations as $obs)
-            @if ($obs->getLocationsAsGeoJson() != '')
+            @if (($obs->getLocationsAsGeoJson() != '') && (str_contains($obs->getLocationsAsGeoJson(), '"geometry": {"type": null}')))
                 vectorSourceAll.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
                     {
                         dataProjection: 'EPSG:4326',
@@ -322,7 +323,7 @@
 
         var vectorSourceMy = new ol.source.Vector({wrapX: false});
         @foreach($allUserObservations as $obs)
-            @if ($obs->getLocationsAsGeoJson() != '')
+            @if (($obs->getLocationsAsGeoJson() != '') && (str_contains($obs->getLocationsAsGeoJson(), '"geometry": {"type": null}')))
                 vectorSourceMy.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($obs->getLocationsAsGeoJson()); ?> , 
                     {
                         dataProjection: 'EPSG:4326',

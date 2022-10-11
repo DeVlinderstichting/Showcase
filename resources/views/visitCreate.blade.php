@@ -324,12 +324,12 @@
                                 @endif
                             </thead>
                             <tbody id="dataTable">
-                                @if($visit)
+                                @if($visit && old('observations') == [])
                                     @forelse($visit->observations()->get() as $obs)
                                         <tr>
                                             <td class="uservisitcreate-cell">{{$obs->species()->first()->getName($user)}}</td>
                                             <td class="uservisitcreate-cell"><input type="number" value="{{$obs->number}}" name="amount_{{$obs->species()->first()->id}}" id="amount_{{$obs->species()->first()->id}}"></td>
-                                            <td class="uservisitcreate-cell"><input type="datetime" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
+                                            <td class="uservisitcreate-cell"><input type="datetime-local" value="{{$obs->observationtime}}" name="time_{{$obs->species()->first()->id}}" id="time_{{$obs->species()->first()->id}}"></td>
                                             @if($isTransect)
                                                 <td class="uservisitcreate-cell" data-sectionname="{{$obs->transectSection()->first()->name}}">
                                                     <select id="section_{{$obs->species()->first()->id}}" name="section_{{$obs->species()->first()->id}}">
@@ -351,6 +351,8 @@
                                 @else
                                     <tr><td class="uservisitcreate-cell" colspan="100%">{{\App\Models\Language::getItem('visitCreateNoObservations')}}</td></tr>
                                 @endif
+
+
                             </tbody>
                         </table>
                     </div>
@@ -470,13 +472,19 @@
 
     <script>
     <?php
-        if ($visit != null)
+        $speciesIdsUsed = [];
+        if (old('observations')) 
+        {
+            $i = 0;
+            foreach (old('observations') as $obs)
+            {
+                $speciesIdsUsed[$i] = $obs['species_id'];
+                $i++;
+            }
+        }
+        elseif ($visit != null)
         {
             $speciesIdsUsed = $visit->observations()->pluck('species_id')->unique()->toArray();
-        }
-        else 
-        {
-            $speciesIdsUsed = [];
         }
     ?>
     @if($user->sci_names)
@@ -489,7 +497,7 @@
         ];
     @else
         <?php
-        $prop = $user->prefered_language.'name';
+        $prop = $user->prefered_language.'name'; 
         ?>
         specArray = [
                 @foreach ($species as $spec)
@@ -498,6 +506,18 @@
                     @endif
                 @endforeach
             ];
+    @endif
+
+    @if (old('observations') != [])
+        @foreach (old('observations') as $obs)
+            <?php
+            $id = $obs['species_id'];
+            $speciesname = \App\Models\Species::find($obs['species_id'])->getName($user);
+            $count = $obs['number'];
+            $time = $obs['observationtime'];
+            ?>
+            addObservationRow({{ $id }}, '{{ $speciesname }}', {{ $count }}, '{{ $time }}');
+        @endforeach
     @endif
 
     $(".add-species-select").select2({
@@ -516,6 +536,11 @@
         $(".add-species-select").val('').trigger('change')
         var specId = element.value;
         var specName = element.innerHTML;
+
+        addObservationRow(specId, specName)
+    });
+
+    function addObservationRow(specId, specName, count=1, time=0) {
         $("tr td:contains('{!! \App\Models\Language::getItem('visitCreateNoObservations') !!}')").parent().remove()
 
         var contTable = document.getElementById('dataTable');
@@ -530,7 +555,7 @@
         input.name = `amount_${specId}`;
         input.min = 0;
         input.max = 1000;
-        input.value = 1;
+        input.value = count;
         newCell.appendChild(input);
 
         const now = new Date();
@@ -542,7 +567,12 @@
         input.name = `time_${specId}`;
         input.min = 0;
         input.max = 1000;
-        input.value = now.toISOString().slice(0, -8);
+        if (time == 0) {
+            input.value = now.toISOString().slice(0, -8);    
+        } else {
+            input.value = time;
+        }
+        
         newCell.appendChild(input);
 
         @if($isTransect)
@@ -561,7 +591,7 @@
                 selectList.appendChild(option);
             }
         @endif
-    });
+    }
 
     function toISOLocal(d) {
         var z  = n =>  ('0' + n).slice(-2);

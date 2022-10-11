@@ -154,9 +154,9 @@
                     <label for="date" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateDate')}}</label>
                     <div class="col">
                         @if($visit)
-                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate', explode(' ', $visit->startdate)[0])}}"}}>
+                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy', explode(' ', $visit->startdate)[0])}}"}}>
                         @else
-                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdate')}}"}}>
+                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy')}}"}}>
                         @endif
                         @if($errors->has('startdate')) 
                             <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
@@ -429,7 +429,7 @@
                                 <div class="col-md-4">
                                     <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" 
+                                        <input class="form-check-input" type="checkbox"
                                         <?php 
                                             if ($visit != null)
                                             {   
@@ -496,7 +496,7 @@
       data: specArray
     });
 
-    $(".add-species-select").prepend('<option selected class="placeholdered" value="">Select from the list of species</option>');
+    $(".add-species-select").prepend('<option selected class="placeholdered" value="">{!! \App\Models\Language::getItem('SelectSpeciesPlaceholder') !!}</option>');
 
     $(".add-species-select").on("select2:select", function (evt) {
         var element = evt.params.data.element;
@@ -508,7 +508,7 @@
         $(".add-species-select").val('').trigger('change')
         var specId = element.value;
         var specName = element.innerHTML;
-        $("tr td:contains('No observations')").parent().remove()
+        $("tr td:contains('{!! \App\Models\Language::getItem('visitCreateNoObservations') !!}')").parent().remove()
 
         var contTable = document.getElementById('dataTable');
         var newRow = contTable.insertRow();
@@ -610,7 +610,7 @@
             let setComb  = new Set(combined.map(JSON.stringify)); 
             if(!(combined.length === setComb.size))
             {
-                alert('It is not possible to have the same species multiple times on the same section');
+                alert('{!! \App\Models\Language::getItem('visitCreateSectionSameSpecies') !!}');
                 return false;
             }
         @endif
@@ -645,6 +645,17 @@
 
             count++;
         });
+
+        if (count == 0)
+        {
+            var emptyArr = [];
+            var input3 = document.createElement('input');
+            input3.type = 'hidden';
+            input3.name = 'observationsss';
+            input3.value = emptyArr;
+            form[0].appendChild(input3);
+            console.log("item added");           
+        }
 
         var format = new ol.format.WKT();
         var geomElem = document.getElementById('geometry');

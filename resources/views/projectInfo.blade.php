@@ -23,7 +23,7 @@
         </div>
     </div>
 </div>
-<div class="container mb-3">
+<!-- <div class="container mb-3">
     <div class="row">
         <div class="col-md p-4">
             <h2 class="px-4 about-section-title">Institutions</h2>
@@ -37,6 +37,6 @@
         </div>
     </div>
 </div>
-
+ -->
 
 @endsection

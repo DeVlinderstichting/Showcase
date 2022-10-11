@@ -5,7 +5,7 @@
 @endsection
 
 @section('title')
-    Change password
+    {{\App\Models\Language::getItem('userSettingsChangePassword')}} 
 @endsection
 
 @section('sidebar')
@@ -16,7 +16,7 @@
     <div class="container mt-4">
         <div class="card mb-2">
             <h5 class="card-header">
-                Change password
+                {{\App\Models\Language::getItem('userSettingsChangePassword')}}
             </h5>
             @if (session('status'))
                 <div class="alert alert-success">
@@ -28,7 +28,7 @@
                 <form action="/savePassword" method="post">
                     @csrf
                     <div class="form-group row">
-                        <label for="oldPassword" class="col-sm-2 col-form-label">Old password</label>
+                        <label for="oldPassword" class="col-sm-2 col-form-label">{{\App\Models\Language::getItem('passwordOld')}}</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control @error('oldPassword') is-invalid @enderror" id="oldPassword" name="oldPassword">
                             @if($errors->has('oldPassword'))
@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="newPassword" class="col-sm-2 col-form-label">New password</label>
+                        <label for="newPassword" class="col-sm-2 col-form-label">{{\App\Models\Language::getItem('passwordNew')}}</label>
                         <div class="col-sm-10">
                            <input type="password" class="form-control @error('newPassword') is-invalid @enderror" id="newPassword" name="newPassword">
                             @if($errors->has('newPassword'))
@@ -50,7 +50,7 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="newPasswordCheck" class="col-sm-2 col-form-label">New password (repeat)</label>
+                        <label for="newPasswordCheck" class="col-sm-2 col-form-label">{{\App\Models\Language::getItem('passwordNewRepeat')}}</label>
                         <div class="col-sm-10">
                             <input type="password" class="form-control @error('newPasswordCheck') is-invalid @enderror" id="newPasswordCheck" name="newPasswordCheck">
                             @if($errors->has('newPasswordCheck'))
@@ -63,7 +63,7 @@
 
                     <div class="form-group row">
                         <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">{{\App\Models\Language::getItem('saveButton')}}</button>
                         </div>
                     </div>
                 </form>

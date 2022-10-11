@@ -54,7 +54,7 @@
         <div class="card mb-2 uservisitindex-card">
             <h5 class="card-header uservisitindex-card-header">
                 {{\App\Models\Language::getItem('visitIndexTransectHeader')}}
-                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button " role="button" href="/visit/0/3/create">{{\App\Models\Language::getItem('visitIndexAddNewTransect')}}</a>
+                <a class="btn btn-primary mr-3 ml-3 btn-sm float-end uservisitindex-button <?=count($user->transects()->get()) == 0 ? "disabled" : ""; ?>" role="button" href="/visit/0/3/create">{{\App\Models\Language::getItem('visitIndexAddNewTransect')}}</a>
             </h5>
             <div class="card-body uservisitindex-card-body">
                 <div class="table-responsive">

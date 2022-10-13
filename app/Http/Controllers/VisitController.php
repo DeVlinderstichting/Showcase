@@ -163,6 +163,7 @@ class VisitController extends Controller
         else
         {
             $rules['observations'] = ['nullable', 'array'];
+            $rules['speciesgrouprecordinglevel'] = ['required'];
         }
 
         if ($countType == 2 || $countType == 3)

@@ -200,7 +200,7 @@
                             <div class="col">
                                 <select id="flower_id" name="flower_id" class="form-select uservisitcreate-form-input @if($errors->has('flower_id')) is-invalid @endif">
                                     @foreach($plantSp as $plant)
-                                        @if($plant->taxon)
+                                        @if($plant->genus)
                                             <?php 
                                                 $selected = ""; 
                                                 if ($visit)

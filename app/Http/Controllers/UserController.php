@@ -435,35 +435,34 @@ group by year, month */
             }
 
             $visit->countingmethod_id = $vDat['countingmethod_id'];
-
-            if ($this->needsToBeStored($vDat['startdate']))
+            if ($this->needsToBeStored('startdate', $vDat))
             {
                 $visit->startdate = $visitSearchDate;
             }
-            if ($this->needsToBeStored($vDat['enddate'])) {$visit->enddate = $vDat['enddate'];}
+            if ($this->needsToBeStored('enddate', $vDat)) {$visit->enddate = $vDat['enddate'];}
             $visit->sendtoserverdate = date("Y-m-d H:i:s");
-            if ($this->needsToBeStored($vDat['status'])) {$visit->status = $vDat['status'];}
-            if ($this->needsToBeStored($vDat['user_id'])) {$visit->user_id = $vDat['user_id'];}
-            if ($this->needsToBeStored($vDat['recorders'])) {$visit->recorders = $vDat['recorders'];}
-            if ($this->needsToBeStored($vDat['notes'])) {$visit->notes = $vDat['notes'];}
-            if ($this->needsToBeStored($vDat['wind'])) {$visit->wind = $vDat['wind'];}
-            if ($this->needsToBeStored($vDat['temperature'])) {$visit->temperature = $vDat['temperature'];}
-            if ($this->needsToBeStored($vDat['cloud'])) {$visit->cloud = $vDat['cloud'];}
-            if ($this->needsToBeStored($vDat['transect_id'])) {$visit->transect_id = $vDat['transect_id'];}
-            if ($this->needsToBeStored($vDat['landtype'])) {$visit->landusetype_id = $vDat['landtype'];}
-            if ($this->needsToBeStored($vDat['management'])) {$visit->managementtype_id = $vDat['management'];}
+            if ($this->needsToBeStored('status', $vDat)) {$visit->status = $vDat['status'];}
+            if ($this->needsToBeStored('user_id', $vDat)) {$visit->user_id = $vDat['user_id'];}
+            if ($this->needsToBeStored('recorders', $vDat)) {$visit->recorders = $vDat['recorders'];}
+            if ($this->needsToBeStored('notes', $vDat)) {$visit->notes = $vDat['notes'];}
+            if ($this->needsToBeStored('wind', $vDat)) {$visit->wind = $vDat['wind'];}
+            if ($this->needsToBeStored('temperature', $vDat)) {$visit->temperature = $vDat['temperature'];}
+            if ($this->needsToBeStored('cloud', $vDat)) {$visit->cloud = $vDat['cloud'];}
+            if ($this->needsToBeStored('transect_id', $vDat)) {$visit->transect_id = $vDat['transect_id'];}
+            if ($this->needsToBeStored('landtype', $vDat)) {$visit->landusetype_id = $vDat['landtype'];}
+            if ($this->needsToBeStored('management', $vDat)) {$visit->managementtype_id = $vDat['management'];}
             if (array_key_exists('region_id', $vDat))
             {
-                if ($this->needsToBeStored($vDat['region_id'])) {$visit->region_id = $vDat['region_id'];}
+                if ($this->needsToBeStored('region_id', $vDat)) {$visit->region_id = $vDat['region_id'];}
             }
-            if ($this->needsToBeStored($vDat['flower_id'])) {$visit->flower_id = $vDat['flower_id'];}
+            if ($this->needsToBeStored('flower_id', $vDat)) {$visit->flower_id = $vDat['flower_id'];}
 
             $visit->method_id = $this->getRecordingMethod($vDat['method'])->id;
 
             $visit->save();
 
             $visitLoc = [];
-            if ($this->needsToBeStored($vDat['location']))
+            if ($this->needsToBeStored('location', $vDat))
             {
                 if (strlen($vDat['location']) > 10)
                 {
@@ -539,7 +538,7 @@ group by year, month */
                 $obs->number = $obsDat['number'];
                 $obs->visit_id = $visit->id;
                 $obs->observationtime = $obsSearchDate;
-                if ($this->needsToBeStored($obsDat['transect_section_id'])) {$visit->transect_section_id = $obsDat['transect_section_id'];}
+                if ($this->needsToBeStored('transect_section_id', $obsDat)) {$visit->transect_section_id = $obsDat['transect_section_id'];}
                 $obs->save();
 
                 //{"type":"Point","coordinates":[6.196802769569339,52.87128883782826]}}
@@ -619,17 +618,20 @@ group by year, month */
 
         return \App\Models\Method::getMethod($methodSpeciesGroups);
     }
-    private function needsToBeStored($variable)
+    private function needsToBeStored($variable, $array)
     {
-        if ($variable != null)
+        if (array_key_exists($variable, $array))
         {
-            if (!empty($variable))
+            if ($array[$variable] != null)
             {
-                if ($variable != "")
+                if (!empty($array[$variable]))
                 {
-                    if (($variable != -1) && ($variable != "-1"))
+                    if ($array[$variable] != "")
                     {
-                        return true;
+                        if (($array[$variable] != -1) && ($array[$variable] != "-1"))
+                        {
+                            return true;
+                        }
                     }
                 }
             }

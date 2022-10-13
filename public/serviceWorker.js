@@ -1,4 +1,4 @@
-const staticShowcase = "Showcase_20221011120000";
+const staticShowcase = "Showcase_2022-10-14" ;// + new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate();//2022-10-11";
 
 //also load font awesome css!!
 const assets = [
@@ -139,6 +139,76 @@ self.addEventListener("fetch", fetchEvent =>
     fetchEvent.respondWith(
         caches.match(fetchEvent.request).then(res => 
         {
+            var doFetch = false;
+            if (res)
+            {   
+              /*  var res = staticShowcase.split('_');
+                var theDate = res[1];
+                var theLastDate = Date.parse(theDate);
+                var theNowDate = new Date();
+                var difference = theNowDate.getTime() - theLastDate.getTime();
+                var diffDays = difference / (1000 * 3600 * 24);
+                if (diffDays > 7)
+                {
+                    doFetch = true;
+                }
+                */
+                doFetch = true;
+            }
+            else 
+            {
+                doFetch = true;
+            }
+            if (doFetch)
+            {
+              //  caches.delete(staticShowcase).then(
+               // {
+                    fetch(fetchEvent.request).then((response) => 
+                    {
+                        return caches.open(staticShowcase).then((cache) => 
+                        {
+                            cache.put(fetchEvent.request, response.clone());
+                            return response;
+                        });
+                    });
+               // });
+            }
+            else 
+            {
+                return res;
+            }
+        })
+    );
+});
+
+const deleteCache = async (key) => 
+{
+    await caches.delete(key);
+};
+
+const deleteOldCaches = async () => 
+{
+    const cacheKeepList = [staticShowcase];
+    const keyList = await caches.keys();
+    const cachesToDelete = keyList.filter((key) => !cacheKeepList.includes(key));
+    await Promise.all(cachesToDelete.map(deleteCache));
+};
+
+self.addEventListener("activate", (event) => 
+{
+    event.waitUntil(deleteOldCaches());
+});
+
+
+/*
+
+//working yet very sticky 
+
+self.addEventListener("fetch", fetchEvent => 
+{
+    fetchEvent.respondWith(
+        caches.match(fetchEvent.request).then(res => 
+        {
             return res || fetch(fetchEvent.request).then((response) => {
                 return caches.open(staticShowcase).then((cache) => {
                   cache.put(fetchEvent.request, response.clone());
@@ -148,3 +218,5 @@ self.addEventListener("fetch", fetchEvent =>
       })
     );
 });
+
+*/

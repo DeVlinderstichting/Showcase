@@ -42,11 +42,11 @@
                             {
                                 source: new ol.source.OSM(),
                             }),
-                            new ol.layer.Tile(
+                        /*    new ol.layer.Tile(
                             {
                                 opacity: 0.7,
                                 source: new ol.source.WMTS(options),
-                            }),
+                            }), */
                             vector
                         ],
                         view: new ol.View(

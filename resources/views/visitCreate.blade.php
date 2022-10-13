@@ -199,16 +199,24 @@
                             <label for="flower_id" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateChooseFlower')}}</label>
                             <div class="col">
                                 <select id="flower_id" name="flower_id" class="form-select uservisitcreate-form-input @if($errors->has('flower_id')) is-invalid @endif">
+                                    <?php
+                                        $old_flower_id = "";
+                                        if (old('flower_id'))
+                                        {
+                                            $old_flower_id = old('flower_id');
+                                        } elseif ($visit)
+                                        {
+                                            $old_flower_id = $visit->flower_id;
+                                        }
+                                    ?>
+
                                     @foreach($plantSp as $plant)
-                                        @if($plant->taxon)
+                                        @if($plant->genus)
                                             <?php 
-                                                $selected = ""; 
-                                                if ($visit)
+                                                $selected = "";
+                                                if($old_flower_id == $plant->id)
                                                 {
-                                                    if($visit->flower_id == $plant->id)
-                                                    {
-                                                        $selected = "selected";
-                                                    }
+                                                    $selected = "selected";
                                                 }
                                             ?>
                                             <option value="{{$plant->id}}" {{$selected}} >{{$plant->getName($user)}}</option>
@@ -272,15 +280,23 @@
                         <div class="col">
                             <select id="landusetype_id" name="landusetype_id" class="form-select uservisitcreate-form-input @if($errors->has('landusetype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <option value=-1>{{\App\Models\Language::getItem('visitCreateLanduseTypeNotSelected')}}</option>
+                                <?php
+                                    $old_landusetype_id = "";
+                                    if (old('landusetype_id'))
+                                    {
+                                        $old_landusetype_id = old('landusetype_id');
+                                    } elseif ($visit)
+                                    {
+                                        $old_landusetype_id = $visit->landusetype_id;
+                                    }
+                                ?>
+
                                 @foreach($landuseTypes as $landtype)
                                     <?php 
-                                        $selected = ""; 
-                                        if ($visit)
+                                        $selected = "";
+                                        if($old_landusetype_id == $landtype->id)
                                         {
-                                            if($visit->landusetype_id == $landtype->id)
-                                            {
-                                                $selected = "selected";
-                                            }
+                                            $selected = "selected";
                                         }
                                     ?>
                                     <option value="{{$landtype->id}}" {{$selected}}>{{$landtype->description}}</option>
@@ -291,15 +307,23 @@
                         <div class="col">
                             <select id="managementtype_id" name="managementtype_id" class="form-select uservisitcreate-form-input @if($errors->has('managementtype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <option value=-1>{{\App\Models\Language::getItem('visitCreateManagementNotSelected')}}</option>
+                                <?php
+                                    $old_managementtype_id = "";
+                                    if (old('managementtype_id'))
+                                    {
+                                        $old_managementtype_id = old('managementtype_id');
+                                    } elseif ($visit)
+                                    {
+                                        $old_managementtype_id = $visit->managementtype_id;
+                                    }
+                                ?>
+
                                 @foreach($managementTypes as $landmanagement)
                                     <?php 
-                                        $selected = ""; 
-                                        if ($visit)
+                                        $selected = "";
+                                        if($old_managementtype_id == $landmanagement->id)
                                         {
-                                            if($visit->managementtype_id == $landmanagement->id)
-                                            {
-                                                $selected = "selected";
-                                            }
+                                            $selected = "selected";
                                         }
                                     ?>
                                     <option value="{{$landmanagement->id}}" {{$selected}}>
@@ -434,31 +458,45 @@
                     @if (!$isSingle)
                         <div class="row justify-content-center mt-3">
                             <b>{{\App\Models\Language::getItem('visitCreateCheckSpGroups')}}:</b>
-                            <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>
+                            <?php
+                                $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first();
+                                $rl_user = $user->speciesgroupsRecordingLevels()->get()->map(function ($sg_rl) {
+                                    return $sg_rl->only(['speciesgroup_id', 'recordinglevel_id']);
+                                    // return $sg_rl->all();
+                                });
+                            ?>
                             @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
-                                <div class="col-md-4">
-                                    <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                        <?php 
-                                            if ($visit != null)
-                                            {   
-                                                $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
-                                                if ($rl != null)
-                                                {
-                                                    if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                <?php
+                                    $rl = null;
+                                    if ($visit != null)
+                                    {                                        
+                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id);
+                                        //if ($rl != null){dd($rl);}
+                                    }
+                                ?>
+                                @if (($rl_user->contains('speciesgroup_id', $sg->id)) || ($rl != null))
+                                    @if ($rl_user->where('speciesgroup_id', $sg->id)->first()['recordinglevel_id'] != $recordingLevelNone->id || ($rl != null))
+                                        <div class="col-md-4">
+                                            <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                <?php 
+                                                    if ($rl != null)
                                                     {
-                                                        echo(' checked ');
+                                                        if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                                        {
+                                                            echo(' checked ');
+                                                        }
                                                     }
-                                                }
-                                            }
-                                        ?>
-                                        value="{{$sg->id}}" id="speciesgrouprecordinglevel" name="speciesgrouprecordinglevel[]">
-                                        <label class="form-check-label" for="speciesgrouprecordinglevel">
-                                        {{$sg->name}}
-                                        </label>
-                                    </div> 
-                                </div>
+                                                ?>
+                                                value="{{$sg->id}}" id="speciesgrouprecordinglevel" name="speciesgrouprecordinglevel[]">
+                                                <label class="form-check-label" for="speciesgrouprecordinglevel">
+                                                {{$sg->name}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
                             @endforeach
                         </div>
                     @endif
@@ -502,7 +540,11 @@
         specArray = [
                 @foreach ($species as $spec)
                     @if(!in_array($spec->id, $speciesIdsUsed) || $isTransect)
-                        {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                        @if($spec->$prop == "")
+                            {id: {{$spec->id}}, text: "{{$spec->genus}} {{$spec->taxon}}"},
+                        @else
+                            {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                        @endif
                     @endif
                 @endforeach
             ];

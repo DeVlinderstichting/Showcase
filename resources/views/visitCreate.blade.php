@@ -458,31 +458,41 @@
                     @if (!$isSingle)
                         <div class="row justify-content-center mt-3">
                             <b>{{\App\Models\Language::getItem('visitCreateCheckSpGroups')}}:</b>
-                            <?php $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first(); ?>
+                            <?php
+                                $recordingLevelNone = \App\Models\RecordingLevel::where('name', 'none')->first();
+                                $rl_user = $user->speciesgroupsRecordingLevels()->get()->map(function ($sg_rl) {
+                                    return $sg_rl->only(['speciesgroup_id', 'recordinglevel_id']);
+                                    // return $sg_rl->all();
+                                });
+                            ?>
                             @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
-                                <div class="col-md-4">
-                                    <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox"
-                                        <?php 
-                                            if ($visit != null)
-                                            {   
-                                                $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
-                                                if ($rl != null)
-                                                {
-                                                    if ($rl->recordinglevel_id != $recordingLevelNone->id)
-                                                    {
-                                                        echo(' checked ');
+                                @if ($rl_user->contains('speciesgroup_id', $sg->id))
+                                    @if ($rl_user->where('speciesgroup_id', $sg->id)->first()['recordinglevel_id'] != $recordingLevelNone->id)
+                                        <div class="col-md-4">
+                                            <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox"
+                                                <?php 
+                                                    if ($visit != null)
+                                                    {   
+                                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
+                                                        if ($rl != null)
+                                                        {
+                                                            if ($rl->recordinglevel_id != $recordingLevelNone->id)
+                                                            {
+                                                                echo(' checked ');
+                                                            }
+                                                        }
                                                     }
-                                                }
-                                            }
-                                        ?>
-                                        value="{{$sg->id}}" id="speciesgrouprecordinglevel" name="speciesgrouprecordinglevel[]">
-                                        <label class="form-check-label" for="speciesgrouprecordinglevel">
-                                        {{$sg->name}}
-                                        </label>
-                                    </div> 
-                                </div>
+                                                ?>
+                                                value="{{$sg->id}}" id="speciesgrouprecordinglevel" name="speciesgrouprecordinglevel[]">
+                                                <label class="form-check-label" for="speciesgrouprecordinglevel">
+                                                {{$sg->name}}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    @endif
+                                @endif
                             @endforeach
                         </div>
                     @endif

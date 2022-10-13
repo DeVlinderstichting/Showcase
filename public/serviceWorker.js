@@ -4,28 +4,7 @@ const staticShowcase = "Showcase_2022-10-14" ;// + new Date().getFullYear() + "-
 const assets = [
     "/images/logo.jpg",
     "/images/bgloginv2.png",
-    "/images/plant.jpg",
-    "/images/bf2.jpg",
-    "/images/bf1.jpg",
-    "/images/bf3.jpg",
-    "/images/ijsvogel.jpg",
-    "/images/bf4.jpg",
     "/images/logo.png",
-    "/images/Sanguisorba_minor_01AK.jpg",
-    "/images/time-839884_1920.jpg",
-    "/images/vogel.jpg",
-    "/images/bij.jpg",
-    "/images/icons/icon96.png",
-    "/images/icons/icon72.png",
-    "/images/icons/icon192.png",
-    "/images/icons/icon384.png",
-    "/images/icons/icon512.png",
-    "/images/icons/icon152.png",
-    "/images/icons/icon144.png",
-    "/images/icons/icon128.png",
-    "/images/bf6.jpg",
-    "/images/bf5.jpg",
-    "/images/mountaineering-455338_1280.jpg",
     "/js/storage.js",
     "/js/pageLogic.js",
     "/js/app.js",
@@ -44,6 +23,16 @@ const assets = [
     "/js/chart.min.js",
     "/manifest.json",
     "/index.html",
+    "/img/butterflies.png",
+    "/img/moths.png",
+    "/img/bumblebees.png",
+    "/img/solitarybees.png",
+    "/img/honeybees.png",
+    "/img/hoverflies.png",
+    "/img/flies.png",
+    "/img/beetles.png",
+    "/img/bugs.png",
+    "/img/wasps.png",
     "/img/favicon.png",
     "/img/favicon_192.png",
     "/img/15-count-bg.svg",
@@ -127,6 +116,7 @@ const assets = [
 
 self.addEventListener("install", installEvent => 
 {
+    self.skipWaiting();
     installEvent.waitUntil(
         caches.open(staticShowcase).then(cache => 
         {
@@ -136,9 +126,62 @@ self.addEventListener("install", installEvent =>
 });
 self.addEventListener("fetch", fetchEvent => 
 {
+    fetchEvent.respondWith((async()=>
+    {
+        const cachedResponse = await caches.match(fetchEvent.request);
+      //  console.log(fetchEvent.request.url);
+        if ((1==1) && (cachedResponse))
+        {
+       //     console.log("response from cache");
+            return cachedResponse;
+        }
+     //   console.log("response from fetch");
+        const response = await fetch(fetchEvent.request);
+        return response;
+    })());
+    
+    /*var theRes = "";
+        if (fetchEvent.request.url.includes('index.html'))
+        {
+            console.log("I am part of the app");
+            caches.match(fetchEvent.request).then(res => 
+            {
+                if (res)
+                {
+                    theRes = res;
+                }
+                else 
+                {
+                    theRes = fetch(fetchEvent.request).then((response) => 
+                    {
+                        return caches.open(staticShowcase).then((cache) => 
+                        {
+                            cache.put(fetchEvent.request, response.clone());
+                            return response;
+                        });
+                    });
+                }
+            });
+        }
+        else 
+        {
+            console.log("I am not part of the app");
+
+            await fetch(fetchEvent.request).then((response) => 
+            {
+                theRes = response;
+            });
+        }
+    fetchEvent.respondWith(theRes);
+    */
+/*
     fetchEvent.respondWith(
         caches.match(fetchEvent.request).then(res => 
         {
+
+
+            console.log("loading from cache");
+            console.log(fetchEvent.request);
             var doFetch = false;
             if (res)
             {   
@@ -152,7 +195,7 @@ self.addEventListener("fetch", fetchEvent =>
                 {
                     doFetch = true;
                 }
-                */
+                */ /*
                 doFetch = true;
             }
             else 
@@ -178,7 +221,7 @@ self.addEventListener("fetch", fetchEvent =>
                 return res;
             }
         })
-    );
+    ); */
 });
 
 const deleteCache = async (key) => 

@@ -384,6 +384,16 @@ group by year, month */
         $newUser->setRandomAccessToken();
         $newUser->save();
 
+        // set recording level for butterflies to all
+        $sg_id = \App\Models\Speciesgroup::where('name', 'butterflies')->first()->id;
+        $rl_id = \App\Models\RecordingLevel::where('name', 'species')->first()->id;
+
+        \App\Models\SpeciesgroupsUsers::create([
+            'user_id' => $newUser->id,
+            'speciesgroup_id' => $sg_id,
+            'recordinglevel_id' => $rl_id
+        ]);
+
         return view ('userLogin');
     }
 

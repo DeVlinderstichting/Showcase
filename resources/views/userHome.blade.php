@@ -64,6 +64,9 @@
 
     <div class="container mb-3">
         <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeMessages')}}</h2>
+        @if (count($userMessages) == 0)
+            {{ \App\Models\Language::getItem('userHomeNoMessages') }}
+        @else
         <div class="list-group messages-list userhome-section-messages-list">
             @foreach ($userMessages as $um)
                 <?php $truncCont = Str::limit($um->content, 100, ' (...)'); ?>
@@ -79,6 +82,7 @@
                 </a>
             @endforeach
         </div>
+        @endif
     </div>
 
     <div class="container mb-3">

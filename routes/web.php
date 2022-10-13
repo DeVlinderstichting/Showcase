@@ -92,4 +92,8 @@ Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestU
 
 
 Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');
-Route::get('/', '\App\Http\Controllers\GeneralPagesController@showNews');
+//Route::get('/', '\App\Http\Controllers\GeneralPagesController@showNews');
+
+Route::get('/', function () {
+    return view('start');
+});

@@ -43,7 +43,7 @@
 
     <main role="main" class="container">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h1 class="h2">Welkom to the Showcase admin panel </h1>
+            <h1 class="h2">Welcome to the Showcase admin panel</h1>
         </div>
         <div class="card">
             <div class="card-body">

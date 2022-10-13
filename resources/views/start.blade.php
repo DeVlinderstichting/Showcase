@@ -15,11 +15,9 @@ Welcome to Showcase
         <h2 align="middle">Select your device</h2>
         <div align='middle'>
             <a href='/index.html'>
-                <img src='/img/smartphone-icon.png' alt='smartphone icon' height='100' hspace='30' vspace='20'>
-            </a>
+                <img src='/img/smartphone-icon.png' alt='smartphone icon' height='100' hspace='30' vspace='20'></a>
             <a href='/showLoginScreen'>
-                <img src='/img/computer-monitor-icon.png' alt='monitor icon' height='100' hspace='30' vspace='20'>
-            </a>
+                <img src='/img/computer-monitor-icon.png' alt='monitor icon' height='100' hspace='30' vspace='20'></a>
         </div>
     </div>
 </div>

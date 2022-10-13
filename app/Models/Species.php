@@ -19,7 +19,7 @@ class Species extends Model
         $varName = $user->prefered_language . 'name';
         if ($this->$varName == "")
         {
-            $varName = 'enname';
+            return $this->genus . " " . $this->taxon;
         }
         return $this->$varName;
     }

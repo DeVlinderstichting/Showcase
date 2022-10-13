@@ -502,7 +502,11 @@
         specArray = [
                 @foreach ($species as $spec)
                     @if(!in_array($spec->id, $speciesIdsUsed) || $isTransect)
-                        {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                        @if($spec->$prop == "")
+                            {id: {{$spec->id}}, text: "{{$spec->genus}} {{$spec->taxon}}"},
+                        @else
+                            {id: {{$spec->id}}, text: "{{$spec->$prop}}"},
+                        @endif
                     @endif
                 @endforeach
             ];

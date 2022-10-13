@@ -10,7 +10,7 @@ var renderNav = function(clear=false)
 
         // Build the DOM
         nav.innerHTML =`
-        <a class="navbar-brand" id="nav_homeLink" href="#"><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
+        <a class="navbar-brand" id="nav_homeLink" href="#"><i class="fas fa-home" style="margin-left:10px;"></i><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
         <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">${translations['navStatistics']} <i class="fas fa-chart-pie"></i></a>
         <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">${translations['navSettings']} <i class="fas fa-cog"></i></a>
         <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">${translations['navMessages']} <i class="fas fa-comment-dots"></i></a>
@@ -109,7 +109,7 @@ const showLoginScreen = () =>
 
     window.addEventListener("beforeinstallprompt", e => 
     {
-        console.log("beforeinstallprompt fired");
+      //  console.log("beforeinstallprompt fired");
         // Prevent Chrome 76 and earlier from automatically showing a prompt
         e.preventDefault();
         // Stash the event so it can be triggered later.
@@ -1790,7 +1790,6 @@ const showDataScreen = () =>
                 <button class="btn-line-small" id="data_buttonInfo" data-bs-toggle="modal" data-bs-target="#modal_id" style="color: #e8de24; border: 2px solid #e8de24">${translations['infoButton']}</button>
             </div>     
             <div class="separator">
-                            
             </div>  
         </div>
 
@@ -1867,20 +1866,16 @@ const showDataScreen = () =>
                                     <th>${translations['dataTableCount']}</th>
                                     <th>${translations['dataTableDetails']}</th>
                                 </tr>
-
                             </thead>
                         </table>
                     </div>
                 </div>
             </div>
-
-
         </div>
-
     </div>
-    `
+    `;
     // Attach the modal
-    mb.innerHTML += renderModal(translations['123key'],translations['456key']);
+    mb.innerHTML += renderModal(translations['dataInfoButtonHeader'],translations['dataInfoButtonContent']);
 
     var dates = [];
     var monthCountArr = new Array(12).fill(0); 
@@ -1888,7 +1883,6 @@ const showDataScreen = () =>
     loadVisits().then(function(result) 
     {
         visits = result;
-        console.log(visits);
         
         // Compute some statistics
         var total_observations = 0;
@@ -2071,7 +2065,7 @@ const showSettingsScreen = () =>
                     <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
                             <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button><br><br>
-                            <a href="/userLoginWithToken?username=`+settings.userSettings.email+`&token=`+settings.userSettings.accessToken+`&redirect=/settings">More settings (online)</a>
+                            <a target="_blank" href="/userLoginWithToken?username=`+settings.userSettings.email+`&token=`+settings.userSettings.accessToken+`&redirect=/settings">More settings (online)</a>
                         </div>
                     </div>
                 </div>

@@ -167,7 +167,6 @@ function storeSettingsData(key, data)
     {
         console.error("openDb:", evnt.target.errorCode);
     };
-console.log("changing:" + key + ", to: " + data);
     req.onsuccess = function (evnt) 
     {
         db = req.result;

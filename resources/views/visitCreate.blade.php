@@ -466,22 +466,26 @@
                                 });
                             ?>
                             @foreach(\App\Models\Speciesgroup::where('visibible_for_users', true)->get() as $sg)
-                                @if ($rl_user->contains('speciesgroup_id', $sg->id))
-                                    @if ($rl_user->where('speciesgroup_id', $sg->id)->first()['recordinglevel_id'] != $recordingLevelNone->id)
+                                <?php
+                                    $rl = null;
+                                    if ($visit != null)
+                                    {                                        
+                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id);
+                                        //if ($rl != null){dd($rl);}
+                                    }
+                                ?>
+                                @if (($rl_user->contains('speciesgroup_id', $sg->id)) || ($rl != null))
+                                    @if ($rl_user->where('speciesgroup_id', $sg->id)->first()['recordinglevel_id'] != $recordingLevelNone->id || ($rl != null))
                                         <div class="col-md-4">
                                             <img src="/{{$sg->imageLocation}}" alt="" class="img-count-settings">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox"
                                                 <?php 
-                                                    if ($visit != null)
-                                                    {   
-                                                        $rl = $visit->method()->first()->getSpeciesGroupRecordingLevel($sg->id); 
-                                                        if ($rl != null)
+                                                    if ($rl != null)
+                                                    {
+                                                        if ($rl->recordinglevel_id != $recordingLevelNone->id)
                                                         {
-                                                            if ($rl->recordinglevel_id != $recordingLevelNone->id)
-                                                            {
-                                                                echo(' checked ');
-                                                            }
+                                                            echo(' checked ');
                                                         }
                                                     }
                                                 ?>

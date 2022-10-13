@@ -90,10 +90,8 @@ Route::get('logoff', function()
 //Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
 Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
 
-
-Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');
-//Route::get('/', '\App\Http\Controllers\GeneralPagesController@showNews');
-
 Route::get('/', function () {
     return view('start');
 });
+
+Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');

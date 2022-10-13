@@ -107,7 +107,7 @@
                             @foreach ($fit as $f)
                                 <tr>
                                     <td class="uservisitindex-cell">{{ $f->startdate }}</td>
-                                    <td class="uservisitindex-cell">{{ \App\Models\Species::find($f->flower_id)->first()->getName($user) }}</td>
+                                    <td class="uservisitindex-cell">{{ \App\Models\Species::where('id', $f->flower_id)->first()->getName($user) }}</td>
                                     <td class="uservisitindex-cell">{{ $f->observations()->count() }}</td>
                                     <td class="uservisitindex-cell">
                                         <a class="uservisitindex-actionbutton" href='/visit/{{ $f->id }}'><i class='fa fa-search'

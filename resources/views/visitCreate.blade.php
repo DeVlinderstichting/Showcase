@@ -199,16 +199,24 @@
                             <label for="flower_id" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateChooseFlower')}}</label>
                             <div class="col">
                                 <select id="flower_id" name="flower_id" class="form-select uservisitcreate-form-input @if($errors->has('flower_id')) is-invalid @endif">
+                                    <?php
+                                        $old_flower_id = "";
+                                        if (old('flower_id'))
+                                        {
+                                            $old_flower_id = old('flower_id');
+                                        } elseif ($visit)
+                                        {
+                                            $old_flower_id = $visit->flower_id;
+                                        }
+                                    ?>
+
                                     @foreach($plantSp as $plant)
                                         @if($plant->genus)
                                             <?php 
-                                                $selected = ""; 
-                                                if ($visit)
+                                                $selected = "";
+                                                if($old_flower_id == $plant->id)
                                                 {
-                                                    if($visit->flower_id == $plant->id)
-                                                    {
-                                                        $selected = "selected";
-                                                    }
+                                                    $selected = "selected";
                                                 }
                                             ?>
                                             <option value="{{$plant->id}}" {{$selected}} >{{$plant->getName($user)}}</option>
@@ -272,15 +280,23 @@
                         <div class="col">
                             <select id="landusetype_id" name="landusetype_id" class="form-select uservisitcreate-form-input @if($errors->has('landusetype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <option value=-1>{{\App\Models\Language::getItem('visitCreateLanduseTypeNotSelected')}}</option>
+                                <?php
+                                    $old_landusetype_id = "";
+                                    if (old('landusetype_id'))
+                                    {
+                                        $old_landusetype_id = old('landusetype_id');
+                                    } elseif ($visit)
+                                    {
+                                        $old_landusetype_id = $visit->landusetype_id;
+                                    }
+                                ?>
+
                                 @foreach($landuseTypes as $landtype)
                                     <?php 
-                                        $selected = ""; 
-                                        if ($visit)
+                                        $selected = "";
+                                        if($old_landusetype_id == $landtype->id)
                                         {
-                                            if($visit->landusetype_id == $landtype->id)
-                                            {
-                                                $selected = "selected";
-                                            }
+                                            $selected = "selected";
                                         }
                                     ?>
                                     <option value="{{$landtype->id}}" {{$selected}}>{{$landtype->description}}</option>
@@ -291,15 +307,23 @@
                         <div class="col">
                             <select id="managementtype_id" name="managementtype_id" class="form-select uservisitcreate-form-input @if($errors->has('managementtype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <option value=-1>{{\App\Models\Language::getItem('visitCreateManagementNotSelected')}}</option>
+                                <?php
+                                    $old_managementtype_id = "";
+                                    if (old('managementtype_id'))
+                                    {
+                                        $old_managementtype_id = old('managementtype_id');
+                                    } elseif ($visit)
+                                    {
+                                        $old_managementtype_id = $visit->managementtype_id;
+                                    }
+                                ?>
+
                                 @foreach($managementTypes as $landmanagement)
                                     <?php 
-                                        $selected = ""; 
-                                        if ($visit)
+                                        $selected = "";
+                                        if($old_managementtype_id == $landmanagement->id)
                                         {
-                                            if($visit->managementtype_id == $landmanagement->id)
-                                            {
-                                                $selected = "selected";
-                                            }
+                                            $selected = "selected";
                                         }
                                     ?>
                                     <option value="{{$landmanagement->id}}" {{$selected}}>

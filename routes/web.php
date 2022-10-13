@@ -37,6 +37,7 @@ Route::get('/showRecordingMethodExplanation', '\App\Http\Controllers\GeneralPage
 Route::get('/news', '\App\Http\Controllers\GeneralPagesController@showNews')->name('news');
 Route::get('/news/{newsItem}', '\App\Http\Controllers\GeneralPagesController@showNewsItem');
 Route::get('/logOff', '\App\Http\Controllers\GeneralPagesController@logoff');
+Route::get('/logoff', '\App\Http\Controllers\GeneralPagesController@logoff');
 
 Route::get('/visit', '\App\Http\Controllers\VisitController@visitIndex');
 Route::get('/visit/{visit}', '\App\Http\Controllers\VisitController@visitShow');
@@ -78,20 +79,7 @@ Route::get('/speciesTranslationEdit/{language}', '\App\Http\Controllers\AdminCon
 Route::get('/translationPutAjax', '\App\Http\Controllers\AdminController@translationPutAjax');
 Route::get('/speciesTranslationPutAjax', '\App\Http\Controllers\AdminController@speciesTranslationPutAjax');
 
-Route::get('/test', function () 
-{
-    return view('welcome');
-});
-Route::get('logoff', function() 
-{
-    Auth::logout();
-    return view('adminLogin');
-});
-//Route::get("requestUserPackage", [UserController::class, 'requestUserPackage']);
 Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestUserPackage');
 
-Route::get('/', function () {
-    return view('start');
-});
-
+Route::get('/', '\App\Http\Controllers\GeneralPagesController@start');
 Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');

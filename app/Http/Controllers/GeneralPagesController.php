@@ -14,6 +14,11 @@ class GeneralPagesController extends Controller
         //return view ('landingpage');
     }
 
+    public function start()
+    {
+        return view('start');
+    }
+
     public function showIdHelp()
     {
         $idhelps = \App\Models\Region::all()->pluck('species_id_help');

@@ -374,7 +374,6 @@ group by year, month */
             'name' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'unique:users,name', 'max:100'],
             'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
         ]);
-        //dd($valDat);
         $newUser = \App\Models\User::create([
             'name' => $valDat['name'],
             'email'=> $valDat['email'],
@@ -382,6 +381,10 @@ group by year, month */
             'prefered_language'=> 'en',
             'accesstoken'=> '']);
         $newUser->setRandomAccessToken();
+        if (request()->has('share_data'))
+        {
+            $newUser->share_data = true;
+        }
         $newUser->save();
 
         // set recording level for butterflies to all

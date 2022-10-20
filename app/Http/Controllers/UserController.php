@@ -209,7 +209,7 @@ group by year, month */
     {
         $this->authenticateUser();
         $valDat = request()->validate([
-            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'preferedLanguage']),
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'shareData', 'preferedLanguage']),
             'settingsvalue' => ['required', 'integer', 'between:0,1'],
             'language' => ['required', 'string',
                 'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro']
@@ -230,6 +230,10 @@ group by year, month */
         if ($valDat['settingsname'] == 'preferedLanguage')
         {
             $user->prefered_language = $valDat['language'];
+        }
+        if ($valDat['settingsname'] == 'shareData')
+        {
+            $user->share_data = $valDat['settingsvalue'];
         }
         $user->save();
     }

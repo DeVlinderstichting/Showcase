@@ -68,7 +68,15 @@
 
                                 </select>
                             </td>
-                        </tr>                            
+                        </tr>
+                        <tr>
+                            <td>{{\App\Models\Language::getItem('userSettingsShareData')}}</td>
+                            <td>
+                                <div class="form-check form-switch usersettings-switch">
+                                <input id="userSettingShareData" class="form-check-input" onchange="changeUserSetting('shareData');" @if($user->share_data) checked @endif type="checkbox" id="flexSwitchCheckDefault">
+                                </div>
+                            </td>
+                        </tr>                         
                     </tbody>
                 </table>
 
@@ -111,6 +119,12 @@
             {
                 var elem = document.getElementById('prefered_language');
                 language = elem.value;
+                doPost = true;
+            }
+            if (settingName == 'shareData')
+            {
+                var elem = document.getElementById('userSettingShareData');
+                settingValue = elem.checked;
                 doPost = true;
             }
             if (settingValue)

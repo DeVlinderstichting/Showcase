@@ -58,6 +58,16 @@ class addExtraEn extends Command
             $l->save();
         }
 
+        $l = \App\Models\Language::where('key', 'userSettingsShareData')->first();        
+        if ($l == null)
+        {
+            $l = new \App\Models\Language(); 
+            $l->key = "userSettingsShareData";
+            $l->en = "Share your observations within Showcase";
+            $l->nl = "Deel uw observaties binnen Showcase";
+            $l->save();
+        }
+
         $l = \App\Models\Language::where('key', 'email')->first();
         if ($l == null)
         {

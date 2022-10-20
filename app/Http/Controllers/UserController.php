@@ -75,7 +75,9 @@ class UserController extends Controller
         $this->authenticateUser();
         $user = Auth::user();
         $allObs = $user->observations()->get();
-        $allObsAllUsers = \App\Models\Observation::all();
+        $allObsAllUsers = \App\Models\Observation::whereHas('visit', function($q_v) {
+            $q_v->whereHas('users', function($q_u) {
+                $q_u->where('share_data', true); }); })->get();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();
         $spList = \App\Models\Species::whereIn('id', $allSpIds)->get();
@@ -209,7 +211,7 @@ group by year, month */
     {
         $this->authenticateUser();
         $valDat = request()->validate([
-            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'preferedLanguage']),
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'shareData', 'preferedLanguage']),
             'settingsvalue' => ['required', 'integer', 'between:0,1'],
             'language' => ['required', 'string',
                 'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro']
@@ -230,6 +232,10 @@ group by year, month */
         if ($valDat['settingsname'] == 'preferedLanguage')
         {
             $user->prefered_language = $valDat['language'];
+        }
+        if ($valDat['settingsname'] == 'shareData')
+        {
+            $user->share_data = $valDat['settingsvalue'];
         }
         $user->save();
     }
@@ -374,7 +380,6 @@ group by year, month */
             'name' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'unique:users,name', 'max:100'],
             'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
         ]);
-        //dd($valDat);
         $newUser = \App\Models\User::create([
             'name' => $valDat['name'],
             'email'=> $valDat['email'],
@@ -382,6 +387,10 @@ group by year, month */
             'prefered_language'=> 'en',
             'accesstoken'=> '']);
         $newUser->setRandomAccessToken();
+        if (request()->has('share_data'))
+        {
+            $newUser->share_data = true;
+        }
         $newUser->save();
 
         // set recording level for butterflies to all

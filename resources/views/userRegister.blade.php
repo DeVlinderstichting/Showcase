@@ -55,6 +55,17 @@
                             @endif
                         </div>
                     </div>
+                    <div class="form-group row">
+                        <label for="share_data" class="col-sm-2 col-form-label">Share your observations within Showcase</label>
+                        <div class="col-sm-10">
+                            <input type="checkbox" class="@error('share_data') is-invalid @enderror" id="share_data" name="share_data" value="share_data">
+                            @if($errors->has('share_data'))
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{$errors->first('share_data')}}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
 
                     <div class="form-group row">
                         <div class="col-sm-10">

@@ -28,6 +28,7 @@ class User extends Authenticatable
         'password',
         'prefered_language',
         'accesstoken',
+        'share_data'
     ];
 
     /**
@@ -150,6 +151,7 @@ class User extends Authenticatable
         $userSettings['showPreviouslyObservedSpecies'] = $this->show_previous_observed_species;
         $userSettings['showOnlyCommonSpecies'] = $this->show_only_common_species;
         $userSettings['settingsSynchedAt'] = $this->settings_synched_at;
+        $userSettings['share_data'] = $this->share_data;
 
         $speciesGroupsUsers = [];
         $spGroupsUsers = $this->speciesgroupsRecordingLevels()->get();

@@ -14,7 +14,8 @@ class Visit extends Model
 
     public function users()
     {
-      return $this->hasManyThrough('App\Models\Users', 'App\Models\VisitUsers', 'visit_id', 'user_id', 'id', 'id');
+        // return $this->hasManyThrough('App\Models\Users', 'App\Models\VisitUsers', 'visit_id', 'user_id', 'id', 'id');
+        return $this->hasMany('App\Models\User', 'id', 'user_id');
     }
 
     public function region()

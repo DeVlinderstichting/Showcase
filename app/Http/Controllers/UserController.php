@@ -75,7 +75,9 @@ class UserController extends Controller
         $this->authenticateUser();
         $user = Auth::user();
         $allObs = $user->observations()->get();
-        $allObsAllUsers = \App\Models\Observation::all();
+        $allObsAllUsers = \App\Models\Observation::whereHas('visit', function($q_v) {
+            $q_v->whereHas('users', function($q_u) {
+                $q_u->where('share_data', true); }); })->get();
         $allSpIds = $allObs->pluck('species_id')->unique(); 
         $speciesNr = $allSpIds->count();
         $spList = \App\Models\Species::whereIn('id', $allSpIds)->get();

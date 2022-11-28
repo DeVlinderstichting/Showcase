@@ -879,7 +879,7 @@ const showFitObservationScreen = () =>
 
         <div class="row justify-content-center mb-3">
             <h3><i class="fas fa-stopwatch"></i> <span id="fit_stopwatchText">${translations['stopwatchLabel']}</span></h3>
-            <p><span id="stopwatch">15:00</span> <i style="font-size:200%;" class="fas fa-play" id="startTimer"></i> <i style="font-size:200%;" class="fas fa-pause" id="pauseTimer"></i> <i style="font-size:200%;" class="fas fa-undo" id="resetTimer"></i></p>
+            <p><span id="stopwatch">10:00</span> <i style="font-size:200%;" class="fas fa-play" id="startTimer"></i> <i style="font-size:200%;" class="fas fa-pause" id="pauseTimer"></i> <i style="font-size:200%;" class="fas fa-undo" id="resetTimer"></i></p>
         </div>  
 
 
@@ -912,7 +912,6 @@ const showFitObservationScreen = () =>
             </div>
         <div>
 
-
         <div class="row justify-content-center mb-3">
             <button class="btn" id="fit_buttonSave">${translations['saveButton']}</button>
             <button class="btn-line" id="fit_buttonCancel">${translations['cancelButton']}</button>
@@ -940,7 +939,7 @@ const showFitObservationScreen = () =>
 
     document.getElementById("fit_buttonSave").onclick = function () {  stopTimer(); showFitPostObservationScreen(); }; //stopTimer, just in case it was still going
     document.getElementById("fit_buttonCancel").onclick = function () { stopTimer(); showHomeScreen(); }; //stopTimer, just in case it was still going
-    document.getElementById("startTimer").onclick = function () { startTimer(); };
+    document.getElementById("startTimer").onclick = function () { startTimer(10); };
     document.getElementById("pauseTimer").onclick = function () { stopTimer(); };
     document.getElementById("resetTimer").onclick = function () { $(`#modal_idrestart_timer`).modal('show'); };
     document.getElementById("restartTimerButton").onclick = function () { resetTimer(); $(`#modal_idrestart_timer`).modal('hide'); showFitObservationScreen();};

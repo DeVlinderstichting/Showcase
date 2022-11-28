@@ -93,10 +93,15 @@ var stopWatchTimer;
 var stopWatchRunning = false;
 var stopWatchTimeLeft = stopwatchMinutes*60000;
 
-function startTimer() 
+function startTimer(alternateStopwatchMinutes = -1) 
 {
+    localStopwatchTime = stopWatchTimeLeft;
+    if (alternateStopwatchMinutes != -1)
+    {
+        localStopwatchTime = alternateStopwatchMinutes*60000;
+    }
     stopwatchCurrentTime = new Date();
-    stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + stopWatchTimeLeft);
+    stopwatchFutureTime = new Date(stopwatchCurrentTime.getTime() + localStopwatchTime);
     if (!stopWatchTimer || !stopWatchRunning)
     {
         stopWatchTimer = setInterval(timer, 100);
@@ -113,7 +118,12 @@ function timer()
     {
         var d = new Date();
         stopWatchTimeLeft = stopwatchFutureTime - d;
-        document.getElementById("stopwatch").innerHTML = "Wating for exact location, turn on your gps or try moving a few steps.";
+
+        var currentTimerText = document.getElementById("stopwatch").innerHTML;
+        if (!(currentTimerText.includes('aiting for')))
+        {
+            document.getElementById("stopwatch").innerHTML = "Waiting for exact location, turn on your gps or try moving a few steps.";
+        }
     }
     else
     {

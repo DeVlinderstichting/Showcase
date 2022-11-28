@@ -71,9 +71,11 @@ function trackingLocationUpdate(pos)
                 testdiv.innerHTML += line + '<br>';
             }
         }
-
     }
-
+    else 
+    {
+        document.getElementById("stopwatch").innerHTML = "Waiting for exact location (precision is now: "+Math.floor(pos.coords.accuracy)+" m, start when <10m), turn on your gps or try moving a few steps. <br>";
+    }
 }
 
 function trackingLocationError()

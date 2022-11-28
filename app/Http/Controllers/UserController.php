@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function showRegister()
     {
-        $regions = \App\Models\Region::all('id','name');
+        $regions = \App\Models\Region::orderBy('name')->select('id','name')->get();
         return view ('userRegister', ['regions' => $regions]);
     }
 

@@ -55,6 +55,18 @@
                             @endif
                         </div>
                     </div>
+
+                    <div class="form-group row">
+                        <label for="eba[]" class="col-sm-2 col-form-label">Region(s)</label>
+                        <div class="col-sm-10"> <!-- add grouping with <optgroup>-->
+                            <select class="js-example-basic-multiple" name="regions" multiple="multiple" style="width: 100%;">
+                                <option value="AL">Alabama</option>
+                                <option value="NY">New York</option>
+                                <option value="WY">Wyoming</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="share_data" class="col-sm-2 col-form-label">Share your observations within Showcase</label>
                         <div class="col-sm-10">
@@ -76,4 +88,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder: "Select a region",
+                closeOnSelect: false
+            });
+        });
+    </script>
 @endsection

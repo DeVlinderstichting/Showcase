@@ -60,9 +60,9 @@
                         <label for="eba[]" class="col-sm-2 col-form-label">Region(s)</label>
                         <div class="col-sm-10"> <!-- add grouping with <optgroup>-->
                             <select class="js-example-basic-multiple" name="regions" multiple="multiple" style="width: 100%;">
-                                <option value="AL">Alabama</option>
-                                <option value="NY">New York</option>
-                                <option value="WY">Wyoming</option>
+                                @foreach ($regions as $region)
+                                    <option value="{{$region->id}}">{{$region->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>

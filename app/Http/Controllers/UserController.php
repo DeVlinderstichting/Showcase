@@ -22,7 +22,8 @@ class UserController extends Controller
 
     public function showRegister()
     {
-        return view ('userRegister');
+        $regions = \App\Models\Region::all('id','name');
+        return view ('userRegister', ['regions' => $regions]);
     }
 
     public function showForgotPassword()

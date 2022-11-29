@@ -53,8 +53,25 @@
                                     <strong>{{$errors->first('password')}}</strong>
                                 </span>
                             @endif
+                        </div>  
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="regions" class="col-sm-2 col-form-label">Region(s)</label>
+                        <div class="col-sm-10"> <!-- add grouping with <optgroup>-->
+                            <select class="js-example-basic-multiple" name="regions[]" id='regions' multiple="multiple" style="width: 100%;">
+                                @foreach ($regions as $region)
+                                    <option value="{{$region->id}}">{{$region->name}}</option>
+                                @endforeach
+                            </select>
+                            @if($errors->has('regions'))
+                                <span class="invalid-feedback" role="alert" style="display: inline;">
+                                    <strong>{{$errors->first('regions')}}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
+
                     <div class="form-group row">
                         <label for="share_data" class="col-sm-2 col-form-label">Share your observations within Showcase</label>
                         <div class="col-sm-10">
@@ -76,4 +93,13 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2({
+                placeholder: "Select a region",
+                closeOnSelect: false
+            });
+        });
+    </script>
 @endsection

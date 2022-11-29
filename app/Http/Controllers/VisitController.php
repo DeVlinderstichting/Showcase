@@ -146,7 +146,7 @@ class VisitController extends Controller
         $countType = ($firstValDat['counttype']);
         $rules = [];
         $rules['startdate'] = ['required', 'date'];
-        $rules['enddate'] = ['required', 'date'];
+        $rules['enddate'] = ['required', 'date', 'after:startdate'];
         $rules['observations.*.number'] = ['required', 'integer', 'between:0,1001'];
         $rules['observations.*.species_id'] = ['required', 'exists:species,id'];
         $rules['recorders'] = ['nullable', 'integer'];
@@ -166,12 +166,14 @@ class VisitController extends Controller
             $rules['speciesgrouprecordinglevel'] = ['required'];
         }
 
+        // Weather conditions, not required!
         if ($countType == 2 || $countType == 3)
         {
-            $rules['wind'] = ['required', 'integer', 'between:0,8'];
-            $rules['cloud'] = ['required', 'integer', 'between:0,8'];
-            $rules['temperature'] = ['required', 'integer', 'between:-10,60'];
+            $rules['wind'] = ['integer', 'between:0,8'];
+            $rules['cloud'] = ['integer', 'between:0,8'];
+            $rules['temperature'] = ['integer', 'between:-10,60'];
         }
+
         if ($countType != 3) //not a transect so a geometry is required 
         {
             $rules['geometry'] = ['required'];

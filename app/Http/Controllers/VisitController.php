@@ -166,12 +166,13 @@ class VisitController extends Controller
             $rules['speciesgrouprecordinglevel'] = ['required'];
         }
 
-        if ($countType == 2 || $countType == 3)
-        {
-            $rules['wind'] = ['required', 'integer', 'between:0,8'];
-            $rules['cloud'] = ['required', 'integer', 'between:0,8'];
-            $rules['temperature'] = ['required', 'integer', 'between:-10,60'];
-        }
+        // Weather conditions
+        // if ($countType == 2 || $countType == 3)
+        // {
+        //     $rules['wind'] = ['required', 'integer', 'between:0,8'];
+        //     $rules['cloud'] = ['required', 'integer', 'between:0,8'];
+        //     $rules['temperature'] = ['required', 'integer', 'between:-10,60'];
+        // }
         if ($countType != 3) //not a transect so a geometry is required 
         {
             $rules['geometry'] = ['required'];

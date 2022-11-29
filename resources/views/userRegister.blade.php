@@ -53,13 +53,13 @@
                                     <strong>{{$errors->first('password')}}</strong>
                                 </span>
                             @endif
-                        </div>
+                        </div>  
                     </div>
 
                     <div class="form-group row">
-                        <label for="eba[]" class="col-sm-2 col-form-label">Region(s)</label>
+                        <label for="regions" class="col-sm-2 col-form-label">Region(s)</label>
                         <div class="col-sm-10"> <!-- add grouping with <optgroup>-->
-                            <select class="js-example-basic-multiple" name="regions" multiple="multiple" style="width: 100%;">
+                            <select class="js-example-basic-multiple" name="regions[]" id='regions' multiple="multiple" style="width: 100%;">
                                 @foreach ($regions as $region)
                                     <option value="{{$region->id}}">{{$region->name}}</option>
                                 @endforeach

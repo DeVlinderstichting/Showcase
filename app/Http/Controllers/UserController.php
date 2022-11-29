@@ -380,19 +380,32 @@ group by year, month */
             'email' => ['required', 'valid_email', 'unique:users,email', 'max:100'],
             'name' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'unique:users,name', 'max:100'],
             'password' => ['required', 'alpha_num_underscore_minus_dot_at_space', 'min:5', 'max:100'],
+            'regions' => ['required', 'array'],
+            'regions.*' => ['numeric', 'exists:regions,id']
         ]);
+
         $newUser = \App\Models\User::create([
             'name' => $valDat['name'],
             'email'=> $valDat['email'],
             'password'=> Hash::make($valDat['password']),
             'prefered_language'=> 'en',
             'accesstoken'=> '']);
+
         $newUser->setRandomAccessToken();
         if (request()->has('share_data'))
         {
             $newUser->share_data = true;
         }
         $newUser->save();
+
+        // Add selected regions to regions_users
+        foreach ($valDat['regions'] as $region_id)
+        {
+            \App\Models\RegionsUsers::create([
+                'user_id' => $newUser->id,
+                'region_id' => intval($region_id)
+            ]);
+        }
 
         // set recording level for butterflies to all
         $sg_id = \App\Models\Speciesgroup::where('name', 'butterflies')->first()->id;

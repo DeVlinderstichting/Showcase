@@ -246,35 +246,35 @@
                             <div class="invalid-feedback"> {{$errors->first('notes')}} </div>
                         @endif
                     </div>
-                    @if(($isTransect) || ($isTimed))
+                    <!-- @if(($isTransect) || ($isTimed))
                         <label for="cloud" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateCloudCover')}}</label>
                         <div class="col">
                             @if($visit)
                                 <input type="number" min = 0, max = 8 class="form-control uservisitcreate-form-input @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud', $visit->cloud)}}">
                             @else
                                 <input type="number" min = 0, max = 8  class="form-control uservisitcreate-form-input @if($errors->has('cloud')) is-invalid @endif" id="cloud" name="cloud" value="{{old('cloud')}}">
-                            @endif
+                            @endif -->
                             <!-- @if($errors->has('cloud')) <div class="invalid-feedback"> {{$errors->first('cloud')}} </div>@endif -->
-                        </div>
+                        <!-- </div>
                         <label for="wind" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateWindSpeed')}}</label>
                         <div class="col">
                             @if($visit)
                                 <input type="number" min = 0, max = 7 class="form-control uservisitcreate-form-input @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind', $visit->wind)}}">
                             @else
                                 <input type="number" min = 0, max = 7 class="form-control uservisitcreate-form-input @if($errors->has('wind')) is-invalid @endif" id="wind" name="wind" value="{{old('wind')}}">
-                            @endif
+                            @endif -->
                             <!-- @if($errors->has('wind')) <div class="invalid-feedback"> {{$errors->first('wind')}} </div>@endif -->
-                        </div>
+                        <!-- </div>
                         <label for="temperature" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateTemp')}}</label>
                         <div class="col">
                             @if($visit)
                                 <input type="number" min = -20, max = 55 class="form-control uservisitcreate-form-input @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature', $visit->temperature)}}">
                             @else
                                 <input type="number" min = -20, max = 55 class="form-control uservisitcreate-form-input @if($errors->has('temperature')) is-invalid @endif" id="temperature" name="temperature" value="{{old('temperature')}}">
-                            @endif
+                            @endif -->
                             <!-- @if($errors->has('temperature')) <div class="invalid-feedback"> {{$errors->first('temperature')}} </div>@endif -->
-                        </div>
-                    @endif
+                        <!-- </div>
+                    @endif -->
                     @if(!$isSingle)
                         <label for="landusetype_id" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateLanduseType')}}</label>
                         <div class="col">

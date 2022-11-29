@@ -172,10 +172,9 @@ class User extends Authenticatable
         foreach($allIds as $theId)
         {
             $spgu = \App\Models\Speciesgroup::find($theId);
-
             $spguItem = [];
             $spguItem['speciesgroup_id'] = $spgu->id;
-            $spguItem['speciesgroup_name'] = $spgu->name;
+            $spguItem['speciesgroup_name'] = $spgu->speciesgroup->name;
             $spguItem['recordinglevel_id'] = $notCountedRecordingLevel->id;
             $spguItem['recordinglevel_name'] = $notCountedRecordingLevel->name;
             $speciesGroupsUsers[$spgu->name] = $spguItem;
@@ -259,7 +258,7 @@ class User extends Authenticatable
             $singleSpeciesGroup = [];
             $singleSpeciesGroup['id'] = $sg->id;
             $singleSpeciesGroup['name'] = $sg->name;
-            $singleSpeciesGroup['description'] = $sg->description;
+            $singleSpeciesGroup['description'] = \App\Models\Species::find($sg->defaultspecies_id)->getName($this);
             $singleSpeciesGroup['userCanCount'] = $sg->usercancount;
             $singleSpeciesGroup['defaultSpeciesId'] = $sg->defaultspecies_id;
             $speciesGroups[$sg->id] = $singleSpeciesGroup;

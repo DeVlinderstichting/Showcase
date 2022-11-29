@@ -543,11 +543,11 @@ const show15mPostObservationScreen = () =>
             <div id="15mpost_countedGroupsContainer"></div>
         </div>
 
-        <div class="row justify-content-center mb-3">
-            <h3 id="15mpost_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
-            <div id="15mpost_weatherContainer"></div>
-        </div>
-
+       ` // <div class="row justify-content-center mb-3">
+          //  <h3 id="15mpost_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+         //   <div id="15mpost_weatherContainer"></div>
+       // </div>
+       + `
         <div class="row justify-content-center mb-3">
             <h3 id="15mpost_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
             <div id="15mpost_landContainer"></div>
@@ -562,7 +562,6 @@ const show15mPostObservationScreen = () =>
             <button class="btn" id="15mpost_buttonSave">${translations['saveButton']}</button>
             <button class="btn btn-line" id="15mpost_buttonCancel">${translations['cancelButton']}</button>
         </div>
-
     </div>
     `
 
@@ -580,14 +579,14 @@ const show15mPostObservationScreen = () =>
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
-                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.description}</label>
                 </li>`
             }
             else
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
-                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.description}</label>
                 </li>`
             }
         }
@@ -650,21 +649,21 @@ const show15mPostObservationScreen = () =>
         </ul>
     </div>
     `;
-    $('#15mpost_weatherContainer').html(weatherHtml);
+  //  $('#15mpost_weatherContainer').html(weatherHtml);
 
        // Attach the contents of the land container
-       landHhtml = 
+    landHhtml = 
        `
-       <div style="
-       background: #FFFFFF 0% 0% no-repeat padding-box;
-       background-position-x: 0%;
-       background-position-y: 0%;
-       box-shadow: 4px 3px 4px #00000029;
-       border-radius: 10px;
-       opacity: 0.8;
-       background-position: bottom right !important;
-       min-height: 46px;
-       ">
+        <div style="
+        background: #FFFFFF 0% 0% no-repeat padding-box;
+        background-position-x: 0%;
+        background-position-y: 0%;
+        box-shadow: 4px 3px 4px #00000029;
+        border-radius: 10px;
+        opacity: 0.8;
+        background-position: bottom right !important;
+        min-height: 46px;
+        ">
            <ul style="list-style-type:none; padding: 1px;">
                <li class="m-3">
                    ${translations['landTypeLabel']}
@@ -681,26 +680,78 @@ const show15mPostObservationScreen = () =>
                    </span>
                </li>
            </ul>
-       </div>
-       `;
+        </div>
+    `;
    
-       $('#15mpost_landContainer').html(landHhtml);
+    $('#15mpost_landContainer').html(landHhtml);
 
-       var landuses = settings.landuseTypes
-       let optionList1 = document.getElementById('15mpost_selectLandType').options;
-       landuses.forEach(option =>
-        optionList1.add(
-          new Option(option.description, option.id)
-        )
-      );
+    var landuses = settings.landuseTypes
+    let optionList1 = document.getElementById('15mpost_selectLandType').options;
 
-      var managements = settings.managementTypes
-      let optionList2 = document.getElementById('15mpost_selectLandManagement').options;
-      managements.forEach(option =>
-        optionList2.add(
-         new Option(option.description, option.id)
-       )
-     );
+    landuses.forEach(option =>
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
+
+    landuses.forEach(option =>
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() != "unknown")
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
+
+    var managements = settings.managementTypes
+    let optionList2 = document.getElementById('15mpost_selectLandManagement').options;
+    managements.forEach(option =>
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
+    managements.forEach(option =>
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() != "unknown") //was already added
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
 
     // Make sure we get proper input on change of the number input
     $(`#15mpost_inputTemperature`).change( function () 
@@ -723,9 +774,24 @@ const show15mPostObservationScreen = () =>
     // Attach the events
     document.getElementById("15mpost_buttonSave").onclick = function () 
     {  
-        var wind = document.getElementById('15mpost_selectWind').value;
-        var cloud = document.getElementById('15mpost_selectClouds').value;
-        var temp = document.getElementById('15mpost_inputTemperature').value;
+        var windElem = document.getElementById('15mpost_selectWind');
+        var wind = 0;
+        if (windElem != null)
+        {
+            wind = windElem.value;
+        }
+        var cloudElem = document.getElementById('15mpost_selectClouds');
+        var cloud = 0;
+        if (cloudElem != null)
+        {
+            cloud = cloudElem.value;
+        }
+        var tempElem = document.getElementById('15mpost_inputTemperature');
+        var temp = 12;
+        if (tempElem != null)
+        {
+            temp = tempElem.value;
+        }
         var notes = document.getElementById('15mpost_textareaNotes').value;
         var landtype = document.getElementById('15mpost_selectLandType').value;
         var management = document.getElementById('15mpost_selectLandManagement').value;
@@ -1037,12 +1103,11 @@ const showFitPostObservationScreen = () =>
             <div id="fit_countedGroupsContainer"></div>
         </div>
 
-        <div class="row justify-content-center mb-3">
-            <h3 id="fit_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
-            <div id="fit_weatherContainer"></div>
-        </div>
-
-        <div class="row justify-content-center mb-3">
+       `+// <div class="row justify-content-center mb-3">
+          //  <h3 id="fit_weatherText"><i class="fas fa-cloud-sun-rain"></i> ${translations['weatherLabel']}</h3>
+          //  <div id="fit_weatherContainer"></div>
+       // </div>
+      "" + `<div class="row justify-content-center mb-3">
             <h3 id="fit_landText"><i class="fas fa-mountain"></i> ${translations['LandLabel']}</h3>
             <div id="fit_landContainer"></div>
         </div>
@@ -1073,14 +1138,14 @@ const showFitPostObservationScreen = () =>
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}" checked disabled>
-                    <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="fit_checkSpeciesGroup_${element.id}">${element.description}</label>
                 </li>`
             }
             else
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}">
-                    <label for="fit_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="fit_checkSpeciesGroup_${element.id}">${element.description}</label>
                 </li>`
             }
         }
@@ -1175,24 +1240,76 @@ const showFitPostObservationScreen = () =>
     </div>
     `;
 
-    $('#fit_weatherContainer').html(weatherHtml);
+    //$('#fit_weatherContainer').html(weatherHtml);
     $('#fit_landContainer').html(landHhtml);
 
     var landuses = settings.landuseTypes
     let optionList1 = document.getElementById('fit_selectLandType').options;
     landuses.forEach(option =>
-        optionList1.add(
-        new Option(option.description, option.id)
-        )
-    );
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
+
+    landuses.forEach(option =>
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() != "unknown")
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
 
     var managements = settings.managementTypes
     let optionList2 = document.getElementById('fit_selectLandManagement').options;
     managements.forEach(option =>
-        optionList2.add(
-        new Option(option.description, option.id)
-        )
-    );
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
+    managements.forEach(option =>
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() != "unknown") //was already added
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
+
     // Make sure we get proper input on change of the number input
     $(`#fit_inputTemperature`).change( function () 
     {
@@ -1214,9 +1331,25 @@ const showFitPostObservationScreen = () =>
     // Attach the events
     document.getElementById("fit_buttonSave").onclick = function () 
     {  
-        var wind = document.getElementById('fit_selectWind').value;
-        var cloud = document.getElementById('fit_selectClouds').value;
-        var temp = document.getElementById('fit_inputTemperature').value;
+        var windElem = document.getElementById('fit_selectWind');
+        var wind = 0;
+        if (typeof windElem == "undefined")
+        {
+            wind = windElem.value;
+        }
+        var cloudElem = document.getElementById('fit_selectClouds');
+        var cloud = 0;
+        if (typeof cloudElem == "undefined")
+        {
+            cloud = cloudElem.value;
+        }
+        var tempElem = document.getElementById('fit_inputTemperature');
+        var temp =0;
+        if (typeof tempElem == "undefined")
+        {
+            temp = tempElem.value;
+        }
+        
         var notes = document.getElementById('fit_textareaNotes').value;
         var landtype = document.getElementById('fit_selectLandType').value;
         var management = document.getElementById('fit_selectLandManagement').value;
@@ -1679,19 +1812,73 @@ const showTransectPostObservationScreen = () =>
 
     var landuses = settings.landuseTypes
     let optionList1 = document.getElementById('transect_selectLandType').options;
+
+    
+
     landuses.forEach(option =>
-        optionList1.add(
-        new Option(option.description, option.id)
-        )
-    );
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
+
+    landuses.forEach(option =>
+    {
+        var landUse = option.description;
+        if (landUse.toLowerCase() != "unknown")
+        {
+            var translatedLanduse = translations[option.name];
+            if (typeof translatedLanduse !== 'undefined')
+            {
+                landUse = translatedLanduse;
+            }
+            optionList1.add(
+                new Option(landUse, option.id)
+            )
+        }
+    });
 
     var managements = settings.managementTypes
     let optionList2 = document.getElementById('transect_selectLandManagement').options;
     managements.forEach(option =>
-        optionList2.add(
-        new Option(option.description, option.id)
-        )
-    );
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() == "unknown") //if unknown is available add it first, to put it on top
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
+    managements.forEach(option =>
+    {
+        var landManagement = option.description;
+        if (landManagement.toLowerCase() != "unknown") //was already added
+        {
+            var landManagement = translations[option.name];
+            if (typeof translatedManagement !== 'undefined')
+            {
+                landManagement = translatedManagement;
+            }
+            optionList2.add(
+                new Option(landManagement, option.id)
+            )
+        }
+    });
 
     // Make sure we get proper input on change of the number input
     $(`#transect_inputTemperature`).change( function () 
@@ -1714,9 +1901,24 @@ const showTransectPostObservationScreen = () =>
     // Attach the events
     document.getElementById("transect_buttonSave").onclick = function () 
     {  
-        var wind = document.getElementById('transect_selectWind').value;
-        var cloud = document.getElementById('transect_selectClouds').value;
-        var temp = document.getElementById('transect_inputTemperature').value;
+        var windElem = document.getElementById('transect_selectWind');
+        var wind = 0;
+        if (typeof windElem != 'undefined')
+        {
+            wind = windElem.value;
+        }
+        var cloudElem = document.getElementById('transect_selectClouds');
+        var cloud = 0;
+        if (typeof cloudElem != 'undefined')
+        {
+            cloud = cloudElem.value;
+        }
+        var tempElem = document.getElementById('transect_inputTemperature');
+        var temp;
+        if (typeof tempElem != 'undefined')
+        {
+            temp = tempElem.value;
+        }
         var notes = document.getElementById('transect_textareaNotes').value;
         var landtype = document.getElementById('transect_selectLandType').value;
         var management = document.getElementById('transect_selectLandManagement').value;
@@ -1973,7 +2175,7 @@ const showSettingsScreen = () =>
         var sgu = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
       //  var buttonName = "settings_selectButton_" + sgu.speciesgroup_id + "_" + sgu.recordinglevel_id;
 
-        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sgu.name+`</h3><br>
+        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sgu.description+`</h3><br>
                 <div class="flex-radio-buttons mt-3">`;
                 if (sgu.id == 1)
                 {
@@ -2064,7 +2266,7 @@ const showSettingsScreen = () =>
                     <div class="row justify-content-center">
                         <div class="col-md-12 text-center">
                             <button id="settings_logoutButton" class="btn-line">${translations['settingsLogOut']}</button><br><br>
-                            <a target="_blank" href="/userLoginWithToken?username=`+settings.userSettings.email+`&token=`+settings.userSettings.accessToken+`&redirect=/settings">More settings (online)</a>
+                            <a target="_blank" href="/userLoginWithToken?username=`+settings.userSettings.email+`&token=`+settings.userSettings.accessToken+`&redirect=/settings">${translations['userSettingsMoreSettings']}</a>
                         </div>
                     </div>
                 </div>
@@ -2181,13 +2383,13 @@ const showSettingsScreen = () =>
             3: "none"
         };
 
-     function setStuff(name, id) 
-        {
-            currentSettings = getUserSettings().userSettings;
-            currentSettings.speciesGroupsUsers[name].recordinglevel_id = id; 
-            currentSettings.speciesGroupsUsers[name].recordinglevel_name = recordingLevelTranslator[id];
-            storeSettingsData('userSettings', currentSettings);
-        }
+    function setStuff(name, id) 
+    {
+        currentSettings = getUserSettings().userSettings;
+        currentSettings.speciesGroupsUsers[name].recordinglevel_id = id; 
+        currentSettings.speciesGroupsUsers[name].recordinglevel_name = recordingLevelTranslator[id];
+        storeSettingsData('userSettings', currentSettings);
+    }
 
     for (var i = 0; i < Object.keys(settings.speciesGroups).length; i++)
     {

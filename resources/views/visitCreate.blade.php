@@ -279,7 +279,6 @@
                         <label for="landusetype_id" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateLanduseType')}}</label>
                         <div class="col">
                             <select id="landusetype_id" name="landusetype_id" class="form-select uservisitcreate-form-input @if($errors->has('landusetype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
-                                <option value=-1>{{\App\Models\Language::getItem('visitCreateLanduseTypeNotSelected')}}</option>
                                 <?php
                                     $old_landusetype_id = "";
                                     if (old('landusetype_id'))
@@ -291,22 +290,50 @@
                                     }
                                 ?>
 
+                                <?php 
+                                    if ($old_landusetype_id == "")
+                                    {
+                                        $select_first_option = "selected";
+                                    } else
+                                    {
+                                        $select_first_option = "";
+                                    }
+                                    $unknown_selected = false;
+                                ?>
+
+                                @foreach($landuseTypes as $landtype)
+                                    @if($landtype->name == "unknown")
+                                        <option value="{{$landtype->id}}" {{$select_first_option}}>
+                                            {{\App\Models\Language::getItem($landtype->name)}}
+                                        </option>
+                                        <?php $unknown_listed = true;?>
+                                    @endif                                        
+                                @endforeach
+                                @if(!$unknown_listed)
+                                    <option value=-1 {{$select_first_option}}>
+                                        {{\App\Models\Language::getItem('visitCreateLanduseTypeNotSelected')}}
+                                    </option>
+                                @endif
+
                                 @foreach($landuseTypes as $landtype)
                                     <?php 
                                         $selected = "";
-                                        if($old_landusetype_id == $landtype->id)
+                                        if($old_landusetype_id == $landtype->id && !$select_first_option)
                                         {
                                             $selected = "selected";
                                         }
                                     ?>
-                                    <option value="{{$landtype->id}}" {{$selected}}>{{$landtype->description}}</option>
+                                    @if($landtype->name != 'unknown'))
+                                        <option value="{{$landtype->id}}" {{$selected}}>
+                                            {{\App\Models\Language::getItem($landtype->name)}}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>
                         <label for="managementtype_id" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateManagement')}}</label>
                         <div class="col">
                             <select id="managementtype_id" name="managementtype_id" class="form-select uservisitcreate-form-input @if($errors->has('managementtype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
-                                <option value=-1>{{\App\Models\Language::getItem('visitCreateManagementNotSelected')}}</option>
                                 <?php
                                     $old_managementtype_id = "";
                                     if (old('managementtype_id'))
@@ -318,17 +345,44 @@
                                     }
                                 ?>
 
+                                <?php 
+                                    if ($old_managementtype_id == "")
+                                    {
+                                        $select_first_option = "selected";
+                                    } else
+                                    {
+                                        $select_first_option = "";
+                                    }
+                                    $unknown_selected = false;
+                                ?>
+
+                                @foreach($managementTypes as $landmanagement)
+                                    @if($landmanagement->name == "unknown")
+                                        <option value="{{$landmanagement->id}}" {{$select_first_option}}>
+                                            {{\App\Models\Language::getItem($landmanagement->name)}}
+                                        </option>
+                                        <?php $unknown_listed = true;?>
+                                    @endif                                        
+                                @endforeach
+                                @if(!$unknown_listed)
+                                    <option value=-1 {{$select_first_option}}>
+                                        {{\App\Models\Language::getItem('visitCreateManagementTypeNotSelected')}}
+                                    </option>
+                                @endif
+
                                 @foreach($managementTypes as $landmanagement)
                                     <?php 
                                         $selected = "";
-                                        if($old_managementtype_id == $landmanagement->id)
+                                        if($old_managementtype_id == $landmanagement->id && !$select_first_option)
                                         {
                                             $selected = "selected";
                                         }
                                     ?>
-                                    <option value="{{$landmanagement->id}}" {{$selected}}>
-                                        {{\App\Models\Language::getItem($landmanagement->name)}}
-                                    </option>
+                                    @if($landmanagement->name != 'unknown'))
+                                        <option value="{{$landmanagement->id}}" {{$selected}}>
+                                            {{\App\Models\Language::getItem($landmanagement->name)}}
+                                        </option>
+                                    @endif
                                 @endforeach
                             </select>
                         </div>

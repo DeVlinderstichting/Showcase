@@ -64,6 +64,11 @@
                                     <option value="{{$region->id}}">{{$region->name}}</option>
                                 @endforeach
                             </select>
+                            @if($errors->has('regions'))
+                                <span class="invalid-feedback" role="alert" style="display: inline;">
+                                    <strong>{{$errors->first('regions')}}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
 

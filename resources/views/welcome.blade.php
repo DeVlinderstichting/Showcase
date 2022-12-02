@@ -39,7 +39,7 @@
 
 
 
-    <title>Showcase</title>
+    <title>InsectsCount</title>
   </head>
   <body data-mobile-nav-style="classic">
     <main>

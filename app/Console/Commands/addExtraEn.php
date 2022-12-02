@@ -63,8 +63,8 @@ class addExtraEn extends Command
         {
             $l = new \App\Models\Language(); 
             $l->key = "userSettingsShareData";
-            $l->en = "Share your observations within Showcase";
-            $l->nl = "Deel uw observaties binnen Showcase";
+            $l->en = "Share your observations within InsectsCount";
+            $l->nl = "Deel uw observaties binnen InsectsCount";
             $l->save();
         }
 

@@ -1,13 +1,13 @@
 @extends('layouts.app')
 
 @section('title')
-Welcome to showcase
+Welcome to InsectsCount
 @endsection
 
 @section('content')
 <div class="container landingpage-title-container d-flex">
         <div class="central-container">
-            <h1 class="text-center landingpage-title-header">Showcase</h1>
+            <h1 class="text-center landingpage-title-header">InsectsCount</h1>
             <h3 class="text-center landingpage-title-sub">Een subtitle</h3>
             <h3 class="text-center landingpage-title-sub">Nog een subtitle</h3>
         </div>

@@ -2,7 +2,7 @@
   "messages": [
     {
       "header": "Your first message!",
-      "body": "Thank you for using Showcase. You are helping to gain a better insight into butterfly ecology",
+      "body": "Thank you for using InsectsCount. You are helping to gain a better insight into butterfly ecology",
       "timestamp": "2021-07-02 15:35",
       "main_image": "/images/bf1.jpg",
       "detail_image": "/images/bf2.jpg"
@@ -22,8 +22,8 @@
       "detail_image": "/images/bf4.jpg"
     },
     {
-      "header": "Showcase has been updated",
-      "body": "The latest version of Showcase cointains major bugfixes and a new unique user interface. We would like to hear your opinion on the changes. <br><br> Kind redards!",
+      "header": "InsectsCount has been updated",
+      "body": "The latest version of InsectsCount cointains major bugfixes and a new unique user interface. We would like to hear your opinion on the changes. <br><br> Kind redards!",
       "timestamp": "2021-06-01 11:29",
       "main_image": "/images/bf5.jpg",
       "detail_image": "/images/bf6.jpg"

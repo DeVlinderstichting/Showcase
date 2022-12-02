@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('title')
-Welcome to Showcase
+Welcome to InsectsCount
 @endsection
 
 @section('sidebar')
@@ -11,7 +11,7 @@ Welcome to Showcase
 @section('content')
 <div class="container-fluid background-container d-flex">
     <div class="central-container" align="middle">
-        <h1>Welcome to Showcase</h1>
+        <h1>Welcome to InsectsCount</h1>
         <h2 align="middle">Select your device</h2>
         <div align='middle'>
             <a href='/index.html'>

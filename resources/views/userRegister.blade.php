@@ -73,7 +73,7 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="share_data" class="col-sm-2 col-form-label">Share your observations within Showcase</label>
+                        <label for="share_data" class="col-sm-2 col-form-label">Share your observations within InsectsCount</label>
                         <div class="col-sm-10">
                             <input type="checkbox" class="@error('share_data') is-invalid @enderror" id="share_data" name="share_data" value="share_data">
                             @if($errors->has('share_data'))

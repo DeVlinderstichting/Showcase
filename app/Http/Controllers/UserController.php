@@ -361,7 +361,7 @@ group by year, month */
         if ($file) 
         {
             header('Content-Type: text/csv; charset=utf-8');
-            header('Content-Disposition: attachment; filename="ShowcaseDataExport.csv"');
+            header('Content-Disposition: attachment; filename="InsectsCountDataExport.csv"');
             header('Pragma: no-cache');
             header('Expires: 0');
             fputcsv($file, $headers, $sep);

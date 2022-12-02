@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     @include('layouts.forceReload',[])
     <link rel="shortcut icon" href="/favicon.ico">
-    <title>Showcase</title>
+    <title>InsectsCount</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="/css/fontawesome/5.14.0/all.min.css">
@@ -30,26 +30,26 @@
         }
 
     </style>
-    <title>Showcase</title>
+    <title>InsectsCount</title>
 </head>
 
 <body style="background-color: #f1f1f1;">
     <!-- titlebar -->
     <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">Showcase</a>
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#">InsectsCount</a>
     </nav>
 
     <!-- Main content -->
 
     <main role="main" class="container">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-            <h1 class="h2">Welcome to the Showcase admin panel</h1>
+            <h1 class="h2">Welcome to the InsectsCount admin panel</h1>
         </div>
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">Manage the Showcase application</h5>
+                <h5 class="card-title">Manage the InsectsCount application</h5>
                 <p class="card-text">
-                    This web portal will allow you to manage the Showcase application.  
+                    This web portal will allow you to manage the InsectsCount application.  
                 </p>
                 <div class="container">
                     <div class="row justify-content-center">

@@ -64,7 +64,7 @@
                         class="nav-link {{ Request::is('showIdHelp') ? 'active' : '' }}">Identification</a></li>
                 <li class="nav-item"><a href="/news"
                         class="nav-link {{ Request::is('news') ? 'active' : '' }}">News</a></li>
-         <?php /*       <li class="nav-item dropdown">
+         <!--       <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         <span class="fi fi-gb"></span>
                     </a>
@@ -74,7 +74,7 @@
                         <li><a class="dropdown-item" href="#"><span class="fi fi-es mx-2"></span>Español</a></li>
                         <li><a class="dropdown-item" href="#"><span class="fi fi-de mx-2"></span>Deutsch</a></li>
                     </ul>
-                </li> */ ?>
+                </li> -->
                 <li class="nav-item"><a href="/home" class="nav-link"><i class="fas fa-user"></i></a>
                 </li>          
             </ul>
@@ -86,6 +86,12 @@
     <div class="container general-footer-class">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
             <p class="col-md-4 mb-0 text-muted general-footer-copyright-class">&copy; 2022 Showcase</p>
+            <a href="https://www.vlinderstichting.nl/english/">
+                <img src="img/DVS_logo.png" alt="Logo Dutch Butterfly Conservation" style='height: 44px'>
+            </a>
+            <a href="https://scienseed.com/">
+                <img src="img/scienseed_logo.png" alt="Logo Scienseed" style='height: 44px'>
+            </a> 
             <ul class="nav col-md-4 justify-content-end">
                 <li class="nav-item"><a href="/showProjectInfo" class="nav-link px-2 text-muted">About</a></li>
                 <li class="nav-item"><a href="/showRecordingMethodExplanation"

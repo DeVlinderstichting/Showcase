@@ -281,24 +281,25 @@
                             <select id="landusetype_id" name="landusetype_id" class="form-select uservisitcreate-form-input @if($errors->has('landusetype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <?php
                                     $old_landusetype_id = "";
+
                                     if (old('landusetype_id'))
                                     {
                                         $old_landusetype_id = old('landusetype_id');
-                                    } elseif ($visit)
+                                    }
+                                    elseif ($visit)
                                     {
                                         $old_landusetype_id = $visit->landusetype_id;
                                     }
-                                ?>
 
-                                <?php 
                                     if ($old_landusetype_id == "")
                                     {
                                         $select_first_option = "selected";
-                                    } else
+                                    }
+                                    else
                                     {
                                         $select_first_option = "";
                                     }
-                                    $unknown_selected = false;
+                                    $unknown_listed = false;
                                 ?>
 
                                 @foreach($landuseTypes as $landtype)
@@ -336,24 +337,25 @@
                             <select id="managementtype_id" name="managementtype_id" class="form-select uservisitcreate-form-input @if($errors->has('managementtype_id')) is-invalid @endif" onChange="updateTransectSectionList()">
                                 <?php
                                     $old_managementtype_id = "";
+
                                     if (old('managementtype_id'))
                                     {
                                         $old_managementtype_id = old('managementtype_id');
-                                    } elseif ($visit)
+                                    }
+                                    elseif ($visit)
                                     {
                                         $old_managementtype_id = $visit->managementtype_id;
                                     }
-                                ?>
 
-                                <?php 
                                     if ($old_managementtype_id == "")
                                     {
                                         $select_first_option = "selected";
-                                    } else
+                                    }
+                                    else
                                     {
                                         $select_first_option = "";
                                     }
-                                    $unknown_selected = false;
+                                    $unknown_listed = false;
                                 ?>
 
                                 @foreach($managementTypes as $landmanagement)
@@ -366,7 +368,7 @@
                                 @endforeach
                                 @if(!$unknown_listed)
                                     <option value=-1 {{$select_first_option}}>
-                                        {{\App\Models\Language::getItem('visitCreateManagementTypeNotSelected')}}
+                                        {{\App\Models\Language::getItem('visitCreateManagementNotSelected')}}
                                     </option>
                                 @endif
 

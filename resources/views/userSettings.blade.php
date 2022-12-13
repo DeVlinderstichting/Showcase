@@ -181,7 +181,10 @@
                                 <br>{{$sg->name}}
                                 <div class="flex-radio-buttons usersettings-count-item-selector">
                                     @foreach(\App\Models\RecordingLevel::all() as $rl)
-                                        @if ((($rl->name=='species') && ($sg->name == 'butterflies')) || ($rl->name!='species'))
+                                        @if ((($rl->name=='species') && (($sg->name == 'butterflies')
+                                                                            || ($sg->name == 'solitarybees')
+                                                                            || ($sg->name == 'bumblebees'))
+                                                                        ) || ($rl->name!='species'))
                                             @php
                                             if ($rl->name=='species') {
                                                $color = "#fda230";

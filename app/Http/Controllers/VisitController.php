@@ -85,7 +85,13 @@ class VisitController extends Controller
         {
             $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
             $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
-            $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
+            $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)
+                ->get()->sortBy(
+                    function ($species) use ($user){
+                            return $species->getName($user);
+                        },
+                        SORT_NATURAL|SORT_FLAG_CASE
+                    );
         }
 
         // Sort the landuse and management types
@@ -139,14 +145,20 @@ class VisitController extends Controller
                     },
                     SORT_NATURAL|SORT_FLAG_CASE
                 );
-            
+
             $regIds = $user->regions()->pluck('region_id');
             $plantSp = [];
             if ($visit->flower_id != null) //it is a fit count)
             {
                 $regSpecies = \App\Models\RegionsSpecies::whereIn('region_id', $regIds)->pluck('species_id');
                 $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
-                $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
+                $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)
+                    ->get()->sortBy(
+                        function ($species) use ($user){
+                                return $species->getName($user);
+                            },
+                            SORT_NATURAL|SORT_FLAG_CASE
+                        );
             }
             $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
             $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get()

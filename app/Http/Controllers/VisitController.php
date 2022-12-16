@@ -69,6 +69,16 @@ class VisitController extends Controller
             }
             // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
         }
+
+        // Sort the species list
+        $speciesList = $speciesList->sortBy(
+            function ($species) use ($user){
+                    $rank = ($species->taxrank == "species" ? 2 : 1);
+                    return $rank."#".$species->speciesgroup_id."#".$species->getName($user);
+                },
+                SORT_NATURAL|SORT_FLAG_CASE
+            );
+
         $regIds = $user->regions()->pluck('region_id');
         $plantSp = [];
         if ($visitType == 4)
@@ -78,6 +88,7 @@ class VisitController extends Controller
             $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
         }
 
+        // Sort the landuse and management types
         $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
         $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get()
             ->sortBy(function ($landuse, $key) {

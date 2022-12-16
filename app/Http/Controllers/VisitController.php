@@ -130,8 +130,16 @@ class VisitController extends Controller
                     $speciesList = $speciesList->merge($selSpecies);
                 }
                 // if(\App\Models\RecordingLevel::where('id', $sg->speciesgroup_id)->get()->text == 'none')
-
             }
+
+            $speciesList = $speciesList->sortBy(
+                function ($species) use ($user){
+                        $rank = ($species->taxrank == "species" ? 2 : 1);
+                        return $rank."#".$species->speciesgroup_id."#".$species->getName($user);
+                    },
+                    SORT_NATURAL|SORT_FLAG_CASE
+                );
+            
             $regIds = $user->regions()->pluck('region_id');
             $plantSp = [];
             if ($visit->flower_id != null) //it is a fit count)
@@ -141,9 +149,19 @@ class VisitController extends Controller
                 $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
             }
             $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
-            $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get();
+            $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get()
+                ->sortBy(function ($landuse, $key) {
+                            return \App\Models\Language::getItem($landuse->name);
+                        },
+                        SORT_NATURAL|SORT_FLAG_CASE
+                    );
             $managementIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id');
-            $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get();
+            $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get()
+                ->sortBy(function ($landmanagement, $key) {
+                            return \App\Models\Language::getItem($landmanagement->name);
+                        },
+                        SORT_NATURAL|SORT_FLAG_CASE
+                    );
 
             $countingMethodId = $visit->countingmethod_id;
             $title = 'edit';

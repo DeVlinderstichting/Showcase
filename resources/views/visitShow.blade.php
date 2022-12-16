@@ -72,7 +72,7 @@
                                     <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
                                     <td>{{$visit->observations()->count()}}
                                 </tr>
-                                <tr>
+<!--                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowCloudCover')}}</td>
                                     <td>{{$visit->cloud}}</td>
                                 </tr>
@@ -83,7 +83,7 @@
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowWind')}}</td>
                                     <td>{{$visit->wind}}</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
                                     <td>{{$visit->notes}}</td>
@@ -102,7 +102,7 @@
                                     <td>{{\App\Models\Language::getItem('visitShowDuration')}}</td>
                                     <td>{{$visit->getDuration()}}</td>
                                 </tr>
-                                <tr>
+<!--                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowCloudCover')}}</td>
                                     <td>{{$visit->cloud}}</td>
                                 </tr>
@@ -113,7 +113,7 @@
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowWind')}}</td>
                                     <td>{{$visit->wind}}</td>
-                                </tr>
+                                </tr> -->
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
                                     <td>{{$visit->observations()->count()}}

@@ -77,10 +77,22 @@ class VisitController extends Controller
             $plantsSpGroup = \App\Models\Speciesgroup::where('name', 'plants')->first();
             $plantSp = \App\Models\Species::whereIn('id', $regSpecies)->where('speciesgroup_id', $plantsSpGroup->id)->get();
         }
+
         $landUseTypeIds = \App\Models\LanduseType_Regions::whereIn('region_id', $regIds)->pluck('landusetype_id');
-        $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get();
+        $landuseTypes = \App\Models\LanduseType::whereIn('id', $landUseTypeIds)->get()
+            ->sortBy(function ($landuse, $key) {
+                        return \App\Models\Language::getItem($landuse->name);
+                    },
+                    SORT_NATURAL|SORT_FLAG_CASE
+                );
         $managementIds = \App\Models\ManagementType_Regions::whereIn('region_id', $regIds)->pluck('managementtype_id');
-        $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get();
+        $managementTypes = \App\Models\ManagementType::whereIn('id', $managementIds)->get()
+            ->sortBy(function ($landmanagement, $key) {
+                        return \App\Models\Language::getItem($landmanagement->name);
+                    },
+                    SORT_NATURAL|SORT_FLAG_CASE
+                );
+
         $title = 'create';
         return view ('visitCreate', ['title' => $title, 'minDate' => $minDate, 'maxDate' => $maxDate, 'visit'=>$visit, 'visitType' => $visitType, 'user' => $user, 'species' => $speciesList, 'plantSp' => $plantSp, 'landuseTypes' => $landuseTypes, 'managementTypes' => $managementTypes]);
     }

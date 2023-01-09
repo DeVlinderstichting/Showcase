@@ -39,7 +39,7 @@
                                 </div>
                             </td>
                         </tr>
-                        <tr>
+               <?php /*         <tr>
                             <td>{{\App\Models\Language::getItem('userSettingsPrevSeen')}}</td>
                             <td>
                                 <div class="form-check form-switch usersettings-switch">
@@ -54,7 +54,9 @@
                                 <input id= "userSettingShowCommon" class="form-check-input" onchange="changeUserSetting('showCommon');" @if($user->show_only_common_species) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
-                        </tr>
+                        </tr> 
+
+                        */  ?>
                         <tr>
                             <td>{{\App\Models\Language::getItem('userSettingsPreferedLanguage')}}</td>
                             <td>

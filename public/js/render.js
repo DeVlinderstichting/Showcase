@@ -82,7 +82,7 @@ const showLoginScreen = () =>
                     
                         <button class="btn" id="login_loginButton">Login</button>
                         <button class="btn" id="login_installButton" hidden>Install</button>
-                        <h6><a href="#">Lost your password?</a></h6>
+                        <h6><a href="/forgotPassword">Lost your password?</a></h6>
                         <div class="text-muted" style="text-align: center;margin-top: 3rem; font-style: italic;">© De Vlinderstichting 2021</div>
                     </div>
                 </div>
@@ -247,7 +247,7 @@ const showSpecialObservationScreen = () =>
         
         
         <div class="row justify-content-center pb-3">
-            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} <a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a></h3>
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']} `/*<a href="#" id="special_speciesInfo" style="margin-left:auto;"><i class="fas fa-info"></i></a>*/ + `</h3>
             <select class="chosen-select" name="special_selectSpecies" id="special_selectSpecies">
             </select>
         </div>
@@ -285,7 +285,7 @@ const showSpecialObservationScreen = () =>
     document.getElementById("special_buttonSave").onclick = function () { storeSingleObservation(); };
     document.getElementById("special_buttonCancel").onclick = function () { showHomeScreen(); };
     
-    document.getElementById("special_speciesInfo").onclick = function () { 
+  /*  document.getElementById("special_speciesInfo").onclick = function () { 
         speciesId = document.getElementById('special_selectSpecies').value;
         modalText = `
         ${translations['specialInfoModalSpeciesContents']}<br>
@@ -295,7 +295,7 @@ const showSpecialObservationScreen = () =>
         `
         document.getElementById("modal_bodysp").innerHTML = modalText;
         $('#modal_idsp').modal('show');
-    };
+    }; */
 
     // Make sure we get proper input on change of the number input
     $('#special_inputAmount').change( function () 
@@ -575,18 +575,24 @@ const show15mPostObservationScreen = () =>
 
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
+            var sguTranslated = element.description;
+            if (translations[element.name] !== undefined)
+            {
+                sguTranslated = translations[element.name];   
+            }
+
             if (observedGroupIds.includes(element.id))
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}" checked disabled>
-                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.description}</label>
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
             else
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="15mpost_checkSpeciesGroup_${element.id}" name="15mpost_checkSpeciesGroup_${element.id}">
-                    <label for="15mpost_checkSpeciesGroup_${element.id}">${element.description}</label>
+                    <label for="15mpost_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
         }
@@ -887,9 +893,26 @@ const showFitPreObservationScreen = () =>
     // Attach the modal
     mb.innerHTML += renderModal(translations['fitPreInfoModalTitle'],translations['fitPreInfoModalContents']);
     
+    var spArr = [];
+    $.each(species, function(key, value) 
+    {
+        if (value['speciesgroupId'] == 11)
+        {
+            spArr.push([key, value]);
+        }
+    });
+    spArr.sort(function(s1, s2){
+        var t1 = getSpeciesName(s1[0]).toLowerCase(), t2 = getSpeciesName(s2[0]).toLowerCase();
+        return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
+    });
+
+
     // Populate the list of species (if in usercancount) and attach the chosen selector
-    $.each(species, function(key, value) {
-        if (value['speciesgroupId'] == 11 && value['taxon'] != '') // Note that the ID might change in the future
+    $.each(spArr, function(index) 
+    {
+        var key = spArr[index][0];
+        var value = species[spArr[index][0]];
+        if (value['speciesgroupId'] == 11)// && value['taxon'] != '') // Note that the ID might change in the future
         {
             $('#prefit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
@@ -925,7 +948,7 @@ const showFitObservationScreen = () =>
         obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
              function (el) { return el.id; });              //Return ID
     obsfit = [];
-    
+
     // Build the DOM
     renderNav(clear=true);
 
@@ -1134,18 +1157,23 @@ const showFitPostObservationScreen = () =>
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
+            var sguTranslated = element.description;
+            if (translations[element.name] !== undefined)
+            {
+                sguTranslated = translations[element.name];   
+            }
             if (observedGroupIds.includes(element.id))
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}" checked disabled>
-                    <label for="fit_checkSpeciesGroup_${element.id}">${element.description}</label>
+                    <label for="fit_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
             else
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="fit_checkSpeciesGroup_${element.id}" name="fit_checkSpeciesGroup_${element.id}">
-                    <label for="fit_checkSpeciesGroup_${element.id}">${element.description}</label>
+                    <label for="fit_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
         }
@@ -1700,18 +1728,23 @@ const showTransectPostObservationScreen = () =>
     Object.values(speciesGroups).filter(obj => {return obj.userCanCount === true}).forEach(element => {
         if (speciesGroupsUsers.map(obj => {return obj.speciesgroup_id}).includes(element.id))
         {
+            var sguTranslated = element.description;
+            if (translations[element.name] !== undefined)
+            {
+                sguTranslated = translations[element.name];   
+            }
             if (observedGroupIds.includes(element.id))
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}" checked disabled>
-                    <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="transect_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
             else
             {
                 speciesGroupsHtml += `  <li>
                     <input type="checkbox" id="transect_checkSpeciesGroup_${element.id}" name="transect_checkSpeciesGroup_${element.id}">
-                    <label for="transect_checkSpeciesGroup_${element.id}">${element.name}</label>
+                    <label for="transect_checkSpeciesGroup_${element.id}">`+sguTranslated+`</label>
                 </li>`
             }
         }
@@ -2112,13 +2145,14 @@ const showDataScreen = () =>
         document.getElementById('data_nrInsectsSeen').innerHTML = total_insects;
         document.getElementById('data_nrSpeciesSeen').innerHTML = total_species;
 
+
         new Chart(document.getElementById("bar-chart"), {
             type: 'bar',
             data: {
-              labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+              labels: [translations['chartJanuary'], translations['chartFebruary'], translations['chartMarch'], translations['chartApril'], translations['chartMay'], translations['chartJune'], translations['chartJuly'], translations['chartAugust'], translations['chartSeptember'], translations['chartOctober'], translations['chartNovember'], translations['chartDecember']],
               datasets: [
                 {
-                  label: "Observations",
+                  label: translations['chartTitle'],
                   backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
                   data: monthCountArr
                 }
@@ -2128,7 +2162,7 @@ const showDataScreen = () =>
               legend: { display: false },
               title: {
                 display: true,
-                text: 'Number of observations'
+                text: translations['chartAxisTitle']
               }
             }
         });
@@ -2144,7 +2178,7 @@ const showDataScreen = () =>
                             render: function (data, type, row, meta)
                             {
                                 settings = getUserSettings();
-                                datastring = `'This will redirect to website with details on ${data}'`;
+                                datastring = `'${translations['chartRedirect']} ${data}'`;
                                 data = '<a target="_blank" href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=/visit">edit</a>';
                                 //data = '<a href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=https://showcase.vlinderstichting.nl/visit">edit</a>';
                                 data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
@@ -2174,10 +2208,14 @@ const showSettingsScreen = () =>
     {
         var sgu = settings.speciesGroups[Object.keys(settings.speciesGroups)[i]];
       //  var buttonName = "settings_selectButton_" + sgu.speciesgroup_id + "_" + sgu.recordinglevel_id;
-
-        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sgu.description+`</h3><br>
+        var sguTranslated = sgu.description;
+        if (translations[sgu.name] !== undefined)
+        {
+            sguTranslated = translations[sgu.name];   
+        }
+        happyButtonString += `<div class="row" style="margin-top: 8px;"><img src="img/`+sgu.name+`.png" alt="" class="img-count-settings"><h3 style="text-align:center;color:black;font-size:200%;">`+sguTranslated+`</h3><br>
                 <div class="flex-radio-buttons mt-3">`;
-                if (sgu.id == 1)
+                if (sgu.id == 1 || sgu.id == 4)
                 {
                     happyButtonString += `<label class="container-radio-buttons"><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i>
                         <input type="radio" data-sg="${sgu.name}" id="settings_selectButton_`+sgu.id + "_1" +`" name="`+sgu.name+`-check">
@@ -2236,8 +2274,8 @@ const showSettingsScreen = () =>
                             </label>
                         </span>
                         </p>   
-                    </div>
-                    <div class="row" style="margin-top: 8px;">
+                    </div>` 
+            /*        <div class="row" style="margin-top: 8px;">
                         <p>${translations['settingsShowPreviouslySeen']} <span class="user-name">   
                             <label class="switch">
                             <input type="checkbox" id="settings_showPreviouslySeenCheck">
@@ -2254,9 +2292,9 @@ const showSettingsScreen = () =>
                             </label>
                         </span>
                         </p>   
-                    </div>
-                    <div class="row" style="margin-top: 8px;">
-                        <p>Language <span class="user-name">   
+                    </div> */ +
+                    `<div class="row" style="margin-top: 8px;">
+                        <p>${translations['userSettingsPreferedLanguage']} <span class="user-name">   
                             <select name="setting_selectPreferedLanguage" id="setting_selectPreferedLanguage">
                             `+happyLangString+`
                             </select>

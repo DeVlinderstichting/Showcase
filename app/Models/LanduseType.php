@@ -9,4 +9,6 @@ class LanduseType extends Model
 {
     use HasFactory;
     protected $table = "landusetypes";
+    protected $fillable = ['name', 'description'];
+    
 }

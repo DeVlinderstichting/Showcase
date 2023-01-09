@@ -21,7 +21,8 @@ class GeneralPagesController extends Controller
 
     public function test()
     {
-        return view('gamification');
+        return view('countdown40_test');
+        return view('gamification_test');
     }
 
     public function showIdHelp()

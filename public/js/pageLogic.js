@@ -189,7 +189,7 @@ function dynamicSort(property) {
     }
     return function (a,b) {
         /* next line works with strings and numbers, 
-            * and you may want to customize it to your needs
+            * and you may want to customize it to your needs ... or not :D
             */
         var result = (a[property] < b[property]) ? -1 : (a[property] > b[property]) ? 1 : 0;
         return result * sortOrder;
@@ -202,13 +202,22 @@ function getSpeciesName (id)
     var species = settings.species;
     spObject = Object.values(species).filter(obj => {return obj.id==id})[0]
 
+    var taxon = spObject.taxon;
+    if ((taxon == "") || (taxon == "null"))
+    {
+        taxon = "sp.";
+    }
     if (settings.userSettings.sci_names)
     {
-        spName =  spObject.genus + ' ' + spObject.taxon;
+        spName =  spObject.genus + ' ' + taxon; 
     }
     else
     {
         spName = spObject.localName;
+    }
+    if (spName == "")
+    {
+        spName = spObject.genus + ' ' + taxon;
     }
     return spName;
 }
@@ -261,8 +270,26 @@ function preselectCountableSpecies (species, selectID)
 {
     settings = getUserSettings();
     countLevelById = Object.values(settings.userSettings.speciesGroupsUsers).reduce((accum, currentVal) => {accum[currentVal.speciesgroup_id]= currentVal.recordinglevel_name; return accum} , {})
-    
-    $.each(species, function(key, value) {
+    var spArr = [];
+    $.each(species, function(key, value) 
+    {
+        spArr.push([key, value]);
+    });
+  //  var arr = species.map(function(_, o) { return { t: $(o).getSpeciesName(), v: o.getSpeciesName() }; }).get();
+    spArr.sort(function(s1, s2){
+        var t1 = getSpeciesName(s1[0]).toLowerCase(), t2 = getSpeciesName(s2[0]).toLowerCase();
+        return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
+    });
+
+ //   species.each(function(i, o) 
+ //   {
+  //      o.value = arr[i].v;
+ //       $(o).text(arr[i].t);
+  //  });
+
+    $.each(spArr, function(index) {
+        var key = spArr[index][0];
+        var value = species[spArr[index][0]];
         if (countLevelById[value['speciesgroupId']] == 'none' )
         {
             // Not included in list
@@ -285,6 +312,7 @@ function preselectCountableSpecies (species, selectID)
             }
             else
             {
+                $('#' + selectID).append(`<option value="${key}">${spName = getSpeciesName(value['id'])}</option>`);
             }
         }
 

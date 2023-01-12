@@ -203,21 +203,19 @@ function getSpeciesName (id)
     spObject = Object.values(species).filter(obj => {return obj.id==id})[0]
 
     var taxon = spObject.taxon;
-    if ((taxon == "") || (taxon == "null"))
+    if (taxon == "" || taxon == null)
     {
         taxon = "sp.";
     }
-    if (settings.userSettings.sci_names)
+    if (settings.userSettings.sci_names
+        || spObject.localName == ""
+        || spObject.localName == null)
     {
         spName =  spObject.genus + ' ' + taxon; 
     }
     else
     {
         spName = spObject.localName;
-    }
-    if (spName == "")
-    {
-        spName = spObject.genus + ' ' + taxon;
     }
     return spName;
 }

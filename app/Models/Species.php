@@ -9,6 +9,7 @@ class Species extends Model
 {
     use HasFactory;
     protected $table = 'species';
+    protected $fillable = ['genus', 'speciesgroup_id', 'taxrank', 'taxon', 'parent_id', 'diurnal'];
 
     public function speciesgroup()
     {

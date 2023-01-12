@@ -19,6 +19,12 @@ class GeneralPagesController extends Controller
         return view('start');
     }
 
+    public function test()
+    {
+        return view('countdown40_test');
+        return view('gamification_test');
+    }
+
     public function showIdHelp()
     {
         $idhelps = \App\Models\Region::all()->pluck('species_id_help');

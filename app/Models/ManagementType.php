@@ -9,4 +9,5 @@ class ManagementType extends Model
 {
     use HasFactory;
     protected $table = "managementtypes";
+    protected $fillable = ['name', 'description'];
 }

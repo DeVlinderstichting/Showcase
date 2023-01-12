@@ -171,13 +171,14 @@ class User extends Authenticatable
         $notCountedRecordingLevel = \App\Models\RecordingLevel::where('name', 'none')->first();
         foreach($allIds as $theId)
         {
-            $spgu = \App\Models\Speciesgroup::find($theId);
-            $spguItem = [];
-            $spguItem['speciesgroup_id'] = $spgu->id;
-            $spguItem['speciesgroup_name'] = $spgu->speciesgroup->name;
-            $spguItem['recordinglevel_id'] = $notCountedRecordingLevel->id;
-            $spguItem['recordinglevel_name'] = $notCountedRecordingLevel->name;
-            $speciesGroupsUsers[$spgu->name] = $spguItem;
+            $spg = \App\Models\Speciesgroup::find($theId);
+            $spgItem = [];
+            $spgItem['speciesgroup_id'] = $spg->id;
+            error_log($spg);
+            $spgItem['speciesgroup_name'] = $spg->speciesgroup->name;
+            $spgItem['recordinglevel_id'] = $notCountedRecordingLevel->id;
+            $spgItem['recordinglevel_name'] = $notCountedRecordingLevel->name;
+            $speciesGroupsUsers[$spg->name] = $spgItem;
         }
 
         $userSettings['speciesGroupsUsers'] = $speciesGroupsUsers;

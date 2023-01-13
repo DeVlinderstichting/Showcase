@@ -25,6 +25,10 @@
                     Butterflies of Central Europe & Britain by Peter Gergely <br>This Field Guide contains information to identify <b>269 butterfly species</b> occurring in Britain, Western and Central Europe. With detailed pictures of identification characteristics and precise pointing marks, this Guide will help you to identify difficult and similar species. <br><br>Author Peter Gergely. A hardcopy can be bought at the <a href="https://www.vlinderstichting.nl">Dutch Butterfly Conservation</a>. 
                     <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="\resources\GergelyButterflyGuide.pdf">link</a>
                 </li>
+                <li class="list-group-item identification-list-group-item">
+                    Identify the differences between wild bees, bumblebees, wasps and hovervlies
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://jessicatowne.medium.com/how-to-tell-the-difference-between-bees-wasps-and-flies-e6361dd724ca">link</a>
+                </li> 
             </ul>
         </div>
     </div>

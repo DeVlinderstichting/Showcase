@@ -321,7 +321,10 @@ h6 {
 /* USER SETTINGS PAGE */
 .usersettings-title-header {}
 .usersettings-title-sub {}
-.usersettings-card {}
+.usersettings-card {
+background-color: #fefefe !important;
+border-radius: 10px !important;
+}
 .usersettings-card-body {}
 .usersettings-table {}
 .usersettings-switch {}

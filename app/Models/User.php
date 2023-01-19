@@ -174,8 +174,7 @@ class User extends Authenticatable
             $spg = \App\Models\Speciesgroup::find($theId);
             $spgItem = [];
             $spgItem['speciesgroup_id'] = $spg->id;
-            error_log($spg);
-            $spgItem['speciesgroup_name'] = $spg->speciesgroup->name;
+            $spgItem['speciesgroup_name'] = $spg->name;
             $spgItem['recordinglevel_id'] = $notCountedRecordingLevel->id;
             $spgItem['recordinglevel_name'] = $notCountedRecordingLevel->name;
             $speciesGroupsUsers[$spg->name] = $spgItem;

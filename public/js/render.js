@@ -873,7 +873,7 @@ const showFitPreObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center pb-3">
-            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']}</h3>
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['visitCreateChooseFlower']}</h3>
             <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
             </select>
         </div>
@@ -890,7 +890,8 @@ const showFitPreObservationScreen = () =>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button>
+                <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 

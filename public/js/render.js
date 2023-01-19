@@ -182,12 +182,12 @@ const showHomeScreen = () =>
     {
         theHtml += `
         <div class="col-12 col-xl-5 col-lg-10 col-md-10">
-                        <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
-                        <h2>${translations['homeTransectTitle']}</h2>
-                        <p style="height: 2rem;">${translations['homeTransectDescr']}</p>
-                        <a href="#" id="home_transectButton" class="btn">${translations['startButton']}</a>
-                        </div>
-                    </div>`;
+            <div class="box-background text-center" style="background-image:url('img/transect-bg.svg');">
+                <h2>${translations['homeTransectTitle']}</h2>
+                <p style="height: 2rem;">${translations['homeTransectDescr']}</p>
+                <a href="#" id="home_transectButton" class="btn">${translations['startButton']}</a>
+            </div>
+        </div>`;
     }
     theHtml += `
     <div class="col-12 col-xl-5 col-lg-10 col-md-10">
@@ -195,10 +195,17 @@ const showHomeScreen = () =>
             <h2>${translations['homeFitTitle']}</h2>
             <p style="height: 2rem;">${translations['homeFitDescr']}</p>
             <a href="#" id="home_fitButton" class="btn">${translations['startButton']}</a>
-            </div>
-            </div>
         </div>
     </div>
+    <div class="col-12 col-xl-5 col-lg-10 col-md-10">
+        <div class="box-background text-center">
+            <h2>${translations['homeSupportTitle']}</h2>
+            <p style="height: 2rem;">${translations['homeSupportDescription']}</p>
+            <a class="btn" target="_blank" href="/showIdHelp">${translations['homeSupportIdentificationHelp']}</a>
+        </div>
+    </div>
+</div></div>
+                       
     </section>`;
 
     mb.innerHTML = theHtml;
@@ -943,7 +950,7 @@ const showFitObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers).map(obj => {return obj.speciesgroup_id});
-    var countIds =  Object.values(speciesGroups).filter(    
+    var countIds = Object.values(speciesGroups).filter(    
         obj => {return obj.userCanCount === true}).filter(  //Filter by only countable species (e.g. not plants)
         obj => {return speciesGroupsUsers.includes(obj.id)}).map(  //Filter by species in user settings
              function (el) { return el.id; });              //Return ID

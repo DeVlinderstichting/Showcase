@@ -201,30 +201,21 @@ function getSpeciesName (id)
     settings = getUserSettings();
     var species = settings.species;
     spObject = Object.values(species).filter(obj => {return obj.id==id})[0]
+
     var taxon = spObject.taxon;
-    var spName = "";
-    if ((taxon == "") || (taxon == "null"))
+    if (taxon == "" || taxon == null)
     {
         taxon = "sp.";
     }
-    if (settings.userSettings.sci_names)
+    if (settings.userSettings.sci_names
+        || spObject.localName == ""
+        || spObject.localName == null)
     {
         spName =  spObject.genus + ' ' + taxon; 
     }
     else
     {
-        if (spObject.localName != null)
-        {
-            spName = spObject.localName;
-        }
-        else 
-        {
-            spName = "";
-        }
-    }
-    if ((spName == "") || (spName == "null"))
-    {
-        spName = spObject.genus + ' ' + taxon;
+        spName = spObject.localName;
     }
     return spName;
 }
@@ -278,29 +269,15 @@ function preselectCountableSpecies (species, selectID)
     settings = getUserSettings();
     countLevelById = Object.values(settings.userSettings.speciesGroupsUsers).reduce((accum, currentVal) => {accum[currentVal.speciesgroup_id]= currentVal.recordinglevel_name; return accum} , {})
     var spArr = [];
-    var spGroupArr = [];
     $.each(species, function(key, value) 
     {
-        if (key < 12)
-        {
-            spGroupArr.push([key, value]);
-        }
-        else
-        {
-            spArr.push([key, value]);
-        }
-    });
-
-    spGroupArr.sort(function(s1, s2){
-        var t1 = getSpeciesName(s1[0]).toLowerCase(), t2 = getSpeciesName(s2[0]).toLowerCase();
-        return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
+        spArr.push([key, value]);
     });
   //  var arr = species.map(function(_, o) { return { t: $(o).getSpeciesName(), v: o.getSpeciesName() }; }).get();
     spArr.sort(function(s1, s2){
         var t1 = getSpeciesName(s1[0]).toLowerCase(), t2 = getSpeciesName(s2[0]).toLowerCase();
         return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
     });
-    spArr = spGroupArr.concat(spArr);
 
  //   species.each(function(i, o) 
  //   {

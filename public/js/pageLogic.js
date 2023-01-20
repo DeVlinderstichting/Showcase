@@ -12,6 +12,7 @@ function initAnyCount(countingMethod)
     visit = buildEmptyVisit();
     visit.countingmethod_id = countingMethod;
     trackedLocations = [];
+    locationTrack = [];
 }
 function endAnyCount()
 {
@@ -156,6 +157,7 @@ function resetTimer()
     if (trackedLocations)
     {
         trackedLocations = [];
+        locationTrack = [];
     }
     if (visit)
     {

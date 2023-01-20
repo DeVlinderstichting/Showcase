@@ -317,14 +317,7 @@ function loadVisits()
             visitsRequest = store.getAll();
             visitsRequest.onsuccess = function(evnt)
             {
-                return resolve(visitsRequest.result);
-
-            //    console.log("IK BEN HEIIEERRRR");
-             //   visitsLoadedAtDate = new Date();
-              //  console.log(visitsLoadedAtDate);
-               // console.log(visitsRequest.result);
-                //visits = JSON.parse(visitsRequest.result);
-                //console.log(visits);
+                return resolve(evnt.target.result);
             }
             visitsRequest.onerror = function (evnt) 
             {

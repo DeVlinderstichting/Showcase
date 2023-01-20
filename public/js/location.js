@@ -60,7 +60,6 @@ function trackingLocationUpdate(pos)
                 addLoc = true;
             }
         }
-
         if(addLoc)
         {
             var line = new Date().toISOString() + ", " + lat + ", " + lon;

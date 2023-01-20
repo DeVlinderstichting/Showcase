@@ -1094,12 +1094,17 @@ const showFitObservationScreen = () =>
             {
                 elem.value = parseInt(elem.value);
             }
-            if (elem.value < 0)
+            if (elem.value <= 0)
             {
                 elem.value = 0;
+                document.getElementById(`fit_minAmount_${speciesInfo['id']}`).setAttribute('disabled', '');
+            }
+            else
+            {
+                document.getElementById(`fit_minAmount_${speciesInfo['id']}`).removeAttribute('disabled');
             }
             elem.value = elem.value.replace(/\D/g,'');
-            addObservationToVisit(speciesInfo['id'], parseInt(elem.value), trackedLocations[trackedLocations.length - 1], 'put');
+            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
         });
     }
     oldObservations = [...new Set(visit.observations.map(obj => {return [obj.species_id, obj.number]}))];

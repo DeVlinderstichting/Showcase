@@ -484,10 +484,15 @@ input.btn-line-small:focus { border-width: 2px; }
     height: 35px;
 }
 
-.btn-counter:hover { 
+.btn-counter:hover:enabled { 
     color: #ffffff !important; 
     cursor: pointer; 
     background: #F87A13 0% 0% no-repeat padding-box;
+}
+
+.btn-counter:disabled,
+.btn-counter[disabled] {
+    background: #6C6C97;
 }
 
 /* ===================================

@@ -883,7 +883,7 @@ const showFitPreObservationScreen = () =>
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
                 <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();">-</button>
-                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=0 style="width:100%;">
+                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=1 style="width:100%;">
                 <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();">+</button>
             </div>
         </div>
@@ -925,6 +925,17 @@ const showFitPreObservationScreen = () =>
         }
     });
     $('.chosen-select').select2();
+
+    document.getElementById("prefit_inputAmount").onchange = function () {
+        if (document.getElementById("prefit_inputAmount").value <= 1)
+        {
+            document.getElementById("prefit_minAmount").setAttribute('disabled', '');
+        }
+        else
+        {
+            document.getElementById("prefit_minAmount").removeAttribute('disabled');
+        }
+    };
 
     // Attach the events
     $("#prefit_selectSpecies").change(function () 

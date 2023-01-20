@@ -64,7 +64,7 @@ class AppServiceProvider extends ServiceProvider
         });
         Validator::extend('valid_email', function ($attribute, $value)
         {
-            return preg_match('/^[^0-9][_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/u', $value);
+            return preg_match('/^[^0-9A-Z][_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/u', $value);
         });
         Validator::extend('alpha_num_underscore_minus', function ($attribute, $value) 
         {

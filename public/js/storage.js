@@ -226,7 +226,9 @@ function buildEmptyObservation(visit)
 }
 function addObservationToVisit(speciesId, amount, location, stackNumbers = "add", transectSectionId =-1)
 {
-    found = false;
+    index = -1;
+    speciesId = parseInt(speciesId);
+    amount = parseInt(amount);
     if ((stackNumbers == "add") || (stackNumbers == "put"))
     {
         for (var i = 0 ; i < visit.observations.length; i++)
@@ -235,24 +237,27 @@ function addObservationToVisit(speciesId, amount, location, stackNumbers = "add"
             {
                 if (visit.observations[i].transect_section_id == transectSectionId)
                 {
-                    if (stackNumbers == "add")
-                    {
-                        visit.observations[i].number = visit.observations[i].number + amount;
-                    }
-                    if (stackNumbers == "put")
-                    {
-                        visit.observations[i].number = amount;
-                    }
-                    if (visit.observations[i].number < 1)
-                    {
-                        visit.observations = visit.observations.splice(i, 1); //remove observation
-                    }
-                    found = true;
+                    index = i;
                 }
             }
         }
     }
-    if (!found)
+    if (index >= 0)
+    {
+        if (stackNumbers == "add")
+        {
+            visit.observations[index].number = visit.observations[index].number + amount;
+        }
+        else if (stackNumbers == "put")
+        {
+            visit.observations[index].number = amount;
+        }
+        if (visit.observations[index].number < 1)
+        {
+            visit.observations.splice(index, 1);  // Remove observation
+        }
+    }
+    else
     {
         var obs = buildEmptyObservation();
         obs.species_id = speciesId;

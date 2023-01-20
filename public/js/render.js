@@ -524,8 +524,8 @@ const show15mPostObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
     // Get the observer species and groups to make a preselection
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
-    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM
     renderNav(clear=true);
@@ -873,7 +873,7 @@ const showFitPreObservationScreen = () =>
         </div>
 
         <div class="row justify-content-center pb-3">
-            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['searchSpeciesLabel']}</h3>
+            <h3 style="display: flex;"><i class="fas fa-bug" style="align-self: center;"></i> ${translations['visitCreateChooseFlower']}</h3>
             <select class="chosen-select" name="prefit_selectSpecies" id="prefit_selectSpecies">
             </select>
         </div>
@@ -883,14 +883,15 @@ const showFitPreObservationScreen = () =>
         <div class="input-group">
             <div class="input-group-btn w-100" style="display: flex;">
                 <button id="prefit_minAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value--; $('#prefit_inputAmount').change();">-</button>
-                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=0 style="width:100%;">
+                <input class="small-input" id="prefit_inputAmount" name="prefit_inputAmount" value=1 style="width:100%;">
                 <button id="prefit_plusAmount" class="btn-counter" onclick="$('#prefit_inputAmount').get(0).value++; $('#prefit_inputAmount').change();">+</button>
             </div>
         </div>
 
         <div class="row justify-content-center">
             <div class="col-md-12 text-center">
-                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button> <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
+                <button id="prefit_buttonSave" class="btn">${translations['saveButton']}</button>
+                <button id="prefit_buttonCancel" class="btn-line">${translations['cancelButton']}</button>
             </div>
         </div>
 
@@ -913,18 +914,28 @@ const showFitPreObservationScreen = () =>
         return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
     });
 
-
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(spArr, function(index) 
     {
         var key = spArr[index][0];
         var value = species[spArr[index][0]];
-        if (value['speciesgroupId'] == 11)// && value['taxon'] != '') // Note that the ID might change in the future
+        if (value['description'] != "plants")  // Do not list the general group category
         {
             $('#prefit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }
     });
     $('.chosen-select').select2();
+
+    document.getElementById("prefit_inputAmount").onchange = function () {
+        if (document.getElementById("prefit_inputAmount").value <= 1)
+        {
+            document.getElementById("prefit_minAmount").setAttribute('disabled', '');
+        }
+        else
+        {
+            document.getElementById("prefit_minAmount").removeAttribute('disabled');
+        }
+    };
 
     // Attach the events
     $("#prefit_selectSpecies").change(function () 
@@ -1083,12 +1094,17 @@ const showFitObservationScreen = () =>
             {
                 elem.value = parseInt(elem.value);
             }
-            if (elem.value < 0)
+            if (elem.value <= 0)
             {
                 elem.value = 0;
+                document.getElementById(`fit_minAmount_${speciesInfo['id']}`).setAttribute('disabled', '');
+            }
+            else
+            {
+                document.getElementById(`fit_minAmount_${speciesInfo['id']}`).removeAttribute('disabled');
             }
             elem.value = elem.value.replace(/\D/g,'');
-            addObservationToVisit(speciesInfo['id'], parseInt(elem.value), trackedLocations[trackedLocations.length - 1], 'put');
+            addObservationToVisit(speciesInfo['id'], elem.value, trackedLocations[trackedLocations.length - 1], 'put');
         });
     }
     oldObservations = [...new Set(visit.observations.map(obj => {return [obj.species_id, obj.number]}))];
@@ -1107,8 +1123,8 @@ const showFitPostObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
-    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM
     renderNav(clear=true);
@@ -1678,7 +1694,7 @@ const showTransectPostObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM

@@ -691,21 +691,6 @@
         @endif
     }
 
-    function toISOLocal(d) {
-        var z  = n =>  ('0' + n).slice(-2);
-        var zz = n => ('00' + n).slice(-3);
-        var off = d.getTimezoneOffset();
-        var sign = off > 0? '-' : '+';
-        off = Math.abs(off);
-
-        return d.getFullYear() + '-'
-                + z(d.getMonth()+1) + '-' +
-                z(d.getDate()) + ' ' +
-                z(d.getHours()) + ':'  + 
-                z(d.getMinutes());
-        }
-
-
     $("#visitcreateform").on("submit", function (e) 
     {
         // e.preventDefault();//stop submit event
@@ -718,7 +703,8 @@
         var datetime = document.createElement('input');
         datetime.type = 'hidden';
         datetime.name = 'startdate';
-        datetime.value = toISOLocal(new Date(startDate + ' ' + startTime));
+        var startISO = new Date(startDate + ' ' + startTime).toISOString();
+        datetime.value = startISO.split(':00.000')[0].replace('T', ' ');
         form[0].appendChild(datetime);
 
         var enddatetime = document.createElement('input');
@@ -726,12 +712,14 @@
         enddatetime.name = 'enddate';
         @if(!$isSingle)
             var endTime = $('#endtime').val();
-            enddatetime.value = toISOLocal(new Date(startDate + ' ' + endTime));
+            var endISO = new Date(startDate + ' ' + endTime).toISOString();
+            enddatetime.value = endISO.split(':00.000')[0].replace('T', ' ');
             form[0].appendChild(enddatetime);
         @else
             var newDateObj = new Date(startDate + ' ' + startTime);
             var newEndDateObj = new Date(newDateObj.getTime() + 1*60000) ;
-            enddatetime.value = toISOLocal(newEndDateObj)
+            var endISO = newEndDateObj.toISOString();
+            enddatetime.value = endISO.split(':00.000')[0].replace('T', ' ');
             form[0].appendChild(enddatetime);
         @endif
     

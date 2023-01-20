@@ -524,8 +524,8 @@ const show15mPostObservationScreen = () =>
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
     // Get the observer species and groups to make a preselection
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
-    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM
     renderNav(clear=true);
@@ -1123,8 +1123,8 @@ const showFitPostObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
-    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(String(obj.id))}).map( function (el) { return el.speciesgroupId; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
+    var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM
     renderNav(clear=true);
@@ -1694,7 +1694,7 @@ const showTransectPostObservationScreen = () =>
     var translations = settings.translations;
     var speciesGroups = settings.speciesGroups;
     var speciesGroupsUsers = Object.values(settings.userSettings.speciesGroupsUsers);
-    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return el.species_id; }))];
+    var observedSpeciesIds = [...new Set(visit['observations'].map( function (el) { return parseInt(el.species_id); }))];
     var observedGroupIds = [... new Set(Object.values(species).filter(obj => {return observedSpeciesIds.includes(obj.id)}).map( function (el) { return el.speciesgroupId; }))];
 
     // Build the DOM

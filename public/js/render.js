@@ -914,13 +914,12 @@ const showFitPreObservationScreen = () =>
         return t1 > t2 ? 1 : t1 < t2 ? -1 : 0;
     });
 
-
     // Populate the list of species (if in usercancount) and attach the chosen selector
     $.each(spArr, function(index) 
     {
         var key = spArr[index][0];
         var value = species[spArr[index][0]];
-        if (value['speciesgroupId'] == 11)// && value['taxon'] != '') // Note that the ID might change in the future
+        if (value['description'] != "plants")  // Do not list the general group category
         {
             $('#prefit_selectSpecies').append(`<option value="${key}">${getSpeciesName(value['id'])}</option>`);
         }

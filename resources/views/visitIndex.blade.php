@@ -27,7 +27,7 @@
                         <tbody id="dataTable">
                             @foreach ($singleObservations as $so)
                                 <tr>
-                                    <td class="uservisitindex-cell">{{ $so->startdate }}</td>
+                                    <td class="uservisitindex-cell"><time>{{ $so->startdate }}</time></td>
                                     @if ($so->observations()->first() != null)
                                         <td class="uservisitindex-cell">{{ $so->observations->first()->species()->first()->getName($user) }}</td>
                                         <td class="uservisitindex-cell">{{ $so->observations->first()->number }}</td>
@@ -72,7 +72,7 @@
                                         $trObject = \App\Models\Transect::find($tr->transect_id);
                                     ?>
                                     <td class="uservisitindex-cell">{{ $trObject->name }}</td>
-                                    <td class="uservisitindex-cell">{{ $tr->startdate }}</td>
+                                    <td class="uservisitindex-cell"><time>{{ $tr->startdate }}</time></td>
                                     <td class="uservisitindex-cell">{{ $tr->getDuration() }}</td>
                                     <td class="uservisitindex-cell">
                                         <a class="uservisitindex-actionbutton" href='/visit/{{ $tr->id }}'><i class='fa fa-search'
@@ -106,7 +106,7 @@
                         <tbody id="dataTable">
                             @foreach ($fit as $f)
                                 <tr>
-                                    <td class="uservisitindex-cell">{{ $f->startdate }}</td>
+                                    <td class="uservisitindex-cell"><time>{{ $f->startdate }}</time></td>
                                     <td class="uservisitindex-cell">{{ \App\Models\Species::where('id', $f->flower_id)->first()->getName($user) }}</td>
                                     <td class="uservisitindex-cell">{{ $f->observations()->count() }}</td>
                                     <td class="uservisitindex-cell">
@@ -141,7 +141,7 @@
                         <tbody id="dataTable">
                             @foreach ($timed as $ti)
                                 <tr>
-                                    <td class="uservisitindex-cell">{{ $ti->startdate }}</td>
+                                    <td class="uservisitindex-cell"><time>{{ $ti->startdate }}</time></td>
                                     <td class="uservisitindex-cell">{{ $ti->enddate }}</td>
                                     <td class="uservisitindex-cell">{{ $ti->observations()->count() }}</td>
                                     <td class="uservisitindex-cell"></td>
@@ -209,6 +209,8 @@
             });
             location.reload(); 
         }
+
+        timesToLocal();      
     </script>
 
     @endsection

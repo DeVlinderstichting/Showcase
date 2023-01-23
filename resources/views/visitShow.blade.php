@@ -52,7 +52,7 @@
                             @if ($isSingle)
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowDate')}}</td>
-                                    <td>{{$visit->startdate}}</td>
+                                    <td><time>{{$visit->startdate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowNotes')}}</td>
@@ -62,11 +62,11 @@
                             @if($isTimed)
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
-                                    <td>{{$visit->startdate}}</td>
+                                    <td><time>{{$visit->startdate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
-                                    <td>{{$visit->enddate}}</td>
+                                    <td><time>{{$visit->enddate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowObsNum')}}</td>
@@ -92,11 +92,11 @@
                             @if($isTransect)
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
-                                    <td>{{$visit->startdate}}</td>
+                                    <td><time>{{$visit->startdate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
-                                    <td>{{$visit->enddate}}</td>
+                                    <td><time>{{$visit->enddate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowDuration')}}</td>
@@ -126,11 +126,11 @@
                             @if($isFit)
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowStartdate')}}</td>
-                                    <td>{{$visit->startdate}}</td>
+                                    <td><time>{{$visit->startdate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowEnddate')}}</td>
-                                    <td>{{$visit->enddate}}</td>
+                                    <td><time>{{$visit->enddate}}</time></td>
                                 </tr>
                                 <tr>
                                     <td>{{\App\Models\Language::getItem('visitShowDuration')}}</td>
@@ -181,4 +181,8 @@
             </div>
         </div>
     </div>
+
+<script>
+    timesToLocal();      
+</script>    
 @endsection

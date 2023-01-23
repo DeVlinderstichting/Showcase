@@ -142,7 +142,7 @@
                             @foreach ($timed as $ti)
                                 <tr>
                                     <td class="uservisitindex-cell"><time>{{ $ti->startdate }}</time></td>
-                                    <td class="uservisitindex-cell">{{ $ti->enddate }}</td>
+                                    <td class="uservisitindex-cell"><time>{{ $ti->enddate }}</time></td>
                                     <td class="uservisitindex-cell">{{ $ti->observations()->count() }}</td>
                                     <td class="uservisitindex-cell"></td>
                                     <td class="uservisitindex-cell">

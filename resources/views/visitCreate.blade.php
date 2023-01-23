@@ -161,36 +161,19 @@
                     @endif
                     <label for="date" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateDate')}}</label>
                     <div class="col">
-                        @if($visit)
-                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy', explode(' ', $visit->startdate)[0])}}"}}>
-                        @else
-                            <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy')}}"}}>
-                        @endif
-<!--                         @if($errors->has('startdate')) 
-                            <div class="invalid-feedback"> {{$errors->first('startdate')}} </div>
-                        @endif -->
+                        <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy')}}"}}>
                     </div>
                     <label for="starttime" class="col-md-3 col-form-label uservisitcreate-form-label">
                     @if($isSingle){{\App\Models\Language::getItem('visitCreateTime')}} @else {{\App\Models\Language::getItem('visitCreateStarttime')}} @endif</label>
                     <div class="col">
-                        @if($visit)
-                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime', explode(' ', $visit->startdate)[1])}}">
-                        @else
-                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
-                        @endif
-<!--                         @if($errors->has('starttime')) <div class="invalid-feedback"> {{$errors->first('starttime')}} </div>@endif
- -->                    </div>
+                        <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" id="starttime" name="starttime" value="{{old('starttime')}}">
+                    </div>
 
                     @if (!$isSingle)
                         <label for="endtime" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateEndtime')}}</label>
                         <div class="col">
-                        @if($visit)
-                            <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('enddate')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime', explode(' ', $visit->enddate)[1])}}">
-                        @else
                             <input type="time" class="form-control uservisitcreate-form-input @if($errors->has('enddate')) is-invalid @endif" id="endtime" name="endtime" value="{{old('endtime')}}">
-                        @endif
-<!--                             @if($errors->has('endtime')) <div class="invalid-feedback"> {{$errors->first('endtime')}} </div>@endif
- -->                        </div>
+                        </div>
                         
                         @if($isTransect)
                         
@@ -235,6 +218,23 @@
                             </div>
                         @endif
                     @endif
+
+                    @if($visit)  <!-- Set server times to local times if a visit is edited -->
+                    <script type="text/javascript">
+                        if (document.getElementById('startdatedummy').value == '')
+                        {
+                            console.log("edit visit");
+                            let localisedDt = toLocalDatetime("{{$visit->startdate}}");
+                            document.getElementById('startdatedummy').value = localisedDt.split(" ")[0];
+                            document.getElementById('starttime').value = localisedDt.split(" ")[1];
+                            @if(!$isSingle)
+                                let localisedEndDt = toLocalDatetime("{{$visit->enddate}}");
+                                document.getElementById('endtime').value = localisedEndDt.split(" ")[1];
+                            @endif
+                        }
+                    </script>
+                    @endif
+
                     <div class="col">
                         <label for="endtime" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateNotes')}}</label>
                         @if($visit)

@@ -89,7 +89,6 @@
         </div>
       </div>
 
-      
     <div class="container mt-4">
         <div class="card mb-2 uservisitcreate-card">
             <div class="card-body uservisitcreate-card-body">
@@ -99,8 +98,8 @@
                             @if(str_contains($error, 'startdate'))
                                 <li>{{ \App\Models\Language::getItem('visitCreateInvalidStartdate') }}</li>
                             @elseif(str_contains($error, 'enddate'))
-                                @if (!$isSingle)
-                                    <li>{{ \App\Models\Language::getItem('visitCreateInvalidEnddate') }}</li>
+                            @if (!$isSingle)
+                                <li>{{ \App\Models\Language::getItem('visitCreateInvalidEnddate') }}</li>
                             @endif
                             @else
                                 <li>{{ $error }}</li>
@@ -147,11 +146,9 @@
                                         //Create and append the options
                                         var sectionArray = getTransectSections(document.getElementById("transect_id").value);
                                         for (var i = 0; i < sectionArray.length; i++) {
-                                            
                                             var option = new Option(sectionArray[i][1], sectionArray[i][0]);
                                             $(this).append(option);
                                         }
-
                                     });
                                 currentTransectId = document.getElementById("transect_id").value;
                                 transectModal.hide();
@@ -159,7 +156,7 @@
                         </script>
 
                     @endif
-                    <label for="date" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateDate')}}</label>
+                    <label for="startdatedummy" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateDate')}}</label>
                     <div class="col">
                         <input type="date" class="form-control uservisitcreate-form-input @if($errors->has('startdate')) is-invalid @endif" max={{$maxDate}} min={{$minDate}} id="startdatedummy" name="startdatedummy" value="{{old('startdatedummy')}}"}}>
                     </div>
@@ -236,7 +233,7 @@
                     @endif
 
                     <div class="col">
-                        <label for="endtime" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateNotes')}}</label>
+                        <label for="notes" class="col-md-3 col-form-label uservisitcreate-form-label">{{\App\Models\Language::getItem('visitCreateNotes')}}</label>
                         @if($visit)
                             <input type="text" class="form-control uservisitcreate-form-input @if($errors->has('notes')) is-invalid @endif" id="notes" name="notes" value="{{old('notes', $visit->notes)}}"}}>
                         @else

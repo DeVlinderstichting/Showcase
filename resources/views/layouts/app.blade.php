@@ -51,7 +51,7 @@
                 <svg class="bi me-2" width="40" height="32">
                     <use xlink:href="#bootstrap" />
                 </svg>
-                <span class="fs-4">Showcase</span>
+                <span class="fs-4">InsectsCount</span>
             </a>
 
             <ul class="nav nav-pills general-navbar-buttons-class">

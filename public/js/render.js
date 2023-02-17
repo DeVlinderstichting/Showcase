@@ -10,7 +10,7 @@ var renderNav = function(clear=false)
 
         // Build the DOM
         nav.innerHTML =`
-        <a class="navbar-brand" id="nav_homeLink" href="#"><i class="fas fa-home" style="margin-left:10px;"></i><img src="img/logo_Showcase_335x72.png" alt="" style="height: 20px; margin-left: 10px;"></a>
+        <a class="navbar-brand" id="nav_homeLink" href="#"><i class="fas fa-home" style="margin-left:10px;"></i><img src="img/logo_Insectscount_718x242.png" alt="" style="height: 20px; margin-left: 10px;"></a>
         <a class="nav-link active messagsMenuBar" style="margin-left: auto" id="nav_dataLink" aria-current="page" href="#">${translations['navStatistics']} <i class="fas fa-chart-pie"></i></a>
         <a class="nav-link active messagsMenuBar" id="nav_settingsLink" aria-current="page" href="#">${translations['navSettings']} <i class="fas fa-cog"></i></a>
         <a class="nav-link active messagsMenuBar" id="nav_messagesLink" aria-current="page" href="#">${translations['navMessages']} <i class="fas fa-comment-dots"></i></a>

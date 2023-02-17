@@ -45,7 +45,7 @@
       "sizes": "384x384"
     },
     {
-      "src": "/img/favicon_512.png",
+      "src": "/img/favicon.png",
       "type": "image/png", 
       "sizes": "512x512"
     }

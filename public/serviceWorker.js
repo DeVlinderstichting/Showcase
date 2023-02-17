@@ -2,9 +2,7 @@ const staticShowcase = "Showcase_2023-01-20" ;// + new Date().getFullYear() + "-
 
 //also load font awesome css!!
 const assets = [
-    "/images/logo.jpg",
     "/images/bgloginv2.png",
-    "/images/logo.png",
     "/js/storage.js",
     "/js/pageLogic.js",
     "/js/app.js",
@@ -36,7 +34,7 @@ const assets = [
     "/img/favicon.png",
     "/img/favicon_192.png",
     "/img/15-count-bg.svg",
-    "/img/logo_Showcase_335x72.png",
+    "/img/logo_Insectscount_718x242.png",
     "/img/favicon_72.png",
     "/img/background_1920x1080.png",
     "/img/background_1920x1080_screen-01.png",
@@ -45,12 +43,10 @@ const assets = [
     "/img/favicon_144.png",
     "/img/favicon_128.png",
     "/img/background_1920x1080_v2.png",
-    "/img/logo_Showcase_169x36.png",
     "/img/favicon_96.png",
     "/img/flower-count-bg.svg",
     "/img/special-bg.svg",
     "/img/favicon_152.png",
-    "/img/favicon_512.png",
     "/css/select2.css",
     "/css/bootstrap.min.css.map",
     "/css/jquery.dataTables.min.css",

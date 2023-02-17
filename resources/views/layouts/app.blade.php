@@ -51,7 +51,7 @@
                 <svg class="bi me-2" width="40" height="32">
                     <use xlink:href="#bootstrap" />
                 </svg>
-                <span class="fs-4">InsectsCount</span>
+                <img src="img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="32">
             </a>
 
             <ul class="nav nav-pills general-navbar-buttons-class">

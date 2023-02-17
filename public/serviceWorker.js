@@ -1,4 +1,4 @@
-const staticShowcase = "Showcase_2023-01-20" ;// + new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate();//2022-10-11";
+const staticShowcase = "Showcase_2023-02-16" ;// + new Date().getFullYear() + "-" + new Date().getMonth() + "-" + new Date().getDate();//2022-10-11";
 
 //also load font awesome css!!
 const assets = [

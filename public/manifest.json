@@ -1,7 +1,7 @@
 {
-  "name": "Showcase",
-  "short_name": "Showcase",
-  "description": "The recording app for the showcase project",
+  "name": "InsectsCount",
+  "short_name": "InsectsCount",
+  "description": "The recording app for the Showcase project",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#fdfdfd",

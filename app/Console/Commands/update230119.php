@@ -11,7 +11,7 @@ class update230119 extends Command
      *
      * @var string
      */
-    protected $signature = 'update231219';
+    protected $signature = 'update230119';
 
     /**
      * The console command description.

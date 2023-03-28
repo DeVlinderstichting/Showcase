@@ -84,4 +84,10 @@ Route::post("/requestUserPackage", 'App\Http\Controllers\UserController@requestU
 Route::get('/', '\App\Http\Controllers\GeneralPagesController@start');
 Route::get('/*', '\App\Http\Controllers\GeneralPagesController@showNews');
 
+Route::get('/game/getLandscapeAjax', '\App\Http\Controllers\GameController@getLandscapeAjax');
+
+
+
+
+
 Route::get('/test', '\App\Http\Controllers\GeneralPagesController@test');

@@ -541,7 +541,7 @@ class AdminController extends Controller
             'username' => ['required', 'min:2', 'exists:users,name'],
             'table_name' => ['required', Rule::in(['observations', 'visits'])],
         ]);
-        $user = \App\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
+        $user = \App\Models\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
         if (($user == null) || (!$user->isadmin))
         {
             die("invalid user");

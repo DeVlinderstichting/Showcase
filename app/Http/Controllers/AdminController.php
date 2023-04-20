@@ -557,6 +557,34 @@ class AdminController extends Controller
         {
             $sqLine = "SELECT * FROM visits";
         }
+        if ($valDat['table_name'] == 'speciesgroups')
+        {
+            $sqLine = "SELECT * FROM speciesgroups";
+        }
+        if ($valDat['table_name'] == 'species')
+        {
+            $sqLine = "SELECT * FROM species";
+        }
+        if ($valDat['table_name'] == 'methods')
+        {
+            $sqLine = "SELECT * FROM methods";
+        }
+        if ($valDat['table_name'] == 'method_speciesgroup_recordinglevels')
+        {
+            $sqLine = "SELECT * FROM method_speciesgroup_recordinglevels";
+        }
+        if ($valDat['table_name'] == 'managementtypes')
+        {
+            $sqLine = "SELECT * FROM managementtypes";
+        }
+        if ($valDat['table_name'] == 'landusetypes')
+        {
+            $sqLine = "SELECT * FROM landusetypes";
+        }
+        if ($valDat['table_name'] == 'users')
+        {
+            $sqLine = "SELECT name, email FROM users where isadmin = false";
+        }
 
         $res = DB::select(DB::raw($sqLine));
         return json_encode($res);

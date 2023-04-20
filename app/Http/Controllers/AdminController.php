@@ -540,7 +540,7 @@ class AdminController extends Controller
         [
             'accesstoken' => ['required', 'min:50', 'exists:users,accesstoken'],
             'username' => ['required', 'min:2', 'exists:users,name'],
-            'table_name' => ['required', Rule::in(['observations', 'visits', 'speciesgroups', 'species', 'methods', 'method_speciesgroup_recordinglevels', 'managementtypes', 'landusetypes', 'users'])],
+            'table_name' => ['required', Rule::in(['observations', 'visits', 'speciesgroups', 'species', 'methods', 'method_speciesgroup_recordinglevels', 'managementtypes', 'landusetypes', 'users', 'regions', 'regions_users'])],
         ]);
         $user = \App\Models\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
         if (($user == null) || (!$user->isadmin))
@@ -580,6 +580,14 @@ class AdminController extends Controller
         if ($valDat['table_name'] == 'landusetypes')
         {
             $sqLine = "SELECT * FROM landusetypes";
+        }
+        if ($valDat['table_name'] == 'regions')
+        {
+            $sqLine = "SELECT * FROM regions";
+        }
+        if ($valDat['table_name'] == 'regions_users')
+        {
+            $sqLine = "SELECT * FROM regions_users";
         }
         if ($valDat['table_name'] == 'users')
         {

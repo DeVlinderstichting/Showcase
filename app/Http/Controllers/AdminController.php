@@ -9,6 +9,7 @@ use Auth;
 use Hash;
 use Illuminate\Support\Carbon;
 use \App\Models\User;
+use DB;
 
 class AdminController extends Controller
 {

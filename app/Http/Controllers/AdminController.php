@@ -540,7 +540,7 @@ class AdminController extends Controller
         [
             'accesstoken' => ['required', 'min:50', 'exists:users,accesstoken'],
             'username' => ['required', 'min:2', 'exists:users,name'],
-            'table_name' => ['required', Rule::in(['observations', 'visits'])],
+            'table_name' => ['required', Rule::in(['observations', 'visits', 'speciesgroups', 'species', 'methods', 'method_speciesgroup_recordinglevels', 'managementtypes', 'landusetypes', 'users'])],
         ]);
         $user = \App\Models\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
         if (($user == null) || (!$user->isadmin))

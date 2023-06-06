@@ -60,12 +60,25 @@
             <h2 class="identification-section-title">United Kingdom</h2>
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
+                    Butterfly identification guide by Butterfly Conservation
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://butterfly-conservation.org/butterflies/identify-a-butterfly">link</a>
+                </li>
+                <li class="list-group-item identification-list-group-item">
                     Common UK Butterfly Identification and Facts - Woodland Trust
                     <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.woodlandtrust.org.uk/blog/2019/07/butterfly-identification/">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
-                    Bumblebee app
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://apps.apple.com/gb/app/whats-that-bumblebee/id1509257038">link</a>
+                    Bumblebee identification guide by Bumblebee Conservation Trust
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.bumblebeeconservation.org/bumblebee-species-guide/">link</a>
+                </li>
+                <li class="list-group-item identification-list-group-item">
+                    <i>What's that bumblebee</i> app by Bumblebee Conservation Trust
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://apps.apple.com/gb/app/whats-that-bumblebee/id1509257038">iOS</a>
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://play.google.com/store/apps/details?id=com.bbct.bumblebee&hl=en">Android</a>
+                </li>
+                <li class="list-group-item identification-list-group-item">
+                    UK Pollinator Monitoring Scheme (POMS)
+                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://ukpoms.org.uk/species-recording">link</a>
                 </li>
             </ul>
         </div>

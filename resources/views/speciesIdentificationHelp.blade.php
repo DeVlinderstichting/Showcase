@@ -23,11 +23,11 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Butterflies of Central Europe & Britain by Peter Gergely <br>This Field Guide contains information to identify <b>269 butterfly species</b> occurring in Britain, Western and Central Europe. With detailed pictures of identification characteristics and precise pointing marks, this Guide will help you to identify difficult and similar species. <br><br>Author Peter Gergely. A hardcopy can be bought at the <a href="https://www.vlinderstichting.nl">Dutch Butterfly Conservation</a>. 
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="\resources\GergelyButterflyGuide.pdf">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="\resources\GergelyButterflyGuide.pdf">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Identify the differences between wild bees, bumblebees, wasps and hovervlies
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://jessicatowne.medium.com/how-to-tell-the-difference-between-bees-wasps-and-flies-e6361dd724ca">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://jessicatowne.medium.com/how-to-tell-the-difference-between-bees-wasps-and-flies-e6361dd724ca">link</a>
                 </li> 
             </ul>
         </div>
@@ -40,15 +40,15 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Vlinder herkenningskaart
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vlinderstichting.nl/vlinders/vlinders-herkennen/herkenningskaart/ ">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vlinderstichting.nl/vlinders/vlinders-herkennen/herkenningskaart/ ">link</a>
                 </li> 
                 <li class="list-group-item identification-list-group-item">
                     Wilde bijen determinatie
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.bestuivers.nl/wilde-bijen/herkenning-en-determinatie">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.bestuivers.nl/wilde-bijen/herkenning-en-determinatie">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Hommels
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vlinderstichting.nl/bijen/hommels/">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vlinderstichting.nl/bijen/hommels/">link</a>
                 </li>
             </ul>
         </div>
@@ -61,24 +61,24 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Butterfly identification guide by Butterfly Conservation
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://butterfly-conservation.org/butterflies/identify-a-butterfly">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://butterfly-conservation.org/butterflies/identify-a-butterfly">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Common UK Butterfly Identification and Facts - Woodland Trust
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.woodlandtrust.org.uk/blog/2019/07/butterfly-identification/">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.woodlandtrust.org.uk/blog/2019/07/butterfly-identification/">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Bumblebee identification guide by Bumblebee Conservation Trust
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.bumblebeeconservation.org/bumblebee-species-guide/">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.bumblebeeconservation.org/bumblebee-species-guide/">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     <i>What's that bumblebee</i> app by Bumblebee Conservation Trust
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://apps.apple.com/gb/app/whats-that-bumblebee/id1509257038">iOS</a>
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://play.google.com/store/apps/details?id=com.bbct.bumblebee&hl=en">Android</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://apps.apple.com/gb/app/whats-that-bumblebee/id1509257038">iOS</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://play.google.com/store/apps/details?id=com.bbct.bumblebee&hl=en">Android</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     UK Pollinator Monitoring Scheme (POMS)
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://ukpoms.org.uk/species-recording">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://ukpoms.org.uk/species-recording">link</a>
                 </li>
             </ul>
         </div>
@@ -91,20 +91,20 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Field Guide Andalucia - Spain <br>This Field Guide includes 93 of the most common butterfly species in Andalusia in just 12 pages. This Guide aims to be useful by reducing the number of butterflies in an area as rich and diverse as Andalusia. You can download the guide in pdf and various formats: <br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia%20(low).pdf">Andalusia Guide (Spanish): to print directly, three sheets to be printed on both sides, the pages are ordered for printing.</a><br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia_12pages%20lowsize.pdf">Andalusia guide by pages (Spanish): pdf with individualized pages to download to your device</a><br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia_English%20(low).pdf">Andalusia Guide (English): to print directly, four sheets to be printed on both sides, the pages are ordered for printing. </a>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia%20(low).pdf">Andalusia Guide (Spanish): to print directly, three sheets to be printed on both sides, the pages are ordered for printing.</a><br>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia_12pages%20lowsize.pdf">Andalusia guide by pages (Spanish): pdf with individualized pages to download to your device</a><br>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_Andalucia_English%20(low).pdf">Andalusia Guide (English): to print directly, four sheets to be printed on both sides, the pages are ordered for printing. </a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Field Guide Castilla-La Mancha - Spain <br>
                     Castilla-La Mancha is a region of the peninsular centere of Spain with a great diversity of ecosystems: mountain ranges, wetlands, river valleys good for the diversity of butterflies. You can download the CLM Field Guide guide in pdf format with the 72 most common butterfly species in CLM in 8 pages: <br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM%20final%20v1.pdf">    (Spanish): two sheets to be printed on both sides, the pages are ordered for printing. </a><br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM_8pages_version1_2020.pdf">(Spanish): pdf with individualized pages to download to your device or print</a><br>
-                    <a href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM_8pages_version1_2021_English_final.pdf">pdf English version of individualized pages to download to your device or print</a>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM%20final%20v1.pdf">    (Spanish): two sheets to be printed on both sides, the pages are ordered for printing. </a><br>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM_8pages_version1_2020.pdf">(Spanish): pdf with individualized pages to download to your device or print</a><br>
+                    <a rel="noopener noreferrer" target="_blank" href="https://butterfly-monitoring.net/sites/default/files/Pdf/Field%20Guides/Field-Guide_SP_CLM_8pages_version1_2021_English_final.pdf">pdf English version of individualized pages to download to your device or print</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Bees
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="http://www.abejassilvestres.es/resources.html#guias">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="http://www.abejassilvestres.es/resources.html#guias">link</a>
                 </li>
             </ul>
         </div>
@@ -117,11 +117,11 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Swedish butterflies
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.dagfjarilar.lu.se/">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.dagfjarilar.lu.se/">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Various
-                    <a class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://artfakta.se/artbestamning">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://artfakta.se/artbestamning">link</a>
                 </li>
             </ul>
         </div>

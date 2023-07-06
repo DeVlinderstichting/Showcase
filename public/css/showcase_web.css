@@ -17,10 +17,16 @@
 .general-navbar-class {
         background-color: #1f7263 !important;
     background: url('../img/background_1920x1080_screen-statistics.png');
+margin-left: 0px;
+    margin-right: 0px;
 }
 .general-navbar-title-class {
     margin-bottom: 0px;
     
+}
+
+.navbar-expand-md {
+    background-color: #1d6c5e !important;
 }
 .general-navbar-buttons-class {}
 .general-footer-copyright-class {}
@@ -29,7 +35,8 @@
      background-color: #1f7263 !important;
 }
 .container {
-    background-color: #f9f9f9;
+    background-color: #d4efd2; /* previous #f9f9f9;*/
+    max-width: 100%;
 }
 .mb-4 {
         margin-bottom: 0px !important;
@@ -38,6 +45,11 @@
 .mb-3 {
     margin-bottom: 1rem!important;
     background-color: #d4efd2 !important;
+}
+
+.my-4 {
+    margin-top: 0px !important;
+margin-bottom: 0px !important;
 }
 
 .mb-3-colour {
@@ -319,8 +331,17 @@ h6 {
 .userhome-section-map {}
 
 /* USER SETTINGS PAGE */
-.usersettings-title-header {}
-.usersettings-title-sub {}
+.usersettings-title-header {
+	text-align: center !important;
+    color: #ffe421 !important;
+    font-size: 20px !important;
+}
+.usersettings-title-sub {
+	text-align: center !important;
+    color: #ffe421 !important;
+    font-size: 20px !important;
+}
+}
 .usersettings-card {
 background-color: #fefefe !important;
 border-radius: 10px !important;
@@ -328,7 +349,11 @@ border-radius: 10px !important;
 .usersettings-card-body {}
 .usersettings-table {}
 .usersettings-switch {}
-.usersettings-section-title {}
+.usersettings-section-title h3 {
+	text-align: center !important;
+    color: #ffe421 !important;
+    font-size: 20px !important;
+}
 .usersettings-section-button {}
 .usersettings-count-item {}
 .usersettings-count-item-selector {}

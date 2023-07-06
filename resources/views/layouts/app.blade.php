@@ -47,11 +47,11 @@
     <!-- navbar -->
     <div class="container general-navbar-class">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom general-navbar-title-class">
-            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <svg class="bi me-2" width="40" height="32">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" style="background-color:#d4efd200 !important;">
+                <svg class="bi me-2" width="80" height="64">
                     <use xlink:href="#bootstrap" />
                 </svg>
-                <img src="img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="32">
+                <img src="img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="64" class="logo-topbar">
             </a>
 
             <ul class="nav nav-pills general-navbar-buttons-class">

@@ -9,6 +9,7 @@ use Auth;
 use Hash;
 use Illuminate\Support\Carbon;
 use \App\Models\User;
+use DB;
 
 class AdminController extends Controller
 {
@@ -539,9 +540,9 @@ class AdminController extends Controller
         [
             'accesstoken' => ['required', 'min:50', 'exists:users,accesstoken'],
             'username' => ['required', 'min:2', 'exists:users,name'],
-            'table_name' => ['required', Rule::in(['observations', 'visits'])],
+            'table_name' => ['required', Rule::in(['observations', 'visits', 'speciesgroups', 'species', 'methods', 'method_speciesgroup_recordinglevels', 'managementtypes', 'landusetypes', 'users', 'regions', 'regions_users'])],
         ]);
-        $user = \App\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
+        $user = \App\Models\User::where('accesstoken', $valDat['accesstoken'])->where('name', $valDat['username'])->first();
         if (($user == null) || (!$user->isadmin))
         {
             die("invalid user");
@@ -555,6 +556,42 @@ class AdminController extends Controller
         if ($valDat['table_name'] == 'visits')
         {
             $sqLine = "SELECT * FROM visits";
+        }
+        if ($valDat['table_name'] == 'speciesgroups')
+        {
+            $sqLine = "SELECT * FROM speciesgroups";
+        }
+        if ($valDat['table_name'] == 'species')
+        {
+            $sqLine = "SELECT * FROM species";
+        }
+        if ($valDat['table_name'] == 'methods')
+        {
+            $sqLine = "SELECT * FROM methods";
+        }
+        if ($valDat['table_name'] == 'method_speciesgroup_recordinglevels')
+        {
+            $sqLine = "SELECT * FROM method_speciesgroup_recordinglevels";
+        }
+        if ($valDat['table_name'] == 'managementtypes')
+        {
+            $sqLine = "SELECT * FROM managementtypes";
+        }
+        if ($valDat['table_name'] == 'landusetypes')
+        {
+            $sqLine = "SELECT * FROM landusetypes";
+        }
+        if ($valDat['table_name'] == 'regions')
+        {
+            $sqLine = "SELECT * FROM regions";
+        }
+        if ($valDat['table_name'] == 'regions_users')
+        {
+            $sqLine = "SELECT * FROM regions_users";
+        }
+        if ($valDat['table_name'] == 'users')
+        {
+            $sqLine = "SELECT name, email FROM users where isadmin = false";
         }
 
         $res = DB::select(DB::raw($sqLine));

@@ -117,7 +117,7 @@
             <ul class="list-group identification-list-group">
                 <li class="list-group-item identification-list-group-item">
                     Swedish butterflies
-                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.dagfjarilar.lu.se/">link</a>
+                    <a rel="noopener noreferrer" target="_blank" class="btn btn-primary btn-sm float-end identification-section-button-list" href="https://www.vilkenart.se/Oversikt.aspx?Namn=Papilionoidea">link</a>
                 </li>
                 <li class="list-group-item identification-list-group-item">
                     Various

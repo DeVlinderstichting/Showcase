@@ -194,10 +194,10 @@
         @foreach ($countPerSpeciesUser as $userSp)
             speciesLabels.push('{{ \App\Models\Species::find($userSp->species_id)->getName($user) }}');
             countPerSpeciesMine.push({{ $userSp->sum }});
-            if (colorScheme.length == 0) { colorScheme.push('red'); }
-            if (colorScheme.length == 1) { colorScheme.push('green'); }
-            if (colorScheme.length == 2) { colorScheme.push('blue'); }
-            if (colorScheme.length == 3) { colorScheme.push('yellow'); }
+            if (colorScheme.length == 0) { colorScheme.push('#62b2a0'); }
+            if (colorScheme.length == 1) { colorScheme.push('#96a8be'); }
+            if (colorScheme.length == 2) { colorScheme.push('#d8b667'); }
+            if (colorScheme.length == 3) { colorScheme.push('#d5967d'); }
             if (colorScheme.length == 4) { colorScheme.push('orange'); }
             if (colorScheme.length == 5) { colorScheme.push('gray'); }
             if (colorScheme.length == 6) { colorScheme.push('purple'); }
@@ -206,9 +206,9 @@
             @foreach ($countPerSpeciesAll as $allSp)
                 @if ($allSp->species_id == $userSp->species_id)
                     countPerSpeciesAll.push({{ $allSp->sum }});
-                @break;
-            @endif
-        @endforeach
+                    @break;
+                @endif
+            @endforeach
         @endforeach
 
 

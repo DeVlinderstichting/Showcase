@@ -98,6 +98,7 @@
                 </li>
                 <li class="nav-item"><a href="/news" class="nav-link px-2 text-muted">News</a></li>
             </ul>
+            <p class="col-md-12 mb-0 pt-3 text-muted general-footer-copyright-class">This project receives funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. 862480.</p>
         </footer>
     </div>
 

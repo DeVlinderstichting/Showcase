@@ -2203,7 +2203,6 @@ const showDataScreen = () =>
                                 settings = getUserSettings();
                                 datastring = `'${translations['chartRedirect']} ${data}'`;
                                 data = '<a target="_blank" href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=/visit">edit</a>';
-                                //data = '<a href="/userLoginWithToken?username='+settings.userSettings.email+'&token='+settings.userSettings.accessToken+'&redirect=https://showcase.vlinderstichting.nl/visit">edit</a>';
                                 data = '<a href="#" onclick="alert(' + datastring + '); return false;">' + data + '</a>';
                                 return data;
                             }

@@ -551,11 +551,11 @@ class AdminController extends Controller
         $sqLine = "";
         if ($valDat['table_name'] == 'observations')
         {
-            $sqLine = "SELECT * FROM observations";
+            $sqLine = "SELECT *, ST_AsGeoJSON(location) as locationasgeojson FROM observations";
         }
         if ($valDat['table_name'] == 'visits')
         {
-            $sqLine = "SELECT * FROM visits";
+            $sqLine = "SELECT *, ST_AsGeoJSON(location) as locationasgeojson FROM observations FROM visits";
         }
         if ($valDat['table_name'] == 'speciesgroups')
         {
@@ -583,7 +583,7 @@ class AdminController extends Controller
         }
         if ($valDat['table_name'] == 'regions')
         {
-            $sqLine = "SELECT * FROM regions";
+            $sqLine = "SELECT *, ST_AsGeoJSON(location) as locationasgeojson FROM regions";
         }
         if ($valDat['table_name'] == 'regions_users')
         {

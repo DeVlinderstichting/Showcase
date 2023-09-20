@@ -48,7 +48,7 @@
     <div class="container general-navbar-class">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom general-navbar-title-class">
             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
-                <img src="img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="32">
+                <img src="\img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="32">
             </a>
 
             <ul class="nav nav-pills general-navbar-buttons-class">

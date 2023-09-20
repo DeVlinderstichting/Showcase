@@ -21,7 +21,8 @@ class DatabaseSeeder extends Seeder
             ManagementTypesSeeder::class,
             LanguageSeeder::class,
             AdminAccountSeeder::class,
-        //    TestDataSeeder::class,
+            BadgeSeeder::class,
+         //   TestDataSeeder::class,
         ]);
     }
 }

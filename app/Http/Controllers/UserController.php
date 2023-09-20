@@ -31,6 +31,11 @@ class UserController extends Controller
         return view ('userForgotPassword');
     }
 
+    public function showBadges(User $user)
+    {
+        return view ('userBadges', ['user' => $user]);
+    }
+
     public function userLogin(Request $request)
     {
         $input = request()->all();
@@ -318,6 +323,7 @@ group by year, month */
             //      return $dat.usersettings;
                //   return $dataPackage['usersettings.userSettings.preferedLanguage;
                     $res = $this->processUserDataPackage($user, $valDat['datapackage']);
+                    $user->updateBadges();
                  //   return $res;
                 }
                 return Auth::user()->buildUserPackage();

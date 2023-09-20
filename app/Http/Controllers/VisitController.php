@@ -404,6 +404,8 @@ class VisitController extends Controller
               //  DB::statement("UPDATE observations set location = ST_GeomFromGeoJSON('$insertLine') where id = $obs->id");
             }
         }
+
+        $user->updateBadges();
         return redirect("/visit");
     }
 

@@ -64,6 +64,7 @@ Route::post('/user/indexAjax', '\App\Http\Controllers\AdminController@userIndexA
 Route::post('/user/setUserSettingsAjax', '\App\Http\Controllers\UserController@setUserSettingsAjax');
 Route::post('/user/setUserRecordingLevelAjax', '\App\Http\Controllers\UserController@setUserRecordingLevelAjax');
 Route::get('/user/dataDownload', '\App\Http\Controllers\UserController@serveDataDownload');
+Route::get('/user/badges/{user}', '\App\Http\Controllers\UserController@showBadges');
 
 Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
 Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');

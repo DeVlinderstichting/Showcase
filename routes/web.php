@@ -56,6 +56,8 @@ Route::get('/regionCreate', 'App\Http\Controllers\AdminController@regionCreate')
 Route::post('/regionCreate/{region}', '\App\Http\Controllers\AdminController@regionStore');
 Route::get('/region/{region}', '\App\Http\Controllers\AdminController@regionEdit');
 Route::get('/region', '\App\Http\Controllers\AdminController@regionIndex');
+Route::get('/regionPublicIndex', '\App\Http\Controllers\GeneralPagesController@regionPublicIndex');
+Route::get('/regionPublicShow/{region}', '\App\Http\Controllers\GeneralPagesController@regionPublicShow');
 
 Route::get('/user/create/{userId}', '\App\Http\Controllers\AdminController@createUser');
 Route::post('/user/create/{userId}', '\App\Http\Controllers\AdminController@storeUser');
@@ -65,6 +67,7 @@ Route::post('/user/setUserSettingsAjax', '\App\Http\Controllers\UserController@s
 Route::post('/user/setUserRecordingLevelAjax', '\App\Http\Controllers\UserController@setUserRecordingLevelAjax');
 Route::get('/user/dataDownload', '\App\Http\Controllers\UserController@serveDataDownload');
 Route::get('/user/badges/{user}', '\App\Http\Controllers\UserController@showBadges');
+Route::get('/user/stats/{user}', '\App\Http\Controllers\UserController@showUserStats');
 
 Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
 Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');

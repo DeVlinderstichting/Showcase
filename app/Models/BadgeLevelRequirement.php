@@ -49,7 +49,7 @@ class BadgeLevelRequirement extends Model
     }
     public function isCompleted(User $user)
     {
-        $brType = $this->badgeRequirementType()->get();
+        $brType = $this->badgeRequirementType()->first();
         if ($brType->requirementtype == 'speciescount')
         {
             $spCount = $user->observations()->select('species_id')->groupBy('species_id')->count();

@@ -75,8 +75,11 @@ class User extends Authenticatable
 
     public function observations()
     {
-        return $this->hasManyThrough('App\Models\Observation', 'App\Models\Visit', 'user_id', 'visit_id', 'id', 'id');
+        $visitIds = \App\Models\Visit::where('user_id', $this->id)->pluck('id');
+        return \App\Models\Observation::whereIn('visit_id', $visitIds);
+     //   return $this->hasManyThrough('App\Models\Observation', 'App\Models\Visit', 'user_id', 'visit_id', 'id', 'id');
     }
+    
 
     public function transects()
     {

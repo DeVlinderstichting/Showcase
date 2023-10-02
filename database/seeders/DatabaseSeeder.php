@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             AdminAccountSeeder::class,
             BadgeSeeder::class,
-         //   TestDataSeeder::class,
+            TestDataSeeder::class,
         ]);
     }
 }

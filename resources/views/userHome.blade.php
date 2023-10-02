@@ -21,44 +21,33 @@
         }
     </style>
 
-    <div class="container mb-3">
-        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeHeader')}}<a href="/settings" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeSettings')}}</a></h2>
-        <h2 class="px-4 news-title-sub userhome-title-sub">{{\App\Models\Language::getItem('userHomeSubTitle')}}</h2>
-    </div>
+    <?php 
+        $visitCount = count($user->visits()->get());
+        $contribution = \App\Models\Language::getItem('userHomeSmallContributor');
+        if ($visitCount > 50)
+        {
+            $contribution = \App\Models\Language::getItem('userHomeLargestContributor');
+        }
+        else if ($visitCount > 25)
+        {
+            $contribution = \App\Models\Language::getItem('userHomeLargeContributor');
+        }
+        else if ($visitCount > 10)
+        {
+            $contribution = \App\Models\Language::getItem('userHomeMediumContributor');
+        }
+    ?>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeStatistics')}}</h2>
-        <div class="row">
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $obsCount }} {{\App\Models\Language::getItem('userHomeObsNum')}}</div>
-            </div>
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spCount }} {{\App\Models\Language::getItem('userHomeSpNum')}}</div>
-            </div>
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $spGroupCount }} {{\App\Models\Language::getItem('userHomeSpGroupNum')}}</div>
-            </div>
-            <div class="col-md-6 d-flex justify-content-center">
-                <div class="p-4 border rounded w-75 my-4 userhome-section-statscard">{{ $nrOfInsects }} {{\App\Models\Language::getItem('userHomeInsectsNum')}}</div>
-            </div>
-        </div>
-        <div class="row my-4">
-            <div class="col-lg-6 userhome-section-graph">
-                <canvas id="chartBar"></canvas>
-                <br><br>
-            </div>
-            <div class="col-lg-6">
-                <div class="d-flex justify-content-center">
-                    <div class="userhome-section-graph">
-                        <canvas id="chartPie1"></canvas>
-                    </div>
-                    <div class="userhome-section-graph">
-                        <canvas id="chartPie2"></canvas>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeHeader')}}<a href="/settings" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeSettings')}}</a><a href="/user/stats/{{$user->id}}" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeToStats')}}</a></h2>
+        <h2 class="px-4 userhome-title-sub">{{\App\Models\Language::getItem('userHomeSubTitle')}}</h2>
+        <h3 class="px-4 userhome-title-sub"><b>{{\App\Models\Language::getItem('userHomeUsername')}}:</b> {{$user->name}}</h3>
+        <h3 class="px-4 userhome-title-sub"><b>{{\App\Models\Language::getItem('userHomeRecorderNumber')}}: </b> {{$user->id}}</h3>
+        <h3 class="px-4 userhome-title-sub"><b>{{\App\Models\Language::getItem('userHomeContributionToEba')}}: </b>{{$contribution}}</h3>
+
     </div>
+
+
 
     <?php use Illuminate\Support\Str; ?>
 
@@ -85,6 +74,52 @@
         @endif
     </div>
 
+
+
+
+    <div class="container mb-3">
+        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('badgesHeader')}}</h2>
+    </div>
+
+    <div class="container mb-3">
+        <div class="row">
+            <div class="container mb-3">
+          
+                <div class="card usersettings-card">
+                    <div class="card-body usersettings-card-body">
+                        <div class="row justify-content-center">
+                            @foreach(\App\Models\Badge::all() as $badge)
+                                <?php 
+                                    $userHasBadge = true;
+                                    $theBadgeLevel = $badge->getHighestBadgeLevelForUser($user); 
+                                    if (empty($theBadgeLevel))
+                                    {
+                                        $theBadgeLevel = $badge->getLowestBadgeLevel()->first();
+                                        $userHasBadge = false;
+                                    }
+                                    $badgeProgress = $badge->getProgressTowardsNextLevel($user);
+                                   // dd($badgeProgress);
+                                    $tooltipText = $theBadgeLevel->getRequirementsTooltip();
+                                ?>
+                                <div class="col-md-4">
+                                    <br>
+                                    {{\App\Models\Language::getItem($badge->description_key)}}<br>
+                                    <img src="{{$theBadgeLevel->image_location}}" alt="" class="img-count-settings usersettings-count-item-selector-image" @if(!$userHasBadge) style="opacity:0.5;" @endif title="{{$tooltipText}}">
+                                    <br><progress id="{{$theBadgeLevel->id}}" value="{{$badgeProgress}}" max="100">{{$badgeProgress}}%</progress>
+                                    <br>{{\App\Models\Language::getItem($theBadgeLevel->description_key)}}
+                                    <br><br>
+                                </div>
+                            @endforeach
+                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//insectscount.eu/user/badges/{{$user->id}}">Share on Facebook</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
     <div class="container mb-3">
         <h2 class="p-4 userhome-section-title">{{\App\Models\Language::getItem('userHomeObservations')}}</h2>
         <div class="row">
@@ -100,6 +135,8 @@
         </div>
 
     </div>
+
+
 
     <!-- Modal -->
     <div class="modal fade" id="modalId" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"

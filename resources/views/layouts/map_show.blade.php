@@ -16,8 +16,13 @@
     {
         $zoomModifier = -0.25;
     }
+    if (!(isset($mapPrefix)))
+    {
+        $mapPrefix = "";
+    }
+
 ?> 
-<div id="map" class="map" style="height: 500px; width:100%"></div>
+<div id="map{{$mapPrefix}}" class="map" style="height: 500px; width:100%"></div>
 <script type="text/javascript">
     @if($highResImage)
         fetch('https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0?&request=GetCapabilities')
@@ -36,10 +41,10 @@
                 options.wrapX = true;
                 var vectorSource = new ol.source.Vector({wrapX: true});
                 vector = new ol.layer.Vector({source: vectorSource});
-                var map = new ol.Map(
+                var map{{$mapPrefix}} = new ol.Map(
                 {
                     projection: 'EPSG:4326',
-                    target: 'map',
+                    target: 'map{{$mapPrefix}}',
                     layers: 
                     [
                         new ol.layer.Tile(
@@ -60,8 +65,8 @@
                     })
                 });
 
-                $('#map').data('map', map);
-                $('#map').data('vector', vector);
+                $('#map{{$mapPrefix}}').data('map{{$mapPrefix}}', map{{$mapPrefix}});
+                $('#map{{$mapPrefix}}').data('vector', vector);
 
 
                 var extentEmpty = true;
@@ -72,7 +77,7 @@
                         vectorSource{{$object->id}}.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($object->getLocationsAsGeoJson()); ?> , 
                             {
                                 dataProjection: 'EPSG:4326',
-                                featureProjection: map.getView().getProjection()
+                                featureProjection: map{{$mapPrefix}}.getView().getProjection()
                             }));
 
                             var vectorLayer{{$object->id}} = new ol.layer.Vector(
@@ -174,32 +179,34 @@
                                     return style;
                                 }
                             });
-                        map.addLayer(vectorLayer{{$object->id}});
+                        map{{$mapPrefix}}.addLayer(vectorLayer{{$object->id}});
                         ol.extent.extend(extent, vectorSource{{$object->id}}.getExtent());
                         extentEmpty = false;
                     @endif
                 @endforeach
                 if (!extentEmpty)
                 {
-                    map.getView().fit(extent, map.getSize());
+                    map{{$mapPrefix}}.getView().fit(extent, map{{$mapPrefix}}.getSize());
                 }
-                map.getView().setZoom(map.getView().getZoom()+ {{$zoomModifier}});
+                map{{$mapPrefix}}.getView().setZoom(map{{$mapPrefix}}.getView().getZoom()+ {{$zoomModifier}});
             });
     @else 
 
 
         var vectorSource = new ol.source.Vector({wrapX: true});
         vector = new ol.layer.Vector({source: vectorSource});
-        var map = new ol.Map(
+        var map{{$mapPrefix}} = new ol.Map(
         {
             projection: 'EPSG:4326',
-            target: 'map',
+            target: 'map{{$mapPrefix}}',
             layers: [
                 new ol.layer.Tile(
                 {
                     source: new ol.source.OSM(),
                 }), vector //,
-              /*  new ol.layer.Tile(
+              /*  
+                {{$mapPrefix}}
+              new ol.layer.Tile(
                 {
                     opacity: 0.7,
                     source: new ol.source.WMTS(
@@ -247,7 +254,7 @@
                     vectorSource{{$object->id}}.addFeatures( new ol.format.GeoJSON().readFeatures( <?php print_r($object->getLocationsAsGeoJson()); ?> , 
                         {
                             dataProjection: 'EPSG:4326',
-                            featureProjection: map.getView().getProjection()
+                            featureProjection: map{{$mapPrefix}}.getView().getProjection()
                         }));
 
                         var vectorLayer{{$object->id}} = new ol.layer.Vector(
@@ -371,25 +378,28 @@
                     });*/
 
                  //  vectorLayer{{$object->id}}.getStyle style.setText("test text");
-                    map.addLayer(vectorLayer{{$object->id}});
+                    map{{$mapPrefix}}.addLayer(vectorLayer{{$object->id}});
                     ol.extent.extend(extent, vectorSource{{$object->id}}.getExtent());
-                   // console.log(extent);
                     extentEmpty = false;
                 @endif
             @endforeach
             if (!extentEmpty)
             {
-                map.getView().fit(extent, map.getSize());
+                map{{$mapPrefix}}.getView().fit(extent, map{{$mapPrefix}}.getSize());
             }
-            map.getView().setZoom(map.getView().getZoom()+{{$zoomModifier}});
+
+            map{{$mapPrefix}}.getView().setZoom(map{{$mapPrefix}}.getView().getZoom()+{{$zoomModifier}});
+          //  $('#map').data('extent', extent);
         }
         addObjectsToMap();
-        if (map.getView().getZoom() > 18)
+        if (map{{$mapPrefix}}.getView().getZoom() > 18)
         {
-            map.getView().setZoom(18);
+            map{{$mapPrefix}}.getView().setZoom(18);
         }
     @endif
-    $('#map').data('vector', vector);
-    $('#map').data('map', map);
+    $('#map{{$mapPrefix}}').data('vector', vector);
+    $('#map{{$mapPrefix}}').data('map{{$mapPrefix}}', map{{$mapPrefix}});
+
+
     
 </script>

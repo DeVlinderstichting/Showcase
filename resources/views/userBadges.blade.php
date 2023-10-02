@@ -29,7 +29,7 @@
     <div class="container mb-3">
         <div class="row">
             <div class="container mb-3">
-                <h2 class="p-4 usersettings-section-title">{{\App\Models\Language::getItem('userSettingsSpecificSettingsTitle')}}</h2>
+          
                 <div class="card usersettings-card">
                     <div class="card-body usersettings-card-body">
                         <div class="row justify-content-center">
@@ -43,6 +43,7 @@
                                         $userHasBadge = false;
                                     }
                                     $badgeProgress = $badge->getProgressTowardsNextLevel($user);
+                                   // dd($badgeProgress);
                                     $tooltipText = $theBadgeLevel->getRequirementsTooltip();
                                 ?>
                                 <div class="col-md-4">

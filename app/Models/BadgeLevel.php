@@ -57,7 +57,7 @@ class BadgeLevel extends Model
         }
         if ($reqCount > 0)
         {
-            return ($totalProgress / $reqCount);
+            return (($totalProgress / $reqCount)*100);
         }
         return 0;
     }
@@ -67,7 +67,7 @@ class BadgeLevel extends Model
         $allRequirements = $this->badgeLevelRequirements()->get();
         foreach($allRequirements as $req)
         {
-            $res.="\n  -".\App\Models\Language::getItem($req->description_key);
+            $res.="\n ->".\App\Models\Language::getItem($req->description_key);
         }
         return $res;
     }
@@ -77,7 +77,7 @@ class BadgeLevel extends Model
         if ($this->checkIsCompletedByUser($user))
         {
             $recordCount = \App\Models\UserBadgelevel::where('user_id', $user->id)->where('badgelevel_id', $this->id)->count();
-            if ($reqCount == 0)
+            if ($recordCount == 0)
             {
                 \App\Models\UserBadgelevel::create(['badgelevel_id' => $this->id, 'user_id' => $user->id]);
             }

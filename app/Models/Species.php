@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Auth;
 
 class Species extends Model
 {
@@ -15,9 +16,19 @@ class Species extends Model
     {
         return $this->belongsTo('App\Models\Speciesgroup', 'speciesgroup_id', 'id');
     }
-    public function getName(User $user)
+    public function getName($user)
     {
-        $varName = $user->prefered_language . 'name';
+        if ($user == null)
+        {
+            $user = Auth::user();
+        }
+
+        $varName = 'enname';
+        if ($user != null)
+        {
+            $varName = $user->prefered_language . 'name';
+        }
+        
         if ($this->$varName == "")
         {
             return $this->genus . " " . $this->taxon;

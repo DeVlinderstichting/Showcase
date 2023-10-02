@@ -11,7 +11,7 @@ class Region extends Model
     use HasFactory;
     protected $table = 'regions';
 
-    public function observations()
+    public function messages()
     {
         return $this->hasMany('App\Models\PushMessage');
     }

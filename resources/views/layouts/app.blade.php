@@ -47,11 +47,14 @@
     <!-- navbar -->
     <div class="container general-navbar-class">
         <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom general-navbar-title-class">
-             <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none" style="background-color:#d4efd200 !important;">
-                <img img src="img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="64" class="logo-topbar">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+                <img src="\img/logo_Insectscount_718x242.png" alt="InsectsCount logo" height="32">
             </a>
 
             <ul class="nav nav-pills general-navbar-buttons-class">
+                <li class="nav-item"><a href="/regionPublicIndex"
+                        class="nav-link {{ Request::is('showEbaInfo') ? 'active' : '' }}"
+                        aria-current="page">EBAs</a></li>
                 <li class="nav-item"><a href="/showProjectInfo"
                         class="nav-link {{ Request::is('showProjectInfo') ? 'active' : '' }}"
                         aria-current="page">About</a></li>
@@ -83,21 +86,18 @@
 
     <div class="container general-footer-class">
         <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
-            <p class="col-md-4 mb-0 text-muted general-footer-copyright-class">&copy; 2022 Showcase</p>
+            
             <a href="https://www.vlinderstichting.nl/english/">
-                <img src="{{ URL::to('/') }}/img/DVS_logo.png" alt="Logo Dutch Butterfly Conservation" style='height: 44px'>
+                <img src="{{ URL::to('/') }}/img/DVS_logo.png" alt="Logo Dutch Butterfly Conservation" style='height: 44px'><br>
+                Website functionality and dataprocessing by Dutch Butterfly Conservation
             </a>
-            <a href="https://scienseed.com/">
+            <a href="https://scienseed.com/"> 
                 <img src="{{ URL::to('/') }}/img/scienseed_logo.png" alt="Logo Scienseed" style='height: 44px'>
+                <br>
+                The design of this website was provided by SienceSeed
             </a> 
-            <ul class="nav col-md-4 justify-content-end">
-                <li class="nav-item"><a href="/showProjectInfo" class="nav-link px-2 text-muted">About</a></li>
-                <li class="nav-item"><a href="/showRecordingMethodExplanation"
-                        class="nav-link px-2 text-muted">Monitoring</a></li>
-                <li class="nav-item"><a href="/showIdHelp" class="nav-link px-2 text-muted">Identification</a>
-                </li>
-                <li class="nav-item"><a href="/news" class="nav-link px-2 text-muted">News</a></li>
-            </ul>
+            
+            <p class="col-md-12 mb-0 pt-3 text-muted general-footer-copyright-class">&copy;2022 Showcase<br>This project receives funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. 862480.</p>
         </footer>
     </div>
 

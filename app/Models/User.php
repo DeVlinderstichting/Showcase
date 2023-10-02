@@ -9,6 +9,8 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 use App\Models\CountingMethodsUsers;
+use App\Models\Badge;
+use App\Models\UserBadge;
 
 
 class User extends Authenticatable
@@ -73,8 +75,11 @@ class User extends Authenticatable
 
     public function observations()
     {
-        return $this->hasManyThrough('App\Models\Observation', 'App\Models\Visit', 'user_id', 'visit_id', 'id', 'id');
+        $visitIds = \App\Models\Visit::where('user_id', $this->id)->pluck('id');
+        return \App\Models\Observation::whereIn('visit_id', $visitIds);
+     //   return $this->hasManyThrough('App\Models\Observation', 'App\Models\Visit', 'user_id', 'visit_id', 'id', 'id');
     }
+    
 
     public function transects()
     {
@@ -103,6 +108,20 @@ class User extends Authenticatable
     public function setRandomAccessToken()
     {
         $this->accesstoken = Str::random(80);
+    }
+
+    public function badgelevels()
+    {
+  //      return $this->hasManyThrough(Badgelevels::class, UserBadgelevel::class, 'user_id', 'badgelevel_id', 'id', 'id');
+    }
+
+    public function updateBadges()
+    {
+        $allBadges = \App\Models\Badge::all();
+        foreach($allBadges as $badge)
+        {
+            $badge->updateBadgeLevelForUser($this);
+        }
     }
 
     public function buildUserPackage()

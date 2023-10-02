@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Auth;
 use DB;
 use Session;
+use \App\Models\Region;
 
 class GeneralPagesController extends Controller
 {
@@ -66,6 +67,41 @@ class GeneralPagesController extends Controller
     {
         return view ('newsItem', ['newsItem' => $newsItem]);
     }
+    public function regionPublicIndex()
+    {
+        $allEbas = \App\Models\Region::all();
+        return view ('ebaIndex', ['allEbas' => $allEbas]);
+    }
+    public function regionPublicShow(Region $region)
+    {
+       // $sqLine = "select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from (select * from visits where region_id = $region->id) x where ST_Intersects ((select location from regions where id = $region->id), x.location)=true;";
+        $sqLine = "select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true;";
+        $sqSecondLine = "select species_id as spid, sum(number) as num from observations join visits on visits.id = visit_id where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true group by species_id";
+
+        $landuseTypeSql = "select landusetype_id, count(landusetype_id) as landscapecount from visits where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true group by landusetype_id";
+        $managementTypeSql = "select managementtype_id, count(managementtype_id) as managementcount from visits where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true group by managementtype_id";
+        $visitsPerYearSql = "select year, count(year) as countperyear from (select extract('year' from startdate) as year from visits where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true) iglo group by year order by year";
+
+
+        $res = DB::select(DB::raw($sqLine));
+        $secondRes = DB::select(DB::raw($sqSecondLine));
+        $landuseTypes = DB::select(DB::raw($landuseTypeSql));
+        $managementTypes = DB::select(DB::raw($managementTypeSql));
+        $visitsPerYear = DB::select(DB::raw($visitsPerYearSql));
+
+        $totalSpNr = 0;
+        $totalSpCount = 0;
+        foreach($secondRes as $sr)
+        {
+            $totalSpNr+= $sr->num;
+            $totalSpCount++;
+        }
+
+        //dd($res[0]->totalvisittime);
+
+        return view ('ebaInfo', ['eba' => $region, 'totalVisitTime' => $res[0]->totalvisittime, 'totalVisitLength' => $res[0]->totalvisitlength, 'nrOfSpecies' => $totalSpCount, 'nrOfIndividuals' => $totalSpNr, 'countPerSpecies' => $secondRes, 'landuse' => $landuseTypes, 'management' => $managementTypes, 'visitsPerYear' => $visitsPerYear]);
+    }
+
     public function logoff()
     {
         Session::flush();

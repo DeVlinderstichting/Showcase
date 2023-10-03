@@ -133,7 +133,10 @@ class UserController extends Controller
 
             $totalEbaDistance = $ebaVisitTimeSqRes[0]->totalvisitlength;
             $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
-            $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
+            if ((count($explodedTimeEba) >0) && (!empty($explodedTimeEba[0])))
+            {
+                $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
+            }
             $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
         }
 

@@ -63,7 +63,7 @@
     <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeEbaStatsHeader')}}</h2> 
     <div class="row">
         <div class="col-md-4">
-            @include('components.graph-horizontal-bar', 
+            @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeSpCountHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeSpCountHorizontalGraphItemTitle'),
@@ -75,7 +75,7 @@
             ])
         </div>
         <div class="col-md-4">
-            @include('components.graph-horizontal-bar', 
+            @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeVisitCountHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeVisitCountHorizontalGraphItemTitle'),
@@ -87,7 +87,7 @@
             ])
         </div>
         <div class="col-md-4">
-            @include('components.graph-horizontal-bar', 
+            @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeDistanceSumHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeDistanceSumHorizontalGraphItemTitle'),
@@ -99,7 +99,7 @@
             ])
         </div>
         <div class="col-md-4">
-            @include('components.graph-horizontal-bar', 
+            @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeIndivCountHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeIndivCountHorizontalGraphItemTitle'),
@@ -111,7 +111,7 @@
             ])
         </div>
         <div class="col-md-4">
-              @include('components.graph-horizontal-bar', 
+              @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeVisitTimeCountHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeVisitTimeCountHorizontalGraphItemTitle'),
@@ -123,7 +123,7 @@
             ])
         </div>
         <div class="col-md-4">
-              @include('components.graph-horizontal-bar', 
+              @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeBadgeCountHorizontalGraphItemLabel'),
                 'itemTitle' => \App\Models\Language::getItem('userHomeBadgeCountHorizontalGraphItemTitle'),

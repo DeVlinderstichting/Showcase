@@ -164,19 +164,21 @@
     var ebaLanduseIndivCount = [];  
     var userLanduseSpCount = [];
     var userLanduseIndivCount = [];
-    @foreach($ebaLandscape as $eLa)
-        landscapeLabels.push('{!!\App\Models\LanduseType::find($eLa->landusetype_id)->description!!}');
-        <?php $userLanduseSpCount = 0; $userLanduseIndivCount = 0;?>
-        @foreach($userLandscape as $uLa)
-            @if ($uLa->landusetype_id == $eLa->landusetype_id)
-                <?php $userLanduseSpCount = $uLa->spcount; $userLanduseIndivCount = $uLa->indivcount; ?>
-            @endif
+    @if (is_array($ebaLandscape))
+        @foreach($ebaLandscape as $eLa)
+            landscapeLabels.push('{!!\App\Models\LanduseType::find($eLa->landusetype_id)->description!!}');
+            <?php $userLanduseSpCount = 0; $userLanduseIndivCount = 0;?>
+            @foreach($userLandscape as $uLa)
+                @if ($uLa->landusetype_id == $eLa->landusetype_id)
+                    <?php $userLanduseSpCount = $uLa->spcount; $userLanduseIndivCount = $uLa->indivcount; ?>
+                @endif
+            @endforeach
+            userLanduseSpCount.push({{$userLanduseSpCount}});
+            userLanduseIndivCount.push({{$userLanduseIndivCount}});
+            ebaLanduseSpCount.push({{$eLa->spcount - $userLanduseSpCount}});
+            ebaLanduseIndivCount.push({{$eLa->indivcount - $userLanduseIndivCount}});
         @endforeach
-        userLanduseSpCount.push({{$userLanduseSpCount}});
-        userLanduseIndivCount.push({{$userLanduseIndivCount}});
-        ebaLanduseSpCount.push({{$eLa->spcount - $userLanduseSpCount}});
-        ebaLanduseIndivCount.push({{$eLa->indivcount - $userLanduseIndivCount}});
-    @endforeach
+    @endif
 
     var managementLabels = [];
     var ebaManagementSpCount = []; 

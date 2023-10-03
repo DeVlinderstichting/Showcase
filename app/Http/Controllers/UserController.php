@@ -102,27 +102,51 @@ class UserController extends Controller
         $userLandscape .= " and landusetype_id is not null group by landusetype_id";
         $ebaManagement .= " and managementtype_id is not null group by managementtype_id";
         $userManagement .= " and managementtype_id is not null group by managementtype_id";
-        $ebaSpeciesCountSqRes = DB::select(DB::raw($ebaSpeciesCountSqLine));
-        $ebaVisitTimeSqRes = DB::select(DB::raw($ebaTotalVisitTimeSqLine));
-        $ebaVisitCountSqRes = DB::select(DB::raw($ebaVisitCountSql));
-        $ebaLandscapeRes = DB::select(DB::raw($ebaLandscape));
-        $ebaManagementRes = DB::select(DB::raw($ebaManagement));
-        $userManagementRes = DB::select(DB::raw($userManagement));
-        $userLandscapeRes = DB::select(DB::raw($userLandscape));
 
 
-        $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
-        $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
-        $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
+        $ebaSpeciesCount =0;
+        $ebaIndivCount =0;
+        $ebaVisitCount =0;
+        $totalEbaDistance =0;
+        $totalEbaDistance =0;
+        $totalEbaVisitTime =0;
+        $totalUserDistance =0;
+        $ebaLandscapeRes =0;
+        $ebaManagementRes =[];
+        $userManagementRes=0;
+        $userLandscapeRes=0;
+        $ebaLandscapeRes=0;
 
+        if (count($regionIds) > 0)
+        {
+            $ebaSpeciesCountSqRes = DB::select(DB::raw($ebaSpeciesCountSqLine));
+            $ebaVisitTimeSqRes = DB::select(DB::raw($ebaTotalVisitTimeSqLine));
+            $ebaVisitCountSqRes = DB::select(DB::raw($ebaVisitCountSql));
+            $ebaLandscapeRes = DB::select(DB::raw($ebaLandscape));
+            $ebaManagementRes = DB::select(DB::raw($ebaManagement));
+            $userManagementRes = DB::select(DB::raw($userManagement));
+            $userLandscapeRes = DB::select(DB::raw($userLandscape));
 
+            $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
+            $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
+            $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
+
+            $totalEbaDistance = $ebaVisitTimeSqRes[0]->totalvisitlength;
+            $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
+            $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
+            $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
+        }
 
         $userTotalVisitLengthRes = DB::select(DB::raw("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id"));
         
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);
-        $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
-        $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
+        $totalUserVisitTime = 0;
+        if ((count($explodedVisitTimeUser) >0) && (!empty($explodedVisitTimeUser[0])))
+        {
+            dd($explodedVisitTimeUser);
+            $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
+        }
 
 
         $totalIndiv = 0;
@@ -132,15 +156,10 @@ class UserController extends Controller
         }
         $userVisitCount = $user->visits()->get()->count();
 
-        $totalEbaDistance = $ebaVisitTimeSqRes[0]->totalvisitlength;
-        
-
         $userBadgeCount = \App\Models\UserBadgelevel::where('user_id', $user->id)->get()->count();
         $alluserIds = \App\Models\RegionsUsers::whereIn("region_id", $regionIds)->pluck('user_id');
         $ebaBadgeCount = \App\Models\UserBadgelevel::whereIn('user_id', $alluserIds)->get()->count();
 
-        $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
-        $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
 
         return view('userStats', ['obsCount' => $allObs->count(), 'ebaSpeciesCount'=> $ebaSpeciesCount, 'userIndivCount' => $totalIndiv, 'ebaIndivCount' => $ebaIndivCount, 'userVisitCount' => $userVisitCount, 'ebaVisitCount' => $ebaVisitCount, 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'ebaTotalVisitTime' => $totalEbaVisitTime, 'userTotalVisitTime' => $totalUserVisitTime, 'totalUserDistance' => $totalUserDistance, 'totalEbaDistance' => $totalEbaDistance, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allUserObservations' => $allObs, 'allObservations' => $allObsAllUsers, 'ebaBadgeCount' => $ebaBadgeCount, 'userBadgeCount' => $userBadgeCount, 'ebaLandscape' => $ebaLandscapeRes,'ebaManagement' => $ebaManagementRes, 'userManagement' => $userManagementRes, 'userLandscape' => $userLandscapeRes]);
     }
@@ -248,18 +267,37 @@ group by year, month */
             $ebaVisitCountSql .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
             $isFirst = false;
         }
-        $ebaSpeciesCountSqRes =  DB::select(DB::raw($ebaSpeciesCountSqLine));
-        $ebaVisitTimeSqRes =  DB::select(DB::raw($ebaTotalVisitTimeSqLine));
-        $ebaVisitCountSqRes =  DB::select(DB::raw($ebaVisitCountSql));
-        $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
-        $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
-        $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
+        $ebaSpeciesCount =0;
+        $ebaIndivCount =0;
+        $ebaVisitCount = 0;
+        $totalEbaDistance = 0;
+        $explodedTimeEba =0; 
+        $totalEbaVisitTime=0;
+        if (count($regionIds)>0)
+        {
+            $ebaSpeciesCountSqRes =  DB::select(DB::raw($ebaSpeciesCountSqLine));
+            $ebaVisitTimeSqRes =  DB::select(DB::raw($ebaTotalVisitTimeSqLine));
+            $ebaVisitCountSqRes =  DB::select(DB::raw($ebaVisitCountSql));
+            $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
+            $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
+            $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
+            $ebaVisitTimeSqRes[0]->totalvisitlength;
+            $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
+            if(count($explodedTimeEba)>0)
+            {
+                $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
+            }
+        }
 
         $userTotalVisitLengthRes = DB::select(DB::raw("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id"));
         
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);
-        $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
+        $totalUserVisitTime = 0;
+        if(count($explodedVisitTimeUser)==0)
+        {
+            $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
+        }
         $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
 
 
@@ -270,16 +308,12 @@ group by year, month */
         }
         $userVisitCount = $user->visits()->get()->count();
 
-        $totalEbaDistance = $ebaVisitTimeSqRes[0]->totalvisitlength;
-        
-
         $userBadgeCount = \App\Models\UserBadgelevel::where('user_id', $user->id)->get()->count();
         $alluserIds = \App\Models\RegionsUsers::whereIn("region_id", $regionIds)->pluck('user_id');
         $ebaBadgeCount = \App\Models\UserBadgelevel::whereIn('user_id', $alluserIds)->get()->count();
 
-        $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
-        $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
-
+        
+        
         return view('userHome', ['obsCount' => $allObs->count(), 'ebaSpeciesCount'=> $ebaSpeciesCount, 'userIndivCount' => $totalIndiv, 'ebaIndivCount' => $ebaIndivCount, 'userVisitCount' => $userVisitCount, 'ebaVisitCount' => $ebaVisitCount, 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'ebaTotalVisitTime' => $totalEbaVisitTime, 'userTotalVisitTime' => $totalUserVisitTime, 'totalUserDistance' => $totalUserDistance, 'totalEbaDistance' => $totalEbaDistance, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allUserObservations' => $allObs, 'allObservations' => $allObsAllUsers, 'ebaBadgeCount' => $ebaBadgeCount, 'userBadgeCount' => $userBadgeCount]);
     }
     public function showSettings()

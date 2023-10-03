@@ -283,7 +283,7 @@ group by year, month */
             $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
             $ebaVisitTimeSqRes[0]->totalvisitlength;
             $explodedTimeEba = explode(":", $ebaVisitTimeSqRes[0]->totalvisittime);
-            if(count($explodedTimeEba)>0)
+            if((count($explodedTimeEba)>0) && (!empty($explodedTimeEba[0])))
             {
                 $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
             }
@@ -294,7 +294,7 @@ group by year, month */
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);
         $totalUserVisitTime = 0;
-        if(count($explodedVisitTimeUser)==0)
+        if((count($explodedVisitTimeUser)==0) && (!empty($explodedTimeEba[0])))
         {
             $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
         }

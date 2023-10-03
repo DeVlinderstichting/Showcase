@@ -137,11 +137,10 @@ class UserController extends Controller
             {
                 $totalEbaVisitTime = ($explodedTimeEba[0]*60) + $explodedTimeEba[1];
             }
-            $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
         }
 
         $userTotalVisitLengthRes = DB::select(DB::raw("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id"));
-        
+        $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);
         $totalUserVisitTime = 0;

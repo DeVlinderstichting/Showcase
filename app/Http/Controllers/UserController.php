@@ -147,7 +147,6 @@ class UserController extends Controller
         $totalUserVisitTime = 0;
         if ((count($explodedVisitTimeUser) >0) && (!empty($explodedVisitTimeUser[0])))
         {
-            dd($explodedVisitTimeUser);
             $totalUserVisitTime = ($explodedVisitTimeUser[0]*60) + $explodedVisitTimeUser[1];
         }
 

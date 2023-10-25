@@ -87,5 +87,7 @@ class BadgeSeeder extends Seeder
         $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1TimedCountCount->id, 'description_key' => 'badgeTimedCountCountLvl1RequirementDescription', 'badgerequirementtype_id' => $brtRecordingLevelCount->id, 'requirement_value' => 5, 'additional_requirement_value' => 2]);
         $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2TimedCountCount->id, 'description_key' => 'badgeTimedCountCountLvl2RequirementDescription', 'badgerequirementtype_id' => $brtRecordingLevelCount->id, 'requirement_value' => 10, 'additional_requirement_value' => 2]);
         $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3TimedCountCount->id, 'description_key' => 'badgeTimedCountCountLvl3RequirementDescription', 'badgerequirementtype_id' => $brtRecordingLevelCount->id, 'requirement_value' => 25, 'additional_requirement_value' => 2]);
+
+        
     }
 }

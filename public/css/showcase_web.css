@@ -402,3 +402,8 @@ border-radius: 10px !important;
 .switch-direction {
     flex-direction: row-reverse;
 }
+
+.user_badge {
+    max-width: 152px;
+    
+}

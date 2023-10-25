@@ -68,6 +68,8 @@ Route::post('/user/setUserRecordingLevelAjax', '\App\Http\Controllers\UserContro
 Route::get('/user/dataDownload', '\App\Http\Controllers\UserController@serveDataDownload');
 Route::get('/user/badges/{user}', '\App\Http\Controllers\UserController@showBadges');
 Route::get('/user/stats/{user}', '\App\Http\Controllers\UserController@showUserStats');
+Route::get('/user/stats/{user}/ajaxGraphData', '\App\Http\Controllers\UserController@userStatsAjaxData');
+
 
 Route::get('/pushmessage', '\App\Http\Controllers\AdminController@pushMessageIndex');
 Route::get('/pushmessage/create/{messageId}', '\App\Http\Controllers\AdminController@createPushmessage');

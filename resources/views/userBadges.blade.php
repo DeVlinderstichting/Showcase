@@ -49,7 +49,7 @@
                                 <div class="col-md-4">
                                     <br>
                                     {{\App\Models\Language::getItem($badge->description_key)}}<br>
-                                    <img src="{{$theBadgeLevel->image_location}}" alt="" class="img-count-settings usersettings-count-item-selector-image" @if(!$userHasBadge) style="opacity:0.5;" @endif title="{{$tooltipText}}">
+                                    <img src="{{$theBadgeLevel->image_location}}" alt="" class="img-count-settings usersettings-count-item-selector-image user_badge" @if(!$userHasBadge) style="opacity:0.5;" @endif title="{{$tooltipText}}">
                                     <br><progress id="{{$theBadgeLevel->id}}" value="{{$badgeProgress}}" max="100">{{$badgeProgress}}%</progress>
                                     <br>{{\App\Models\Language::getItem($theBadgeLevel->description_key)}}
                                     <br><br>

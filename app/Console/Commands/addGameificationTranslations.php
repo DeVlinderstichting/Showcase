@@ -579,8 +579,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "regionInfoPieChartSpeciesInEba";
-        $l->en = "Species in EBA";
-        $l->nl = "Soorten in de EBA";
+        $l->en = "Species in region";
+        $l->nl = "Soorten in de regio";
         $l->save();
 
         $l = \App\Models\Language::where('key', 'regionInfoPieChartLandscapesInEba')->first();
@@ -589,8 +589,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "regionInfoPieChartLandscapesInEba";
-        $l->en = "Landscapes in EBA";
-        $l->nl = "Landschappen in de EBA";
+        $l->en = "Landscapes in region";
+        $l->nl = "Landschappen in de regio";
         $l->save();
         
         $l = \App\Models\Language::where('key', 'regionInfoPieChartManagementInEba')->first();
@@ -599,8 +599,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "regionInfoPieChartManagementInEba";
-        $l->en = "Management in EBA";
-        $l->nl = "Beheer in de EBA";
+        $l->en = "Management in region";
+        $l->nl = "Beheer in de regio";
         $l->save();
 
         $l = \App\Models\Language::where('key', 'regionInfoVisitsPerYearTitle')->first();
@@ -721,8 +721,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeSpCountHorizontalGraphItemEbaLabel";
-        $l->en = "Other species in EBA";
-        $l->nl = "Andere soorten in de EBA";
+        $l->en = "Other species in region";
+        $l->nl = "Andere soorten in de regio";
         $l->save();
 
 
@@ -763,8 +763,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeVisitCountHorizontalGraphItemEbaLabel";
-        $l->en = "Other visits in EBA";
-        $l->nl = "Andere tellingen in de EBA";
+        $l->en = "Other visits in region";
+        $l->nl = "Andere tellingen in de regio";
         $l->save();
 
 
@@ -805,8 +805,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeDistanceSumHorizontalGraphItemEbaLabel";
-        $l->en = "Distance by other recorders in EBA";
-        $l->nl = "Afstand van anderen in de EBA";
+        $l->en = "Distance by other recorders in region";
+        $l->nl = "Afstand van anderen in de regio";
         $l->save();
 
 
@@ -847,8 +847,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeIndivCountHorizontalGraphItemEbaLabel";
-        $l->en = "Observations by others in EBA";
-        $l->nl = "Observaties door anderen in de EBA";
+        $l->en = "Observations by others in region";
+        $l->nl = "Observaties door anderen in de regio";
         $l->save();
 
 
@@ -889,8 +889,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeVisitTimeCountHorizontalGraphItemEbaLabel";
-        $l->en = "Time by others in EBA";
-        $l->nl = "Tijd van anderen in de EBA";
+        $l->en = "Time by others in region";
+        $l->nl = "Tijd van anderen in de regio";
         $l->save();
 
 
@@ -911,8 +911,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeBadgeCountHorizontalGraphItemTitle";
-        $l->en = "Contribution to total badge count in EBA";
-        $l->nl = "Bijdrage aan totale hoeveelheid badges in EBA";
+        $l->en = "Contribution to total badge count in region";
+        $l->nl = "Bijdrage aan totale hoeveelheid badges in regio";
         $l->save();
 
         $l = \App\Models\Language::where('key', 'userHomeBadgeCountHorizontalGraphItemMyLabel')->first();
@@ -931,8 +931,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeBadgeCountHorizontalGraphItemEbaLabel";
-        $l->en = "Badges by others in EBA";
-        $l->nl = "Badges van anderen in de EBA";
+        $l->en = "Badges by others in region";
+        $l->nl = "Badges van anderen in de regio";
         $l->save();
 
 
@@ -943,8 +943,8 @@ class addGameificationTranslations extends Command
             $l = new \App\Models\Language();
         }
         $l->key = "userHomeEbaStatsHeader";
-        $l->en = "Eba statistics";
-        $l->nl = "Eba statistieken";
+        $l->en = "Region statistics";
+        $l->nl = "Regio statistieken";
         $l->save();
 
         $l = \App\Models\Language::where('key', 'userHomeToStats')->first();
@@ -1015,6 +1015,299 @@ class addGameificationTranslations extends Command
         $l->nl = "Aantal individuen";
         $l->save();
 
+
+
+        $l = \App\Models\Language::where('key', 'downloadUserGuide')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "downloadUserGuide";
+        $l->en = "Download user guide";
+        $l->nl = "Handleiding downloaden";
+        $l->save();
+
+
+        $l = \App\Models\Language::where('key', 'userStatsNumSpNorm')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsNumSpNorm";
+        $l->en = "Number of species (normalized)";
+        $l->nl = "Aantal soorten (genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsNumIndivNorm')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsNumIndivNorm";
+        $l->en = "Number of individuals (normalized)";
+        $l->nl = "Aantal individuen (genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsNumSp')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsNumSp";
+        $l->en = "Number of species (not normalized)";
+        $l->nl = "Aantal soorten (niet genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsNumIndiv')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsNumIndiv";
+        $l->en = "Number of individuals (not normalized)";
+        $l->nl = "Aantal individuen (niet genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsNumVisit')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsNumVisit";
+        $l->en = "Number of visits";
+        $l->nl = "Aantal keer geteld";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsEba')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsEba";
+        $l->en = "Region";
+        $l->nl = "Regio";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsMine')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsMine";
+        $l->en = "Mine";
+        $l->nl = "Van mij";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartHeaderContribution')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartHeaderContribution";
+        $l->en = "Contribution";
+        $l->nl = "Mijn bijdrage";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartHeaderManagement')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartHeaderManagement";
+        $l->en = "Management in the region";
+        $l->nl = "Beheer in de regio";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartHeaderLanduse')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartHeaderLanduse";
+        $l->en = "Landuse in the region";
+        $l->nl = "Landgebruik in de regio";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisSpCountNormalizedByVisit')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisSpCountNormalizedByVisit";
+        $l->en = "Species count (normalized)";
+        $l->nl = "Aantal soorten (genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisIndivCountNormalizedByVisit')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisIndivCountNormalizedByVisit";
+        $l->en = "Number of individuals (normalized)";
+        $l->nl = "Aantal individuen (genormaliseerd)";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisSpCount')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisSpCount";
+        $l->en = "Number of species";
+        $l->nl = "Aantal soorten";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisIndivCount')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisIndivCount";
+        $l->en = "Number of individuals";
+        $l->nl = "Aantal individuen";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisVisitCount')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisVisitCount";
+        $l->en = "Visit count";
+        $l->nl = "Aantal keer geteld";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartXAxisExplanationContribution')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartXAxisExplanationContribution";
+        $l->en = "The total in the region compared with your total.";
+        $l->nl = "Het totaal uit de regio vergeleken met uw totaal.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartXAxisExplanationLanduse')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartXAxisExplanationLanduse";
+        $l->en = "The different types of landuse in your region.";
+        $l->nl = "De verschillende typen landgebruik in uw regio.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartXAxisExplanationManagement')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartXAxisExplanationManagement";
+        $l->en = "The different types of management in your region.";
+        $l->nl = "De verschillende typen beheer in uw regio.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisExplanationSpCountNorm')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisExplanationSpCountNorm";
+        $l->en = "The number of species devided by the number of visits. This correction decreases the influence of effort on the graph. Otherwise it is likely the effect of more visits would override any other effect.";
+        $l->nl = "Het aantal soorten gedeeld door het aantal keer dat er geteld is. Dit corrigeerd voor het effect van inspanning. Anders is het waarschijnlijk dat het effect van het aantal keer dat er geteld is alle andere effecten zou overschaduwen.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisExplanationIndivCountNorm')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisExplanationIndivCountNorm";
+        $l->en = "The number of individuals devided by the number of visits. This correction decreases the influence of effort on the graph. Otherwise it is likely the effect of more visits would override any other effect.";
+        $l->nl = "Het aantal individuen gedeeld door het aantal keer dat er geteld is. Dit corrigeerd voor het effect van inspanning. Anders is het waarschijnlijk dat het effect van het aantal keer dat er geteld is alle andere effecten zou overschaduwen.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisExplanationSpCountRaw')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisExplanationSpCountRaw";
+        $l->en = "The number of different species. This data is not corrected for effort.";
+        $l->nl = "Het aantal verschillende soorten, niet gecorrigeerd voor inspanning.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisExplanationIndivCountRaw')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisExplanationIndivCountRaw";
+        $l->en = "The number of insects (individuals). This data is not corrected for effort.";
+        $l->nl = "Het aantal verschillende insecten (individuen), niet gecorrigeerd voor inspanning.";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsCustomChartYAxisExplanationVisitCount')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsCustomChartYAxisExplanationVisitCount";
+        $l->en = "The number of visits.";
+        $l->nl = "Het aantal keer dat er geteld is.";
+        $l->save();
+
+
+        $l = \App\Models\Language::where('key', 'userStatsValueOfXAxis')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsValueOfXAxis";
+        $l->en = "Choose a variable for the x axis: ";
+        $l->nl = "Kies een variable voor de x as: ";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsValueOfYAxis')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsValueOfYAxis";
+        $l->en = "Choose a variable for the y axis: ";
+        $l->nl = "Kies een variable voor de y as: ";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsSelectLandscape')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsSelectLandscape";
+        $l->en = "Landuse";
+        $l->nl = "Landgebruik";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsSelectManagement')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsSelectManagement";
+        $l->en = "Management";
+        $l->nl = "Beheer";
+        $l->save();
+
+        $l = \App\Models\Language::where('key', 'userStatsSelectContribution')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language();
+        }
+        $l->key = "userStatsSelectContribution";
+        $l->en = "My Contribution";
+        $l->nl = "Mijn bijdrage";
+        $l->save();
 
         print("Done!!!!");
 

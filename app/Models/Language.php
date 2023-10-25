@@ -34,7 +34,7 @@ class Language extends Model
         $item = \App\Models\Language::where('key', $key)->first();
         if ($item == null)
         {
-            return "";
+            return $key;
         }
         else 
         {

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\BadgeLevel;
 use App\Models\BadgeRequirementType;
+use DB;
 
 class BadgeLevelRequirement extends Model
 {
@@ -46,6 +47,25 @@ class BadgeLevelRequirement extends Model
             $progress = $countingMethodCount / $this->requirement_value;
             return $progress;
         }
+        if ($brType->requirementtype == 'numberofplantspecies')
+        {
+            $flowerCount = $user->visits()->whereNotNull('flower_id')->pluck('flower_id')->unique()->count();
+            $progress = $flowerCount / $this->requirement_value;
+            return $progress;
+        }
+        if ($brType->requirementtype == 'totalvisittime')
+        {
+            $totalVisitLength = DB::select(DB::raw("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)"));
+            $progress = $totalVisitLength / $this->requirement_value;
+            return $progress;
+        }
+        if ($brType->requirementtype == 'speciesgroupcount')
+        {
+            $spIds = $user->observations()->pluck('species_id')->unique();
+            $spGroupCount = \App\Models\Species::whereIn("id", $spIds)->pluck('speciesgroup_id')->unique()->count();
+            $progress = $spGroupCount / $this->requirement_value;
+            return $progress;
+        }
     }
     public function isCompleted(User $user)
     {
@@ -70,14 +90,21 @@ class BadgeLevelRequirement extends Model
             $countingMethodCount = $user->visits()->where('countingmethod_id', $this->additional_requirement_value)->count();
             return ($countingMethodCount >= $this->requirement_value);
         }
-
-
-
-
-/*kmwalked
-speciesinspeciesgroupcount
-
-
- */
+        if ($brType->requirementtype == 'numberofplantspecies')
+        {
+            $flowerCount = $user->visits()->whereNotNull('flower_id')->pluck('flower_id')->unique()->count();
+            return ($flowerCount >= $this->requirement_value);
+        }
+        if ($brType->requirementtype == 'totalvisittime')
+        {
+            $totalVisitLength = DB::select(DB::raw("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)"));
+            return ($totalVisitLength >= $this->requirement_value);
+        }
+        if ($brType->requirementtype == 'speciesgroupcount')
+        {
+            $spIds = $user->observations()->pluck('species_id')->unique();
+            $spGroupCount = \App\Models\Species::whereIn("id", $spIds)->pluck('speciesgroup_id')->unique()->count();
+            return ($spGroupCount >= $this->requirement_value);
+        }
     }
 }

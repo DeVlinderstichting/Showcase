@@ -39,7 +39,7 @@
     ?>
 
     <div class="container mb-3">
-        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeHeader')}}<a href="/settings" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeSettings')}}</a><a href="/user/stats/{{$user->id}}" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeToStats')}}</a></h2>
+        <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeHeader')}}<a href="/settings" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeSettings')}}</a><a href="/user/stats/{{$user->id}}" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('userHomeToStats')}}</a><a href="InsectsCountUserGuide.pdf" class="btn btn-outline-primary float-end">{{\App\Models\Language::getItem('downloadUserGuide')}}</a></h2>
         <h2 class="px-4 userhome-title-sub">{{\App\Models\Language::getItem('userHomeSubTitle')}}</h2>
         <h3 class="px-4 userhome-title-sub"><b>{{\App\Models\Language::getItem('userHomeUsername')}}:</b> {{$user->name}}</h3>
         <h3 class="px-4 userhome-title-sub"><b>{{\App\Models\Language::getItem('userHomeRecorderNumber')}}: </b> {{$user->id}}</h3>
@@ -104,13 +104,15 @@
                                 <div class="col-md-4">
                                     <br>
                                     {{\App\Models\Language::getItem($badge->description_key)}}<br>
-                                    <img src="{{$theBadgeLevel->image_location}}" alt="" class="img-count-settings usersettings-count-item-selector-image" @if(!$userHasBadge) style="opacity:0.5;" @endif title="{{$tooltipText}}">
+                                    <img src="{{$theBadgeLevel->image_location}}" alt="" class="img-count-settings usersettings-count-item-selector-image user_badge" @if(!$userHasBadge) style="opacity:0.5;" @endif title="{{$tooltipText}}">
                                     <br><progress id="{{$theBadgeLevel->id}}" value="{{$badgeProgress}}" max="100">{{$badgeProgress}}%</progress>
                                     <br>{{\App\Models\Language::getItem($theBadgeLevel->description_key)}}
                                     <br><br>
                                 </div>
                             @endforeach
                             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//insectscount.eu/user/badges/{{$user->id}}">Share on Facebook</a>
+                            <a href="https://twitter.com/intent/tweet?text=https://insectscount.eu/user/badges/{{$user->id}}">Share on Twitter</a>
+                            <a href='https://www.instagram.com/?url=https%3A%2F%2Finsectscount.eu%2Fuser%2Fbadges%2F{{$user->id}}'>Share on Instagram</a>
                         </div>
                     </div>
                 </div>

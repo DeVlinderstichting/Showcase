@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\User;
+use \App\Models\Language;
 use Illuminate\Support\Carbon;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Password;
@@ -163,6 +164,175 @@ class UserController extends Controller
 
 
         return view('userStats', ['obsCount' => $allObs->count(), 'ebaSpeciesCount'=> $ebaSpeciesCount, 'userIndivCount' => $totalIndiv, 'ebaIndivCount' => $ebaIndivCount, 'userVisitCount' => $userVisitCount, 'ebaVisitCount' => $ebaVisitCount, 'spCount' => $speciesNr, 'spGroupCount' => $spGroupCount, 'nrOfInsects' => $nrOfInsects, 'allSpMonthlyData' => $countPerMonthAllSp, 'userSpMonthlyData' => $countPerMonthUser, 'countPerSpeciesUser' => $countPerSpeciesUser, 'ebaTotalVisitTime' => $totalEbaVisitTime, 'userTotalVisitTime' => $totalUserVisitTime, 'totalUserDistance' => $totalUserDistance, 'totalEbaDistance' => $totalEbaDistance, 'countPerSpeciesAll' => $countPerSpeciesAll, 'user' => $user, 'userMessages' => $messages, 'allUserObservations' => $allObs, 'allObservations' => $allObsAllUsers, 'ebaBadgeCount' => $ebaBadgeCount, 'userBadgeCount' => $userBadgeCount, 'ebaLandscape' => $ebaLandscapeRes,'ebaManagement' => $ebaManagementRes, 'userManagement' => $userManagementRes, 'userLandscape' => $userLandscapeRes]);
+    }
+
+    public function userStatsAjaxData(Request $request)
+    {
+        $user = Auth::user();
+
+        $valDat = $this->validate($request, [
+            'xAxis' => ['required', Rule::in(['landscape', 'management', 'contribution'])],
+            'yAxis' => ['required', Rule::in(['spcount_normalizedbyvisit', 'indivcount_normalizedbyvisit', 'spcount_raw', 'indivcount_raw', 'visitcount'])]
+        ]);
+
+        /* 
+            table: sp count + indiv count + nr of visits per landscape and management type, seperated between my and eba contribution 
+
+            select managementtype_id, count(distinct(species_id)) as spcount, sum(observations.number) as indivcount, count(distinct(visit_id)) as visitcount
+            from visits join observations on visits.id=visit_id where ((ST_Intersects ((select location from regions where id = 1), visits.location)=true))
+            and user_id != 8
+            and managementtype_id is not null group by managementtype_id
+
+        */
+
+        $ebaSpeciesCountSqLine = "select count(distinct(species_id)) as spcount, sum(observations.number) as indivcount from observations join visits on visits.id=visit_id where";
+        $ebaVisitCountSql = "select count(id) as visitcount from visits where";
+        $ebaLandscape = "select lower(landusetypes.name) as description, landusetype_id, count(distinct(species_id)) as spcount, sum(observations.number) as indivcount, count(distinct(visit_id)) as visitcount from visits join observations on visits.id=visit_id join landusetypes on landusetypes.id = landusetype_id where user_id != -1 "; //userid is never negative, used as placeholder to avoid dealing with AND later on 
+        $userLandscape = "select lower(landusetypes.name) as description, landusetype_id, count(distinct(species_id)) as spcount, sum(observations.number) as indivcount, count(distinct(visit_id)) as visitcount from visits join observations on visits.id=visit_id join landusetypes on landusetypes.id = landusetype_id where user_id = $user->id";
+        $ebaManagement = "select lower(managementtypes.name) as description, managementtype_id, count(distinct(species_id)) as spcount, sum(observations.number) as indivcount, count(distinct(visit_id)) as visitcount from visits join observations on visits.id=visit_id join managementtypes on managementtypes.id = managementtype_id where user_id != -1 ";
+        $userManagement = "select lower(managementtypes.name) as description, managementtype_id, count(distinct(species_id)) as spcount, sum(observations.number) as indivcount, count(distinct(visit_id)) as visitcount from visits join observations on visits.id=visit_id join managementtypes on managementtypes.id = managementtype_id where user_id = $user->id";
+
+        $regionIds = $user->regions()->pluck('region_id');
+
+        $isFirst = true;
+        foreach($regionIds as $reId)
+        {
+            if (!$isFirst)
+            {
+                $ebaSpeciesCountSqLine .= " OR";
+          //      $ebaTotalVisitTimeSqLine .= " OR";
+                $ebaVisitCountSql .= " OR";
+                $ebaLandscape .= " OR";
+                $ebaManagement .= " OR";
+            }
+            else
+            {
+                $ebaLandscape .= " AND ";
+                $ebaManagement .= " AND ";
+            }
+            $ebaSpeciesCountSqLine .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
+        //    $ebaTotalVisitTimeSqLine .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
+            $ebaVisitCountSql .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
+            $ebaLandscape .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
+            $ebaManagement .= " ((ST_Intersects ((select location from regions where id = $reId), visits.location)=true))";
+            $isFirst = false;
+        }
+
+        $ebaLandscape .= " and landusetype_id is not null group by landusetype_id, landusetypes.name";
+        $userLandscape .= " and landusetype_id is not null group by landusetype_id, landusetypes.name";
+        $ebaManagement .= " and managementtype_id is not null group by managementtype_id, managementtypes.name";
+        $userManagement .= " and managementtype_id is not null group by managementtype_id, managementtypes.name";
+
+
+        $ebaSpeciesCount =0;
+        $ebaIndivCount =0;
+        $ebaVisitCount =0;
+        $ebaManagementRes =[];
+        $ebaLandscapeRes=[];
+        $userManagementRes=[];
+        $userLandscapeRes=[];
+        
+
+        if (count($regionIds) > 0)
+        {
+            $ebaSpeciesCountSqRes = DB::select(DB::raw($ebaSpeciesCountSqLine));
+          //  $ebaVisitTimeSqRes = DB::select(DB::raw($ebaTotalVisitTimeSqLine));
+            $ebaVisitCountSqRes = DB::select(DB::raw($ebaVisitCountSql));
+            $ebaLandscapeRes = DB::select(DB::raw($ebaLandscape));
+            $ebaManagementRes = DB::select(DB::raw($ebaManagement));
+            $userManagementRes = DB::select(DB::raw($userManagement));
+            $userLandscapeRes = DB::select(DB::raw($userLandscape));
+
+            $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
+            $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
+            $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
+        }
+
+        $res = [];
+      //  $res[] = $ebaLandscapeRes
+       // $res[] = $ebaManagementRes;
+       // $res[] = $userManagementRes;
+       // $res[] = $userLandscapeRes;
+
+        $usingDat = $ebaLandscapeRes;
+
+        if ($valDat['xAxis'] == 'landscape') 
+        {
+            $usingDat = $ebaLandscapeRes;
+        }
+        if ($valDat['xAxis'] == 'management') 
+        {
+            $usingDat = $ebaManagementRes;
+        }
+
+        if ($valDat['xAxis'] == 'contribution')
+        {
+            $userVisitCount = $user->visits()->get()->count();
+            $userSpeciesCount = $user->observations()->pluck('species_id')->unique()->count();
+            $userIndivCount = $user->observations()->sum('number');
+            if ($valDat['yAxis'] == 'spcount_normalizedbyvisit') 
+            {
+                $ebaNormSpCount = (floatval($ebaSpeciesCount) / floatval($ebaVisitCount));
+                $userNormSpCount = (floatval($userSpeciesCount) / floatval($userVisitCount));
+                $res[] = [$ebaNormSpCount, $userNormSpCount];
+            }
+            if ($valDat['yAxis'] == 'indivcount_normalizedbyvisit') 
+            {
+                $ebaNormIndivCount = (floatval($ebaIndivCount) / floatval($ebaVisitCount));
+                $userNormIndivCount = (floatval($userIndivCount) / floatval($userVisitCount));
+                $res[] = [$ebaNormIndivCount, $userNormIndivCount];
+            }
+            if ($valDat['yAxis'] == 'spcount_raw') 
+            {
+                $res[] = [$ebaSpeciesCount, $userSpeciesCount];
+            }
+            if ($valDat['yAxis'] == 'indivcount_raw') 
+            {
+                $res[] = [$ebaIndivCount, $userIndivCount];
+            }
+            if ($valDat['yAxis'] == 'visitcount') 
+            {
+                $res[] = [$ebaVisitCount, $userVisitCount];
+            }
+            return $res;
+        }
+
+        if ($valDat['yAxis'] == 'spcount_normalizedbyvisit') 
+        {
+            foreach($usingDat as $resLine)
+            {
+                $res[] = [Language::getItem($resLine->description), floatval($resLine->spcount) / floatval($resLine->visitcount)];
+            }
+        }
+        if ($valDat['yAxis'] == 'indivcount_normalizedbyvisit') 
+        {
+            foreach($usingDat as $resLine)
+            {
+                $res[] = [Language::getItem($resLine->description), floatval($resLine->indivcount) / floatval($resLine->visitcount)];
+            }
+        }
+        if ($valDat['yAxis'] == 'spcount_raw') 
+        {
+            foreach($usingDat as $resLine)
+            {
+                $res[] = [Language::getItem($resLine->description), $resLine->spcount];
+            }
+        }
+        if ($valDat['yAxis'] == 'indivcount_raw') 
+        {
+            foreach($usingDat as $resLine)
+            {
+                $res[] = [Language::getItem($resLine->description), $resLine->indivcount];
+            }
+        }
+        if ($valDat['yAxis'] == 'visitcount') 
+        {
+            foreach($usingDat as $resLine)
+            {
+                $res[] = [Language::getItem($resLine->description), $resLine->visitcount];
+            }
+        }
+        return $res;
     }
 
     public function userLogin(Request $request)

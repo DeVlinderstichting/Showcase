@@ -59,10 +59,200 @@
             </div>
         </div>
 
+        
 
     <h2 class="p-4 userhome-title-header">{{\App\Models\Language::getItem('userHomeEbaStatsHeader')}}</h2> 
     <div class="row">
         <div class="col-md-4">
+            <label for="customGraphXAxis">{{\App\Models\Language::getItem('userStatsValueOfXAxis')}}</label>
+            <select name="customGraphXAxis" id="customGraphXAxis" onchange="updateGraph()">
+                <option value="landscape">{{\App\Models\Language::getItem('userStatsSelectLandscape')}}</option>
+                <option value="management">{{\App\Models\Language::getItem('userStatsSelectManagement')}}</option>
+                <option value="contribution">{{\App\Models\Language::getItem('userStatsSelectContribution')}}</option>
+            </select> <br><div id="chartXAxisSelectionExplanation"></div><br>
+            <label for="customGraphYAxis">{{\App\Models\Language::getItem('userStatsValueOfYAxis')}}</label>
+            <select name="customGraphYAxis" id="customGraphYAxis" onchange="updateGraph()">
+                <option value="spcount_normalizedbyvisit">{{\App\Models\Language::getItem('userStatsNumSpNorm')}}</option>
+                <option value="indivcount_normalizedbyvisit">{{\App\Models\Language::getItem('userStatsNumIndivNorm')}}</option>
+                <option value="spcount_raw">{{\App\Models\Language::getItem('userStatsNumSp')}}</option>
+                <option value="indivcount_raw">{{\App\Models\Language::getItem('userStatsNumIndiv')}}</option>
+                <option value="visitcount">{{\App\Models\Language::getItem('userStatsNumVisit')}}</option>
+            </select> <br>
+            <div id="chartYAxisSelectionExplanation"></div>
+            <canvas id="chartCustom"></canvas>
+
+
+        <script>
+            var currentGraph;
+            function updateGraph()
+            {
+                var xAxis = document.getElementById('customGraphXAxis').value;
+                var yAxis = document.getElementById('customGraphYAxis').value;
+
+                var visitCount = {{$ebaVisitCount}}
+ 
+
+                if (currentGraph != null)
+                {
+                    currentGraph.destroy();
+                }
+
+
+
+
+
+
+                $.ajax({
+                    type:'GET',
+                    url: '/user/stats/{{$user->id}}/ajaxGraphData',
+                    data: 
+                    {
+                        "xAxis": xAxis, 
+                        "yAxis": yAxis
+                    },
+                    success:function(data) 
+                    {
+
+                        var graphCanvas = document.getElementById('chartCustom');
+                        var customLabels = [];
+                        var customData = [];
+                        var contributionData = [];
+
+                        for (var i = 0; i < data.length; i++)
+                        {
+                            if (xAxis != "contribution")
+                            {
+                                customLabels.push(data[i][0]);
+                                customData.push(data[i][1]);
+                            }
+                            else 
+                            {
+                                customLabels.push("Contribution");
+                                customData.push(data[i][0]);
+                                contributionData.push(data[i][1]);
+                            }
+                        }
+
+                        if (xAxis != "contribution")
+                        {
+                            var customGraphData = {
+                                labels: customLabels,
+                                datasets: [
+                                {
+                                    label: '{{\App\Models\Language::getItem('userStatsEba')}}',
+                                    data: customData,
+                                    backgroundColor: "#8AC1B4",
+                                }]
+                            };
+                        }
+                        else
+                        {
+                            var customGraphData = {
+                                labels: customLabels,
+                                datasets: [
+                                {
+                                    label: '{{\App\Models\Language::getItem('userStatsEba')}}',
+                                    data: customData,
+                                    backgroundColor: "#8AC1B4",
+                                }, 
+                                {
+                                    label: '{{\App\Models\Language::getItem('userStatsMine')}}',
+                                    data: contributionData,
+                                    backgroundColor: "#505099",
+                                }]
+                            };
+                        }
+
+                        var xAxisText = "";
+                        var yAxisText = "";
+                        var headerText = "";
+
+                        var xAxisExplanation = "";
+                        var yAxisExplanation = "";
+
+                        if (xAxis == "contribution") 
+                        {   
+                            headerText = "{{\App\Models\Language::getItem('userStatsCustomChartHeaderContribution')}}";
+                            xAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartXAxisExplanationContribution')}}";
+                        }
+                        if (xAxis == "landscape") 
+                        {
+                            headerText = "{{\App\Models\Language::getItem('userStatsCustomChartHeaderLanduse')}}";
+                            xAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartXAxisExplanationLanduse')}}";
+                        }
+                        if (xAxis == "management") 
+                        {
+                            headerText = "{{\App\Models\Language::getItem('userStatsCustomChartHeaderManagement')}}";
+                            xAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartXAxisExplanationManagement')}}";
+                        }
+
+                        if (yAxis == "spcount_normalizedbyvisit") 
+                        {
+                            yAxisText = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisSpCountNormalizedByVisit')}}";
+                            yAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisExplanationSpCountNorm')}}";
+                        }
+                        if (yAxis == "indivcount_normalizedbyvisit") 
+                        {
+                            yAxisText = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisIndivCountNormalizedByVisit')}}";
+                            yAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisExplanationIndivCountNorm')}}";
+                        }
+                        if (yAxis == "spcount_raw") 
+                        {
+                            yAxisText = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisSpCount')}}";
+                            yAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisExplanationSpCountRaw')}}";
+                        }
+                        if (yAxis == "indivcount_raw") 
+                        {
+                            yAxisText = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisIndivCount')}}";
+                            yAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisExplanationIndivCountRaw')}}";
+                        }
+                        if (yAxis == "visitcount") 
+                        {
+                            yAxisText = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisVisitCount')}}";
+                            yAxisExplanation = "{{\App\Models\Language::getItem('userStatsCustomChartYAxisExplanationVisitCount')}}";
+                        }
+
+                        var explanationElemX = document.getElementById('chartXAxisSelectionExplanation');
+                        explanationElemX.innerHTML = xAxisExplanation;
+                        var explanationElemY = document.getElementById('chartYAxisSelectionExplanation');
+                        explanationElemY.innerHTML = yAxisExplanation;
+
+
+                        var customGraphConfig = {
+                        type: 'bar',
+                        data: customGraphData,
+                            options: {
+                                plugins: {
+                                    title: {
+                                        display: true,
+                                        text: headerText
+                                    },
+                                },
+                                responsive: true,
+                                scales: {
+                                    x: {
+                                        stacked: false,
+                                    },
+                                    y: {
+                                        stacked: false,
+                                        title: {
+                                            display: true,
+                                            text: yAxisText
+                                        }
+                                    }
+                                }
+                            }
+                        };
+                        var customGraph = new Chart(graphCanvas,customGraphConfig);
+                        currentGraph = customGraph;
+                    }
+                });
+            }
+            updateGraph();
+        </script>    
+
+<?php /* 
+            
             @include('components.graphhorizontalbar', 
             [
                 'itemLabel' => \App\Models\Language::getItem('userHomeSpCountHorizontalGraphItemLabel'),
@@ -147,6 +337,8 @@
          <div class="col-md-4">
             <canvas id="managementBarGraphIndiv"></canvas>
         </div>
+
+        */ ?>
     </div>
 
 <script type="text/javascript">
@@ -363,13 +555,13 @@
             }
         }
     };
-
+<?php /* 
 const landscapeBarGraph = new Chart(document.getElementById('landscapeBarGraph'),configlandscapeBarGraph);
 const managementBarGraph = new Chart(document.getElementById('managementBarGraph'),configManagementBarGraph);
 
 const landscapeBarGraphIndiv = new Chart(document.getElementById('landscapeBarGraphIndiv'),configlandscapeBarGraphIndiv);
 const managementBarGraphIndiv = new Chart(document.getElementById('managementBarGraphIndiv'),configManagementBarGraphIndiv);
-
+*/ ?>
 </script>
 
 
@@ -380,10 +572,7 @@ const managementBarGraphIndiv = new Chart(document.getElementById('managementBar
         <div class="row">
             
             <div class="col-md-9 userhome-section-map">
-                <?php
-                // dd($allObservations[0]->getLocationsAsGeoJson());
-                ?>
-                @include('layouts.map_show', ['countObjects'=>[], 'showSectionNrs' => 0])
+                @include('layouts.map_show', ['countObjects'=>[], 'showSectionNrs' => 0]) 
             </div>
         </div>
 
@@ -501,30 +690,35 @@ const managementBarGraphIndiv = new Chart(document.getElementById('managementBar
             @endforeach
         @endforeach
 
+ 
+        // Species per month (all 2023): #F87A13  'rgb(180, 50, 70)',
+        // Species per month (mine 2023): #1F7263  rgb(70, 50, 180) 
+        // Species per month (all 2022): #FCB05E rgb(255, 99, 132)
+        // Species per month (mine 2022): #69B2A4 rgb(132, 99, 255)
 
         const barData = {
             labels: labels,
             datasets: [{
                     label: 'Species per month (all {{ date('Y') }})',
-                    backgroundColor: 'rgb(180, 50, 70)',
-                    borderColor: 'rgb(180, 50, 70)',
+                    backgroundColor: '#F87A13',
+                    borderColor: '#F87A13',
                     data: thisYearAll,
                 }, {
                     label: 'Species per month (all {{ date('Y', strtotime('-1 year')) }})',
-                    backgroundColor: 'rgb(255, 99, 132)',
-                    borderColor: 'rgb(255, 99, 132)',
+                    backgroundColor: '#FCB05E',
+                    borderColor: '#FCB05E',
                     data: lastYearAll,
                 },
                 {
                     label: 'Species per month (mine {{ date('Y') }})',
-                    backgroundColor: 'rgb(70, 50, 180)',
-                    borderColor: 'rgb(70, 50, 180)',
+                    backgroundColor: '#1F7263',
+                    borderColor: '#1F7263',
                     data: thisYearMine,
                 },
                 {
                     label: 'Species per month (mine {{ date('Y', strtotime('-1 year')) }})',
-                    backgroundColor: 'rgb(132, 99, 255)',
-                    borderColor: 'rgb(132, 99, 255)',
+                    backgroundColor: '#69B2A4',
+                    borderColor: '#69B2A4',
                     data: lastYearMine,
                 }
             ]

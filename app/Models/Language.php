@@ -22,6 +22,10 @@ class Language extends Model
     */
     public static function getItem($key, $languageName = 'en')
     {
+        if ($key == null)
+        {
+            return "";
+        }
         $user = Auth::user();
         if ($user != null)
         {
@@ -30,11 +34,26 @@ class Language extends Model
                 $languageName = $user->prefered_language;
             }
         }
-
+      //  $key = strtolower($key);
         $item = \App\Models\Language::where('key', $key)->first();
         if ($item == null)
         {
-            return $key;
+            $item = \App\Models\Language::where('key', strtolower($key))->first();
+            if ($item == null)
+            {
+                $isItLanduse = \App\Models\LanduseType::where('name', 'ilike', $key)->first();
+
+                if ($isItLanduse != null)
+                {
+                    return $isItLanduse->description;
+                }
+                $isItManagement = \App\Models\ManagementType::where('name', 'ilike', $key)->first();
+                if ($isItManagement != null)
+                {
+                    return $isItManagement->description;
+                }
+               // return $key;
+            }
         }
         else 
         {

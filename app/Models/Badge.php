@@ -8,6 +8,8 @@ use App\Models\UserBadge;
 
 class Badge extends Model
 {
+    protected $fillable = ['language_key', 'description_key'];
+
     public function badgeLevels()
     {
         return $this->hasMany('App\Models\BadgeLevel', 'badge_id');

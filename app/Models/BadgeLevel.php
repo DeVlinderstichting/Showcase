@@ -8,6 +8,7 @@ use App\Models\BadgeLevelRequirement;
 class BadgeLevel extends Model
 {
     protected $table = "badge_levels";
+    protected $fillable = ['badge_id', 'image_location', 'description_key', 'sequence'];
 
     public function badge()
     {

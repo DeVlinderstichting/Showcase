@@ -10,6 +10,8 @@ use DB;
 class BadgeLevelRequirement extends Model
 {
     protected $table = "badgelevel_requirements";
+    protected $fillable = ['badgelevel_id', 'description_key', 'badgerequirementtype_id', 'requirement_value', 'additional_requirement_value'];
+
 
     public function badgeLevel()
     {
@@ -56,7 +58,7 @@ class BadgeLevelRequirement extends Model
         if ($brType->requirementtype == 'totalvisittime')
         {
             $totalVisitLength = DB::select(DB::raw("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)"));
-            $progress = $totalVisitLength / $this->requirement_value;
+            $progress = $totalVisitLength[0]->visitlength / $this->requirement_value;
             return $progress;
         }
         if ($brType->requirementtype == 'speciesgroupcount')

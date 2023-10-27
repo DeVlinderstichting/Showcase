@@ -40,7 +40,7 @@
                                     if (empty($theBadgeLevel))
                                     {
                                         $theBadgeLevel = $badge->getLowestBadgeLevel()->first();
-                                        $userHasBadge = false;
+                                        $userHasBadge = false;                                        
                                     }
                                     $badgeProgress = $badge->getProgressTowardsNextLevel($user);
                                    // dd($badgeProgress);

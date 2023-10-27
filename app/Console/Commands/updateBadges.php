@@ -3,7 +3,11 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
+use App\Models\Badge;
 use \App\Models\BadgeLevel;
+use \App\Models\BadgeLevelRequirement;
+use \App\Models\BadgeRequirementType;
+
 
 class updateBadges extends Command
 {
@@ -126,14 +130,43 @@ class updateBadges extends Command
         {
             $brtSpeciesGroupCount = BadgeRequirementType::create(['requirementtype' => 'speciesgroupcount']);
         }
-        $badgeSpeciesGroup = Badge::create(['language_key' => "badgeSpeciesGroupTitle", 'description_key' => "badgeSpeciesGroupDescription"]);
-        $badgeVl1SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-bronce.png']);
-        $badgeVl2SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-silver.png']);
-        $badgeVl3SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-gold.png']);
 
-        $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl1RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 1]);
-        $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl2RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 3]);
-        $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl3RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 5]);
+        $badgeSpeciesGroup = Badge::where('language_key', 'badgeSpeciesGroupTitle')->first();
+        if ($badgeSpeciesGroup == null)
+        {
+            $badgeSpeciesGroup = Badge::create(['language_key' => "badgeSpeciesGroupTitle", 'description_key' => "badgeSpeciesGroupDescription"]);
+        }
+        $badgeVl1SpeciesGroup = BadgeLevel::where('description_key', 'badgeSpeciesGrouplvl1Description')->first();
+        if ($badgeVl1SpeciesGroup == null)
+        {
+            $badgeVl1SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-bronce.png']);
+        }
+        $badgeVl2SpeciesGroup = BadgeLevel::where('description_key', 'badgeSpeciesGrouplvl2Description')->first();
+        if ($badgeVl2SpeciesGroup == null)
+        {
+            $badgeVl2SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-silver.png']);
+        }
+        $badgeVl3SpeciesGroup = BadgeLevel::where('description_key', 'badgeSpeciesGrouplvl3Description')->first();
+        if ($badgeVl3SpeciesGroup == null)
+        {
+            $badgeVl3SpeciesGroup = BadgeLevel::create(['badge_id' => $badgeSpeciesGroup->id, 'description_key' => 'badgeSpeciesGrouplvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_2numberofspecies-gold.png']);
+        }
+
+        $bl1Br = BadgeLevelRequirement::where('description_key', 'badgeSpeciesGroupLvl1RequirementDescription')->first();
+        if ($bl1Br == null)
+        {
+            $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl1RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 1]);
+        }
+        $bl2Br = BadgeLevelRequirement::where('description_key', 'badgeSpeciesGroupLvl2RequirementDescription')->first();
+        if ($bl2Br == null)
+        {
+            $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl2RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 3]);
+        }
+        $bl3Br = BadgeLevelRequirement::where('description_key', 'badgeSpeciesGroupLvl3RequirementDescription')->first();
+        if ($bl3Br == null)
+        {
+            $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3SpeciesGroup->id, 'description_key' => 'badgeSpeciesGroupLvl3RequirementDescription', 'badgerequirementtype_id' => $brtSpeciesGroupCount->id, 'requirement_value' => 5]);
+        }
 
         $l = \App\Models\Language::where('key', 'badgeSpeciesGroupTitle')->first();
         if ($l == null)
@@ -214,15 +247,43 @@ class updateBadges extends Command
         {
             $brtMonitoredTime = BadgeRequirementType::create(['requirementtype' => 'totalvisittime']);
         }
+        $badgeMonitoringTime = Badge::where('language_key', 'badgeMonitoringTimeTitle')->first();
+        if ($badgeMonitoringTime == null)
+        {
+            $badgeMonitoringTime = Badge::create(['language_key' => "badgeMonitoringTimeTitle", 'description_key' => "badgeMonitoringTimeDescription"]);
+        }
 
-        $badgeMonitoringTime = Badge::create(['language_key' => "badgeMonitoringTimeTitle", 'description_key' => "badgeMonitoringTimeDescription"]);
-        $badgeVl1vMonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_3timemonitored-bronce.png']);
-        $badgeVl2MonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_3timemonitored-silver.png']);
-        $badgeVl3MonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_3timemonitored-gold.png']);
+        $badgeVl1MonitoringTime = BadgeLevel::where('description_key', 'badgeMonitoringTimelvl1Description')->first();
+        if ($badgeVl1MonitoringTime == null)
+        {
+            $badgeVl1MonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_3timemonitored-bronce.png']);
+        }
+        $badgeVl2MonitoringTime = BadgeLevel::where('description_key', 'badgeMonitoringTimelvl2Description')->first();
+        if ($badgeVl2MonitoringTime == null)
+        {
+            $badgeVl2MonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_3timemonitored-silver.png']);
+        }
+        $badgeVl3MonitoringTime = BadgeLevel::where('description_key', 'badgeMonitoringTimelvl3Description')->first();
+        if ($badgeVl3MonitoringTime == null)
+        {
+            $badgeVl3MonitoringTime = BadgeLevel::create(['badge_id' => $badgeMonitoringTime->id, 'description_key' => 'badgeMonitoringTimelvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_3timemonitored-gold.png']);
+        }
 
-        $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl1RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 60]);
-        $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl2RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 180]);
-        $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl3RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 600]);
+        $bl1Br = BadgeLevelRequirement::where('description_key', 'badgeMonitoringTimeLvl1RequirementDescription')->first();
+        if ($bl1Br == null)
+        {
+            $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl1RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 60]);
+        }
+        $bl2Br = BadgeLevelRequirement::where('description_key', 'badgeMonitoringTimeLvl2RequirementDescription')->first();
+        if ($bl2Br == null)
+        {
+            $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl2RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 180]);
+        }
+        $bl3Br = BadgeLevelRequirement::where('description_key', 'badgeMonitoringTimeLvl3RequirementDescription')->first();
+        if ($bl3Br == null)
+        {
+            $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3MonitoringTime->id, 'description_key' => 'badgeMonitoringTimeLvl3RequirementDescription', 'badgerequirementtype_id' => $brtMonitoredTime->id, 'requirement_value' => 600]);
+        }
 
 
 
@@ -307,15 +368,42 @@ class updateBadges extends Command
             $brtPlantSpeciesCount = BadgeRequirementType::create(['requirementtype' => 'numberofplantspecies']);
         }
 
-        $badgePlantCount = Badge::create(['language_key' => "badgePlantCountTitle", 'description_key' => "badgePlantCountDescription"]);
-        $badgeVl1PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_4plantscounted-bronce.png']);
-        $badgeVl2PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_4plantscounted-silver.png']);
-        $badgeVl3PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_4plantscounted-gold.png']);
+        $badgePlantCount = Badge::where('language_key', 'badgePlantCountTitle')->first();
+        if ($badgePlantCount == null)
+        {
+            $badgePlantCount = Badge::create(['language_key' => "badgePlantCountTitle", 'description_key' => "badgePlantCountDescription"]);
+        }
+        $badgeVl1PlantCount = BadgeLevel::where('description_key', 'badgePlantCountlvl1Description')->first();
+        if ($badgeVl1PlantCount == null)
+        {
+            $badgeVl1PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl1Description','sequence' => 1, 'image_location' => '\images\icons\AppShowcase_4plantscounted-bronce.png']);
+        }
+        $badgeVl2PlantCount = BadgeLevel::where('description_key', 'badgePlantCountlvl2Description')->first();
+        if ($badgeVl2PlantCount == null)
+        {
+            $badgeVl2PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl2Description','sequence' => 2, 'image_location' => '\images\icons\AppShowcase_4plantscounted-silver.png']);
+        }
+        $badgeVl3PlantCount = BadgeLevel::where('description_key', 'badgePlantCountlvl3Description')->first();
+        if ($badgeVl3PlantCount == null)
+        {
+            $badgeVl3PlantCount = BadgeLevel::create(['badge_id' => $badgePlantCount->id, 'description_key' => 'badgePlantCountlvl3Description','sequence' => 3, 'image_location' => '\images\icons\AppShowcase_4plantscounted-gold.png']);
+        }
 
-        $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1PlantCount->id, 'description_key' => 'badgePlantCountLvl1RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 5]);
-        $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2PlantCount->id, 'description_key' => 'badgePlantCountLvl2RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 10]);
-        $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3PlantCount->id, 'description_key' => 'badgePlantCountLvl3RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 25]);
-
+        $bl1Br = BadgeLevelRequirement::where('description_key', 'badgePlantCountLvl1RequirementDescription')->first();
+        if ($bl1Br == null)
+        {
+            $bl1Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl1PlantCount->id, 'description_key' => 'badgePlantCountLvl1RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 5]);
+        }
+        $bl2Br = BadgeLevelRequirement::where('description_key', 'badgePlantCountLvl2RequirementDescription')->first();
+        if ($bl2Br == null)
+        {
+            $bl2Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl2PlantCount->id, 'description_key' => 'badgePlantCountLvl2RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 10]);
+        }
+        $bl3Br = BadgeLevelRequirement::where('description_key', 'badgePlantCountLvl3RequirementDescription')->first();
+        if ($bl3Br == null)
+        {
+            $bl3Br = BadgeLevelRequirement::create(['badgelevel_id' => $badgeVl3PlantCount->id, 'description_key' => 'badgePlantCountLvl3RequirementDescription', 'badgerequirementtype_id' => $brtPlantSpeciesCount->id, 'requirement_value' => 25]);
+        }
 
         $l = \App\Models\Language::where('key', 'badgePlantCountTitle')->first();
         if ($l == null)
@@ -389,8 +477,5 @@ class updateBadges extends Command
             $l->nl = "25 plant species";
             $l->save();
         }
-
-
-
     }
 }

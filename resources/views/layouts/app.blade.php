@@ -94,7 +94,7 @@
             <a href="https://scienseed.com/"> 
                 <img src="{{ URL::to('/') }}/img/scienseed_logo.png" alt="Logo Scienseed" style='height: 44px'>
                 <br>
-                The design of this website was provided by SienceSeed
+                The design of this website was provided by Scienseed
             </a> 
             
             <p class="col-md-12 mb-0 pt-3 text-muted general-footer-copyright-class">&copy;2022 Showcase<br>This project receives funding from the European Union's Horizon 2020 research and innovation programme under grant agreement No. 862480.</p>

@@ -165,13 +165,13 @@
                     <h3 class="usersettings-title-sub"></h3>
                     <div>
                         <div class="row usersettings-count-item" style="margin-top: 8px;">   
-                            <p><i class="fas fa-bug" style="color: #f5e590; font-size: 18px;"></i> <span style="color: #B6F0BC; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
+                            <p><i class="fas fa-bug" style="color: #f5e590; font-size: 18px;"></i> <span style="color: #5e9b65; margin-bottom: 8px;">{{\App\Models\Language::getItem('userSettingsNoCounts')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
-                            <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountOnlyGroups')}}</span></p>
+                            <p><i class="fas fa-bug" style="color: #ffe421; font-size: 18px;"></i> <span style="color: #5e9b65;">{{\App\Models\Language::getItem('userSettingsCountOnlyGroups')}}</span></p>
                         </div>
                         <div class="row usersettings-count-item">
-                            <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #B6F0BC;">{{\App\Models\Language::getItem('userSettingsCountAll')}}</span></p>
+                            <p><i class="fas fa-bug" style="color: #fda230; font-size: 18px;"></i> <span style="color: #5e9b65;">{{\App\Models\Language::getItem('userSettingsCountAll')}}</span></p>
                         </div>
                     </div>
 

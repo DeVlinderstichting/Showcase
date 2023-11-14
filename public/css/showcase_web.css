@@ -26,7 +26,7 @@ margin-left: 0px;
 }
 
 .navbar-expand-md {
-    background-color: #1d6c5e !important;
+    background-color: #1f7263 !important;
 }
 .general-navbar-buttons-class {}
 .general-footer-copyright-class {}
@@ -232,10 +232,21 @@ h6 {
 .modal-body {}
 .modal-footer {}
 
-.card {}
-.card-header {}
-.card-title {}
-.card-body {}
+.card {
+	background-color: transparent !important;
+	border-color: transparent !important;
+}
+.card-header {
+
+}
+.card-title {
+}
+.card-body {
+	
+}
+.card-small-text {
+	font-size: 10px !important;
+}
 
 .form-switch {}
 
@@ -333,13 +344,14 @@ h6 {
 /* USER SETTINGS PAGE */
 .usersettings-title-header {
 	text-align: center !important;
-    color: #ffe421 !important;
-    font-size: 20px !important;
+    color: #1f7263 !important;
+    font-size: 30px !important;
 }
 .usersettings-title-sub {
 	text-align: center !important;
     color: #ffe421 !important;
     font-size: 20px !important;
+	display: none !important;
 }
 }
 .usersettings-card {

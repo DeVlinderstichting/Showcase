@@ -31,7 +31,7 @@ class GeneralPagesController extends Controller
 
 
         $sqLine = "SELECT gv.val, gv.x, gv.y FROM landuse AS r CROSS JOIN LATERAL ST_PixelAsPolygons(rast) AS gv WHERE ST_Intersects(rast, 1, ST_SetSRID(ST_MakePoint($lon, $lat),4326));";
-        $res = DB::select(DB::raw($sqLine));
+        $res = DB::select($sqLine);
         dd($res);
 
         $point = "ST_SetSRID(ST_MakePoint($lon, $lat),4326)";
@@ -83,11 +83,11 @@ class GeneralPagesController extends Controller
         $visitsPerYearSql = "select year, count(year) as countperyear from (select extract('year' from startdate) as year from visits where ST_Intersects ((select location from regions where id = $region->id), visits.location)=true) iglo group by year order by year";
 
 
-        $res = DB::select(DB::raw($sqLine));
-        $secondRes = DB::select(DB::raw($sqSecondLine));
-        $landuseTypes = DB::select(DB::raw($landuseTypeSql));
-        $managementTypes = DB::select(DB::raw($managementTypeSql));
-        $visitsPerYear = DB::select(DB::raw($visitsPerYearSql));
+        $res = DB::select($sqLine);
+        $secondRes = DB::select($sqSecondLine);
+        $landuseTypes = DB::select($landuseTypeSql);
+        $managementTypes = DB::select($managementTypeSql);
+        $visitsPerYear = DB::select($visitsPerYearSql);
 
         $totalSpNr = 0;
         $totalSpCount = 0;

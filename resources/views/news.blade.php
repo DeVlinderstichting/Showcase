@@ -9,9 +9,10 @@
     <h1 class="p-4 news-title-header">{{\App\Models\Language::getItem('generalPageNewsHeader')}}</h1>
     <h2 class="px-4 news-title-sub">{{\App\Models\Language::getItem('generalPageNewsSubHeader')}}</h2>
 </div>
-@foreach($newsItems as $newsItem)
+@for($i = 0; $i < count($newsItems); $i++)
+<?php $newsItem = $newsItems[$i]; ?>
 <div class="container mb-3" id="special">
-    <div class="row @if($loop->even)switch-direction @endif">
+    <div class="row @if($i %2 == 0)switch-direction @endif">
         <div class="col-md d-flex p-4">
             @if($newsItem->image1)
                 <img src="{{ $newsItem->image1 }}" class="img-fluid news-section-image">
@@ -26,5 +27,5 @@
         </div>
     </div>
 </div>
-@endforeach
+@endfor
 @endsection

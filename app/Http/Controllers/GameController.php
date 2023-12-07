@@ -24,7 +24,7 @@ class GameController extends Controller
                     WHERE ST_Intersects(rast, 1, ST_SetSRID(ST_MakePoint({$valDat['lon']}, {$valDat['lat']}),4326))
                 ) b
                 on a.x = b.x and a.y = b.y;";
-        $res = DB::select(DB::raw($sqLine));
+        $res = DB::select($sqLine);
 
 
         return $res;

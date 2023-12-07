@@ -594,7 +594,7 @@ class AdminController extends Controller
             $sqLine = "SELECT name, email FROM users where isadmin = false";
         }
 
-        $res = DB::select(DB::raw($sqLine));
+        $res = DB::select($sqLine);
         return json_encode($res);
     }
 

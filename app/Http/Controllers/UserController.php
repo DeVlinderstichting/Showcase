@@ -60,11 +60,11 @@ class UserController extends Controller
         $getAllSpCountsQLine="select count(distinct(species_id)), sum(number), extract (year from startdate) as year, extract (month from startdate) as month from visits  join observations on visits.id = observations.visit_id where visits.startdate > '$dateOneYearAgo' group by year, month";
         $getUserSpCountQLine="select count(distinct(species_id)), sum(number), extract (year from startdate) as year, extract (month from startdate) as month from visits  join observations on visits.id = observations.visit_id where visits.startdate > '$dateOneYearAgo' and visits.user_id = $user->id group by year, month";
 
-        $countPerMonthAllSp = DB::select(DB::raw($getAllSpCountsQLine));
-        $countPerMonthUser = DB::select(DB::raw($getUserSpCountQLine));
+        $countPerMonthAllSp = DB::select($getAllSpCountsQLine);
+        $countPerMonthUser = DB::select($getUserSpCountQLine);
 
-        $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id"));
-        $countPerSpeciesAll = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id"));
+        $countPerSpeciesUser = DB::select("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id");
+        $countPerSpeciesAll = DB::select("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id");
 
         $userMessages = $user->usersMessages()->get()->pluck('pushmessage_id');
         $messages = \App\Models\PushMessage::whereIn('id', $userMessages)->get();
@@ -120,13 +120,13 @@ class UserController extends Controller
 
         if (count($regionIds) > 0)
         {
-            $ebaSpeciesCountSqRes = DB::select(DB::raw($ebaSpeciesCountSqLine));
-            $ebaVisitTimeSqRes = DB::select(DB::raw($ebaTotalVisitTimeSqLine));
-            $ebaVisitCountSqRes = DB::select(DB::raw($ebaVisitCountSql));
-            $ebaLandscapeRes = DB::select(DB::raw($ebaLandscape));
-            $ebaManagementRes = DB::select(DB::raw($ebaManagement));
-            $userManagementRes = DB::select(DB::raw($userManagement));
-            $userLandscapeRes = DB::select(DB::raw($userLandscape));
+            $ebaSpeciesCountSqRes = DB::select($ebaSpeciesCountSqLine);
+            $ebaVisitTimeSqRes = DB::select($ebaTotalVisitTimeSqLine);
+            $ebaVisitCountSqRes = DB::select($ebaVisitCountSql);
+            $ebaLandscapeRes = DB::select($ebaLandscape);
+            $ebaManagementRes = DB::select($ebaManagement);
+            $userManagementRes = DB::select($userManagement);
+            $userLandscapeRes = DB::select($userLandscape);
 
             $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
             $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
@@ -140,7 +140,7 @@ class UserController extends Controller
             }
         }
 
-        $userTotalVisitLengthRes = DB::select(DB::raw("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id"));
+        $userTotalVisitLengthRes = DB::select("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id");
         $totalUserDistance = $userTotalVisitLengthRes[0]->totalvisitlength;
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);
@@ -235,13 +235,13 @@ class UserController extends Controller
 
         if (count($regionIds) > 0)
         {
-            $ebaSpeciesCountSqRes = DB::select(DB::raw($ebaSpeciesCountSqLine));
-          //  $ebaVisitTimeSqRes = DB::select(DB::raw($ebaTotalVisitTimeSqLine));
-            $ebaVisitCountSqRes = DB::select(DB::raw($ebaVisitCountSql));
-            $ebaLandscapeRes = DB::select(DB::raw($ebaLandscape));
-            $ebaManagementRes = DB::select(DB::raw($ebaManagement));
-            $userManagementRes = DB::select(DB::raw($userManagement));
-            $userLandscapeRes = DB::select(DB::raw($userLandscape));
+            $ebaSpeciesCountSqRes = DB::select($ebaSpeciesCountSqLine);
+          //  $ebaVisitTimeSqRes = DB::select($ebaTotalVisitTimeSqLine);
+            $ebaVisitCountSqRes = DB::select($ebaVisitCountSql);
+            $ebaLandscapeRes = DB::select($ebaLandscape);
+            $ebaManagementRes = DB::select($ebaManagement);
+            $userManagementRes = DB::select($userManagement);
+            $userLandscapeRes = DB::select($userLandscape);
 
             $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
             $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
@@ -407,11 +407,11 @@ group by year, month */
 
        // $getAllSpCountsQLine= "select species_id, sum(number), extract (year from startdate) as year from visits  join observations on visits.id = observations.visit_id where visits.startdate > $dateOneYearAgo group by species_id, year";
        // $getUserSpCountQLine = "select species_id, sum(number), extract (year from startdate) as year from visits join observations on visits.id = observations.visit_id where visits.startdate > $dateOneYearAgo and visits.user_id = $user->id group by species_id, year";
-        $countPerMonthAllSp = DB::select(DB::raw($getAllSpCountsQLine));
-        $countPerMonthUser = DB::select(DB::raw($getUserSpCountQLine));
+        $countPerMonthAllSp = DB::select($getAllSpCountsQLine);
+        $countPerMonthUser = DB::select($getUserSpCountQLine);
 
-        $countPerSpeciesUser = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id"));
-        $countPerSpeciesAll = DB::select(DB::raw("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id"));
+        $countPerSpeciesUser = DB::select("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id");
+        $countPerSpeciesAll = DB::select("select distinct(species_id), sum(number) from visits join observations on visits.id = observations.visit_id where species_id in (select distinct(species_id) from visits join observations on visits.id = observations.visit_id where visits.user_id = $user->id group by species_id) group by species_id");
 
         $userMessages = $user->usersMessages()->get()->pluck('pushmessage_id');
         $messages = \App\Models\PushMessage::whereIn('id', $userMessages)->get();
@@ -419,7 +419,7 @@ group by year, month */
 
         $regionIds = $user->regions()->pluck('region_id');
 
-       // $ebaVisitCount = DB::select(DB::raw("select count(visit_id) from visits where //\App\Models\Visit::whereIn('region_id', $regionIds)->get()->count();
+       // $ebaVisitCount = DB::select("select count(visit_id) from visits where //\App\Models\Visit::whereIn('region_id', $regionIds)->get()->count();
 
         $ebaSpeciesCountSqLine = "select count(distinct(species_id)) as spcount, sum(observations.number) as indivcount from observations join visits on visits.id=visit_id where";
         $ebaTotalVisitTimeSqLine = "select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where";
@@ -446,9 +446,9 @@ group by year, month */
         $totalEbaVisitTime=0;
         if (count($regionIds)>0)
         {
-            $ebaSpeciesCountSqRes =  DB::select(DB::raw($ebaSpeciesCountSqLine));
-            $ebaVisitTimeSqRes =  DB::select(DB::raw($ebaTotalVisitTimeSqLine));
-            $ebaVisitCountSqRes =  DB::select(DB::raw($ebaVisitCountSql));
+            $ebaSpeciesCountSqRes =  DB::select($ebaSpeciesCountSqLine);
+            $ebaVisitTimeSqRes =  DB::select($ebaTotalVisitTimeSqLine);
+            $ebaVisitCountSqRes =  DB::select($ebaVisitCountSql);
             $ebaSpeciesCount = $ebaSpeciesCountSqRes[0]->spcount;
             $ebaIndivCount = $ebaSpeciesCountSqRes[0]->indivcount;
             $ebaVisitCount = $ebaVisitCountSqRes[0]->visitcount;
@@ -460,7 +460,7 @@ group by year, month */
             }
         }
 
-        $userTotalVisitLengthRes = DB::select(DB::raw("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id"));
+        $userTotalVisitLengthRes = DB::select("select sum(enddate-startdate) as totalvisittime, sum(st_length(location)) as totalvisitlength from visits where user_id = $user->id");
         
 
         $explodedVisitTimeUser = explode(":", $userTotalVisitLengthRes[0]->totalvisittime);

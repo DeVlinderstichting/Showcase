@@ -37,7 +37,7 @@ class Region extends Model
     public function getLocationsAsGeoJson()
     {
     //    dd($this->id);
-        $res = DB::select(DB::raw("SELECT ST_AsGeoJSON(location) as location from regions WHERE id = {$this->id}")); 
+        $res = DB::select("SELECT ST_AsGeoJSON(location) as location from regions WHERE id = {$this->id}"); 
         if ($res != null)
         {
             return $res[0]->location;

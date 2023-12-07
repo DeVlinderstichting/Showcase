@@ -57,7 +57,7 @@ class BadgeLevelRequirement extends Model
         }
         if ($brType->requirementtype == 'totalvisittime')
         {
-            $totalVisitLength = DB::select(DB::raw("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)"));
+            $totalVisitLength = DB::select("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)");
             $progress = $totalVisitLength[0]->visitlength / $this->requirement_value;
             return $progress;
         }
@@ -99,7 +99,7 @@ class BadgeLevelRequirement extends Model
         }
         if ($brType->requirementtype == 'totalvisittime')
         {
-            $totalVisitLength = DB::select(DB::raw("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)"));
+            $totalVisitLength = DB::select("select sum(EXTRACT(EPOCH from (visits.enddate-visits.startdate)/60)) as visitlength from visits where user_id = $user->id and countingmethod_id in (2,4)");
             return ($totalVisitLength >= $this->requirement_value);
         }
         if ($brType->requirementtype == 'speciesgroupcount')

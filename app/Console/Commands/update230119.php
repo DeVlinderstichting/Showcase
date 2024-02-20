@@ -70,5 +70,32 @@ class update230119 extends Command
             $l->se = "Identifieringsstöd";            
             $l->save();
         }
+
+        $l = \App\Models\Language::where('key', 'ebaIndexInfoHeader')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language(); 
+            $l->key = "ebaIndexInfoHeader";
+            $l->en = "Eba overview";
+            $l->nl = "Overzicht gebieden";
+            $l->es = "";
+            $l->se = "";            
+            $l->save();
+        }
+
+        $l = \App\Models\Language::where('key', 'ebaIndexInfoSubHeader')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language(); 
+            $l->key = "ebaIndexInfoSubHeader";
+            $l->en = "More information on the EBAs";
+            $l->nl = "Meer informatie over de EBAs";
+            $l->es = "";
+            $l->se = "";            
+            $l->save();
+        }
+
     }
 }
+
+

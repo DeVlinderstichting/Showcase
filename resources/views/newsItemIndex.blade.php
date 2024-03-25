@@ -24,6 +24,7 @@
                             <th>Introduction</th>
                             <th>Main text</th>
                             <th>More info</th>
+                            <th>Photo</th>
                         </tr>
                         @foreach($newsitems as $item)
                             <tr>
@@ -31,6 +32,7 @@
                                 <td>{{ substr($item->introduction, 0, 100) }} . . . </td>
                                 <td>{{ substr($item->maintext, 0, 100) }} . . . </td>
                                 <td>{{ $item->moreinfo }} </td>
+                                <td><img src="{{ $item->image1 }}" class="img-thumbnail" style="max-height: 200px;"></td>
                             </tr>
                         @endforeach
                     </table>

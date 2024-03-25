@@ -417,9 +417,20 @@ class AdminController extends Controller
             'moreinfo' => ['nullable'], 
             'maintext' => ['required'], 
             'image1' => ['nullable'], 
-            'image2' => ['nullable']
+            'image2' => ['nullable'],
+            'filename.*' => ['nullable', 'mimes:jpeg,jpg,png', 'max:20000']
         ]);
-
+        
+        // save photo and get path
+        $fileNames = request()->file('filename');
+        if ($fileNames != null)
+        {
+            foreach ($fileNames as $fileName)
+            {
+                $valDat['image1'] = $fileName->store("/uploads/photos", 'public');
+            }
+        }
+                
         if ($messageId == -1)
         {
             \App\Models\NewsItem::create($valDat);

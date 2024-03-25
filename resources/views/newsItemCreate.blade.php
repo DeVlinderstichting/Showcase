@@ -16,7 +16,7 @@
             Create news item
         </h5>
         <div class="card-body">
-            <form action="/newsItem/create/{{$newsItem->id}}" method="post">
+            <form action="/newsItem/create/{{$newsItem->id}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <label for="title" class="col-sm-2 col-form-label">Title</label>
@@ -46,6 +46,15 @@
                         @if($errors->has('moreinfo')) <div class="invalid-feedback"> {{$errors->first('moreinfo')}} </div>@endif
                     </div>
                 </div>
+                
+                <div class="form-group row">
+                    <label for="filename" class="col-sm-2 col-form-label">Photo</label>
+                    <div class="col-sm-10">
+                        <input type="file" class="custom-file-input" name="filename[]" id="fileSelector">
+                        <label class="custom-file-label text-truncate" for="validatedCustomFile">Select file</label>
+                    </div>
+                </div>
+                
                 <div class="form-group row">
                     <div class="col-sm-10">
                         <button type="submit" class="btn btn-primary">Save</button>

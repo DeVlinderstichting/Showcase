@@ -491,7 +491,9 @@ group by year, month */
     {
         $this->authenticateUser();
         $user = Auth::user();
-        return view('userSettings', ['user' => $user]);
+        $regions = \App\Models\Region::orderBy('name')->select('id','name')->get();
+
+        return view('userSettings', ['user' => $user, 'regions' => $regions]);
     }
 
     public function changePassword()
@@ -584,12 +586,15 @@ group by year, month */
     public function setUserSettingsAjax()
     {
         $this->authenticateUser();
+
         $valDat = request()->validate([
-            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'shareData', 'preferedLanguage']),
+            'settingsname' => Rule::in(['sciName', 'prevSeen', 'showCommon', 'shareData', 'preferedLanguage', 'regions']),
             'settingsvalue' => ['required', 'integer', 'between:0,1'],
             'language' => ['required', 'string',
-                'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro']
+                'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro'],
+            'regionsvalue' => ['required', 'array']
         ]);
+
         $user = Auth::user();
         if ($valDat['settingsname'] == 'sciName')
         {
@@ -611,8 +616,16 @@ group by year, month */
         {
             $user->share_data = $valDat['settingsvalue'];
         }
-        $user->save();
+        
+        if ($valDat['settingsname'] == 'regions')
+        {
+            $user->regions()->sync($valDat['regionsvalue']);
+        }
+        else {
+            $user->save();
+        }
     }
+
     public function setUserRecordingLevelAjax()
     {
         $this->authenticateUser();

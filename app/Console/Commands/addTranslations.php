@@ -310,5 +310,15 @@ class addTranslations extends Command
             $l->es = "This will redirect to website with details on";
             $l->save();
         }
+        $l = \App\Models\Language::where('key', 'settingsRegions')->first();
+        if ($l == null)
+        {
+            $l = new \App\Models\Language(); 
+            $l->key = "settingsRegions";
+            $l->en = "Region(s)";
+            $l->nl = "Regio('s)";
+            $l->es = "Regiones";
+            $l->save();
+        }
     }
 }

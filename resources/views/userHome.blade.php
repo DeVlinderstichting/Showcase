@@ -111,7 +111,7 @@
                                 </div>
                             @endforeach
                             <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//insectscount.eu/user/badges/{{$user->id}}">Share on Facebook</a>
-                            <a href="https://twitter.com/intent/tweet?text=https://insectscount.eu/user/badges/{{$user->id}}">Share on Twitter</a>
+                            <a href="https://twitter.com/intent/tweet?text=https://insectscount.eu/user/badges/{{$user->id}}">Share on X</a>
                             <a href='https://www.instagram.com/?url=https%3A%2F%2Finsectscount.eu%2Fuser%2Fbadges%2F{{$user->id}}'>Share on Instagram</a>
                         </div>
                     </div>

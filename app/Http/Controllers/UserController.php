@@ -592,7 +592,7 @@ group by year, month */
             'settingsvalue' => ['required', 'integer', 'between:0,1'],
             'language' => ['required', 'string',
                 'in:en,fr,es,pt,it,de,dk,nl,no,se,fi,ee,lv,lt,pl,cz,sk,hu,au,ch,si,hr,ba,rs,me,al,gr,bg,ro'],
-            'regionsvalue' => ['required', 'array']
+            'regionsvalue' => ['nullable', 'array']
         ]);
 
         $user = Auth::user();
@@ -621,7 +621,8 @@ group by year, month */
         {
             $user->regions()->sync($valDat['regionsvalue']);
         }
-        else {
+        else 
+        {
             $user->save();
         }
     }

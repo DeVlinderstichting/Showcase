@@ -113,7 +113,9 @@
         {
             settingValue = "";
             language = "en";
-            regionsValue = [0];
+            regionsValue = [];
+            var data =  {};
+
             var doPost = false;
             if (settingName == 'sciName')
             {
@@ -145,12 +147,6 @@
                 settingValue = elem.checked;
                 doPost = true;
             }
-            if (settingName == 'regions')
-            {
-                var elem = document.getElementById('userSettingRegions');
-                regionsValue = Array.from(elem.options).filter(option => option.selected).map(option => option.value);
-                doPost = true;
-            }
             if (settingValue)
             {
                 settingValue = 1;
@@ -159,19 +155,24 @@
             {
                 settingValue = 0;
             }
+            data['settingsname'] = settingName; 
+            data['settingsvalue'] = settingValue; 
+            data['language'] = language;
+
+            if (settingName == 'regions')
+            {
+                var elem = document.getElementById('userSettingRegions');
+                data['regionsvalue'] = Array.from(elem.options).filter(option => option.selected).map(option => option.value);
+                doPost = true;
+            }
+            
             if (doPost)
             {
                 $.ajax(
                 {
                     type:'POST',
                     url: '/user/setUserSettingsAjax',
-                    data: 
-                    {
-                        "settingsname": settingName, 
-                        "settingsvalue": settingValue,
-                        "language": language,
-                        "regionsvalue" : regionsValue
-                    },
+                    data: data,
                     success:function(data) 
                     {                        
                     }

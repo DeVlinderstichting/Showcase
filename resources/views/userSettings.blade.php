@@ -78,7 +78,22 @@
                                 <input id="userSettingShareData" class="form-check-input" onchange="changeUserSetting('shareData');" @if($user->share_data) checked @endif type="checkbox" id="flexSwitchCheckDefault">
                                 </div>
                             </td>
-                        </tr>                         
+                        </tr>
+                        <tr>
+                            <td>
+                                {{\App\Models\Language::getItem('settingsRegions')}}
+                            </td>
+                            <td>
+                                <div class="form-check form-switch usersettings-switch"> 
+                                    <select class="js-example-basic-multiple" name="regions[]" id='userSettingRegions' multiple="multiple" style="width: 100%;" onchange="changeUserSetting('regions');">
+                                    <?php $userRegions = $user->regions()->pluck('region_id')->toArray(); ?>    
+                                        @foreach ($regions as $region)
+                                            <option @if (in_array($region->id, $userRegions)) selected @endif value="{{$region->id}}">{{$region->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
 
@@ -98,6 +113,9 @@
         {
             settingValue = "";
             language = "en";
+            regionsValue = [];
+            var data =  {};
+
             var doPost = false;
             if (settingName == 'sciName')
             {
@@ -137,18 +155,24 @@
             {
                 settingValue = 0;
             }
+            data['settingsname'] = settingName; 
+            data['settingsvalue'] = settingValue; 
+            data['language'] = language;
+
+            if (settingName == 'regions')
+            {
+                var elem = document.getElementById('userSettingRegions');
+                data['regionsvalue'] = Array.from(elem.options).filter(option => option.selected).map(option => option.value);
+                doPost = true;
+            }
+            
             if (doPost)
             {
                 $.ajax(
                 {
                     type:'POST',
                     url: '/user/setUserSettingsAjax',
-                    data: 
-                    {
-                        "settingsname": settingName, 
-                        "settingsvalue": settingValue,
-                        "language": language
-                    },
+                    data: data,
                     success:function(data) 
                     {                        
                     }

@@ -40,7 +40,7 @@ function measure(lat1, lon1, lat2, lon2)
 function trackingLocationUpdate(pos)
 {
     var testdiv = document.getElementById('locationtest');
-    if (pos.coords.accuracy < 30) //was 10
+    if (pos.coords.accuracy < 60) //was 10
     {
 
         let lat = pos.coords.latitude;
@@ -75,7 +75,7 @@ function trackingLocationUpdate(pos)
     {
         if (locationTrack.length == 0)
         {
-            document.getElementById("stopwatch").innerHTML = "Waiting for exact location (precision is now: "+Math.floor(pos.coords.accuracy)+" m, start when <30m), turn on your gps or try moving a few steps. <br>";
+            document.getElementById("stopwatch").innerHTML = "Waiting for exact location (precision is now: "+Math.floor(pos.coords.accuracy)+" m, start when <60m), turn on your gps or try moving a few steps. <br>";
         }
     }
 }

@@ -40,7 +40,7 @@ function measure(lat1, lon1, lat2, lon2)
 function trackingLocationUpdate(pos)
 {
     var testdiv = document.getElementById('locationtest');
-    if (pos.coords.accuracy < 60) //was 10
+    if (pos.coords.accuracy < 60000) //was 60
     {
 
         let lat = pos.coords.latitude;

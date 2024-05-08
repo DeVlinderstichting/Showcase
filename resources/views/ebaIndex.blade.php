@@ -14,7 +14,7 @@
         <div class="row">
             <div class="card mb-2">
                 <div class="card-body">
-                  Do you want to start your own EBA? Send an email to <a href="mailto:insectscount@vlinderstichting.nl">insectscount @vlinderstichting.nl</a>.
+                  Do you want to start your own EBA? Send an email to: insectscount @vlinderstichting.nl.
                 </div>
             </div>
             <div class="card col mb-2">

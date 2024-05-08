@@ -110,9 +110,18 @@
                                     <br><br>
                                 </div>
                             @endforeach
-                            <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//insectscount.eu/user/badges/{{$user->id}}">Share on Facebook</a>
-                            <a href="https://twitter.com/intent/tweet?text=https://insectscount.eu/user/badges/{{$user->id}}">Share on X</a>
-                            <a href='https://www.instagram.com/?url=https%3A%2F%2Finsectscount.eu%2Fuser%2Fbadges%2F{{$user->id}}'>Share on Instagram</a>
+                            <div>
+                                <h3>Share on </h3>
+                                <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A//insectscount.eu/user/badges/{{$user->id}}" style="text-decoration: none;">
+                                    <img src="/images/icon_facebook.png" alt="Facebook logo" style="width:42px;height:42px;">
+                                </a>&nbsp;
+                                <a href="https://twitter.com/intent/tweet?text=https://insectscount.eu/user/badges/{{$user->id}}" style="text-decoration: none;">
+                                    <img src="/images/icon_x.png" alt="Facebook logo" style="width:42px;height:42px;">
+                                </a>&nbsp;
+                                <a href='https://www.instagram.com/?url=https%3A%2F%2Finsectscount.eu%2Fuser%2Fbadges%2F{{$user->id}}' style="text-decoration: none;">
+                                    <img src="/images/icon_instagram.png" alt="Facebook logo" style="width:42px;height:42px;">
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

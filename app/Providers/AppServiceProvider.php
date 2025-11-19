@@ -25,8 +25,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        \DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('geography','string');
-        \DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('geometry','string');
+        //\DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('geography','string');
+        //\DB::getDoctrineSchemaManager()->getDatabasePlatform()->registerDoctrineTypeMapping('geometry','string');
 
         Validator::extend('alpha_num_spaces', function ($attribute, $value) 
         {
